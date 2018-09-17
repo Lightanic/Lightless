@@ -38,10 +38,10 @@ GameObject:
   m_Component:
   - component: {fileID: 4114702672945740}
   - component: {fileID: 54069296495119812}
-  - component: {fileID: 114811675170044952}
-  - component: {fileID: 114301104852494970}
   - component: {fileID: 114846777130860958}
-  - component: {fileID: 114421425228176318}
+  - component: {fileID: 114815350952351720}
+  - component: {fileID: 114689349688308342}
+  - component: {fileID: 114739258100115760}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -145,19 +145,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &114301104852494970
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1683573350958196}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2ff21bc2d5d593d42a5cda614bd84b20, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 3
---- !u!114 &114421425228176318
+--- !u!114 &114689349688308342
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -168,8 +156,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29e28497606996543b60409c3f7ea47d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotation: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &114811675170044952
+  Rotation: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &114739258100115760
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -180,8 +168,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 363741b6ec479e848887878afb22e170, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  horizontal: 0
-  vertical: 0
+  Horizontal: 0
+  Vertical: 0
+--- !u!114 &114815350952351720
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1683573350958196}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ff21bc2d5d593d42a5cda614bd84b20, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Speed: 3
 --- !u!114 &114846777130860958
 MonoBehaviour:
   m_ObjectHideFlags: 1
