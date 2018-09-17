@@ -5,8 +5,8 @@ public class RotationSystem : ComponentSystem {
     private struct Group
     {
         readonly public int Length;
-        public ComponentArray<RotationComponent> rotationComponents;
-        public ComponentArray<Rigidbody> rigidbody;
+        public ComponentArray<RotationComponent> RotationComponents;
+        public ComponentArray<Rigidbody> Rigidbody;
     }
 
     [Inject] private Group data;    // Inject entities with "Group" components
@@ -15,8 +15,8 @@ public class RotationSystem : ComponentSystem {
     {
         for(int i = 0; i < data.Length; i++)                    // Go through all entities with Group components
         {
-            var rotation = data.rotationComponents[i].rotation; // Set rotation value 
-            data.rigidbody[i].MoveRotation(rotation.normalized);// Set rigidbody rotation
+            var rotation = data.RotationComponents[i].Rotation; // Set rotation value 
+            data.Rigidbody[i].MoveRotation(rotation.normalized);// Set rigidbody rotation
         }
     }
 }

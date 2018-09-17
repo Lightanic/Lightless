@@ -7,8 +7,8 @@ public class PlayerRotationSystem : ComponentSystem {
     // Struct specifying all entites that use this move system
     private struct Group
     {
-        public Transform transform;
-        public RotationComponent rotationComponent;
+        public Transform Transform;
+        public RotationComponent RotationComponent;
     }
     private RaycastHit hit;
     protected override void OnUpdate()
@@ -21,9 +21,9 @@ public class PlayerRotationSystem : ComponentSystem {
         {
             foreach (var entity in GetEntities<Group>())                // Set rotaion component for all entities in with group components
             {
-                var forward = hit.point - entity.transform.position;    // Get forward direction
+                var forward = hit.point - entity.Transform.position;    // Get forward direction
                 var rotation = Quaternion.LookRotation(forward);        // Rotate to forward direction
-                entity.rotationComponent.rotation = new Quaternion(0, rotation.y, 0, rotation.w).normalized;    // Set rotation vector
+                entity.RotationComponent.Rotation = new Quaternion(0, rotation.y, 0, rotation.w).normalized;    // Set rotation vector
             }
         }
     }

@@ -7,7 +7,7 @@ public class InputSystem : ComponentSystem
     private struct Group
     {
         readonly public int Length;
-        public ComponentArray<InputComponent> inputComponents;
+        public ComponentArray<InputComponent> InputComponents;
     }
 
     [Inject] private Group data;     // Inject entities with "Group" components
@@ -18,8 +18,8 @@ public class InputSystem : ComponentSystem
         var vertical = Input.GetAxis("Vertical");                   // Get input from vertical axis
         for (int i = 0; i< data.Length; i++)                        // Move every entity having Group compononts
         {
-            data.inputComponents[i].horizontal = horizontal;
-            data.inputComponents[i].vertical = vertical;
+            data.InputComponents[i].Horizontal = horizontal;
+            data.InputComponents[i].Vertical = vertical;
         }
     }
 }

@@ -5,9 +5,9 @@ public class PlayerMovementSystem : ComponentSystem {
     // Struct specifying all entites that use this move system
     private struct Group
     {
-        public Rigidbody rigidbody;
-        public InputComponent inputComponent;
-        public SpeedComponent speedComponent;
+        public Rigidbody RigidBody;
+        public InputComponent InputComponent;
+        public SpeedComponent SpeedComponent;
     }
 
 	protected override void OnUpdate()
@@ -15,10 +15,10 @@ public class PlayerMovementSystem : ComponentSystem {
         // Move all entities with Group components
         foreach(var entity in GetEntities<Group>())
         {
-            var moveVector = new Vector3(entity.inputComponent.horizontal, 0, entity.inputComponent.vertical);                      // Move direction vector
-            var movePosition = entity.rigidbody.position + moveVector.normalized * entity.speedComponent.speed * Time.deltaTime;    // New position
+            var moveVector = new Vector3(entity.InputComponent.Horizontal, 0, entity.InputComponent.Vertical);                      // Move direction vector
+            var movePosition = entity.RigidBody.position + moveVector.normalized * entity.SpeedComponent.Speed * Time.deltaTime;    // New position
 
-            entity.rigidbody.MovePosition(movePosition);                                                                            // Update entity position to new position
+            entity.RigidBody.MovePosition(movePosition);                                                                            // Update entity position to new position
         }
     }
 }

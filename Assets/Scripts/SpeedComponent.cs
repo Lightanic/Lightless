@@ -3,5 +3,5 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class SpeedComponent : MonoBehaviour {
-    public float speed;
+    public float Speed;
 }
