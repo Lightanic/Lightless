@@ -23,39 +23,32 @@ public class PlayerRotationSystem : ComponentSystem {
                 gamePadConnected = true;
             else
                 gamePadConnected = false;
-        }
         if (gamePadConnected)
-            GamePadRotation();
+            GamePadRotation(entity);
         else if (!gamePadConnected)
-            MouseRotation();
+            MouseRotation(entity);
+        }
     }
 
-    void MouseRotation()
+    void MouseRotation( Group entity)
     {
         var mousePosition = Input.mousePosition;                        // Current mouse position
         var cameraRay = Camera.main.ScreenPointToRay(mousePosition);    // Ray from mouse poisiton
         var layerMask = LayerMask.GetMask("Floor");                     // Floor layer mask
         if (Physics.Raycast(cameraRay, out hit, 100, layerMask))        // Raycast to floor - Set layer to floor in editor 
         {
-            foreach (var entity in GetEntities<Group>())                // Set rotaion component for all entities in with group components
-            {
                 forward = hit.point - entity.Transform.position;        // Get forward direction
                 rotation = Quaternion.LookRotation(forward);            // Rotate to forward direction
                 entity.RotationComponent.Rotation = new Quaternion(0, rotation.y, 0, rotation.w).normalized;    // Set rotation vector
-            }
         }
     }
 
-    void GamePadRotation()
+    void GamePadRotation( Group entity)
     {
-        foreach (var entity in GetEntities<Group>())                // Set rotaion component for all entities in with group components
-        {
             forward = new Vector3(entity.InputComponent.Horizontal, 0, entity.InputComponent.Vertical);    // Get forward direction
             if (forward != Vector3.zero)
                 rotation = Quaternion.LookRotation(forward, entity.Transform.up);                          // Rotate to forward direction
             rotation = Quaternion.Slerp(entity.Transform.rotation, rotation, Time.deltaTime * entity.RotationComponent.RotationSpeed);
             entity.RotationComponent.Rotation = new Quaternion(0, rotation.y, 0, rotation.w).normalized;   // Set rotation vector
-        }
-        
     }
 }
