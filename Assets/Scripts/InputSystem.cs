@@ -1,5 +1,6 @@
 ﻿using Unity.Entities;
 using UnityEngine;
+using XInputDotNetPure;
 
 public class InputSystem : ComponentSystem
 {
@@ -20,6 +21,7 @@ public class InputSystem : ComponentSystem
         {
             data.InputComponents[i].Horizontal = horizontal;
             data.InputComponents[i].Vertical = vertical;
+            data.InputComponents[i].GamePadState = GamePad.GetState(data.InputComponents[i].SinglePlayer);  // Set current gamepad state
         }
     }
 }
