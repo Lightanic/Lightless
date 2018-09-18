@@ -1,12 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
 using Unity.Entities;
 
-public class NavAgentComponent : IComponentData
+public class PlayerPositionComponent : IComponentData
 {
-
-    public NavMeshAgent Agent;
-
+    public Transform PlayerPosition;
 }
