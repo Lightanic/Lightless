@@ -16,7 +16,8 @@ public class PlayerMovementSystem : ComponentSystem {
         foreach(var entity in GetEntities<Group>())
         {
             var moveVector = new Vector3(entity.InputComponent.Horizontal, 0, entity.InputComponent.Vertical);                      // Move direction vector
-            var movePosition = entity.RigidBody.position + moveVector.normalized * entity.SpeedComponent.Speed * Time.deltaTime;    // New position
+            var speed = (Mathf.Abs(entity.InputComponent.Horizontal) + Mathf.Abs(entity.InputComponent.Vertical))*entity.SpeedComponent.Speed;
+            var movePosition = entity.RigidBody.position + moveVector.normalized * speed * Time.deltaTime;    // New position
 
             entity.RigidBody.MovePosition(movePosition);                                                                            // Update entity position to new position
         }
