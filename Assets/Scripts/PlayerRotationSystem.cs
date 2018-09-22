@@ -14,22 +14,26 @@ public class PlayerRotationSystem : ComponentSystem {
     private RaycastHit hit;
     private Quaternion rotation;
     private Vector3 forward;
-    private bool gamePadConnected = false;
+
     protected override void OnUpdate()
     {
         foreach(var entity in GetEntities<Group>())
         {
-            if (entity.InputComponent.GamePadState.IsConnected) // Check if a gamepad is connected or not
-                gamePadConnected = true;
-            else
-                gamePadConnected = false;
-        if (gamePadConnected)
-            GamePadRotation(entity);
-        else if (!gamePadConnected)
-            MouseRotation(entity);
+            if (InputManager.Instance.IsGamePadActive)
+            {
+                GamePadRotation(entity);
+            }
+            else if (!InputManager.Instance.IsGamePadActive)
+            {
+                GamePadRotation(entity);
+            }
         }
     }
 
+    /// <summary>
+    /// Rotate entity to look towards the mouse pointer
+    /// </summary>
+    /// <param name="entity"></param>
     void MouseRotation( Group entity)
     {
         var mousePosition = Input.mousePosition;                        // Current mouse position
@@ -43,6 +47,10 @@ public class PlayerRotationSystem : ComponentSystem {
         }
     }
 
+    /// <summary>
+    /// Rotate entity towards direction of motion
+    /// </summary>
+    /// <param name="entity"></param>
     void GamePadRotation( Group entity)
     {
             forward = new Vector3(entity.InputComponent.Horizontal, 0, entity.InputComponent.Vertical);    // Get forward direction
