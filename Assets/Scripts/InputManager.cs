@@ -31,7 +31,7 @@ public class InputManager : MonoBehaviour {
     /// </summary>
 	// Update is called once per frame
 	void Update () {
-        gamepadConnected = playerInputComponent.GamePadState.IsConnected;   // Check if gamepad in connected this frame
+        gamepadConnected = playerInputComponent.Gamepad.IsConnected;   // Check if gamepad in connected this frame
 		if(Input.anyKeyDown)                                                // Poll all keyboard inputs
         {
             //Debug.Log("Using KB");
@@ -40,8 +40,8 @@ public class InputManager : MonoBehaviour {
         if(gamepadConnected)
         {
             //Debug.Log("Gamepad connected");
-            var state = playerInputComponent.GamePadState;                  // Get current gamepad state
-            if (GamePadActive(state))
+            var gamepad = playerInputComponent.Gamepad;                  // Get current gamepad state
+            if (GamePadActive(gamepad.State))
             {
                 gamePadTimeStamp = Time.realtimeSinceStartup;               // Record last gamepad use
             }
@@ -62,21 +62,21 @@ public class InputManager : MonoBehaviour {
     /// <returns> Retruns true is the gamepad is currently active </returns>
     bool GamePadActive(GamePadState state)
     {
-        if(state.Buttons.A == ButtonState.Pressed ||
-                state.Buttons.B == ButtonState.Pressed ||
-                state.Buttons.X == ButtonState.Pressed ||
-                state.Buttons.Y == ButtonState.Pressed ||
-                state.Buttons.Back == ButtonState.Pressed ||
-                state.Buttons.Start == ButtonState.Pressed ||
-                state.Buttons.LeftShoulder == ButtonState.Pressed ||
-                state.Buttons.RightShoulder == ButtonState.Pressed ||
-                state.Buttons.LeftStick == ButtonState.Pressed ||
-                state.Buttons.RightStick == ButtonState.Pressed ||
-                state.DPad.Down == ButtonState.Pressed ||
-                state.DPad.Up == ButtonState.Pressed ||
-                state.DPad.Left == ButtonState.Pressed ||
-                state.DPad.Right == ButtonState.Pressed ||
-                state.Triggers.Left != 0 || 
+        if(state.Buttons.A == ButtonState.Pressed                   ||
+                state.Buttons.B == ButtonState.Pressed              ||
+                state.Buttons.X == ButtonState.Pressed              ||
+                state.Buttons.Y == ButtonState.Pressed              ||
+                state.Buttons.Back == ButtonState.Pressed           ||
+                state.Buttons.Start == ButtonState.Pressed          ||
+                state.Buttons.LeftShoulder == ButtonState.Pressed   ||
+                state.Buttons.RightShoulder == ButtonState.Pressed  ||
+                state.Buttons.LeftStick == ButtonState.Pressed      ||
+                state.Buttons.RightStick == ButtonState.Pressed     ||
+                state.DPad.Down == ButtonState.Pressed              ||
+                state.DPad.Up == ButtonState.Pressed                ||
+                state.DPad.Left == ButtonState.Pressed              ||
+                state.DPad.Right == ButtonState.Pressed             ||
+                state.Triggers.Left != 0                            || 
                 state.Triggers.Right != 0
                 )
         {
