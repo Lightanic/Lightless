@@ -21,7 +21,8 @@ public class InputSystem : ComponentSystem
         {
             data.InputComponents[i].Horizontal = horizontal;
             data.InputComponents[i].Vertical = vertical;
-            data.InputComponents[i].GamePadState = GamePad.GetState(data.InputComponents[i].SinglePlayer);  // Set current gamepad state
+            data.InputComponents[i].Gamepad.Refresh();
+            data.InputComponents[i].Gamepad.Update();
         }
     }
 }
