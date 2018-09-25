@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Unity.Entities;
 
-public class PlayerPositionComponent : IComponentData
+public class PlayerPositionComponent : MonoBehaviour
 {
     public Transform PlayerPosition;
 }

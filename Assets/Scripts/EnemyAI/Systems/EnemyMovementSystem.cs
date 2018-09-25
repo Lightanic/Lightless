@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Unity.Entities;
-using Unity.Jobs;
 
-public class EnemyMovement : ComponentSystem
+public class EnemyMovementSystem : ComponentSystem
 {
 
     private struct AgentData

@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using Unity.Entities;
 
-public class NavAgentComponent : IComponentData
+public class NavAgentComponent : MonoBehaviour
 {
 
     public NavMeshAgent Agent;
