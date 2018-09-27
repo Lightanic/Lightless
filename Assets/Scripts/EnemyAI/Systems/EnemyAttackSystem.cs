@@ -1,16 +1,25 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Unity.Entities;
 
-public class EnemyAttackSystem : MonoBehaviour {
+public class EnemyAttackSystem : ComponentSystem {
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+
+    private struct AttackData
+    {
+        public NavAgentComponent AgentComponent;
+        public EnemySpeedComponent Speed;
+        public PlayerPositionComponent PlayerPosition;
+    }
+
+    protected override void OnUpdate()
+    {
+        foreach (var enemyEntity in GetEntities<AttackData>())
+        {
+            enemyEntity.AgentComponent.Agent.SetDestination(enemyEntity.PlayerPosition.PlayerPosition.position);
+        }
+    }
+
+
 }
