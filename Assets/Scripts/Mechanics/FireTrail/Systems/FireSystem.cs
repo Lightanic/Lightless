@@ -61,7 +61,6 @@ public class FireSystem : ComponentSystem
                     var particleSystem = instance.GetComponent<ParticleSystem>();
                     var main = particleSystem.main;
                     main.loop = false;
-                    main.duration = 2.0f;
                     if (particleSystem.isStopped)
                         fireComponent.IsFireStopped = true;
                 }
