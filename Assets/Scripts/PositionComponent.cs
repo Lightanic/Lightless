@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyPositionComponent : MonoBehaviour
+public class PositionComponent : MonoBehaviour
 {
-    public Transform EnemyPosition;
+    
 
 }

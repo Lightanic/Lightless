@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LightSourceComponent : MonoBehaviour
+public class LightComponent : MonoBehaviour
 {
-    public Transform[] Lights;
+    public bool LightIsOn;
 
 }
