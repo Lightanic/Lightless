@@ -4,5 +4,5 @@ using UnityEngine;
 
 public class InventoryComponent : MonoBehaviour {
 
-    public Dictionary<string, InventoryItem> ItemsDictionary = new Dictionary<string, InventoryItem>();
+    public Inventory PlayerInventory;   // Contains an inventory
 }
