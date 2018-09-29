@@ -9,6 +9,8 @@ public class OilTrailComponent : MonoBehaviour
     public int CurrentTrailCount = 0;
     public float TrailMinimumDistance = 1.0f;
     public List<Vector3> TrailPoints;
+    public bool IsEquipped = false;
+
     private void Start()
     {
         TrailPoints = new List<Vector3>();

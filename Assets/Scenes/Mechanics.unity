@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.41247934, g: 0.43779108, b: 0.44860315, a: 1}
+  m_IndirectSpecularColor: {r: 0.20938626, g: 0.18406299, b: 0.13455716, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -134,6 +134,7 @@ MonoBehaviour:
   TotalFireTime: 6
   CurrentFireTime: 0
   IsFireStopped: 1
+  OilTrailDistanceThreshold: 2
 --- !u!114 &30678663
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -148,8 +149,9 @@ MonoBehaviour:
   LineRenderer: {fileID: 0}
   TrailLimit: 10
   CurrentTrailCount: 0
-  TrailMinimumDistance: 1
+  TrailMinimumDistance: 1.1
   TrailPoints: []
+  IsEquipped: 1
 --- !u!4 &30678667 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4114702672945740, guid: cf31237d34b2ca84781c5a6d9e324b99,
@@ -192,7 +194,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4114702672945740, guid: cf31237d34b2ca84781c5a6d9e324b99, type: 2}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cf31237d34b2ca84781c5a6d9e324b99, type: 2}
@@ -256,13 +258,13 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 235431051}
-  m_LocalRotation: {x: 0.035100542, y: -0.34096202, z: 0.012740875, w: 0.93933517}
+  m_LocalRotation: {x: -0.06180566, y: -0.34046164, z: -0.022434361, w: 0.9379567}
   m_LocalPosition: {x: 0, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 4.28, y: -39.9, z: 0}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: -7.54, y: -39.9, z: 0}
 --- !u!1001 &326289644
 Prefab:
   m_ObjectHideFlags: 0
@@ -395,7 +397,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 6
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -418,7 +420,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1535162020}
   m_LocalRotation: {x: 0.5762591, y: -0.18843795, z: 0.13661303, w: 0.7834242}
-  m_LocalPosition: {x: -0.47, y: 3.6, z: -3.34}
+  m_LocalPosition: {x: -1, y: 3.49, z: -2.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}

@@ -9,6 +9,7 @@ public class FireComponent : MonoBehaviour
     public float TotalFireTime = 6.0F; //Seconds;
     public float CurrentFireTime = 0.0F;
     public bool IsFireStopped = true;
+    public float OilTrailDistanceThreshold = 2.0F;
 
     private void Start()
     {

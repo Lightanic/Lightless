@@ -20,6 +20,7 @@ public class FireSystem : ComponentSystem
             var firePrefab = entity.Fire.FirePrefab;
             var points = entity.OilTrail.TrailPoints;
             HandleFireInstances(entity);
+            
             if (Input.GetKeyDown(KeyCode.F) && points.Count > 0)
             {
                 entity.Fire.IsFireStopped = false;
@@ -34,6 +35,23 @@ public class FireSystem : ComponentSystem
                 entity.OilTrail.TrailPoints.Clear();
             }
         }
+    }
+
+    private int GetClosestPointIndex(Vector3[] points, Vector3 position)
+    {
+        int index = -1;
+        var minDistance = float.MaxValue;
+        for(int i=0;i < points.Length; ++i)
+        {
+            var distance = Vector3.Distance(points[i], position);
+            if (distance < minDistance)
+            {
+                distance = minDistance;
+                index = i;
+            }
+        }
+
+        return index;
     }
 
     void HandleFireInstances(Group entity)
