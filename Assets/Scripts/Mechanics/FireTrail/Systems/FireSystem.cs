@@ -15,43 +15,43 @@ public class FireSystem : ComponentSystem
     protected override void OnUpdate()
     {
         var entities = GetEntities<Group>();
-        foreach(var entity in entities)
+        foreach (var entity in entities)
         {
             var firePrefab = entity.Fire.FirePrefab;
             var points = entity.OilTrail.TrailPoints;
             HandleFireInstances(entity);
-            
-            if (Input.GetKeyDown(KeyCode.F) && points.Count > 0)
+            bool isPlayerClose = IsPlayerClose(points.ToArray(), entity.Transform.position, entity.Fire.OilTrailDistanceThreshold);
+            if (Input.GetKeyDown(KeyCode.F) && points.Count > 0 && isPlayerClose)
             {
                 entity.Fire.IsFireStopped = false;
                 entity.OilTrail.LineRenderer.positionCount = 0;
                 entity.OilTrail.CurrentTrailCount = 0;
-                foreach(var point in points)
+                foreach (var point in points)
                 {
                     var instance = Object.Instantiate(firePrefab, point, new Quaternion());
                     entity.Fire.Instances.Add(instance);
                 }
-                
+
                 entity.OilTrail.TrailPoints.Clear();
             }
         }
     }
 
-    private int GetClosestPointIndex(Vector3[] points, Vector3 position)
+    private bool IsPlayerClose(Vector3[] points, Vector3 position, float distanceThreshold)
     {
         int index = -1;
         var minDistance = float.MaxValue;
-        for(int i=0;i < points.Length; ++i)
+        for (int i = 0; i < points.Length; ++i)
         {
             var distance = Vector3.Distance(points[i], position);
             if (distance < minDistance)
             {
-                distance = minDistance;
+                minDistance = distance;
                 index = i;
             }
         }
 
-        return index;
+        return (minDistance <= distanceThreshold);
     }
 
     void HandleFireInstances(Group entity)
@@ -62,7 +62,7 @@ public class FireSystem : ComponentSystem
         {
             if (fireComponent.IsFireStopped)
             {
-                foreach(var instance in fireInstances)
+                foreach (var instance in fireInstances)
                 {
                     Object.Destroy(instance);
                 }
@@ -72,9 +72,9 @@ public class FireSystem : ComponentSystem
                 return;
             }
 
-            if(fireComponent.CurrentFireTime > fireComponent.TotalFireTime)
+            if (fireComponent.CurrentFireTime > fireComponent.TotalFireTime)
             {
-                foreach(var instance in fireInstances)
+                foreach (var instance in fireInstances)
                 {
                     var particleSystem = instance.GetComponent<ParticleSystem>();
                     var main = particleSystem.main;
