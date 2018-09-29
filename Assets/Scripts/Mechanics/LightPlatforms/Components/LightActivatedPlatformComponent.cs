@@ -14,6 +14,6 @@ public class LightActivatedPlatformComponent : MonoBehaviour
 
     private void Start()
     {
-        StartPosition = transform.position;
+        StartPosition = transform.position; //Set start position as initial position of platform or object. 
     }
 }

@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using Unity.Entities;
 using UnityEngine;
 
+/// <summary>
+/// Creates oil trail using Line renderer attached to the player. 
+/// </summary>
 public class OilTrailSystem : ComponentSystem
 {
     private struct Group
@@ -12,6 +15,10 @@ public class OilTrailSystem : ComponentSystem
         public Transform Transform;
     }
 
+    /// <summary>
+    /// If equipped, holding down left mouse button will create oil trail on ground. Oil trail is rendered using line renderer where holding down the 
+    /// the left mouse button will create "points" on the ground for the oil to be drawn on to. 
+    /// </summary>
     protected override void OnUpdate()
     {
         var entities = GetEntities<Group>();

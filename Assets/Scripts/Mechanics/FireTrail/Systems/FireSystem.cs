@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using Unity.Entities;
 using UnityEngine;
 
+/// <summary>
+/// System to instantiate fire at oil trail points. 
+/// </summary>
 public class FireSystem : ComponentSystem
 {
     private struct Group
@@ -21,7 +24,9 @@ public class FireSystem : ComponentSystem
             var points = entity.OilTrail.TrailPoints;
             HandleFireInstances(entity);
             bool isPlayerClose = IsPlayerClose(points.ToArray(), entity.Transform.position, entity.Fire.OilTrailDistanceThreshold);
-            if (Input.GetKeyDown(KeyCode.F) && points.Count > 0 && isPlayerClose)
+
+            // Allow burning of oil on ground only if player there is oil to burn and player is close to oil trail
+            if (Input.GetKeyDown(KeyCode.F) && points.Count > 0 && isPlayerClose) 
             {
                 entity.Fire.IsFireStopped = false;
                 entity.OilTrail.LineRenderer.positionCount = 0;
@@ -32,11 +37,18 @@ public class FireSystem : ComponentSystem
                     entity.Fire.Instances.Add(instance);
                 }
 
-                entity.OilTrail.TrailPoints.Clear();
+                entity.OilTrail.TrailPoints.Clear(); //Clear out Oil Trail Component once fire has been instantiated. 
             }
         }
     }
 
+    /// <summary>
+    /// Returns true if player is close to given position. 
+    /// </summary>
+    /// <param name="points"></param>
+    /// <param name="position"></param>
+    /// <param name="distanceThreshold"></param>
+    /// <returns></returns>
     private bool IsPlayerClose(Vector3[] points, Vector3 position, float distanceThreshold)
     {
         int index = -1;
@@ -54,6 +66,10 @@ public class FireSystem : ComponentSystem
         return (minDistance <= distanceThreshold);
     }
 
+    /// <summary>
+    /// Handles fire particle instances. Lets the fire particle systems run until time threshold. 
+    /// </summary>
+    /// <param name="entity"></param>
     void HandleFireInstances(Group entity)
     {
         var fireComponent = entity.Fire;
