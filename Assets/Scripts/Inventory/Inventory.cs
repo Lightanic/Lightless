@@ -18,7 +18,7 @@ public class Inventory : ScriptableObject {
         ItemsDictonary.Clear();
         for (int i = 0; i < Items.Count; i++)
         {
-            ItemsDictonary.Add(Items[i].GUID, Items[i]);
+            //ItemsDictonary.Add(Items[i].GUID, Items[i]);
         }
     }
 
@@ -32,7 +32,7 @@ public class Inventory : ScriptableObject {
         {
             //Add item
             Items.Add(item);
-            ItemNumber.Add(0);
+            ItemNumber.Add(1);
             ItemsDictonary.Add(Items[Items.Count - 1].GUID, Items[Items.Count - 1]);
         }
         else
@@ -71,7 +71,7 @@ public class Inventory : ScriptableObject {
             string path = UnityEditor.AssetDatabase.GUIDToAssetPath(guids[i]);
             InventoryItem item = UnityEditor.AssetDatabase.LoadAssetAtPath<InventoryItem>(path);
             Items.Add(item);
-            ItemNumber.Add(0);
+            ItemNumber.Add(1);
             item.GUID = guids[i];
             UnityEditor.EditorUtility.SetDirty(this);
         }

@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Pickup : InteractableComponent {
 
+    public bool IsEquiped = false;
+
     /// <summary>
     /// Pick up item by disabling the gameobject
     /// </summary>
