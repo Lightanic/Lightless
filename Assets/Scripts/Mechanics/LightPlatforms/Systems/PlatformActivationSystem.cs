@@ -24,29 +24,40 @@ public class PlatformActivationSystem : ComponentSystem
 
     protected override void OnUpdate()
     {
-        var lightTransform = Light.Transform[0];
-        var activator = Light.Activator[0];
-        var activationTime = Light.ActivationTime[0];
-        var origin = lightTransform.position;
-        var direction = lightTransform.forward;
-
         // Physics ray cast using Job system to check if light is hitting platform. 
-        var results = new NativeArray<RaycastHit>(1, Allocator.Temp);
-        var commands = new NativeArray<RaycastCommand>(1, Allocator.Temp);
-        commands[0] = new RaycastCommand(origin, direction, activator.MaxActivationDistance);
+        var results = new NativeArray<RaycastHit>(Light.Length, Allocator.Temp);
+        var commands = new NativeArray<RaycastCommand>(Light.Length, Allocator.Temp);
+
+        for (int i = 0; i < Light.Length; ++i)
+        {
+            var lightTransform = Light.Transform[i];
+            var activator = Light.Activator[i];
+
+            var origin = lightTransform.position;
+            var direction = lightTransform.forward;
+
+
+            commands[i] = new RaycastCommand(origin, direction, activator.MaxActivationDistance);
+        }
 
         var handle = RaycastCommand.ScheduleBatch(commands, results, 1);
         handle.Complete();
-        RaycastHit hit = results[0];
 
-        if (hit.collider != null && hit.collider.tag == "LightActivatedPlatform")
+        for (int i = 0; i < Light.Length; ++i)
         {
-            ActivatePlatform(hit.collider.gameObject, activationTime);
+            var activationTime = Light.ActivationTime[i];
+            RaycastHit hit = results[i];
+
+            if (hit.collider != null && hit.collider.tag == "LightActivatedPlatform")
+            {
+                ActivatePlatform(hit.collider.gameObject, activationTime);
+            }
+            else
+            {
+                activationTime.CurrentTime = 0F; // Reset current time if light is not shining on platform. 
+            }
         }
-        else
-        {
-            activationTime.CurrentTime = 0F; // Reset current time if light is not shining on platform. 
-        }
+
 
         results.Dispose();
         commands.Dispose();
@@ -60,9 +71,9 @@ public class PlatformActivationSystem : ComponentSystem
     void ActivatePlatform(GameObject platformObject, TimedComponent activationTime)
     {
         var platform = platformObject.GetComponent<LightActivatedPlatformComponent>();
-        if(!platform.IsActivated)
+        if (!platform.IsActivated)
         {
-            if(activationTime.CurrentTime < activationTime.TimeThreshold)
+            if (activationTime.CurrentTime < activationTime.TimeThreshold)
             {
                 activationTime.CurrentTime += Time.deltaTime;
             }
