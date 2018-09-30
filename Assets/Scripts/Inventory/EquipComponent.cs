@@ -8,18 +8,25 @@ public class EquipComponent : MonoBehaviour {
     private GameObject prevItem = null;
 
     /// <summary>
-    /// Equip item only if it changes from the previous item
+    /// Equip item to be a child of the left hand
     /// </summary>
-    private void Update()
+    public void EquipItem(GameObject item)
     {
-        if (EquipedItem != null && prevItem != EquipedItem)
-            EquipItem();
-        prevItem = EquipedItem;
+        EquipedItem = item;
+        item.SetActive(true);
+        var itemTransform = item.transform;
+        itemTransform.transform.SetParent(gameObject.transform);
+        itemTransform.position = gameObject.transform.position;
+        itemTransform.localRotation = Quaternion.identity;
+        itemTransform.gameObject.GetComponent<Pickup>().enabled = false;
     }
 
-    void EquipItem()
+    public void EquipNewItem(GameObject item)
     {
-        var itemTransform = EquipedItem.transform;
+        Instantiate(item);
+        EquipedItem = item;
+        item.SetActive(true);
+        var itemTransform = item.transform;
         itemTransform.transform.SetParent(gameObject.transform);
         itemTransform.position = gameObject.transform.position;
         itemTransform.localRotation = Quaternion.identity;

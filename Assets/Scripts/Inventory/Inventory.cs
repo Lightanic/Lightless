@@ -20,6 +20,9 @@ public class Inventory : ScriptableObject {
         {
             //ItemsDictonary.Add(Items[i].GUID, Items[i]);
         }
+
+        Items.Clear();
+        ItemNumber.Clear();
     }
 
     /// <summary>
@@ -54,7 +57,10 @@ public class Inventory : ScriptableObject {
             int index = Items.IndexOf(item);
             --ItemNumber[index];
             if (ItemNumber[index] <= 0)
+            {
+                ItemNumber.RemoveAt(index);
                 Items.Remove(item);
+            }
         }
     }
 

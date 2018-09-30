@@ -13,6 +13,7 @@ public class Pickup : InteractableComponent {
     {
         Debug.Log("Picking Up");
         gameObject.SetActive(false);
+        //Destroy(gameObject);
         this.IsInteracting = false;
     }
 

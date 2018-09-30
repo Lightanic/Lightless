@@ -57,13 +57,6 @@ public class PickupSystem : ComponentSystem {
                 }
             }
 
-            if((playerData.InputComponents[0].Gamepad.GetButtonDown("Y") || Input.GetKeyDown(KeyCode.G)))
-            {
-                if(!leftHandData.data[0].isEmpty)
-                {
-                    leftHandData.data[0].DropItem();
-                }
-            }
         }
     }
 
