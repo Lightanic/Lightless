@@ -36,7 +36,7 @@ public class Inventory : ScriptableObject {
             //Add item
             Items.Add(item);
             ItemNumber.Add(1);
-            ItemsDictonary.Add(Items[Items.Count - 1].GUID, Items[Items.Count - 1]);
+            //ItemsDictonary.Add(Items[Items.Count - 1].GUID, Items[Items.Count - 1]);
         }
         else
         {

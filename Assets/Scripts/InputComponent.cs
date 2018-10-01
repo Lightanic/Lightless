@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public class InputComponent : MonoBehaviour {
     public float Horizontal;
     public float Vertical;
-    public XGamepad Gamepad = new XGamepad(2);
+    public XGamepad Gamepad = new XGamepad(1);
 
     /// <summary>
     /// Stores states of a single gamepad button

@@ -3,7 +3,7 @@
 [CreateAssetMenu]
 public class InventoryItem : ScriptableObject{
 
-    public string GUID = "";            // unique ID
+    public string GUID = "";        // unique ID
     public GameObject Prefab;           // the item prefab
     public Sprite InventoryIcon;        // The icon in the inventory GUI
     public Sprite PopupIcon;            // The icon that shows up as a tool tip
