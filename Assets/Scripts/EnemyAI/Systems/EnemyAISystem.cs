@@ -7,14 +7,22 @@ public class EnemyAISystem : ComponentSystem
 {
 
 
-    private struct AgentData
+    private struct RunnerData
     {
         public NavAgentComponent AgentComponent;
-        public EnemySpeedComponent Speed;
         public Transform EnenmyTransform;
         public EnemyVisionComponent EnemyVision;
         public EnemyDarkVisionComponent NightVision;
        
+    }
+
+    private struct LungerData
+    {
+        public NavAgentComponent AgentComponent;
+        public Transform EnenmyTransform;
+        public EnemyVisionComponent EnemyVision;
+        public EnemyLungeDistanceComponent LungeDistance;
+
     }
 
     private struct PlayerData
@@ -50,7 +58,7 @@ public class EnemyAISystem : ComponentSystem
             lightData = e;
         }
 
-        foreach (var enemyEntity in GetEntities<AgentData>())
+        foreach (var enemyEntity in GetEntities<RunnerData>())
         {
             //enemyEntity.AgentComponent.Agent.SetDestination(playerData.PlayerTransform.position);
             //enemyEntity.AgentComponent.Agent.SetDestination(lightData.LightTransform.position);
@@ -80,6 +88,60 @@ public class EnemyAISystem : ComponentSystem
                 }
             }
         }
+
+        foreach (var lunger in GetEntities<LungerData>())
+        {
+            float distanceToLight = Vector3.Distance(lightData.LightTransform.position, lunger.EnenmyTransform.position);
+            float distanceToPlayer = Vector3.Distance(playerData.PlayerTransform.position, lunger.EnenmyTransform.position);
+
+            if (lightData.LightSwitch.LightIsOn)
+            {
+                if (distanceToLight <= lunger.EnemyVision.Value) //if distance to light is lesser than enemy vision
+                {
+                    lunger.AgentComponent.Agent.SetDestination(lightData.LightTransform.position); //seek the light
+                    if (distanceToPlayer <= lunger.LungeDistance.Value)
+                    {
+                        lunger.LungeDistance.IsLunging = true;
+                        Lunge(lunger, playerData);
+                    }
+                    lunger.LungeDistance.IsLunging = false;
+                }
+
+                else
+                {
+                    lunger.AgentComponent.Agent.destination = lunger.EnenmyTransform.position; //stay where you are
+                }
+
+            }
+            else
+            {
+                if (distanceToPlayer <= lunger.LungeDistance.Value)
+                {
+                    lunger.LungeDistance.IsLunging = true;
+                    Lunge(lunger, playerData);
+                }
+                else
+                {
+                    
+                    lunger.AgentComponent.Agent.destination = lunger.EnenmyTransform.position;   //stay where you are
+                }
+            }
+        }
     }
+
+    void Lunge(LungerData lunger, PlayerData player)
+    {
+        if (lunger.LungeDistance.IsLunging)
+        {
+            if(lunger.LungeDistance.IsLunging)
+            lunger.AgentComponent.Agent.speed = 20;
+            lunger.AgentComponent.Agent.SetDestination(player.PlayerTransform.position); //seek player
+            
+        }
+        else
+            lunger.AgentComponent.Agent.speed = 0;
+
+    }
+
 
 }
