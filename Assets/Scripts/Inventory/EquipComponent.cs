@@ -19,6 +19,7 @@ public class EquipComponent : MonoBehaviour {
         itemTransform.position = gameObject.transform.position;
         itemTransform.localRotation = Quaternion.identity;
         itemTransform.gameObject.GetComponent<Pickup>().enabled = false;
+        itemTransform.gameObject.GetComponent<Rigidbody>().isKinematic = true;  // disable rigidbody
     }
 
     public void EquipNewItem(GameObject item)
@@ -31,5 +32,6 @@ public class EquipComponent : MonoBehaviour {
         itemTransform.position = gameObject.transform.position;
         itemTransform.localRotation = Quaternion.identity;
         itemTransform.gameObject.GetComponent<Pickup>().enabled = false;
+        itemTransform.gameObject.GetComponent<Rigidbody>().isKinematic = true;  // disable rigidbody
     }
 }

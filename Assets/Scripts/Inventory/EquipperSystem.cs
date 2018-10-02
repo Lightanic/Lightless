@@ -97,6 +97,7 @@ public class EquipperSystem : ComponentSystem {
             {
                 leftHandData.EquipComp[0].EquipedItem.GetComponent<Pickup>().IsInteractable = true;
                 leftHandData.EquipComp[0].EquipedItem.GetComponent<Pickup>().IsEquiped = false;
+                leftHandData.EquipComp[0].EquipedItem.GetComponent<Rigidbody>().isKinematic = false;    // enable rigidbody
                 leftHandData.data[0].DropItem();
             }
         }
