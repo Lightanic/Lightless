@@ -21,7 +21,7 @@ public class EnemyAISystem : ComponentSystem
         public NavAgentComponent AgentComponent;
         public Transform EnenmyTransform;
         public EnemyVisionComponent EnemyVision;
-        public EnemyLungeDistanceComponent LungeDistance;
+        public EnemyLungeComponent LungeDistance;
 
     }
 
@@ -99,7 +99,7 @@ public class EnemyAISystem : ComponentSystem
                 if (distanceToLight <= lunger.EnemyVision.Value) //if distance to light is lesser than enemy vision
                 {
                     lunger.AgentComponent.Agent.SetDestination(lightData.LightTransform.position); //seek the light
-                    if (distanceToPlayer <= lunger.LungeDistance.Value)
+                    if (distanceToPlayer <= lunger.LungeDistance.LungeValue)
                     {
                         lunger.LungeDistance.IsLunging = true;
                         Lunge(lunger, playerData);
@@ -115,10 +115,15 @@ public class EnemyAISystem : ComponentSystem
             }
             else
             {
-                if (distanceToPlayer <= lunger.LungeDistance.Value)
+                if (distanceToPlayer <= lunger.LungeDistance.PrelungeValue)
                 {
-                    lunger.LungeDistance.IsLunging = true;
-                    Lunge(lunger, playerData);
+                    Debug.Log("get ready for the lunge");
+                    lunger.AgentComponent.Agent.speed = 2f;
+                    if (distanceToPlayer <= lunger.LungeDistance.LungeValue)
+                    {
+                        lunger.LungeDistance.IsLunging = true;
+                        Lunge(lunger, playerData);
+                    }
                 }
                 else
                 {
@@ -139,7 +144,9 @@ public class EnemyAISystem : ComponentSystem
             
         }
         else
+        {
             lunger.AgentComponent.Agent.speed = 0;
+        }
 
     }
 

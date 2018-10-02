@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using Unity.Entities;
 
-public class planeScript : MonoBehaviour
+public class PitScript : MonoBehaviour //this script detects enemy and turns their navmesh off
 {
     //public GameObject enemy;
 
@@ -11,9 +12,10 @@ public class planeScript : MonoBehaviour
     {
         if (collision.gameObject.tag == "Enemy")
         {
-            Debug.Log("Collided");
+            //Debug.Log("Collided");
             //this.gameObject.SetActive(false);
             collision.GetComponent<NavMeshAgent>().enabled = false;
+            collision.GetComponent<GameObjectEntity>().enabled = false;
         }
     }
 }
