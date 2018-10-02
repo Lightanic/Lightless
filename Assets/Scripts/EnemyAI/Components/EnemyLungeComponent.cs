@@ -5,8 +5,10 @@ using UnityEngine;
 public class EnemyLungeComponent : MonoBehaviour
 {
 
-    public float LungeValue;
-    public float PrelungeValue;
+    public float LungeValue = 5.0f;
+    //public float PrelungeValue = 5.0f;
+    public float PrelungeTime = 2.0f;
+    public float CurrentTime = 0.0f;
 
     public bool IsLunging;
 
@@ -14,8 +16,8 @@ public class EnemyLungeComponent : MonoBehaviour
     {
         Gizmos.color = Color.cyan;
         Gizmos.DrawWireSphere(transform.position, LungeValue);
-        Gizmos.color = Color.grey;
-        Gizmos.DrawWireSphere(transform.position, PrelungeValue);
+        //Gizmos.color = Color.grey;
+        //Gizmos.DrawWireSphere(transform.position, PrelungeValue);
     }
 
 }
