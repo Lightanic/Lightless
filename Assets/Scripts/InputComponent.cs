@@ -299,6 +299,7 @@ public class InputComponent : MonoBehaviour {
         /// <returns></returns>
         public bool GetButton(string button)
         {
+            if (!inputMap.ContainsKey(button)) return false;
             return inputMap[button].state == ButtonState.Pressed ? true : false;
         }
 
@@ -309,6 +310,7 @@ public class InputComponent : MonoBehaviour {
         /// <returns></returns>
         public bool GetButtonDown(string button)
         {
+            if (!inputMap.ContainsKey(button)) return false;
             return (inputMap[button].prev_state == ButtonState.Released &&
                     inputMap[button].state == ButtonState.Pressed) ? true : false;
         }
