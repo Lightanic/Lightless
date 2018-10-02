@@ -49,12 +49,19 @@ public class EquipperSystem : ComponentSystem {
 
     [Inject] private InventoryData inventoryData;
 
-    static int index = 0;
+    static int index = 0;       //  used to cycle through the inventory
+
+    /// <summary>
+    /// Equip and unequip items from the inventory
+    /// Cycle through the inventory items
+    /// Drop equiped items
+    /// </summary>
     protected override void OnUpdate()
     {
         
         for (int i=0; i < itemData.Length; i++)
         {
+            // Always equip item to an empty hand
             if (itemData.PickItem[i].IsEquiped)
             {
                 if (leftHandData.data[0].isEmpty)
@@ -63,7 +70,8 @@ public class EquipperSystem : ComponentSystem {
                 }
             }
 
-            if (playerData.InputComponents[0].Gamepad.GetButtonDown("DPad_Right"))
+            // Cycle through inventory items
+            if (playerData.InputComponents[0].Control("InventoryNext"))
             {
                 if (!leftHandData.data[0].isEmpty)
                 {
@@ -84,8 +92,10 @@ public class EquipperSystem : ComponentSystem {
                 }
             }
 
-            if (playerData.InputComponents[0].Gamepad.GetButtonDown("X"))
+            // Drop items from inventory
+            if (playerData.InputComponents[0].Control("DropItem"))
             {
+                leftHandData.EquipComp[0].EquipedItem.GetComponent<Pickup>().IsInteractable = true;
                 leftHandData.EquipComp[0].EquipedItem.GetComponent<Pickup>().IsEquiped = false;
                 leftHandData.data[0].DropItem();
             }

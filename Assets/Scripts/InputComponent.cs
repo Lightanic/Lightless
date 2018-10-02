@@ -3,9 +3,19 @@ using XInputDotNetPure;
 using System.Collections.Generic;
 
 public class InputComponent : MonoBehaviour {
+    public enum index { One = 1, Two = 2};
+    public index PlayerNumber;
+
     public float Horizontal;
     public float Vertical;
-    public XGamepad Gamepad = new XGamepad(1);
+    private int GamepadIndex;
+    public XGamepad Gamepad;    // = new XGamepad(index);
+
+    private void Start()
+    {
+        GamepadIndex = (int)PlayerNumber;
+        Gamepad = new XGamepad(GamepadIndex);
+    }
 
     /// <summary>
     /// Stores states of a single gamepad button
@@ -316,4 +326,47 @@ public class InputComponent : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// Remap input controls
+    /// </summary>
+    /// <param name="key"></param>
+    /// <returns></returns>
+    public bool Control(string key)
+    {
+        bool statusGamepad = false;
+        bool statusKb = false;
+        switch(key)
+        {
+            case "Interact":
+                statusGamepad = this.Gamepad.GetButtonDown("B");
+                statusKb = Input.GetKeyDown(KeyCode.E);
+                break;
+            case "DropItem":
+                statusGamepad = Gamepad.GetButtonDown("X");
+                statusKb = Input.GetKeyDown(KeyCode.G);
+                break;
+            case "InventoryNext":
+                statusGamepad = Gamepad.GetButtonDown("DPad_Right");
+                statusKb = Input.GetKeyDown(KeyCode.RightArrow);
+                break;
+            case "Dodge":
+                statusGamepad = this.Gamepad.GetButtonDown("A");
+                statusKb = Input.GetKeyDown(KeyCode.Space);
+                break;
+            case "Sprint":
+                statusGamepad = this.Gamepad.GetTriggerRight != 0 ;
+                statusKb = Input.GetKey(KeyCode.LeftShift);
+                break;
+            default:
+                statusGamepad = false;
+                statusKb = false;
+                break;
+            //case "DodgeDone":
+            //    statusGamepad = !this.Gamepad.GetButton("A");
+            //    statusKb = Input.GetKeyUp(KeyCode.Space);
+            //    break;
+        }
+
+        return (statusGamepad||statusKb);
+    }
 }

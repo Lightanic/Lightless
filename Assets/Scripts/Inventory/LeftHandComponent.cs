@@ -6,6 +6,9 @@ public class LeftHandComponent : MonoBehaviour {
 
     public bool isEmpty = true;
 
+    /// <summary>
+    /// Update hand status
+    /// </summary>
     private void Update()
     {
         if(gameObject.transform.childCount != 0)
@@ -16,6 +19,9 @@ public class LeftHandComponent : MonoBehaviour {
             isEmpty = true;
     }
 
+    /// <summary>
+    /// Unequip all items in the hand
+    /// </summary>
     public void UnEquipAll()
     {
         var pickUpItems = GetComponentsInChildren<Pickup>();
@@ -25,6 +31,9 @@ public class LeftHandComponent : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// Drop the item held
+    /// </summary>
     public void DropItem()
     {
         UnEquipAll();
