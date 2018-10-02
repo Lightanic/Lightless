@@ -95,10 +95,13 @@ public class EquipperSystem : ComponentSystem {
             // Drop items from inventory
             if (playerData.InputComponents[0].Control("DropItem"))
             {
-                leftHandData.EquipComp[0].EquipedItem.GetComponent<Pickup>().IsInteractable = true;
-                leftHandData.EquipComp[0].EquipedItem.GetComponent<Pickup>().IsEquiped = false;
-                leftHandData.EquipComp[0].EquipedItem.GetComponent<Rigidbody>().isKinematic = false;    // enable rigidbody
-                leftHandData.data[0].DropItem();
+                if (!leftHandData.data[0].isEmpty)
+                {
+                    leftHandData.EquipComp[0].EquipedItem.GetComponent<Pickup>().IsInteractable = true;
+                    leftHandData.EquipComp[0].EquipedItem.GetComponent<Pickup>().IsEquiped = false;
+                    leftHandData.EquipComp[0].EquipedItem.GetComponent<Rigidbody>().isKinematic = false;    // enable rigidbody
+                    leftHandData.data[0].DropItem();
+                }
             }
         }
     }
