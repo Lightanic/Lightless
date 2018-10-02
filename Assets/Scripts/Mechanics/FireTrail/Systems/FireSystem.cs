@@ -92,7 +92,7 @@ public class FireSystem : ComponentSystem
             {
                 foreach (var instance in fireInstances)
                 {
-                    var particleSystem = instance.GetComponent<ParticleSystem>();
+                    var particleSystem = instance.GetComponentInChildren<ParticleSystem>();
                     var main = particleSystem.main;
                     main.loop = false;
                     if (particleSystem.isStopped)

@@ -9,7 +9,7 @@ public class PlatformActivatorComponent : MonoBehaviour
     public float MaxActivationDistance = 15F;
     public GameObject ReflectionLightPrefab;
 
-    private GameObject lightInstance = null;
+    public GameObject LightInstance = null;
     private void Update()
     {
         Ray ray = new Ray(transform.position, transform.forward);
@@ -25,31 +25,31 @@ public class PlatformActivatorComponent : MonoBehaviour
         {
             if(hit.collider.name == "Reflector")
             {
-                if (lightInstance == null)
+                if (LightInstance == null)
                 {
-                    lightInstance = Instantiate(ReflectionLightPrefab, hit.point, hit.transform.rotation);
+                    LightInstance = Instantiate(ReflectionLightPrefab, hit.point, hit.transform.rotation);
                 }
                 else
                 {
-                    lightInstance.transform.position = hit.point;
+                    LightInstance.transform.position = hit.point;
                 }
                 var point = hit.point;
                 var normal = hit.transform.forward;
                 var reflection = ray.direction - 2 * (Vector3.Dot(ray.direction, normal)) * normal;
                 var lookTowardsPos = point + reflection * 2F;
-                lightInstance.transform.LookAt(lookTowardsPos);
+                LightInstance.transform.LookAt(lookTowardsPos);
                 Debug.DrawRay(point, reflection);
             }
-            else if (lightInstance != null)
+            else if (LightInstance != null)
             {
-                Destroy(lightInstance);
-                lightInstance = null;
+                Destroy(LightInstance);
+                LightInstance = null;
             }
         }
-        else if (lightInstance != null)
+        else if (LightInstance != null)
         {
-            Destroy(lightInstance);
-            lightInstance = null;
+            Destroy(LightInstance);
+            LightInstance = null;
         }
     }
 
