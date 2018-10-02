@@ -8,10 +8,23 @@ public class PlatformActivatorComponent : MonoBehaviour
     public float ActivationDelay = 1F;
     public float MaxActivationDistance = 15F;
     public GameObject ReflectionLightPrefab;
-
     public GameObject LightInstance = null;
+    public bool ShouldBeDestroyed = false;
+    public bool ShouldCreateLightInstance = false;
+
     private void Update()
     {
+        //if(ShouldCreateLightInstance && LightInstance == null)
+        //{
+        //    LightInstance = Instantiate(ReflectionLightPrefab);
+        //    ShouldCreateLightInstance = false;
+        //}
+
+        //if (ShouldBeDestroyed && LightInstance!=null)
+        //{
+        //    Destroy(LightInstance);
+        //    ShouldBeDestroyed = false;
+        //}
         Ray ray = new Ray(transform.position, transform.forward);
         Ray ray1 = new Ray(transform.position + transform.right * 0.1F, transform.forward);
         Ray ray2 = new Ray(transform.position + transform.right * -0.1F, transform.forward);
@@ -23,7 +36,7 @@ public class PlatformActivatorComponent : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit, 20F))
         {
-            if(hit.collider.name == "Reflector")
+            if (hit.collider.name == "Reflector")
             {
                 if (LightInstance == null)
                 {
