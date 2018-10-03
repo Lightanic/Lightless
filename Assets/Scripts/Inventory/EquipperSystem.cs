@@ -1,7 +1,8 @@
 ﻿using Unity.Entities;
 using UnityEngine;
 
-public class EquipperSystem : ComponentSystem {
+public class EquipperSystem : ComponentSystem
+{
 
     /// <summary>
     /// Inventory item group
@@ -35,6 +36,7 @@ public class EquipperSystem : ComponentSystem {
         public ComponentArray<EquipComponent> EquipComp;
         public ComponentArray<LeftHandComponent> data;
     }
+
     [Inject] private LeftHandData leftHandData;
 
 
@@ -49,7 +51,7 @@ public class EquipperSystem : ComponentSystem {
 
     [Inject] private InventoryData inventoryData;
 
-    static int index = 0;       //  used to cycle through the inventory
+    int index = 0;       //  used to cycle through the inventory
 
     /// <summary>
     /// Equip and unequip items from the inventory
@@ -58,8 +60,17 @@ public class EquipperSystem : ComponentSystem {
     /// </summary>
     protected override void OnUpdate()
     {
-        
-        for (int i=0; i < itemData.Length; i++)
+        var lhComponent = leftHandData.data[0];
+        Pickup lhDataEquipCompPickup = null;
+        InventoryItemComponent lhInventoryItemComp = null;
+        if (leftHandData.EquipComp.Length > 0 && leftHandData.EquipComp[0].EquipedItem != null)
+        {
+            lhDataEquipCompPickup = leftHandData.EquipComp[0].EquipedItem.GetComponent<Pickup>();
+            lhInventoryItemComp = leftHandData.EquipComp[0].EquipedItem.GetComponent<InventoryItemComponent>();
+        }
+
+
+        for (int i = 0; i < itemData.Length; i++)
         {
             // Always equip item to an empty hand
             if (itemData.PickItem[i].IsEquiped)
@@ -70,26 +81,31 @@ public class EquipperSystem : ComponentSystem {
                 }
             }
 
+
             // Cycle through inventory items
             if (playerData.InputComponents[0].Control("InventoryNext"))
             {
-                if (!leftHandData.data[0].isEmpty)
+                lock (leftHandData.data[0])
                 {
-                    //Add Item to the inventory
-                    Debug.Log("Index " + index);
-                    leftHandData.EquipComp[0].EquipedItem.GetComponent<Pickup>().IsEquiped = false;
-                    leftHandData.EquipComp[0].EquipedItem.GetComponent<InventoryItemComponent>().AddToInventory = true;
-                    leftHandData.data[0].DropItem();
+                    if (!lhComponent.isEmpty && lhDataEquipCompPickup != null && lhInventoryItemComp != null)
+                    {
+                        //Add Item to the inventory
+                        Debug.Log("Index " + index);
+                        lhDataEquipCompPickup.IsEquiped = false;
+                        lhInventoryItemComp.AddToInventory = true;
+                        lhComponent.DropItem();
+                    }
+                    // Remove and equip item from inventory
+                    if (++index > inventoryData.Inventory[0].PlayerInventory.Items.Count - 1)
+                        index = 0;
+
+                    if (inventoryData.Inventory[0].PlayerInventory.Items.Count > 0)
+                    {
+                        leftHandData.EquipComp[0].EquipItem(inventoryData.Inventory[0].PlayerInventory.Items[index].Prefab);
+                        inventoryData.Inventory[0].PlayerInventory.Remove(inventoryData.Inventory[0].PlayerInventory.Items[index]);
+                    }
                 }
-                // Remove and equip item from inventory
-                if (++index > inventoryData.Inventory[0].PlayerInventory.Items.Count - 1)
-                    index = 0;
-               
-                if (inventoryData.Inventory[0].PlayerInventory.Items.Count > 0)
-                {
-                    leftHandData.EquipComp[0].EquipItem(inventoryData.Inventory[0].PlayerInventory.Items[index].Prefab);
-                    inventoryData.Inventory[0].PlayerInventory.Remove(inventoryData.Inventory[0].PlayerInventory.Items[index]);
-                }
+
             }
 
             // Drop items from inventory
