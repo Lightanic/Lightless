@@ -11,12 +11,16 @@ public class LeftHandComponent : MonoBehaviour {
     /// </summary>
     private void Update()
     {
-        if(gameObject.transform.childCount != 0)
+        lock(this)
         {
-            isEmpty = false;
+            if (gameObject.transform.childCount != 0)
+            {
+                isEmpty = false;
+            }
+            else
+                isEmpty = true;
         }
-        else
-            isEmpty = true;
+        
     }
 
     /// <summary>
