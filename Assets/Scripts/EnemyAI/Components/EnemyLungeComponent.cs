@@ -11,6 +11,7 @@ public class EnemyLungeComponent : MonoBehaviour
     public float LungeTime = 0.25f;
     public float CurrentTimeForPrelunging = 0.0f;
     public float CurrentTimeForLunging = 0.0f;
+    //public float LungingSpeed = Random.Range(20, 40);
 
     public bool IsLunging;
     public bool IsPrelunging;
