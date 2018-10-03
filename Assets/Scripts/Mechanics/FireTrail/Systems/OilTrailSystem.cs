@@ -40,7 +40,7 @@ public class OilTrailSystem : ComponentSystem
                                                          // entity.Transform.position = position;
                 var lineRenderer = entity.OilTrail.LineRenderer;
                 var minDistance = entity.OilTrail.TrailMinimumDistance;
-                if (Input.GetMouseButton(0))
+                if (Player.Inputs[0].Control("OilTrail"))
                 {
                     if (entity.OilTrail.CurrentTrailCount == 0)
                     {

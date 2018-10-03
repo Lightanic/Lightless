@@ -338,16 +338,16 @@ public class InputComponent : MonoBehaviour {
         switch(key)
         {
             case "Interact":
-                statusGamepad = this.Gamepad.GetButtonDown("B");
+                statusGamepad = this.Gamepad.GetButtonDown("X");
                 statusKb = Input.GetKeyDown(KeyCode.E);
                 break;
             case "DropItem":
-                statusGamepad = Gamepad.GetButtonDown("X");
+                statusGamepad = Gamepad.GetButtonDown("B");
                 statusKb = Input.GetKeyDown(KeyCode.G);
                 break;
             case "InventoryNext":
-                statusGamepad = Gamepad.GetButtonDown("DPad_Right");
-                statusKb = Input.GetKeyDown(KeyCode.RightArrow);
+                statusGamepad = Gamepad.GetButtonDown("DPad_Right") || Gamepad.GetButtonDown("DPad_Left");
+                statusKb = Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.LeftArrow);
                 var d = Input.GetAxis("Mouse ScrollWheel");
                 if (d > 0 || d < 0) statusKb = true;
                 break;
@@ -366,6 +366,14 @@ public class InputComponent : MonoBehaviour {
             case "RightLightToggle":
                 statusGamepad = this.Gamepad.GetButtonDown("RB");
                 statusKb = Input.GetMouseButtonDown(1);
+                break;
+            case "LightFire":
+                statusGamepad = this.Gamepad.GetButtonDown("Y");
+                statusKb = Input.GetKeyDown(KeyCode.F);
+                break;
+            case "OilTrail":
+                statusGamepad = this.Gamepad.GetButton("X");
+                statusKb = Input.GetMouseButton(0);
                 break;
             default:
                 statusGamepad = false;

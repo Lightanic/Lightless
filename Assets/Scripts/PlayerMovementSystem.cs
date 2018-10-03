@@ -70,7 +70,9 @@ public class PlayerMovementSystem : ComponentSystem {
         if (entity.SpeedComponent.isSprinting || entity.SpeedComponent.isDodging)
         {
             if (entity.SpeedComponent.isSprinting)
+            {
                 entity.SpeedComponent.Stamina -= Time.deltaTime;
+            }
             else if (entity.SpeedComponent.isDodging)
             {
                 var stAmtLost = Time.deltaTime * entity.SpeedComponent.DodgeMultiplier;
