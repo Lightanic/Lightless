@@ -7,10 +7,14 @@ public class EnemyLungeComponent : MonoBehaviour
 
     public float LungeValue = 5.0f;
     //public float PrelungeValue = 5.0f;
-    public float PrelungeTime = 2.0f;
-    public float CurrentTime = 0.0f;
+    public float PrelungeTime = 0.25f;
+    public float LungeTime = 0.25f;
+    public float CurrentTimeForPrelunging = 0.0f;
+    public float CurrentTimeForLunging = 0.0f;
 
     public bool IsLunging;
+    public bool IsPrelunging;
+
 
     private void OnDrawGizmos()
     {

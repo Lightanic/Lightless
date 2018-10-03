@@ -6,7 +6,6 @@ using Unity.Entities;
 public class EnemyAISystem : ComponentSystem
 {
 
-
     private struct RunnerData
     {
         public NavAgentComponent AgentComponent;
@@ -50,20 +49,28 @@ public class EnemyAISystem : ComponentSystem
             
         }
 
-        foreach (var e in GetEntities<LightData>())
-        {
-            //for (int i = 1; i <= lightData.LightTransform.Length; i++)
-            //{
 
-            //}
-            lightData = e;
-        }
 
         foreach (var enemyEntity in GetEntities<RunnerData>())
         {
-            //enemyEntity.AgentComponent.Agent.SetDestination(playerData.PlayerTransform.position);
-            //enemyEntity.AgentComponent.Agent.SetDestination(lightData.LightTransform.position);
-            float distanceToLight = Vector3.Distance(lightData.LightTransform.position, enemyEntity.EnenmyTransform.position);
+            float currentDistance = float.MaxValue;
+            float lightDistance;
+            foreach (var e in GetEntities<LightData>())
+            {
+                //lightData = e;
+
+                if (e.LightSwitch.LightIsOn)
+                {
+                    lightDistance = Vector3.Distance(e.LightTransform.position, enemyEntity.EnenmyTransform.position);
+                    if (lightDistance < currentDistance)
+                    {
+                        currentDistance = lightDistance;
+                        lightData = e;
+                    }
+                }
+            }
+
+            float distanceToLight = currentDistance;
             float distanceToPlayer = Vector3.Distance(playerData.PlayerTransform.position, enemyEntity.EnenmyTransform.position);
 
             if (lightData.LightSwitch.LightIsOn)
@@ -92,28 +99,69 @@ public class EnemyAISystem : ComponentSystem
 
         foreach (var lunger in GetEntities<LungerData>())
         {
-            float distanceToLight = Vector3.Distance(lightData.LightTransform.position, lunger.EnenmyTransform.position);
+            float currentDistance = float.MaxValue;
+            float lightDistance;
+            foreach (var e in GetEntities<LightData>())
+            {
+                //lightData = e;
+
+                if (e.LightSwitch.LightIsOn)
+                {
+                    lightDistance = Vector3.Distance(e.LightTransform.position, lunger.EnenmyTransform.position);
+                    if (lightDistance < currentDistance)
+                    {
+                        currentDistance = lightDistance;
+                        lightData = e;
+                    }
+                }
+            }
+
+            float distanceToLight = currentDistance;
+            //float distanceToLight = Vector3.Distance(lightData.LightTransform.position, lunger.EnenmyTransform.position);
             float distanceToPlayer = Vector3.Distance(playerData.PlayerTransform.position, lunger.EnenmyTransform.position);
+
+            if (lunger.LungeDistance.IsPrelunging)
+            {
+                lunger.AgentComponent.Agent.speed = 0.0f;
+                if (lunger.LungeDistance.CurrentTimeForPrelunging > lunger.LungeDistance.PrelungeTime)
+                {
+                    lunger.LungeDistance.IsPrelunging = false;
+                    lunger.LungeDistance.IsLunging = true;
+                    lunger.LungeDistance.CurrentTimeForPrelunging = 0.0f;
+                }
+                else
+                {
+                    
+                    lunger.LungeDistance.CurrentTimeForPrelunging += Time.deltaTime;
+                }
+                
+
+            }
+
+            if (lunger.LungeDistance.IsLunging)
+            {
+                Lunge(lunger, playerData);
+                if (lunger.LungeDistance.CurrentTimeForLunging > lunger.LungeDistance.LungeTime)
+                {
+                    lunger.LungeDistance.IsLunging = false;
+                    lunger.LungeDistance.CurrentTimeForLunging = 0.0f;
+                    lunger.AgentComponent.Agent.speed = 7;
+                }
+                else
+                {
+                    lunger.LungeDistance.CurrentTimeForLunging += Time.deltaTime;
+                }
+            }
 
             if (lightData.LightSwitch.LightIsOn)
             {
                 if (distanceToLight <= lunger.EnemyVision.Value) //if distance to light is lesser than enemy vision
                 {
                     lunger.AgentComponent.Agent.SetDestination(lightData.LightTransform.position); //seek the light
-                    if (distanceToPlayer <= lunger.LungeDistance.LungeValue)
+                    if (distanceToPlayer <= lunger.LungeDistance.LungeValue && !lunger.LungeDistance.IsPrelunging && !lunger.LungeDistance.IsLunging)
                     {
-                        Debug.Log("get ready for the lunge");
-                        lunger.AgentComponent.Agent.speed = 0f;
-                        if (lunger.LungeDistance.CurrentTime > lunger.LungeDistance.PrelungeTime)
-                        {
-                            lunger.LungeDistance.IsLunging = true;
-                            Lunge(lunger, playerData);
-                            lunger.LungeDistance.CurrentTime = 0.0f;
-                        }
-                        else
-                        {
-                            lunger.LungeDistance.CurrentTime += Time.deltaTime;
-                        }
+                        //Debug.Log("get ready for the lunge");
+                        lunger.LungeDistance.IsPrelunging = true;
                            
                     }
                 }
@@ -126,26 +174,13 @@ public class EnemyAISystem : ComponentSystem
             }
             else
             {
-                if (distanceToPlayer <= lunger.LungeDistance.LungeValue)
+                if (distanceToPlayer <= lunger.LungeDistance.LungeValue && !lunger.LungeDistance.IsPrelunging && !lunger.LungeDistance.IsLunging)
                 {
-                    Debug.Log("get ready for the lunge");
-                    lunger.AgentComponent.Agent.speed = 2f;
-                    if (lunger.LungeDistance.CurrentTime > lunger.LungeDistance.PrelungeTime)
-                    {
-                        lunger.LungeDistance.IsLunging = true;
-                        Lunge(lunger, playerData);
-                    }
-                    else
-                        lunger.LungeDistance.CurrentTime += Time.deltaTime;
-                    //if (distanceToPlayer <= lunger.LungeDistance.LungeValue)
-                    //{
-                    //    lunger.LungeDistance.IsLunging = true;
-                    //    Lunge(lunger, playerData);
-                    //}
+                    //Debug.Log("get ready for the lunge");
+                    lunger.LungeDistance.IsPrelunging = true;
                 }
                 else
                 {
-                    
                     lunger.AgentComponent.Agent.destination = lunger.EnenmyTransform.position;   //stay where you are
                 }
             }
@@ -156,15 +191,9 @@ public class EnemyAISystem : ComponentSystem
     {
         if (lunger.LungeDistance.IsLunging)
         {
-            Debug.Log("lunging");
-            if(lunger.LungeDistance.IsLunging)
+            //Debug.Log("lunging");
             lunger.AgentComponent.Agent.speed = 20;
             lunger.AgentComponent.Agent.SetDestination(player.PlayerTransform.position); //seek player
-            
-        }
-        else
-        {
-            lunger.AgentComponent.Agent.speed = 0;
         }
 
     }
