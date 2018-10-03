@@ -194,7 +194,8 @@ public class EnemyAISystem : ComponentSystem
         if (lunger.LungeDistance.IsLunging)
         {
             //Debug.Log("lunging");
-            lunger.AgentComponent.Agent.speed = 20;
+            lunger.AgentComponent.Agent.speed = Random.Range(20, 40);
+            //Debug.Log(lunger.AgentComponent.Agent.speed);
             lunger.AgentComponent.Agent.SetDestination(player.PlayerTransform.position); //seek player
         }
 
