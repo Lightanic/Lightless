@@ -6,6 +6,7 @@ public class InteractableComponent : MonoBehaviour {
 
     public bool IsInteractable = true;
     public bool IsInteracting = false;
+    [Range(1,10)]
     public float InteractDistance = 4f;
 
     /// <summary>

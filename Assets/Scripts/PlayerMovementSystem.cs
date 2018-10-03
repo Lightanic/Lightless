@@ -16,7 +16,7 @@ public class PlayerMovementSystem : ComponentSystem {
         foreach(var entity in GetEntities<Group>())
         {
             var moveVector = new Vector3(entity.InputComponent.Horizontal, 0, entity.InputComponent.Vertical);                      // Move direction vector
-            Sprint(entity);
+            Sprint(entity,moveVector);
             Dodge(entity);
             StaminaControl(entity);
             var speed = (Mathf.Abs(entity.InputComponent.Horizontal) + Mathf.Abs(entity.InputComponent.Vertical))*entity.SpeedComponent.Speed;
@@ -30,9 +30,9 @@ public class PlayerMovementSystem : ComponentSystem {
     /// Increase the speed of the entity for a given amount of time
     /// </summary>
     /// <param name="entity"></param>
-    void Sprint(Group entity)
+    void Sprint(Group entity,Vector3 moveVector)
     {
-        if(entity.InputComponent.Control("Sprint"))
+        if(entity.InputComponent.Control("Sprint") && moveVector != Vector3.zero)
         {
             entity.SpeedComponent.isSprinting = true;
             entity.SpeedComponent.Speed = entity.SpeedComponent.SPRINT_SPEED;
@@ -52,10 +52,13 @@ public class PlayerMovementSystem : ComponentSystem {
     {
         if (entity.SpeedComponent.isSprinting || entity.SpeedComponent.isDodging)
         {
-            if(entity.SpeedComponent.isSprinting)
+            if (entity.SpeedComponent.isSprinting)
                 entity.SpeedComponent.Stamina -= Time.deltaTime;
-            else if(entity.SpeedComponent.isDodging)
-                entity.SpeedComponent.Stamina -= Time.deltaTime * 5;
+            else if (entity.SpeedComponent.isDodging)
+            {
+                var stAmtLost = Time.deltaTime * entity.SpeedComponent.DodgeMultiplier;
+                entity.SpeedComponent.Stamina -= stAmtLost;
+            }
             if (entity.SpeedComponent.Stamina <= (0 + Mathf.Epsilon))
             {
                 entity.SpeedComponent.Stamina = 0;

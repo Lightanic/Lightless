@@ -359,6 +359,14 @@ public class InputComponent : MonoBehaviour {
                 statusGamepad = this.Gamepad.GetTriggerRight != 0 ;
                 statusKb = Input.GetKey(KeyCode.LeftShift);
                 break;
+            case "LeftLightToggle":
+                statusGamepad = this.Gamepad.GetButtonDown("LB");
+                statusKb = Input.GetMouseButtonDown(0);
+                break;
+            case "RightLightToggle":
+                statusGamepad = this.Gamepad.GetButtonDown("RB");
+                statusKb = Input.GetMouseButtonDown(1);
+                break;
             default:
                 statusGamepad = false;
                 statusKb = false;

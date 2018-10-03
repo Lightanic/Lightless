@@ -35,6 +35,16 @@ public class PickupSystem : ComponentSystem {
     [Inject] private LeftHandData leftHandData;
 
     /// <summary>
+    /// Entities taht can be picked up
+    /// </summary>
+    private struct LanternData
+    {
+        public Transform Transform;
+        public Pickup PickItem;
+        public Lantern lantern;
+    }
+
+    /// <summary>
     /// Pick an item up and add it to the inventory
     /// </summary>
     protected override void OnUpdate()
@@ -57,6 +67,17 @@ public class PickupSystem : ComponentSystem {
                 }
             }
 
+        }
+
+        foreach(var entity in GetEntities<LanternData>())
+        {
+            if (Vector3.Distance(playerPos, entity.Transform.position) <= entity.PickItem.InteractDistance && (playerData.InputComponents[0].Control("Interact")))
+            {
+                entity.PickItem.IsInteracting = true;
+                entity.PickItem.IsEquiped = true;   // equip to left hand
+                entity.PickItem.IsInteractable = false;
+                entity.lantern.EquipRightHand();
+            }
         }
     }
 
