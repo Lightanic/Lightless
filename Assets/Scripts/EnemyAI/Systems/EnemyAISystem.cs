@@ -40,7 +40,7 @@ public class EnemyAISystem : ComponentSystem
     {
         PlayerData playerData = new PlayerData();
         LightData lightData = new LightData();
-
+        bool isThereLight = false;
 
 
         foreach (var entity in GetEntities<PlayerData>())
@@ -66,6 +66,7 @@ public class EnemyAISystem : ComponentSystem
                     {
                         currentDistance = lightDistance;
                         lightData = e;
+                        isThereLight = true;
                     }
                 }
             }
@@ -73,7 +74,7 @@ public class EnemyAISystem : ComponentSystem
             float distanceToLight = currentDistance;
             float distanceToPlayer = Vector3.Distance(playerData.PlayerTransform.position, enemyEntity.EnenmyTransform.position);
 
-            if (lightData.LightSwitch.LightIsOn)
+            if (isThereLight && lightData.LightSwitch.LightIsOn)
             {
                 if (distanceToLight <= enemyEntity.EnemyVision.Value) //if distance to light is lesser than enemy vision
                 {
@@ -112,6 +113,7 @@ public class EnemyAISystem : ComponentSystem
                     {
                         currentDistance = lightDistance;
                         lightData = e;
+                        isThereLight = true;
                     }
                 }
             }
@@ -153,7 +155,7 @@ public class EnemyAISystem : ComponentSystem
                 }
             }
 
-            if (lightData.LightSwitch.LightIsOn)
+            if (isThereLight && lightData.LightSwitch.LightIsOn)
             {
                 if (distanceToLight <= lunger.EnemyVision.Value) //if distance to light is lesser than enemy vision
                 {

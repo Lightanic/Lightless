@@ -115,13 +115,12 @@ GameObject:
   - component: {fileID: 65983968382369638}
   - component: {fileID: 114609954796635564}
   - component: {fileID: 114515434486286358}
-  - component: {fileID: 114350005350001300}
   - component: {fileID: 195799713995885684}
   - component: {fileID: 114690175794998936}
   - component: {fileID: 114995879196182456}
   m_Layer: 0
-  m_Name: Enemy
-  m_TagString: Untagged
+  m_Name: RunnerEnemy
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -626,7 +625,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0.55, z: 0}
+  m_Center: {x: 0, y: 0.57, z: 0}
 --- !u!95 &95517781321647778
 Animator:
   serializedVersion: 3
@@ -645,18 +644,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &114350005350001300
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1249283347811438}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b896a5fa6df1495459780cf213a07bf1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Value: 10
 --- !u!114 &114515434486286358
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -668,7 +655,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7ad72a89e0850e4ea568bea12c575ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Value: 10
+  Value: 15
 --- !u!114 &114609954796635564
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -680,7 +667,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 660cbdb5d5187cb4dad174034ff1f0e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Value: 3
+  Value: 5
 --- !u!114 &114690175794998936
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -772,7 +759,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 3.5
+  m_Speed: 10
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -780,7 +767,7 @@ NavMeshAgent:
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
-  m_Height: 1.05
+  m_Height: 0.87
   m_BaseOffset: -0.11
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
