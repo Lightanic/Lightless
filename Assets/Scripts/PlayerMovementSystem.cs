@@ -10,10 +10,21 @@ public class PlayerMovementSystem : ComponentSystem {
         public SpeedComponent SpeedComponent;
     }
 
-	protected override void OnUpdate()
+    private struct Staminabar
     {
+        public StaminaBar staminaBar;
+    }
+
+    GameObject staminaObj = null;
+
+    protected override void OnUpdate()
+    {
+        foreach (var entity in GetEntities<Staminabar>())
+        {
+            staminaObj = entity.staminaBar.gameObject;
+        }
         // Move all entities with Group components
-        foreach(var entity in GetEntities<Group>())
+        foreach (var entity in GetEntities<Group>())
         {
             var moveVector = new Vector3(entity.InputComponent.Horizontal, 0, entity.InputComponent.Vertical);                      // Move direction vector
             Sprint(entity,moveVector);
@@ -36,11 +47,17 @@ public class PlayerMovementSystem : ComponentSystem {
         {
             entity.SpeedComponent.isSprinting = true;
             entity.SpeedComponent.Speed = entity.SpeedComponent.SPRINT_SPEED;
+
+            if(staminaObj != null)
+                staminaObj.SetActive(true);
         }
         else if(!entity.InputComponent.Control("Sprint"))
         {
             entity.SpeedComponent.isSprinting = false;
             entity.SpeedComponent.Speed = entity.SpeedComponent.DEFAULT_SPEED;
+
+            if (staminaObj != null)
+                staminaObj.SetActive(false);
         }
     }
 
