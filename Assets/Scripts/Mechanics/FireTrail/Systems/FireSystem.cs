@@ -33,7 +33,9 @@ public class FireSystem : ComponentSystem
                 entity.OilTrail.CurrentTrailCount = 0;
                 foreach (var point in points)
                 {
-                    var instance = Object.Instantiate(firePrefab, point, new Quaternion());
+                    var pos = point;
+                    pos.x += 0.2F;
+                    var instance = Object.Instantiate(firePrefab, pos, new Quaternion());
                     entity.Fire.Instances.Add(instance);
                 }
 
