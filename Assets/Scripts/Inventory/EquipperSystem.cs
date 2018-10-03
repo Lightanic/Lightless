@@ -80,45 +80,46 @@ public class EquipperSystem : ComponentSystem
                     leftHandData.EquipComp[0].EquipItem(itemData.InventoryItem[i].gameObject);
                 }
             }
+        }
 
 
-            // Cycle through inventory items
-            if (playerData.InputComponents[0].Control("InventoryNext"))
+        // Cycle through inventory items
+        if (playerData.InputComponents[0].Control("InventoryNext"))
+        {
+            lock (leftHandData.data[0])
             {
-                lock (leftHandData.data[0])
+                if (!lhComponent.isEmpty && lhDataEquipCompPickup != null && lhInventoryItemComp != null)
                 {
-                    if (!lhComponent.isEmpty && lhDataEquipCompPickup != null && lhInventoryItemComp != null)
-                    {
-                        //Add Item to the inventory
-                        Debug.Log("Index " + index);
-                        lhDataEquipCompPickup.IsEquiped = false;
-                        lhInventoryItemComp.AddToInventory = true;
-                        lhComponent.DropItem();
-                    }
-                    // Remove and equip item from inventory
-                    if (++index > inventoryData.Inventory[0].PlayerInventory.Items.Count - 1)
-                        index = 0;
-
-                    if (inventoryData.Inventory[0].PlayerInventory.Items.Count > 0)
-                    {
-                        leftHandData.EquipComp[0].EquipItem(inventoryData.Inventory[0].PlayerInventory.Items[index].Prefab);
-                        inventoryData.Inventory[0].PlayerInventory.Remove(inventoryData.Inventory[0].PlayerInventory.Items[index]);
-                    }
+                    //Add Item to the inventory
+                    Debug.Log("Index " + index);
+                    lhDataEquipCompPickup.IsEquiped = false;
+                    lhInventoryItemComp.AddToInventory = true;
+                    lhComponent.DropItem();
                 }
+                // Remove and equip item from inventory
+                if (++index > inventoryData.Inventory[0].PlayerInventory.Items.Count - 1)
+                    index = 0;
 
+                if (inventoryData.Inventory[0].PlayerInventory.Items.Count > 0)
+                {
+                    leftHandData.EquipComp[0].EquipItem(inventoryData.Inventory[0].PlayerInventory.Items[index].Prefab);
+                    inventoryData.Inventory[0].PlayerInventory.Remove(inventoryData.Inventory[0].PlayerInventory.Items[index]);
+                }
             }
 
-            // Drop items from inventory
-            if (playerData.InputComponents[0].Control("DropItem"))
+        }
+
+        // Drop items from inventory
+        if (playerData.InputComponents[0].Control("DropItem"))
+        {
+            if (!leftHandData.data[0].isEmpty)
             {
-                if (!leftHandData.data[0].isEmpty)
-                {
-                    leftHandData.EquipComp[0].EquipedItem.GetComponent<Pickup>().IsInteractable = true;
-                    leftHandData.EquipComp[0].EquipedItem.GetComponent<Pickup>().IsEquiped = false;
-                    leftHandData.EquipComp[0].EquipedItem.GetComponent<Rigidbody>().isKinematic = false;    // enable rigidbody
-                    leftHandData.data[0].DropItem();
-                }
+                leftHandData.EquipComp[0].EquipedItem.GetComponent<Pickup>().IsInteractable = true;
+                leftHandData.EquipComp[0].EquipedItem.GetComponent<Pickup>().IsEquiped = false;
+                leftHandData.EquipComp[0].EquipedItem.GetComponent<Rigidbody>().isKinematic = false;    // enable rigidbody
+                leftHandData.data[0].DropItem();
             }
         }
+
     }
 }
