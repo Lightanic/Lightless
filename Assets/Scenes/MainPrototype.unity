@@ -3599,6 +3599,21 @@ Prefab:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 108177734467235296, guid: 506737f02dea9dd4395b4e9fa2496419,
+        type: 2}
+      propertyPath: m_Color.g
+      value: 0.6653359
+      objectReference: {fileID: 0}
+    - target: {fileID: 108177734467235296, guid: 506737f02dea9dd4395b4e9fa2496419,
+        type: 2}
+      propertyPath: m_Color.b
+      value: 0.31372374
+      objectReference: {fileID: 0}
+    - target: {fileID: 108177734467235296, guid: 506737f02dea9dd4395b4e9fa2496419,
+        type: 2}
+      propertyPath: m_Color.r
+      value: 0.8867924
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 506737f02dea9dd4395b4e9fa2496419, type: 2}
   m_IsPrefabAsset: 0
@@ -5321,6 +5336,7 @@ GameObject:
   - component: {fileID: 1393206791}
   - component: {fileID: 1393206790}
   - component: {fileID: 1393206793}
+  - component: {fileID: 1393206794}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -5401,6 +5417,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 179692243}
   smoothing: 5
+--- !u!114 &1393206794
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1393206789}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff26db721962cdf4a8edcdfa9a767d2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  profile: {fileID: 11400000, guid: 73956b148e3993a42bd3874f774a0741, type: 2}
 --- !u!4 &1401179868 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 644255a0198675a44828611a93cd87d9,
@@ -6267,6 +6295,11 @@ Prefab:
     - target: {fileID: 4114702672945740, guid: cf31237d34b2ca84781c5a6d9e324b99, type: 2}
       propertyPath: m_RootOrder
       value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 114739258100115760, guid: cf31237d34b2ca84781c5a6d9e324b99,
+        type: 2}
+      propertyPath: PlayerNumber
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cf31237d34b2ca84781c5a6d9e324b99, type: 2}
