@@ -32,12 +32,12 @@ public class PlayerMovementSystem : ComponentSystem {
     /// <param name="entity"></param>
     void Sprint(Group entity)
     {
-        if(entity.InputComponent.Gamepad.GetTriggerRight != 0 || Input.GetKey(KeyCode.LeftShift))
+        if(entity.InputComponent.Control("Sprint"))
         {
             entity.SpeedComponent.isSprinting = true;
             entity.SpeedComponent.Speed = entity.SpeedComponent.SPRINT_SPEED;
         }
-        else if(entity.InputComponent.Gamepad.GetTriggerRight == 0 || Input.GetKeyUp(KeyCode.LeftShift))
+        else if(!entity.InputComponent.Control("Sprint"))
         {
             entity.SpeedComponent.isSprinting = false;
             entity.SpeedComponent.Speed = entity.SpeedComponent.DEFAULT_SPEED;
@@ -55,7 +55,7 @@ public class PlayerMovementSystem : ComponentSystem {
             if(entity.SpeedComponent.isSprinting)
                 entity.SpeedComponent.Stamina -= Time.deltaTime;
             else if(entity.SpeedComponent.isDodging)
-                entity.SpeedComponent.Stamina -= Time.deltaTime * 3;
+                entity.SpeedComponent.Stamina -= Time.deltaTime * 5;
             if (entity.SpeedComponent.Stamina <= (0 + Mathf.Epsilon))
             {
                 entity.SpeedComponent.Stamina = 0;
@@ -76,12 +76,12 @@ public class PlayerMovementSystem : ComponentSystem {
     /// <param name="entity"></param>
     void Dodge(Group entity)
     {
-        if(entity.InputComponent.Gamepad.GetButtonDown("A") || Input.GetKeyDown(KeyCode.Space))
+        if(entity.InputComponent.Control("Dodge"))
         {
             entity.SpeedComponent.isDodging = true;
             entity.SpeedComponent.Speed = entity.SpeedComponent.DODGE_SPEED;
         }
-        else if(!entity.InputComponent.Gamepad.GetButton("A") || Input.GetKeyUp(KeyCode.Space))
+        else if(!entity.InputComponent.Control("Dodge"))
         {
             entity.SpeedComponent.isDodging = false;
         }
