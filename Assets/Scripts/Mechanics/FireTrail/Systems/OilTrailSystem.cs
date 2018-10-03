@@ -11,9 +11,18 @@ public class OilTrailSystem : ComponentSystem
     private struct Group
     {
         public OilTrailComponent OilTrail;
-        public InputComponent Input;
+      //  public InputComponent Input;
         public Transform Transform;
     }
+
+    private struct PlayerData
+    {
+        public readonly int Length;
+        public ComponentArray<Transform> Transforms;
+        public ComponentArray<InputComponent> Inputs;
+    }
+
+    [Inject] private PlayerData Player;
 
     /// <summary>
     /// If equipped, holding down left mouse button will create oil trail on ground. Oil trail is rendered using line renderer where holding down the 
@@ -21,12 +30,14 @@ public class OilTrailSystem : ComponentSystem
     /// </summary>
     protected override void OnUpdate()
     {
+        var transform = Player.Transforms[0];
         var entities = GetEntities<Group>();
         foreach (var entity in entities)
         {
             if (entity.OilTrail.IsEquipped)
             {
-                var position = entity.Transform.position;
+                var position = entity.Transform.position;// transform.position;
+               // entity.Transform.position = position;
                 var lineRenderer = entity.OilTrail.LineRenderer;
                 var minDistance = entity.OilTrail.TrailMinimumDistance;
                 if (Input.GetMouseButton(0))
@@ -35,7 +46,7 @@ public class OilTrailSystem : ComponentSystem
                     {
                         entity.OilTrail.TrailPoints.Add(position);
                         lineRenderer.positionCount = 2;
-                        position.y = 0.85f;
+                        //position.y += 0.10f;
                         lineRenderer.SetPosition(0, position);
                       
                         position.x += 0.1f;
@@ -60,7 +71,7 @@ public class OilTrailSystem : ComponentSystem
                         {
                             entity.OilTrail.TrailPoints.Add(position);
                             lineRenderer.positionCount = entity.OilTrail.CurrentTrailCount;
-                            position.y = 0.85f;
+                            //position.y += 0.10f;
                             lineRenderer.SetPosition(entity.OilTrail.CurrentTrailCount - 1, position);
                            
                             entity.OilTrail.CurrentTrailCount++;

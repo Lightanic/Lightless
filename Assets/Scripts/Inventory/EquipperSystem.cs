@@ -79,8 +79,8 @@ public class EquipperSystem : ComponentSystem {
                     Debug.Log("Index " + index);
                     leftHandData.EquipComp[0].EquipedItem.GetComponent<Pickup>().IsEquiped = false;
                     leftHandData.EquipComp[0].EquipedItem.GetComponent<InventoryItemComponent>().AddToInventory = true;
+                    leftHandData.data[0].DropItem();
                 }
-                leftHandData.data[0].DropItem();
                 // Remove and equip item from inventory
                 if (++index > inventoryData.Inventory[0].PlayerInventory.Items.Count - 1)
                     index = 0;

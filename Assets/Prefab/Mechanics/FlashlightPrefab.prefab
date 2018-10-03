@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 114592874962704382}
   - component: {fileID: 114190664568705078}
   m_Layer: 0
-  m_Name: Flashlight
+  m_Name: FlashlightPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -106,6 +106,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ActivationDelay: 1
   MaxActivationDistance: 50
+  ReflectionLightPrefab: {fileID: 0}
+  LightInstance: {fileID: 0}
+  ShouldBeDestroyed: 0
+  ShouldCreateLightInstance: 0
 --- !u!114 &114592874962704382
 MonoBehaviour:
   m_ObjectHideFlags: 1
