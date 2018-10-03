@@ -348,6 +348,8 @@ public class InputComponent : MonoBehaviour {
             case "InventoryNext":
                 statusGamepad = Gamepad.GetButtonDown("DPad_Right");
                 statusKb = Input.GetKeyDown(KeyCode.RightArrow);
+                var d = Input.GetAxis("Mouse ScrollWheel");
+                if (d > 0 || d < 0) statusKb = true;
                 break;
             case "Dodge":
                 statusGamepad = this.Gamepad.GetButtonDown("A");
