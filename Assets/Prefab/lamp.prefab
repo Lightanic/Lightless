@@ -42,7 +42,6 @@ GameObject:
   - component: {fileID: 114057890288711916}
   - component: {fileID: 114719580673255774}
   - component: {fileID: 114656144453012798}
-  - component: {fileID: 114094315733191522}
   - component: {fileID: 114214625948271610}
   m_Layer: 0
   m_Name: lamp
@@ -138,7 +137,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1161126618801720}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 63.93, y: 4.698124, z: -24.75}
+  m_LocalPosition: {x: 63.93, y: 4.698124, z: -19.17}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_Children:
   - {fileID: 4869120210558788}
@@ -445,20 +444,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   LightIsOn: 1
---- !u!114 &114094315733191522
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1161126618801720}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 55c23681836e1b249b28ff7cff1cf270, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  item: {fileID: 11400000, guid: 163c26792b2bb86478d2f1f67700265f, type: 2}
-  AddToInventory: 0
-  RemoveFromInventory: 0
 --- !u!114 &114214625948271610
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -510,3 +495,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RightHand: {fileID: 0}
+  TooltipOffset: 1.5
+  ShowtoolTip: 0
+  toolTipSprite: {fileID: 21300000, guid: 19d7e31b22ced804896c2719efc3ce92, type: 3}
+  Canvas: {fileID: 0}
