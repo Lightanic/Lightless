@@ -36,8 +36,8 @@ public class PlatformActivationSystem : ComponentSystem
             var origin = lightTransform.position;
             var direction = lightTransform.forward;
 
-
-            commands[i] = new RaycastCommand(origin, direction, activator.MaxActivationDistance);
+            if (Light.Activator[i].Switch.LightIsOn)
+                commands[i] = new RaycastCommand(origin, direction, activator.MaxActivationDistance);
         }
 
         var handle = RaycastCommand.ScheduleBatch(commands, results, 1);

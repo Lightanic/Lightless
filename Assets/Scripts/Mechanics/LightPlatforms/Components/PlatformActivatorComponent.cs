@@ -11,9 +11,19 @@ public class PlatformActivatorComponent : MonoBehaviour
     public GameObject LightInstance = null;
     public bool ShouldBeDestroyed = false;
     public bool ShouldCreateLightInstance = false;
+    public LightComponent Switch;
 
     private void Update()
     {
+        if (!Switch.LightIsOn)
+        {
+            if (LightInstance != null)
+            {
+                Destroy(LightInstance);
+                LightInstance = null;
+            }
+            return;
+        }
         //if(ShouldCreateLightInstance && LightInstance == null)
         //{
         //    LightInstance = Instantiate(ReflectionLightPrefab);
@@ -36,7 +46,7 @@ public class PlatformActivatorComponent : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit, 20F))
         {
-            if (hit.collider.tag == "Reflector") 
+            if (hit.collider.tag == "Reflector")
             {
                 if (LightInstance == null)
                 {

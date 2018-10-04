@@ -45,6 +45,7 @@ GameObject:
   - component: {fileID: 114801954045481404}
   - component: {fileID: 114867258961414724}
   - component: {fileID: 114107380958875526}
+  - component: {fileID: 114504522443263524}
   m_Layer: 0
   m_Name: FlashlightPickup
   m_TagString: Untagged
@@ -159,7 +160,7 @@ Light:
   m_Enabled: 1
   serializedVersion: 8
   m_Type: 0
-  m_Color: {r: 1, g: 0.8926518, b: 0.8066038, a: 1}
+  m_Color: {r: 0.8867924, g: 0.6653359, b: 0.31372374, a: 1}
   m_Intensity: 1.1
   m_Range: 45.88
   m_SpotAngle: 48
@@ -225,6 +226,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CurrentTime: 0
   TimeThreshold: 1.5
+--- !u!114 &114504522443263524
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1899340997658810}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26b62268162262246a2eb7438cacdc43, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LightIsOn: 1
 --- !u!114 &114801954045481404
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -253,6 +266,7 @@ MonoBehaviour:
   LightInstance: {fileID: 0}
   ShouldBeDestroyed: 0
   ShouldCreateLightInstance: 0
+  Switch: {fileID: 114504522443263524}
 --- !u!114 &114867258961414724
 MonoBehaviour:
   m_ObjectHideFlags: 1
