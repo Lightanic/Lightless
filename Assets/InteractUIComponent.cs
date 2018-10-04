@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class InteractUIComponent : MonoBehaviour {
 
     public GameObject Canvas;
-    public float offsetHeight = 1.5f;
+    public float offsetHeight = 2.5f;
     Sprite sprite = null;
 
 

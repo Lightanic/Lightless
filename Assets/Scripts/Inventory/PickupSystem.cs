@@ -88,13 +88,23 @@ public class PickupSystem : ComponentSystem {
 
         foreach(var entity in GetEntities<LanternData>())
         {
-            if (Vector3.Distance(playerPos, entity.Transform.position) <= entity.PickItem.InteractDistance && (playerData.InputComponents[0].Control("Interact")))
+            if (Vector3.Distance(playerPos, entity.Transform.position) <= entity.PickItem.InteractDistance && entity.PickItem.IsEquiped != true)
+            {
+                entity.lantern.ShowtoolTip = true;
+                uiEnabled = true;
+            }
+            else
+            {
+                entity.lantern.ShowtoolTip = false;
+            }
+                if (Vector3.Distance(playerPos, entity.Transform.position) <= entity.PickItem.InteractDistance && (playerData.InputComponents[0].Control("Interact")))
             {
                 entity.PickItem.IsInteracting = true;
                 entity.PickItem.IsEquiped = true;   // equip to left hand
                 entity.PickItem.IsInteractable = false;
                 entity.lantern.EquipRightHand();
             }
+            entity.lantern.ToggleToolTip();
         }
 
         foreach(var entity in GetEntities<PickupUI>())
