@@ -21,6 +21,7 @@ public class PickupSystem : ComponentSystem {
         readonly public int Length;
         public ComponentArray<Transform> Transform;
         public ComponentArray<InputComponent> InputComponents;
+        public ComponentArray<CharacterAnimator> Animators;
     }
     [Inject] private Player playerData;
 
@@ -50,11 +51,13 @@ public class PickupSystem : ComponentSystem {
     protected override void OnUpdate()
     {
         Vector3 playerPos = playerData.Transform[0].position;
+        var animator = playerData.Animators[0];
 
         foreach (var entity in GetEntities<Group>())
         {
             if(Vector3.Distance(playerPos,entity.Transform.position) <= entity.PickItem.InteractDistance && (playerData.InputComponents[0].Control("Interact")))
             {
+                animator.playerAnimator.SetTrigger("Interact");
                 entity.PickItem.IsInteracting = true;
                 if (leftHandData.data[0].isEmpty)
                 {

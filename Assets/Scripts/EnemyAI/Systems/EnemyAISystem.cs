@@ -12,6 +12,7 @@ public class EnemyAISystem : ComponentSystem
         public Transform EnenmyTransform;
         public EnemyVisionComponent EnemyVision;
         public EnemyDarkVisionComponent NightVision;
+        public EnemyAnimator Animator;
        
     }
 
@@ -21,6 +22,7 @@ public class EnemyAISystem : ComponentSystem
         public Transform EnenmyTransform;
         public EnemyVisionComponent EnemyVision;
         public EnemyLungeComponent LungeDistance;
+        public EnemyAnimator Animator;
 
     }
 
@@ -78,10 +80,12 @@ public class EnemyAISystem : ComponentSystem
             {
                 if (distanceToLight <= enemyEntity.EnemyVision.Value) //if distance to light is lesser than enemy vision
                 {
+                    enemyEntity.Animator.isRunning = true;
                     enemyEntity.AgentComponent.Agent.SetDestination(lightData.LightTransform.position); //seek the light
                 }
                 else
                 {
+                    enemyEntity.Animator.isRunning = false;
                     enemyEntity.AgentComponent.Agent.destination = enemyEntity.EnenmyTransform.position; //stay where you are
                 }
             }
@@ -89,10 +93,12 @@ public class EnemyAISystem : ComponentSystem
             {
                 if (distanceToPlayer <= enemyEntity.NightVision.Value)
                 {
+                    enemyEntity.Animator.isRunning = true;
                     enemyEntity.AgentComponent.Agent.SetDestination(playerData.PlayerTransform.position); //seek player
                 }
                 else
                 {
+                    enemyEntity.Animator.isRunning = false;
                     enemyEntity.AgentComponent.Agent.destination = enemyEntity.EnenmyTransform.position;   //stay where you are
                 }
             }
@@ -124,6 +130,8 @@ public class EnemyAISystem : ComponentSystem
 
             if (lunger.LungeDistance.IsPrelunging)
             {
+                lunger.Animator.isWalking = false;
+                lunger.Animator.isRunning = false;
                 lunger.AgentComponent.Agent.speed = 0.0f;
                 if (lunger.LungeDistance.CurrentTimeForPrelunging > lunger.LungeDistance.PrelungeTime)
                 {
@@ -142,6 +150,7 @@ public class EnemyAISystem : ComponentSystem
 
             if (lunger.LungeDistance.IsLunging)
             {
+                lunger.Animator.isRunning = true;
                 Lunge(lunger, playerData);
                 if (lunger.LungeDistance.CurrentTimeForLunging > lunger.LungeDistance.LungeTime)
                 {
@@ -159,6 +168,7 @@ public class EnemyAISystem : ComponentSystem
             {
                 if (distanceToLight <= lunger.EnemyVision.Value) //if distance to light is lesser than enemy vision
                 {
+                    lunger.Animator.isWalking = true;
                     lunger.AgentComponent.Agent.SetDestination(lightData.LightTransform.position); //seek the light
                     if (distanceToPlayer <= lunger.LungeDistance.LungeValue && !lunger.LungeDistance.IsPrelunging && !lunger.LungeDistance.IsLunging)
                     {
@@ -170,6 +180,8 @@ public class EnemyAISystem : ComponentSystem
 
                 else
                 {
+                    lunger.Animator.isWalking = false;
+                    lunger.Animator.isRunning = false;
                     lunger.AgentComponent.Agent.destination = lunger.EnenmyTransform.position; //stay where you are
                 }
 
