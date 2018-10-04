@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using Unity.Entities;
+using UnityEngine.SceneManagement;
 
 public class PitScript : MonoBehaviour //this script detects enemy and turns their navmesh off
 {
@@ -18,16 +19,20 @@ public class PitScript : MonoBehaviour //this script detects enemy and turns the
             collision.GetComponent<NavMeshAgent>().enabled = false;
             collision.GetComponent<GameObjectEntity>().enabled = false;
         }
+
     }
-    //private void OnTriggerExit(Collider other)
+    //private void OnTriggerStay(Collider other)
     //{
-    //    if (other.gameObject.tag == "Enemy")
+    //    if (other.gameObject.name == "Player")
     //    {
-    //        if (other.GetComponent<NavMeshAgent>().enabled == false)
-    //        {
-    //            other.GetComponent<NavMeshAgent>().enabled = true;
-    //            other.GetComponent<GameObjectEntity>().enabled = true;
-    //        }
+    //        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     //    }
     //}
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.name == "Player")
+        {
+           SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
+    }
 }
