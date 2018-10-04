@@ -36,7 +36,7 @@ public class PlatformActivatorComponent : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit, 20F))
         {
-            if (hit.collider.name == "Reflector")
+            if (hit.collider.tag == "Reflector") 
             {
                 if (LightInstance == null)
                 {
