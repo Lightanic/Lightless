@@ -11,10 +11,31 @@ public class InputComponent : MonoBehaviour {
     private int GamepadIndex;
     public XGamepad Gamepad;    // = new XGamepad(index);
 
+    public GameObject Pause;
+    PauseMenu pauseMenu = null;
+
     private void Start()
     {
         GamepadIndex = (int)PlayerNumber;
         Gamepad = new XGamepad(GamepadIndex);
+        pauseMenu = Pause.GetComponent<PauseMenu>();
+    }
+
+    private void Update()
+    {
+        if (Gamepad.GetButtonDown("Back"))
+        {
+            if (PauseMenu.isPaused)
+            {
+                if (pauseMenu != null)
+                    pauseMenu.Resume();
+            }
+            else
+            {
+                if(pauseMenu != null)
+                    pauseMenu.Pause();
+            }
+        }
     }
 
     /// <summary>

@@ -2,8 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
 
 public class PauseMenu : MonoBehaviour {
+
+    public EventSystem eventSystem;
+    public GameObject selectedObject;
+
+    bool buttonSelected = false;
 
     //pause check
     public static bool isPaused = false;
@@ -24,9 +30,20 @@ public class PauseMenu : MonoBehaviour {
                 Pause();
             }
         }
-	}
 
-    void Pause()
+        if (Input.GetAxisRaw("Horizontal") != 0 && buttonSelected == false)
+        {
+            eventSystem.SetSelectedGameObject(selectedObject);
+            buttonSelected = true;
+        }
+    }
+
+    private void OnDisable()
+    {
+        buttonSelected = false;
+    }
+
+    public void Pause()
     {
         Hud.SetActive(false);
         pauseMenuUI.SetActive(true);
