@@ -15,6 +15,16 @@ public class FireSystem : ComponentSystem
         public Transform Transform;
     }
 
+    /// <summary>
+    /// Player data
+    /// </summary>
+    private struct Player
+    {
+        readonly public int Length;
+        public ComponentArray<InputComponent> InputComponents;
+    }
+    [Inject] private Player playerData;
+
     protected override void OnUpdate()
     {
         var entities = GetEntities<Group>();
@@ -26,7 +36,7 @@ public class FireSystem : ComponentSystem
             bool isPlayerClose = IsPlayerClose(points.ToArray(), entity.Transform.position, entity.Fire.OilTrailDistanceThreshold);
 
             // Allow burning of oil on ground only if player there is oil to burn and player is close to oil trail
-            if (Input.GetKeyDown(KeyCode.F) && points.Count > 0 && isPlayerClose) 
+            if (playerData.InputComponents[0].Control("LightFire") && points.Count > 0 && isPlayerClose) 
             {
                 entity.Fire.IsFireStopped = false;
                 entity.OilTrail.LineRenderer.positionCount = 0;

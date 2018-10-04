@@ -25,4 +25,14 @@ public class Pickup : InteractableComponent {
     {
         gameObject.SetActive(true);
     }
+
+
+    /// <summary>
+    /// Draw radius on scene
+    /// </summary>
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.white;
+        Gizmos.DrawWireSphere(transform.position, InteractDistance);
+    }
 }
