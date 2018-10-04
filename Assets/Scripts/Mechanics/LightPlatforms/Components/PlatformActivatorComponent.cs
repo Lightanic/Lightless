@@ -12,6 +12,7 @@ public class PlatformActivatorComponent : MonoBehaviour
     public bool ShouldBeDestroyed = false;
     public bool ShouldCreateLightInstance = false;
     public LightComponent Switch;
+    public bool IsReflected = false;
 
     private void Update()
     {
@@ -51,6 +52,7 @@ public class PlatformActivatorComponent : MonoBehaviour
                 if (LightInstance == null)
                 {
                     LightInstance = Instantiate(ReflectionLightPrefab, hit.point, hit.transform.rotation);
+                    LightInstance.GetComponent<PlatformActivatorComponent>().IsReflected = true;
                 }
                 else
                 {
