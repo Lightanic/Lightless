@@ -15,6 +15,7 @@ public class PauseMenu : MonoBehaviour {
     public static bool isPaused = false;
     public GameObject pauseMenuUI;
     [SerializeField] GameObject Hud;
+    [SerializeField] GameObject EndScreen;
 
     // Update is called once per frame
     void Update ()
@@ -46,17 +47,18 @@ public class PauseMenu : MonoBehaviour {
     public void Pause()
     {
         Hud.SetActive(false);
+        EndScreen.SetActive(false);
         pauseMenuUI.SetActive(true);
         Time.timeScale = 0f;
         isPaused = true;
 
     }
-
-
+    
     public void Resume()
     {
         
         Hud.SetActive(true);
+        EndScreen.SetActive(false);
         pauseMenuUI.SetActive(false);
         Time.timeScale = 1f;
         isPaused = false;
