@@ -21,13 +21,13 @@ GameObject:
   - component: {fileID: 4804315873042888}
   - component: {fileID: 95620171582537786}
   - component: {fileID: 114646341764035942}
-  - component: {fileID: 54691814028796708}
   - component: {fileID: 65269355277204228}
   - component: {fileID: 114284890150727138}
   - component: {fileID: 114401273929052756}
-  - component: {fileID: 195332906661931458}
   - component: {fileID: 114909720299175966}
   - component: {fileID: 114655250493184786}
+  - component: {fileID: 54262383467565968}
+  - component: {fileID: 195693418935234146}
   m_Layer: 0
   m_Name: Runner
   m_TagString: Enemy
@@ -600,7 +600,7 @@ Transform:
   m_Father: {fileID: 4514115045019154}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!54 &54691814028796708
+--- !u!54 &54262383467565968
 Rigidbody:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -667,7 +667,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80f7d2fd1671c4d489efe25c918d7e69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Agent: {fileID: 195332906661931458}
+  Agent: {fileID: 0}
 --- !u!114 &114646341764035942
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -764,7 +764,7 @@ SkinnedMeshRenderer:
     m_Center: {x: -0.304778, y: -0.06042856, z: -0.00000011920929}
     m_Extent: {x: 0.5782651, y: 0.5841364, z: 0.6601772}
   m_DirtyAABB: 0
---- !u!195 &195332906661931458
+--- !u!195 &195693418935234146
 NavMeshAgent:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}

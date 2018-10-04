@@ -23,8 +23,8 @@ GameObject:
   - component: {fileID: 23934741431990202}
   - component: {fileID: 65429686513741962}
   - component: {fileID: 114803459859811668}
-  - component: {fileID: 114426115700589732}
   - component: {fileID: 114481490228996250}
+  - component: {fileID: 114946229667586308}
   m_Layer: 0
   m_Name: LightActivatedPlatformPrefab
   m_TagString: LightActivatedPlatform
@@ -99,23 +99,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &114426115700589732
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1053742342146324}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 53efc560c632ea94488d149ab78347ec, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  StartPosition: {x: 0, y: 0, z: 0}
-  ActivatedPosition: {x: -108.0242, y: 12.48, z: -25.42308}
-  IsActivated: 0
-  ActivationTime: 4
-  CurrentTime: 0
-  MoveSpeed: 3
 --- !u!114 &114481490228996250
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -140,3 +123,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bf10cdea1344482e91a4f2b58506b77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114946229667586308
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1053742342146324}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53efc560c632ea94488d149ab78347ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  StartPosition: {x: 0, y: 0, z: 0}
+  ActivatedPosition: {x: 0, y: 0, z: 0}
+  IsActivated: 0
+  ActivationTime: 4
+  CurrentTime: 0
+  MoveSpeed: 3
