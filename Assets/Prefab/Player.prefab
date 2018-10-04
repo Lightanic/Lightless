@@ -958,7 +958,8 @@ GameObject:
   - component: {fileID: 114739258100115760}
   - component: {fileID: 114060102430485816}
   - component: {fileID: 135631009370802112}
-  - component: {fileID: 114610888012010506}
+  - component: {fileID: 114482601634398634}
+  - component: {fileID: 114457777909748862}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -2645,19 +2646,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bf10cdea1344482e91a4f2b58506b77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114578092798875492
+--- !u!114 &114457777909748862
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1418419202447732}
+  m_GameObject: {fileID: 1683573350958196}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: -1200242548, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Script: {fileID: 11500000, guid: a6bed5dda813f434ebc3fe6c337bd117, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ShowMaskGraphic: 0
---- !u!114 &114610888012010506
+  FirePrefab: {fileID: 1947403148494762, guid: 4f2aa3e786613684d8fe2ebc31862b69, type: 2}
+  Instances: []
+  TotalFireTime: 6
+  CurrentFireTime: 0
+  IsFireStopped: 1
+  OilTrailDistanceThreshold: 3.2
+--- !u!114 &114482601634398634
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2672,6 +2678,18 @@ MonoBehaviour:
   isWalking: 0
   isSlowWalking: 0
   isRunning: 0
+--- !u!114 &114578092798875492
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1418419202447732}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1200242548, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ShowMaskGraphic: 0
 --- !u!114 &114689349688308342
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2696,10 +2714,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 363741b6ec479e848887878afb22e170, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerNumber: 2
+  PlayerNumber: 1
   Horizontal: 0
   Vertical: 0
-  Pause: {fileID: 0}
 --- !u!114 &114815350952351720
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2715,7 +2732,7 @@ MonoBehaviour:
   SPRINT_SPEED: 9
   MAX_STAMINA: 5
   DODGE_SPEED: 80
-  DodgeMultiplier: 100
+  DodgeMultiplier: 50
   isSprinting: 0
   isDodging: 0
   Speed: 2

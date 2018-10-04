@@ -36,8 +36,8 @@ public class PlatformActivationSystem : ComponentSystem
             var origin = lightTransform.position;
             var direction = lightTransform.forward;
 
-
-            commands[i] = new RaycastCommand(origin, direction, activator.MaxActivationDistance);
+            if (Light.Activator[i].Switch.LightIsOn)
+                commands[i] = new RaycastCommand(origin, direction, activator.MaxActivationDistance);
         }
 
         var handle = RaycastCommand.ScheduleBatch(commands, results, 1);
@@ -45,6 +45,7 @@ public class PlatformActivationSystem : ComponentSystem
 
         for (int i = 0; i < Light.Length; ++i)
         {
+            var isReflected = Light.Activator[i].IsReflected;
             var activationTime = Light.ActivationTime[i];
             RaycastHit hit = results[i];
 
@@ -54,7 +55,16 @@ public class PlatformActivationSystem : ComponentSystem
             }
             else
             {
-                activationTime.CurrentTime = 0F; // Reset current time if light is not shining on platform. 
+                
+
+                if (hit.collider != null && hit.collider.tag == "ReflectionActivatedPlatform" && isReflected)
+                {
+                    ActivatePlatform(hit.collider.gameObject, activationTime);
+                }
+                else
+                {
+                    activationTime.CurrentTime = 0F; // Reset current time if light is not shining on platform. 
+                }
             }
         }
 

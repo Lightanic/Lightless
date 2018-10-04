@@ -11,9 +11,14 @@ public class FireSystem : ComponentSystem
     private struct Group
     {
         public FireComponent Fire;
-        public OilTrailComponent OilTrail;
         public Transform Transform;
     }
+
+    private struct OilCanInstanceGroup
+    {
+        public ComponentArray<OilTrailComponent> OilTrail;
+    }
+    [Inject] private OilCanInstanceGroup OilCanInstance;
 
     /// <summary>
     /// Player data
@@ -27,31 +32,41 @@ public class FireSystem : ComponentSystem
 
     protected override void OnUpdate()
     {
+
         var entities = GetEntities<Group>();
         foreach (var entity in entities)
         {
-            var firePrefab = entity.Fire.FirePrefab;
-            var points = entity.OilTrail.TrailPoints;
             HandleFireInstances(entity);
-            bool isPlayerClose = IsPlayerClose(points.ToArray(), entity.Transform.position, entity.Fire.OilTrailDistanceThreshold);
-
-            // Allow burning of oil on ground only if player there is oil to burn and player is close to oil trail
-            if (playerData.InputComponents[0].Control("LightFire") && points.Count > 0 && isPlayerClose) 
+        }
+        if (OilCanInstance.OilTrail.Length > 0)
+        {
+            var oilTrail = OilCanInstance.OilTrail[0];
+            foreach (var entity in entities)
             {
-                entity.Fire.IsFireStopped = false;
-                entity.OilTrail.LineRenderer.positionCount = 0;
-                entity.OilTrail.CurrentTrailCount = 0;
-                foreach (var point in points)
-                {
-                    var pos = point;
-                    pos.x += 0.2F;
-                    var instance = Object.Instantiate(firePrefab, pos, new Quaternion());
-                    entity.Fire.Instances.Add(instance);
-                }
+                var firePrefab = entity.Fire.FirePrefab;
+                var points = oilTrail.TrailPoints;
 
-                entity.OilTrail.TrailPoints.Clear(); //Clear out Oil Trail Component once fire has been instantiated. 
+                bool isPlayerClose = IsPlayerClose(points.ToArray(), entity.Transform.position, entity.Fire.OilTrailDistanceThreshold);
+
+                // Allow burning of oil on ground only if player there is oil to burn and player is close to oil trail
+                if (playerData.InputComponents[0].Control("LightFire") && points.Count > 0 && isPlayerClose)
+                {
+                    entity.Fire.IsFireStopped = false;
+                    oilTrail.LineRenderer.positionCount = 0;
+                    oilTrail.CurrentTrailCount = 0;
+                    foreach (var point in points)
+                    {
+                        var pos = point;
+                        pos.x += 0.2F;
+                        var instance = Object.Instantiate(firePrefab, pos, new Quaternion());
+                        entity.Fire.Instances.Add(instance);
+                    }
+
+                    oilTrail.TrailPoints.Clear(); //Clear out Oil Trail Component once fire has been instantiated. 
+                }
             }
         }
+
     }
 
     /// <summary>
