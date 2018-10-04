@@ -42,6 +42,8 @@ GameObject:
   - component: {fileID: 114057890288711916}
   - component: {fileID: 114719580673255774}
   - component: {fileID: 114656144453012798}
+  - component: {fileID: 114094315733191522}
+  - component: {fileID: 114214625948271610}
   m_Layer: 0
   m_Name: lamp
   m_TagString: Untagged
@@ -443,6 +445,33 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   LightIsOn: 1
+--- !u!114 &114094315733191522
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1161126618801720}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55c23681836e1b249b28ff7cff1cf270, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  item: {fileID: 11400000, guid: 163c26792b2bb86478d2f1f67700265f, type: 2}
+  AddToInventory: 0
+  RemoveFromInventory: 0
+--- !u!114 &114214625948271610
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1161126618801720}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12a71fe4ef9792b4dbdc0909dd6ff772, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Canvas: {fileID: 0}
+  offsetHeight: 1
 --- !u!114 &114348469637634294
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -454,7 +483,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94eb196b37b4d6444981d208e8bce47c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsInteractable: 1
+  IsInteractable: 0
   IsInteracting: 0
   InteractDistance: 4
   IsEquiped: 0

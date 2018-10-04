@@ -45,6 +45,20 @@ public class PickupSystem : ComponentSystem {
         public Lantern lantern;
     }
 
+
+    /// <summary>
+    /// Entities taht can be picked up
+    /// </summary>
+    private struct PickupUI
+    {
+        public Transform Transform;
+        public Pickup PickItem;
+        public InteractUIComponent tooltips;
+        public InventoryItemComponent InventoryItem;
+    }
+
+    bool uiEnabled = false;
+
     /// <summary>
     /// Pick an item up and add it to the inventory
     /// </summary>
@@ -82,6 +96,22 @@ public class PickupSystem : ComponentSystem {
                 entity.lantern.EquipRightHand();
             }
         }
+
+        foreach(var entity in GetEntities<PickupUI>())
+        {
+            if ((Vector3.Distance(playerPos, entity.Transform.position) <= entity.PickItem.InteractDistance) && entity.PickItem.IsEquiped != true)
+            {
+                entity.tooltips.RePosition(entity.Transform.position);
+                entity.tooltips.ToggleOn(entity.InventoryItem.item.PopupIcon);
+                uiEnabled = true;
+            }
+            else if(!uiEnabled)
+            {
+                entity.tooltips.ToggleOff();
+            }
+        }
+
+        uiEnabled = false;
     }
 
 }
