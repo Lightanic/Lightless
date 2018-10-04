@@ -13,9 +13,11 @@ public class PlatformActivatorComponent : MonoBehaviour
     public bool ShouldCreateLightInstance = false;
     public LightComponent Switch;
     public bool IsReflected = false;
+    public GameObject PrevInstance = null;
 
     private void Update()
     {
+
         if (!Switch.LightIsOn)
         {
             if (LightInstance != null)
@@ -24,6 +26,16 @@ public class PlatformActivatorComponent : MonoBehaviour
                 LightInstance = null;
             }
             return;
+        }
+
+        if (IsReflected && !Switch.LightIsOn)
+        {
+            LightInstance.GetComponent<PlatformActivatorComponent>().PrevInstance = null;
+        }
+
+        if(IsReflected && PrevInstance == null)
+        {
+            Destroy(gameObject);
         }
         //if(ShouldCreateLightInstance && LightInstance == null)
         //{
@@ -53,6 +65,8 @@ public class PlatformActivatorComponent : MonoBehaviour
                 {
                     LightInstance = Instantiate(ReflectionLightPrefab, hit.point, hit.transform.rotation);
                     LightInstance.GetComponent<PlatformActivatorComponent>().IsReflected = true;
+                    LightInstance.GetComponent<PlatformActivatorComponent>().PrevInstance = gameObject;
+                    //LightInstance.GetComponent<PlatformActivatorComponent>().MainInstance = MainInstance;
                 }
                 else
                 {
