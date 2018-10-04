@@ -11,10 +11,31 @@ public class InputComponent : MonoBehaviour {
     private int GamepadIndex;
     public XGamepad Gamepad;    // = new XGamepad(index);
 
+    public GameObject Pause;
+    PauseMenu pauseMenu = null;
+
     private void Start()
     {
         GamepadIndex = (int)PlayerNumber;
         Gamepad = new XGamepad(GamepadIndex);
+        pauseMenu = Pause.GetComponent<PauseMenu>();
+    }
+
+    private void Update()
+    {
+        if (Gamepad.GetButtonDown("Back"))
+        {
+            if (PauseMenu.isPaused)
+            {
+                if (pauseMenu != null)
+                    pauseMenu.Resume();
+            }
+            else
+            {
+                if(pauseMenu != null)
+                    pauseMenu.Pause();
+            }
+        }
     }
 
     /// <summary>
@@ -338,16 +359,18 @@ public class InputComponent : MonoBehaviour {
         switch(key)
         {
             case "Interact":
-                statusGamepad = this.Gamepad.GetButtonDown("B");
+                statusGamepad = this.Gamepad.GetButtonDown("X");
                 statusKb = Input.GetKeyDown(KeyCode.E);
                 break;
             case "DropItem":
-                statusGamepad = Gamepad.GetButtonDown("X");
+                statusGamepad = Gamepad.GetButtonDown("B");
                 statusKb = Input.GetKeyDown(KeyCode.G);
                 break;
             case "InventoryNext":
-                statusGamepad = Gamepad.GetButtonDown("DPad_Right");
-                statusKb = Input.GetKeyDown(KeyCode.RightArrow);
+                statusGamepad = Gamepad.GetButtonDown("DPad_Right") || Gamepad.GetButtonDown("DPad_Left");
+                statusKb = Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.LeftArrow);
+                var d = Input.GetAxis("Mouse ScrollWheel");
+                if (d > 0 || d < 0) statusKb = true;
                 break;
             case "Dodge":
                 statusGamepad = this.Gamepad.GetButtonDown("A");
@@ -356,6 +379,22 @@ public class InputComponent : MonoBehaviour {
             case "Sprint":
                 statusGamepad = this.Gamepad.GetTriggerRight != 0 ;
                 statusKb = Input.GetKey(KeyCode.LeftShift);
+                break;
+            case "LeftLightToggle":
+                statusGamepad = this.Gamepad.GetButtonDown("LB");
+                statusKb = Input.GetMouseButtonDown(0);
+                break;
+            case "RightLightToggle":
+                statusGamepad = this.Gamepad.GetButtonDown("RB");
+                statusKb = Input.GetMouseButtonDown(1);
+                break;
+            case "LightFire":
+                statusGamepad = this.Gamepad.GetButtonDown("Y");
+                statusKb = Input.GetKeyDown(KeyCode.F);
+                break;
+            case "OilTrail":
+                statusGamepad = this.Gamepad.GetButton("X");
+                statusKb = Input.GetMouseButton(0);
                 break;
             default:
                 statusGamepad = false;

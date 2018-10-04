@@ -70,17 +70,17 @@ public class Inventory : ScriptableObject {
     [ContextMenu("Populate Items")]
     private void FindItems()
     {
-        string[] guids = UnityEditor.AssetDatabase.FindAssets("t:" + typeof(InventoryItem).Name);
+        //string[] guids = UnityEditor.AssetDatabase.FindAssets("t:" + typeof(InventoryItem).Name);
         
-        for (int i = 0; i < guids.Length; i++)
-        {
-            string path = UnityEditor.AssetDatabase.GUIDToAssetPath(guids[i]);
-            InventoryItem item = UnityEditor.AssetDatabase.LoadAssetAtPath<InventoryItem>(path);
-            Items.Add(item);
-            ItemNumber.Add(1);
-            item.GUID = guids[i];
-            UnityEditor.EditorUtility.SetDirty(this);
-        }
+        //for (int i = 0; i < guids.Length; i++)
+        //{
+        //    string path = UnityEditor.AssetDatabase.GUIDToAssetPath(guids[i]);
+        //    InventoryItem item = UnityEditor.AssetDatabase.LoadAssetAtPath<InventoryItem>(path);
+        //    Items.Add(item);
+        //    ItemNumber.Add(1);
+        //    item.GUID = guids[i];
+        //    UnityEditor.EditorUtility.SetDirty(this);
+        //}
     }
 
 }
