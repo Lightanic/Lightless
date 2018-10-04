@@ -21,10 +21,17 @@ public class PlayerRotationSystem : ComponentSystem {
         {
             if (InputManager.Instance.IsGamePadActive)
             {
-                GamePadRotation(entity);
+                if (entity.InputComponent.Gamepad.GetStick_R().X != 0 || entity.InputComponent.Gamepad.GetStick_R().Y != 0)
+                    GamePadRotationRightStick(entity);
+                else
+                {
+                    entity.RotationComponent.RotationSpeed = 5;
+                    GamePadRotation(entity);
+                }
             }
             else if (!InputManager.Instance.IsGamePadActive)
             {
+                entity.RotationComponent.RotationSpeed = 2;
                 GamePadRotation(entity);
             }
         }
@@ -58,5 +65,19 @@ public class PlayerRotationSystem : ComponentSystem {
                 rotation = Quaternion.LookRotation(forward, entity.Transform.up);                          // Rotate to forward direction
             rotation = Quaternion.Slerp(entity.Transform.rotation, rotation, Time.deltaTime * entity.RotationComponent.RotationSpeed);
             entity.RotationComponent.Rotation = new Quaternion(0, rotation.y, 0, rotation.w).normalized;   // Set rotation vector
+    }
+
+    /// <summary>
+    /// Rotate entity towards direction of motion
+    /// </summary>
+    /// <param name="entity"></param>
+    void GamePadRotationRightStick(Group entity)
+    {
+        entity.RotationComponent.RotationSpeed = 2;
+        forward = new Vector3(entity.InputComponent.Gamepad.GetStick_R().X, 0, entity.InputComponent.Gamepad.GetStick_R().Y);    // Get forward direction
+        if (forward != Vector3.zero)
+            rotation = Quaternion.LookRotation(forward, entity.Transform.up);                          // Rotate to forward direction
+        rotation = Quaternion.Slerp(entity.Transform.rotation, rotation, Time.deltaTime * entity.RotationComponent.RotationSpeed);
+        entity.RotationComponent.Rotation = new Quaternion(0, rotation.y, 0, rotation.w).normalized;   // Set rotation vector
     }
 }
