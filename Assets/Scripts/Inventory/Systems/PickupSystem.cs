@@ -45,6 +45,20 @@ public class PickupSystem : ComponentSystem {
         public Lantern lantern;
     }
 
+
+    /// <summary>
+    /// Entities taht can be picked up
+    /// </summary>
+    private struct PickupUI
+    {
+        public Transform Transform;
+        public Pickup PickItem;
+        public InteractUIComponent tooltips;
+        public InventoryItemComponent InventoryItem;
+    }
+
+    bool uiEnabled = false;
+
     /// <summary>
     /// Pick an item up and add it to the inventory
     /// </summary>
@@ -74,14 +88,40 @@ public class PickupSystem : ComponentSystem {
 
         foreach(var entity in GetEntities<LanternData>())
         {
-            if (Vector3.Distance(playerPos, entity.Transform.position) <= entity.PickItem.InteractDistance && (playerData.InputComponents[0].Control("Interact")))
+            if (Vector3.Distance(playerPos, entity.Transform.position) <= entity.PickItem.InteractDistance && entity.PickItem.IsEquiped != true)
+            {
+                entity.lantern.ShowtoolTip = true;
+                uiEnabled = true;
+            }
+            else
+            {
+                entity.lantern.ShowtoolTip = false;
+            }
+                if (Vector3.Distance(playerPos, entity.Transform.position) <= entity.PickItem.InteractDistance && (playerData.InputComponents[0].Control("Interact")))
             {
                 entity.PickItem.IsInteracting = true;
                 entity.PickItem.IsEquiped = true;   // equip to left hand
                 entity.PickItem.IsInteractable = false;
                 entity.lantern.EquipRightHand();
             }
+            entity.lantern.ToggleToolTip();
         }
+
+        foreach(var entity in GetEntities<PickupUI>())
+        {
+            if ((Vector3.Distance(playerPos, entity.Transform.position) <= entity.PickItem.InteractDistance) && entity.PickItem.IsEquiped != true)
+            {
+                entity.tooltips.RePosition(entity.Transform.position);
+                entity.tooltips.ToggleOn(entity.InventoryItem.item.PopupIcon);
+                uiEnabled = true;
+            }
+            else if(!uiEnabled)
+            {
+                entity.tooltips.ToggleOff();
+            }
+        }
+
+        uiEnabled = false;
     }
 
 }
