@@ -7,7 +7,7 @@ public class InteractUIComponent : MonoBehaviour {
 
     public GameObject Canvas;
     public float offsetHeight = 2.5f;
-    Sprite sprite = null;
+    public Sprite sprite = null;
 
 
     Quaternion rotation;
