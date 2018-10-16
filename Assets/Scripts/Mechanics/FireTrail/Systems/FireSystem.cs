@@ -38,6 +38,7 @@ public class FireSystem : ComponentSystem
         {
             HandleFireInstances(entity);
         }
+
         if (OilCanInstance.OilTrail.Length > 0)
         {
             var oilTrail = OilCanInstance.OilTrail[0];
