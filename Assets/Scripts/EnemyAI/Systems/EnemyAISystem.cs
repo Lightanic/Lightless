@@ -223,5 +223,11 @@ public class EnemyAISystem : ComponentSystem
 
     }
 
+    void Wander()
+    {
+        //random rotate
+        //move if isWalking is true
+    }
+
 
 }
