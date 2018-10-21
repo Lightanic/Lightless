@@ -4,16 +4,35 @@ using UnityEngine;
 
 public class EnemyStunComponent : MonoBehaviour
 {
+    public bool IsStunned = false;
+    public bool IsSeekingPlayer = false;
 
-	// Use this for initialization
-	void Start ()
+    private void OnTriggerStay(Collider other)
     {
-		
-	}
-	
-	// Update is called once per frame
-	void Update ()
+        if (other.gameObject.tag == "Flashlight")
+        {
+            IsStunned = true;
+            Debug.Log("You look stunning!");
+        }
+
+        else if (other.gameObject.tag == "Player")
+        {
+            IsSeekingPlayer = true;
+        }
+        //else
+        //{
+        //    IsStunned = false;
+        //}
+        
+
+    }
+    private void OnTriggerExit(Collider other)
     {
-		
-	}
+        if (other.gameObject.tag == "Flashlight")
+        {
+            IsStunned = false;
+            //Debug.Log("You look stunning!");
+        }
+    }
+
 }
