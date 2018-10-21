@@ -32,13 +32,7 @@ public class FireSystem : ComponentSystem
 
     protected override void OnUpdate()
     {
-
         var entities = GetEntities<Group>();
-        foreach (var entity in entities)
-        {
-            HandleFireInstances(entity);
-        }
-
         if (OilCanInstance.OilTrail.Length > 0)
         {
             var oilTrail = OilCanInstance.OilTrail[0];
@@ -94,41 +88,4 @@ public class FireSystem : ComponentSystem
         return (minDistance <= distanceThreshold);
     }
 
-    /// <summary>
-    /// Handles fire particle instances. Lets the fire particle systems run until time threshold. 
-    /// </summary>
-    /// <param name="entity"></param>
-    void HandleFireInstances(Group entity)
-    {
-        var fireComponent = entity.Fire;
-        var fireInstances = entity.Fire.Instances;
-        if (fireInstances.Count > 0)
-        {
-            if (fireComponent.IsFireStopped)
-            {
-                foreach (var instance in fireInstances)
-                {
-                    Object.Destroy(instance);
-                }
-
-                fireInstances.Clear();
-                fireComponent.CurrentFireTime = 0F;
-                return;
-            }
-
-            if (fireComponent.CurrentFireTime > fireComponent.TotalFireTime)
-            {
-                foreach (var instance in fireInstances)
-                {
-                    var particleSystem = instance.GetComponentInChildren<ParticleSystem>();
-                    var main = particleSystem.main;
-                    main.loop = false;
-                    if (particleSystem.isStopped)
-                        fireComponent.IsFireStopped = true;
-                }
-            }
-
-            fireComponent.CurrentFireTime += Time.deltaTime;
-        }
-    }
 }

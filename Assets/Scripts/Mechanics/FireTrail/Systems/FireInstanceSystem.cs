@@ -17,10 +17,33 @@ public class FireInstanceSystem : ComponentSystem
     protected override void OnUpdate()
     {
         var entities = GetEntities<Group>();
-        foreach(var entity in entities)
+        foreach (var entity in entities)
         {
-            Debug.Log("Test");
+            HandleFireInstance(entity);
         }
+        
+    }
+
+    /// <summary>
+    /// Handles fire particle instances. Lets the fire particle systems run until time threshold. 
+    /// </summary>
+    /// <param name="entity"></param>
+    private void HandleFireInstance(Group entity)
+    {
+        var particleSystem = entity.Transform.gameObject.GetComponentInChildren<ParticleSystem>();
+        var fireInstance = entity.FireInstance;
+        if (fireInstance.CurrentFireTime > fireInstance.TotalFireTime)
+        {
+            var main = particleSystem.main;
+            main.loop = false;
+        }
+
+        if (particleSystem.isStopped)
+        {
+            fireInstance.DestroyNextUpdate = true;
+        }
+
+        fireInstance.CurrentFireTime += Time.deltaTime;
     }
 }
 
