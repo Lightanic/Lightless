@@ -10,6 +10,7 @@ public class PlayerRotationSystem : ComponentSystem {
         public Transform Transform;
         public RotationComponent RotationComponent;
         public InputComponent InputComponent;
+        public SpeedComponent speedCmp;
     }
     private RaycastHit hit;
     private Quaternion rotation;
@@ -25,13 +26,13 @@ public class PlayerRotationSystem : ComponentSystem {
                     GamePadRotationRightStick(entity);
                 else
                 {
-                    entity.RotationComponent.RotationSpeed = 5;
+                    entity.RotationComponent.RotationSpeed = entity.speedCmp.RotationSpeed;
                     GamePadRotation(entity);
                 }
             }
             else if (!InputManager.Instance.IsGamePadActive)
             {
-                entity.RotationComponent.RotationSpeed = 2;
+                entity.RotationComponent.RotationSpeed = entity.speedCmp.RotationFineControlSpeed;
                 GamePadRotation(entity);
             }
         }
@@ -73,7 +74,7 @@ public class PlayerRotationSystem : ComponentSystem {
     /// <param name="entity"></param>
     void GamePadRotationRightStick(Group entity)
     {
-        entity.RotationComponent.RotationSpeed = 2;
+        entity.RotationComponent.RotationSpeed = entity.speedCmp.RotationFineControlSpeed;
         forward = new Vector3(entity.InputComponent.Gamepad.GetStick_R().X, 0, entity.InputComponent.Gamepad.GetStick_R().Y);    // Get forward direction
         if (forward != Vector3.zero)
             rotation = Quaternion.LookRotation(forward, entity.Transform.up);                          // Rotate to forward direction
