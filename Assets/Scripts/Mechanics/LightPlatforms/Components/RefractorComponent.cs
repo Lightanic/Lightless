@@ -14,8 +14,8 @@ public class RefractorComponent : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
-
+	void Update ()
+    {
 
         Ray ray = new Ray(transform.position, transform.forward);
         Ray ray1 = new Ray(transform.position + transform.right * 0.1F, transform.forward);
@@ -28,24 +28,28 @@ public class RefractorComponent : MonoBehaviour {
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit, 20F) && Switch.LightIsOn)
         {
-            if (hit.collider.tag == "Refractor")
+            if (hit.collider.tag == "Refractor" && Switch.LightIsOn)
             {
+                var hitPoint = hit.point;
+                hitPoint = hitPoint + ray.direction * 1.5F;
                 if (LightInstance == null )
                 {
-                    LightInstance = Instantiate(ReflectionLightPrefab, hit.point, hit.transform.rotation);
+                    LightInstance = Instantiate(ReflectionLightPrefab, hitPoint, hit.transform.rotation);
                     LightInstance.GetComponent<PlatformActivatorComponent>().IsReflected = true;
                     LightInstance.GetComponent<PlatformActivatorComponent>().PrevInstance = gameObject;
                 }
                 else if (LightInstance != null)
                 {
-                    LightInstance.transform.position = hit.point;
+                    LightInstance.transform.position = hitPoint;
                 }
 
                 if (LightInstance != null)
                 {
-                    var point = hit.point;
+                    var point = hitPoint;
                     var normal = hit.transform.forward;
-                    var reflection = ray.direction - 2 * (Vector3.Dot(ray.direction, normal)) * normal;
+                    var refractionAngle = hit.transform.gameObject.GetComponent<RefractionAngleComponent>().RefractionAngle;
+                    var reflection = ray.direction + 2 * (Vector3.Dot(ray.direction, normal)) * normal;
+                    reflection = Quaternion.AngleAxis(refractionAngle, hit.transform.up) * reflection;
                     var lookTowardsPos = point + reflection * 2F;
                     LightInstance.transform.LookAt(lookTowardsPos);
                     Debug.DrawRay(point, reflection);
