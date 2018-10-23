@@ -105,17 +105,11 @@ public class EquipperSystem : ComponentSystem
                     lhInventoryItemComp.AddToInventory = true;
                     lhComponent.DropItem();
                 }
-                // Remove and equip item from inventory
-                if (++index > inventoryData.Inventory[0].PlayerInventory.Items.Count - 1)
-                    index = 0;
-
-
                 if (inventoryData.Inventory[0].PlayerInventory.Items.Count > 0)
                 {
-                    leftHandData.EquipComp[0].EquipItem(inventoryData.Inventory[0].PlayerInventory.Items[index].Prefab);
-                    inventoryData.Inventory[0].PlayerInventory.Remove(inventoryData.Inventory[0].PlayerInventory.Items[index]);
+                    leftHandData.EquipComp[0].EquipItem(inventoryData.Inventory[0].PlayerInventory.Items[0].Prefab);
+                    inventoryData.Inventory[0].PlayerInventory.Remove(inventoryData.Inventory[0].PlayerInventory.Items[0]);
                 }
-
             }
 
         }
@@ -125,22 +119,21 @@ public class EquipperSystem : ComponentSystem
         {
             lock (leftHandData.data[0])
             {
+
                 if (!lhComponent.isEmpty && lhDataEquipCompPickup != null && lhInventoryItemComp != null)
                 {
-                    //Add Item to the inventory
+                    //Add Item to the top of the inventory
                     Debug.Log("Index " + index);
                     lhDataEquipCompPickup.IsEquiped = false;
-                    lhInventoryItemComp.AddToInventory = true;
+                    lhInventoryItemComp.AddToInventory = false; // add to back of inventory
+                    lhInventoryItemComp.AddToInventoryTop = true; // add to the top of th einventory
                     lhComponent.DropItem();
                 }
-                // Remove and equip item from inventory
-                if (--index < 0)
-                    index = inventoryData.Inventory[0].PlayerInventory.Items.Count -1;
-
+                // Remove and equip item at the back of the inventory
                 if (inventoryData.Inventory[0].PlayerInventory.Items.Count > 0)
                 {
-                    leftHandData.EquipComp[0].EquipItem(inventoryData.Inventory[0].PlayerInventory.Items[index].Prefab);
-                    inventoryData.Inventory[0].PlayerInventory.Remove(inventoryData.Inventory[0].PlayerInventory.Items[index]);
+                    leftHandData.EquipComp[0].EquipItem(inventoryData.Inventory[0].PlayerInventory.Items[inventoryData.Inventory[0].PlayerInventory.Items.Count - 1].Prefab);
+                    inventoryData.Inventory[0].PlayerInventory.Remove(inventoryData.Inventory[0].PlayerInventory.Items[inventoryData.Inventory[0].PlayerInventory.Items.Count - 1]);
                 }
             }
 

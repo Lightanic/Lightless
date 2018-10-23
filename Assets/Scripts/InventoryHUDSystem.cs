@@ -75,8 +75,8 @@ public class InventoryHUDSystem : ComponentSystem {
         }
         if(items.Count > 1)
         {
-            slotData.Slot[0].SetLeftSlot(items[0].InventoryIcon);
-            slotData.Slot[0].SetRightSlot(items[items.Count - 1].InventoryIcon);
+            slotData.Slot[0].SetLeftSlot(items[items.Count - 1].InventoryIcon);
+            slotData.Slot[0].SetRightSlot(items[0].InventoryIcon);
         }
 
     }
