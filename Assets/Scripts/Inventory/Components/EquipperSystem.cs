@@ -100,7 +100,6 @@ public class EquipperSystem : ComponentSystem
                 if (!lhComponent.isEmpty && lhDataEquipCompPickup != null && lhInventoryItemComp != null)
                 {
                     //Add Item to the inventory
-                    //Debug.Log("Index " + index);
                     lhDataEquipCompPickup.IsEquiped = false;
                     lhInventoryItemComp.AddToInventory = true;
                     lhComponent.DropItem();
@@ -123,7 +122,6 @@ public class EquipperSystem : ComponentSystem
                 if (!lhComponent.isEmpty && lhDataEquipCompPickup != null && lhInventoryItemComp != null)
                 {
                     //Add Item to the top of the inventory
-                    Debug.Log("Index " + index);
                     lhDataEquipCompPickup.IsEquiped = false;
                     lhInventoryItemComp.AddToInventory = false; // add to back of inventory
                     lhInventoryItemComp.AddToInventoryTop = true; // add to the top of th einventory
