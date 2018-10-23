@@ -953,13 +953,13 @@ GameObject:
   - component: {fileID: 4114702672945740}
   - component: {fileID: 54069296495119812}
   - component: {fileID: 114846777130860958}
-  - component: {fileID: 114815350952351720}
-  - component: {fileID: 114689349688308342}
   - component: {fileID: 114739258100115760}
   - component: {fileID: 114060102430485816}
   - component: {fileID: 135631009370802112}
   - component: {fileID: 114482601634398634}
   - component: {fileID: 114457777909748862}
+  - component: {fileID: 114815350952351720}
+  - component: {fileID: 114689047973507034}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -2566,7 +2566,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 057ae77a62ec1ed458d88605ec8df517, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 76d665f1f207ce34d943f245856887bc, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2690,7 +2690,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ShowMaskGraphic: 0
---- !u!114 &114689349688308342
+--- !u!114 &114689047973507034
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2698,11 +2698,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1683573350958196}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 29e28497606996543b60409c3f7ea47d, type: 3}
+  m_Script: {fileID: 11500000, guid: b8b55961f435d5840a271d754706848a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Rotation: {x: 0, y: 0, z: 0, w: 0}
-  RotationSpeed: 10
+  RotationSpeed: 2
 --- !u!114 &114739258100115760
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2717,6 +2717,7 @@ MonoBehaviour:
   PlayerNumber: 1
   Horizontal: 0
   Vertical: 0
+  Pause: {fileID: 0}
 --- !u!114 &114815350952351720
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2733,6 +2734,8 @@ MonoBehaviour:
   MAX_STAMINA: 5
   DODGE_SPEED: 80
   DodgeMultiplier: 50
+  RotationSpeed: 10
+  RotationFineControlSpeed: 2
   isSprinting: 0
   isDodging: 0
   Speed: 2
@@ -2792,7 +2795,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 057ae77a62ec1ed458d88605ec8df517, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 76d665f1f207ce34d943f245856887bc, type: 3}
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3099,7 +3102,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_AdditionalShaderChannelsFlag: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0

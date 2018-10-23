@@ -8,7 +8,7 @@ public class PlayerRotationSystem : ComponentSystem {
     private struct Group
     {
         public Transform Transform;
-        public RotationComponent RotationComponent;
+        public RotationComponentLightless RotationComponent;
         public InputComponent InputComponent;
         public SpeedComponent speedCmp;
     }
