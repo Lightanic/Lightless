@@ -53,6 +53,15 @@ public class EquipperSystem : ComponentSystem
 
     int index = 0;       //  used to cycle through the inventory
 
+    struct InventoryHUD
+    {
+        readonly public int Length;
+        public ComponentArray<InventoryHUDComponent> Slot;
+    }
+
+    [Inject] private InventoryHUD slotData;
+    InventoryItem leftItem = null;
+    InventoryItem rightItem = null;
     /// <summary>
     /// Equip and unequip items from the inventory
     /// Cycle through the inventory items
@@ -91,7 +100,7 @@ public class EquipperSystem : ComponentSystem
                 if (!lhComponent.isEmpty && lhDataEquipCompPickup != null && lhInventoryItemComp != null)
                 {
                     //Add Item to the inventory
-                    Debug.Log("Index " + index);
+                    //Debug.Log("Index " + index);
                     lhDataEquipCompPickup.IsEquiped = false;
                     lhInventoryItemComp.AddToInventory = true;
                     lhComponent.DropItem();
@@ -100,11 +109,13 @@ public class EquipperSystem : ComponentSystem
                 if (++index > inventoryData.Inventory[0].PlayerInventory.Items.Count - 1)
                     index = 0;
 
+
                 if (inventoryData.Inventory[0].PlayerInventory.Items.Count > 0)
                 {
                     leftHandData.EquipComp[0].EquipItem(inventoryData.Inventory[0].PlayerInventory.Items[index].Prefab);
                     inventoryData.Inventory[0].PlayerInventory.Remove(inventoryData.Inventory[0].PlayerInventory.Items[index]);
                 }
+
             }
 
         }
