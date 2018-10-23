@@ -6,15 +6,17 @@ public class DeathController : MonoBehaviour
 {
 
     public bool IsDead = false;
+    public bool StopEffect = false;
     public Shader DissolveShader;
     public float DeathTime = 2.0F;
     public AnimationCurve fadeIn;
-
+    public GameObject DissolvePrefab;
     ParticleSystem particleEffect;
     Renderer enemyRenderer;
     int shaderProperty;
     float timer = 0F;
-
+    Material dissolveMatProperties;
+    bool isMaterialSet = false;
     void Start()
     {
         shaderProperty = Shader.PropertyToID("_cutoff");
@@ -24,15 +26,23 @@ public class DeathController : MonoBehaviour
 
         var main = particleEffect.main;
         main.duration = DeathTime;
+        var dissolveObject = Instantiate(DissolvePrefab);
+        dissolveMatProperties = dissolveObject.GetComponent<Renderer>().material;
+        Destroy(dissolveObject);
     }
 
     void Update()
     {
-        if(IsDead)
+        if(IsDead && !StopEffect)
         {
+            if(!isMaterialSet)
+            {
+                GetComponent<Renderer>().material.CopyPropertiesFromMaterial(dissolveMatProperties);
+            }
+
             if (timer > DeathTime + 1)
             {
-                Destroy(gameObject);
+                StopEffect = true;
             }
 
             if (!particleEffect.isPlaying)
