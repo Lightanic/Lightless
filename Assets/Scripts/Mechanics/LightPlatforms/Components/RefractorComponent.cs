@@ -2,19 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RefractorComponent : MonoBehaviour {
+public class RefractorComponent : MonoBehaviour
+{
 
     public GameObject ReflectionLightPrefab;
     public GameObject LightInstance = null;
     public LightComponent Switch;
 
     // Use this for initialization
-    void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update ()
+    void Start()
+    {
+
+    }
+
+    // Update is called once per frame
+    void Update()
     {
 
         Ray ray = new Ray(transform.position, transform.forward);
@@ -32,7 +34,7 @@ public class RefractorComponent : MonoBehaviour {
             {
                 var hitPoint = hit.point;
                 hitPoint = hitPoint + ray.direction * 1.5F;
-                if (LightInstance == null )
+                if (LightInstance == null)
                 {
                     LightInstance = Instantiate(ReflectionLightPrefab, hitPoint, hit.transform.rotation);
                     LightInstance.GetComponent<PlatformActivatorComponent>().IsReflected = true;
@@ -48,11 +50,18 @@ public class RefractorComponent : MonoBehaviour {
                     var point = hitPoint;
                     var normal = hit.transform.forward;
                     var refractionAngle = hit.transform.gameObject.GetComponent<RefractionAngleComponent>().RefractionAngle;
+                    var splitCount = hit.transform.gameObject.GetComponent<RefractionAngleComponent>().SplitCount;
                     var reflection = ray.direction + 2 * (Vector3.Dot(ray.direction, normal)) * normal;
                     reflection = Quaternion.AngleAxis(refractionAngle, hit.transform.up) * reflection;
                     var lookTowardsPos = point + reflection * 2F;
                     LightInstance.transform.LookAt(lookTowardsPos);
                     Debug.DrawRay(point, reflection);
+                    var oppAngle = Mathf.Abs(refractionAngle) - 90F;
+                    for (int i = 1; i < splitCount; ++i)
+                    {
+                        var angle = refractionAngle - i * refractionAngle / splitCount;
+                        Debug.Log(i + " " + angle);
+                    }
                 }
 
             }
