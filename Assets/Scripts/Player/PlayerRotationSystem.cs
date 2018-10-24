@@ -8,8 +8,9 @@ public class PlayerRotationSystem : ComponentSystem {
     private struct Group
     {
         public Transform Transform;
-        public RotationComponent RotationComponent;
+        public RotationComponentLightless RotationComponent;
         public InputComponent InputComponent;
+        public SpeedComponent speedCmp;
     }
     private RaycastHit hit;
     private Quaternion rotation;
@@ -19,20 +20,23 @@ public class PlayerRotationSystem : ComponentSystem {
     {
         foreach(var entity in GetEntities<Group>())
         {
-            if (InputManager.Instance.IsGamePadActive)
+            if (entity.RotationComponent.EnablePlayerRotation)
             {
-                if (entity.InputComponent.Gamepad.GetStick_R().X != 0 || entity.InputComponent.Gamepad.GetStick_R().Y != 0)
-                    GamePadRotationRightStick(entity);
-                else
+                if (InputManager.Instance.IsGamePadActive)
                 {
-                    entity.RotationComponent.RotationSpeed = 5;
+                    if (entity.InputComponent.Gamepad.GetStick_R().X != 0 || entity.InputComponent.Gamepad.GetStick_R().Y != 0)
+                        GamePadRotationRightStick(entity);
+                    else
+                    {
+                        entity.RotationComponent.RotationSpeed = entity.speedCmp.RotationSpeed;
+                        GamePadRotation(entity);
+                    }
+                }
+                else if (!InputManager.Instance.IsGamePadActive)
+                {
+                    entity.RotationComponent.RotationSpeed = entity.speedCmp.RotationFineControlSpeed;
                     GamePadRotation(entity);
                 }
-            }
-            else if (!InputManager.Instance.IsGamePadActive)
-            {
-                entity.RotationComponent.RotationSpeed = 2;
-                GamePadRotation(entity);
             }
         }
     }
@@ -73,7 +77,7 @@ public class PlayerRotationSystem : ComponentSystem {
     /// <param name="entity"></param>
     void GamePadRotationRightStick(Group entity)
     {
-        entity.RotationComponent.RotationSpeed = 2;
+        entity.RotationComponent.RotationSpeed = entity.speedCmp.RotationFineControlSpeed;
         forward = new Vector3(entity.InputComponent.Gamepad.GetStick_R().X, 0, entity.InputComponent.Gamepad.GetStick_R().Y);    // Get forward direction
         if (forward != Vector3.zero)
             rotation = Quaternion.LookRotation(forward, entity.Transform.up);                          // Rotate to forward direction

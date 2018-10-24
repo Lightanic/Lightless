@@ -46,6 +46,26 @@ public class Inventory : ScriptableObject {
     }
 
     /// <summary>
+    /// Add an instance of an item to the top inventory
+    /// </summary>
+    /// <param name="item"></param>
+    public void AddTop(InventoryItem item)
+    {
+        if (!Items.Contains(item))
+        {
+            //Add item
+            Items.Insert(0,item);
+            ItemNumber.Insert(0,1);
+            //ItemsDictonary.Add(Items[Items.Count - 1].GUID, Items[Items.Count - 1]);
+        }
+        else
+        {
+            int index = Items.IndexOf(item);
+            ++ItemNumber[index];
+        }
+    }
+
+    /// <summary>
     /// Removes an instance of an item in the inventory
     /// If the same item is present multiple times then remove one item
     /// </summary>
