@@ -17,6 +17,7 @@ public class MoveableSystem : ComponentSystem
     {
         public readonly int Length;
         public ComponentArray<InputComponent> Input;
+        public ComponentArray<Transform> Transform;
     }
 
     [Inject]
@@ -25,6 +26,7 @@ public class MoveableSystem : ComponentSystem
     protected override void OnUpdate()
     {
         var input = Player.Input[0];
+        var player = Player.Transform[0];
         var entities = GetEntities<Group>();
         foreach (var entity in entities)
         {
@@ -38,6 +40,21 @@ public class MoveableSystem : ComponentSystem
             else if (input.Horizontal < 0F)
             {
                 target = entity.Platform.PointA;
+            }
+
+            if(input.Control("Interacting"))
+            {
+                var distance = Vector3.Distance(entity.Transform.position, player.position);
+                if(distance<3)
+                {
+                    entity.Platform.IsSelected = true;
+                    input.EnablePlayerMovement = false;
+                }
+            }
+            else
+            {
+                entity.Platform.IsSelected = false;
+                input.EnablePlayerMovement = true;
             }
 
             if (entity.Platform.IsSelected)
