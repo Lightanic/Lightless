@@ -20,20 +20,23 @@ public class PlayerRotationSystem : ComponentSystem {
     {
         foreach(var entity in GetEntities<Group>())
         {
-            if (InputManager.Instance.IsGamePadActive)
+            if (entity.RotationComponent.EnablePlayerRotation)
             {
-                if (entity.InputComponent.Gamepad.GetStick_R().X != 0 || entity.InputComponent.Gamepad.GetStick_R().Y != 0)
-                    GamePadRotationRightStick(entity);
-                else
+                if (InputManager.Instance.IsGamePadActive)
                 {
-                    entity.RotationComponent.RotationSpeed = entity.speedCmp.RotationSpeed;
+                    if (entity.InputComponent.Gamepad.GetStick_R().X != 0 || entity.InputComponent.Gamepad.GetStick_R().Y != 0)
+                        GamePadRotationRightStick(entity);
+                    else
+                    {
+                        entity.RotationComponent.RotationSpeed = entity.speedCmp.RotationSpeed;
+                        GamePadRotation(entity);
+                    }
+                }
+                else if (!InputManager.Instance.IsGamePadActive)
+                {
+                    entity.RotationComponent.RotationSpeed = entity.speedCmp.RotationFineControlSpeed;
                     GamePadRotation(entity);
                 }
-            }
-            else if (!InputManager.Instance.IsGamePadActive)
-            {
-                entity.RotationComponent.RotationSpeed = entity.speedCmp.RotationFineControlSpeed;
-                GamePadRotation(entity);
             }
         }
     }

@@ -402,6 +402,14 @@ public class InputComponent : MonoBehaviour {
                 statusGamepad = this.Gamepad.GetButton("X");
                 statusKb = Input.GetMouseButton(0);
                 break;
+            case "ThrowActive":
+                statusGamepad = this.Gamepad.GetTriggerLeft != 0;
+                statusKb = Input.GetKey(KeyCode.LeftControl);
+                break;
+            case "Throw":
+                statusGamepad = this.Gamepad.GetButton("X");
+                statusKb = Input.GetKeyDown(KeyCode.E);
+                break;
             default:
                 statusGamepad = false;
                 statusKb = false;

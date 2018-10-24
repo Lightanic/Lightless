@@ -6,6 +6,7 @@ class InventoryItemComponent : MonoBehaviour
     public bool AddToInventory = false;
     public bool RemoveFromInventory = false;
     public bool AddToInventoryTop = false;
+    public bool Throwable = false;
     private void Start()
     {
         if (item != null)
