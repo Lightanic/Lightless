@@ -42,6 +42,17 @@ class InventorySystem : ComponentSystem
             {
                 data.Inventory[0].PlayerInventory.Add(itemData.InventoryItem[i].item);
                 itemData.InventoryItem[i].AddToInventory = false;
+                itemData.InventoryItem[i].AddToInventoryTop = false;
+                itemData.PickItem[i].IsInteractable = false;
+                isPicked = true;                                                        // cannot destroy entitly while job is still running
+                pickedItem = itemData.PickItem[i];                                      // once an item is picked break from loop to remove the item
+                break;
+            }
+            else if(itemData.InventoryItem[i].AddToInventoryTop)
+            {
+                data.Inventory[0].PlayerInventory.AddTop(itemData.InventoryItem[i].item);
+                itemData.InventoryItem[i].AddToInventory = false;
+                itemData.InventoryItem[i].AddToInventoryTop = false;
                 itemData.PickItem[i].IsInteractable = false;
                 isPicked = true;                                                        // cannot destroy entitly while job is still running
                 pickedItem = itemData.PickItem[i];                                      // once an item is picked break from loop to remove the item

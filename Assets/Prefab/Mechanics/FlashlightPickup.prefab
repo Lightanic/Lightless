@@ -47,6 +47,7 @@ GameObject:
   - component: {fileID: 114107380958875526}
   - component: {fileID: 114504522443263524}
   - component: {fileID: 114850132529796612}
+  - component: {fileID: 114199030272681602}
   m_Layer: 0
   m_Name: FlashlightPickup
   m_TagString: Untagged
@@ -203,6 +204,22 @@ MonoBehaviour:
   item: {fileID: 11400000, guid: 71910c969f97beb418b1bba1601fa684, type: 2}
   AddToInventory: 0
   RemoveFromInventory: 0
+  AddToInventoryTop: 0
+  Throwable: 1
+--- !u!114 &114199030272681602
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1899340997658810}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba57a7d2573ec4646bc6cd327a81096e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  h: 4
+  gravity: -18
+  debugPath: 1
 --- !u!114 &114469252822864888
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -283,6 +300,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Canvas: {fileID: 0}
   offsetHeight: 1
+  sprite: {fileID: 0}
 --- !u!114 &114867258961414724
 MonoBehaviour:
   m_ObjectHideFlags: 1

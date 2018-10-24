@@ -8,6 +8,9 @@ public class SpeedComponent : MonoBehaviour {
     public float MAX_STAMINA = 2;
     public float DODGE_SPEED = 20;
     public float DodgeMultiplier = 100;
+    public float RotationSpeed = 10;
+    public float RotationFineControlSpeed = 2;
+
     public bool isSprinting = false;
     public bool isDodging = false;
     [HideInInspector]
