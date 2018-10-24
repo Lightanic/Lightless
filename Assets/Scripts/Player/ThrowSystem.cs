@@ -63,8 +63,8 @@ public class ThrowSystem : ComponentSystem {
             Vector3 pos = targetData.transform[0].localPosition; 
             pos.x = Mathf.Clamp(pos.x, -targetData.target[0].throwDistance, targetData.target[0].throwDistance); // clamp position
             pos.z = Mathf.Clamp(pos.z, -targetData.target[0].throwDistance, targetData.target[0].throwDistance);
-            targetData.transform[0].localPosition = pos; 
-
+            targetData.transform[0].localPosition = pos;
+            targetData.throwBehaviour[0].DrawPath(leftHandData.EquipComp[0].EquipedItem);
             if (!lhComponent.isEmpty && playerData.InputComponents[0].Control("Throw"))
             {
                 if (leftHandData.EquipComp[0].EquipedItem.GetComponent<InventoryItemComponent>().Throwable)
@@ -72,11 +72,13 @@ public class ThrowSystem : ComponentSystem {
                     var equipped = leftHandData.EquipComp[0].EquipedItem;
                     lhComponent.DropItem();
                     targetData.throwBehaviour[0].Launch(equipped);
+                    leftHandData.EquipComp[0].EquipedItem = null;
                 }
             }
         }
         else
         {
+            targetData.throwBehaviour[0].ResetLine();
             playerData.RotationComponent[0].EnablePlayerRotation = true;
             targetData.projector[0].enabled = false;
         }

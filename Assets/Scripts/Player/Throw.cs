@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class Throw : MonoBehaviour {
 
-    Rigidbody ball;
+    public LineRenderer lr;
+
+    Rigidbody throwObject;
     Transform target;
     LeftHandComponent player;
     ThrowTarget targetComp;
@@ -13,7 +15,7 @@ public class Throw : MonoBehaviour {
     public float gravity = -18;
 
     public bool debugPath;
-
+    List<Vector3> points = new List<Vector3>();
     void Start()
     {
         targetComp = GameObject.Find("ThrowTarget").GetComponent<ThrowTarget>();
@@ -24,24 +26,23 @@ public class Throw : MonoBehaviour {
     {
         if (debugPath)
         {
-            DrawPath();
+            //DrawPath();
         }
     }
 
     public void Launch(GameObject equipped)
     {
-        ball = equipped.GetComponent<Rigidbody>();
-        ball.isKinematic = false;
+        throwObject = equipped.GetComponent<Rigidbody>();
+        throwObject.isKinematic = false;
         Physics.gravity = Vector3.up * gravity;
-        ball.useGravity = true;
-        ball.velocity = CalculateLaunchData().initialVelocity;
-        Debug.Log(ball.velocity);
+        throwObject.useGravity = true;
+        throwObject.velocity = CalculateLaunchData().initialVelocity;
     }
 
     LaunchData CalculateLaunchData()
     {
-        float displacementY = target.position.y - ball.position.y;
-        Vector3 displacementXZ = new Vector3(target.position.x - ball.position.x, 0, target.position.z - ball.position.z);
+        float displacementY = target.position.y - throwObject.position.y;
+        Vector3 displacementXZ = new Vector3(target.position.x - throwObject.position.x, 0, target.position.z - throwObject.position.z);
         float time = Mathf.Sqrt(-2 * h / gravity) + Mathf.Sqrt(2 * (displacementY - h) / gravity);
         Vector3 velocityY = Vector3.up * Mathf.Sqrt(-2 * gravity * h);
         Vector3 velocityXZ = displacementXZ / time;
@@ -49,20 +50,45 @@ public class Throw : MonoBehaviour {
         return new LaunchData(velocityXZ + velocityY * -Mathf.Sign(gravity), time);
     }
 
-    void DrawPath()
+    LaunchData CalculateLaunchData(GameObject equipped)
     {
-        LaunchData launchData = CalculateLaunchData();
-        Vector3 previousDrawPoint = ball.position;
+        throwObject = equipped.GetComponent<Rigidbody>();
+        float displacementY = target.position.y - throwObject.position.y;
+        Vector3 displacementXZ = new Vector3(target.position.x - throwObject.position.x, 0, target.position.z - throwObject.position.z);
+        float time = Mathf.Sqrt(-2 * h / gravity) + Mathf.Sqrt(2 * (displacementY - h) / gravity);
+        Vector3 velocityY = Vector3.up * Mathf.Sqrt(-2 * gravity * h);
+        Vector3 velocityXZ = displacementXZ / time;
 
-        int resolution = 30;
-        for (int i = 1; i <= resolution; i++)
+        return new LaunchData(velocityXZ + velocityY * -Mathf.Sign(gravity), time);
+    }
+
+    public void DrawPath(GameObject equipped)
+    {
+        if (equipped)
         {
-            float simulationTime = i / (float)resolution * launchData.timeToTarget;
-            Vector3 displacement = launchData.initialVelocity * simulationTime + Vector3.up * gravity * simulationTime * simulationTime / 2f;
-            Vector3 drawPoint = ball.position + displacement;
-            Debug.DrawLine(previousDrawPoint, drawPoint, Color.green);
-            previousDrawPoint = drawPoint;
+            ResetLine();
+            LaunchData launchData = CalculateLaunchData(equipped);
+            Vector3 previousDrawPoint = throwObject.position;
+
+            int resolution = 30;
+            for (int i = 1; i <= resolution; i++)
+            {
+                points.Add(previousDrawPoint);
+                float simulationTime = i / (float)resolution * launchData.timeToTarget;
+                Vector3 displacement = launchData.initialVelocity * simulationTime + Vector3.up * gravity * simulationTime * simulationTime / 2f;
+                Vector3 drawPoint = throwObject.position + displacement;
+                Debug.DrawLine(previousDrawPoint, drawPoint, Color.green);
+                previousDrawPoint = drawPoint;
+            }
+            lr.positionCount = resolution;
+            lr.SetPositions(points.ToArray());
         }
+    }
+
+    public void ResetLine()
+    {
+        lr.positionCount = 0;
+        points.Clear();
     }
 
     struct LaunchData
