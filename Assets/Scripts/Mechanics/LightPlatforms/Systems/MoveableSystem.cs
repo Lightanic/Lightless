@@ -23,6 +23,9 @@ public class MoveableSystem : ComponentSystem
     [Inject]
     private PlayerGroup Player;
 
+    private float CurrentTime = 0;
+    private const float KeyDelay = 0.2F;
+
     protected override void OnUpdate()
     {
         var input = Player.Input[0];
@@ -42,19 +45,20 @@ public class MoveableSystem : ComponentSystem
                 target = entity.Platform.PointA;
             }
 
-            if(input.Control("Interacting"))
+            var distance = Vector3.Distance(entity.Transform.position, player.position);
+            if (input.Control("Interact") && CurrentTime > KeyDelay)
             {
-                var distance = Vector3.Distance(entity.Transform.position, player.position);
-                if(distance<3)
+                CurrentTime = 0F;
+                if (entity.Platform.IsSelected)
+                {
+                    entity.Platform.IsSelected = false;
+                    input.EnablePlayerMovement = true;
+                }
+                else if (distance < 4F)
                 {
                     entity.Platform.IsSelected = true;
                     input.EnablePlayerMovement = false;
                 }
-            }
-            else
-            {
-                entity.Platform.IsSelected = false;
-                input.EnablePlayerMovement = true;
             }
 
             if (entity.Platform.IsSelected)
@@ -66,12 +70,14 @@ public class MoveableSystem : ComponentSystem
                     );
 
                 entity.Transform.Rotate(
-                    entity.Transform.up, 
+                    entity.Transform.up,
                     vertical * Time.deltaTime * 100F
                     );
             }
-          
+
         }
+
+        CurrentTime += Time.deltaTime;
     }
 
 }

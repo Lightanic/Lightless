@@ -71,6 +71,7 @@ public class ThrowSystem : ComponentSystem {
                 {
                     var equipped = leftHandData.EquipComp[0].EquipedItem;
                     lhComponent.DropItem();
+                    equipped.GetComponent<Pickup>().IsInteractable = true;
                     targetData.throwBehaviour[0].Launch(equipped);
                     leftHandData.EquipComp[0].EquipedItem = null;
                 }
