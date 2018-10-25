@@ -9,10 +9,12 @@ public class RefractorComponent : MonoBehaviour
     public GameObject LightInstance = null;
     public LightComponent Switch;
 
+    public List<GameObject> LightInstances;
+
     // Use this for initialization
     void Start()
     {
-
+        LightInstances = new List<GameObject>(10);
     }
 
     // Update is called once per frame
@@ -32,49 +34,89 @@ public class RefractorComponent : MonoBehaviour
         {
             if (hit.collider.tag == "Refractor" && Switch.LightIsOn)
             {
+                var splitCount = hit.transform.gameObject.GetComponent<RefractionAngleComponent>().SplitCount;
                 var hitPoint = hit.point;
                 hitPoint = hitPoint + ray.direction * 1.5F;
-                if (LightInstance == null)
-                {
-                    LightInstance = Instantiate(ReflectionLightPrefab, hitPoint, hit.transform.rotation);
-                    LightInstance.GetComponent<PlatformActivatorComponent>().IsReflected = true;
-                    LightInstance.GetComponent<PlatformActivatorComponent>().PrevInstance = gameObject;
-                }
-                else if (LightInstance != null)
-                {
-                    LightInstance.transform.position = hitPoint;
-                }
+                InstantiateLightInstances(splitCount, hitPoint, hit.transform.rotation);
+                //if (LightInstance == null)
+                //{
+                //    LightInstance = Instantiate(ReflectionLightPrefab, hitPoint, hit.transform.rotation);
+                //    LightInstance.GetComponent<PlatformActivatorComponent>().IsReflected = true;
+                //    LightInstance.GetComponent<PlatformActivatorComponent>().PrevInstance = gameObject;
+                //}
+                //else if (LightInstance != null)
+                //{
+                //    LightInstance.transform.position = hitPoint;
+                //}
 
-                if (LightInstance != null)
+                if (LightInstances.Count > 0)
                 {
+                    var range = hit.transform.gameObject.GetComponent<RefractionAngleComponent>().SplitAngleRange;
                     var point = hitPoint;
                     var normal = hit.transform.forward;
                     var refractionAngle = hit.transform.gameObject.GetComponent<RefractionAngleComponent>().RefractionAngle;
-                    var splitCount = hit.transform.gameObject.GetComponent<RefractionAngleComponent>().SplitCount;
+
                     var reflection = ray.direction + 2 * (Vector3.Dot(ray.direction, normal)) * normal;
                     reflection = Quaternion.AngleAxis(refractionAngle, hit.transform.up) * reflection;
                     var lookTowardsPos = point + reflection * 2F;
-                    LightInstance.transform.LookAt(lookTowardsPos);
+                  //  LightInstance.transform.LookAt(lookTowardsPos);
                     Debug.DrawRay(point, reflection);
-                    var oppAngle = Mathf.Abs(refractionAngle) - 90F;
-                    for (int i = 1; i < splitCount; ++i)
+                    var oppAngle = Mathf.Abs(refractionAngle) - range;
+                    var total = 2 * Mathf.Abs(refractionAngle);
+                    var step = range / (splitCount - 1);
+
+                    int index = 0;
+                    for (float angle = refractionAngle; angle >= oppAngle; angle -= step)
                     {
-                        var angle = refractionAngle - i * refractionAngle / splitCount;
-                        Debug.Log(i + " " + angle);
+                        reflection = Quaternion.AngleAxis(angle, hit.transform.up) * reflection;
+                        var lookTowards = point + reflection * 2F;
+                        LightInstances[index].transform.LookAt(lookTowards);
+                        index++;
                     }
                 }
 
             }
-            else if (LightInstance != null)
+            else if (LightInstances.Count > 0)
             {
-                Destroy(LightInstance);
+                DestroyLightInstances();
+               // Destroy(LightInstance);
                 LightInstance = null;
             }
         }
-        else if (LightInstance != null)
+        else if (LightInstances.Count > 0)
         {
-            Destroy(LightInstance);
+            DestroyLightInstances();
+           // Destroy(LightInstance);
             LightInstance = null;
         }
     }
+
+    void InstantiateLightInstances(int count, Vector3 point, Quaternion rotation)
+    {
+        if (LightInstances.Count == 0)
+        {
+            for (int i = 0; i < count; ++i)
+            {
+                LightInstances.Add(Instantiate(ReflectionLightPrefab, point, rotation));
+            }
+        }
+        else
+        {
+            for (int i = 0; i < count; ++i)
+            {
+                LightInstances[i].transform.position = point;
+            }
+        }
+    }
+
+    void DestroyLightInstances()
+    {
+        foreach (var light in LightInstances)
+        {
+            Destroy(light);
+        }
+
+        LightInstances.Clear();
+    }
+
 }
