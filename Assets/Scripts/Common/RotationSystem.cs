@@ -5,7 +5,7 @@ public class RotationSystem : ComponentSystem {
     private struct Group
     {
         readonly public int Length;
-        public ComponentArray<RotationComponent> RotationComponents;
+        public ComponentArray<RotationComponentLightless> RotationComponents;
         public ComponentArray<Rigidbody> Rigidbody;
     }
 
