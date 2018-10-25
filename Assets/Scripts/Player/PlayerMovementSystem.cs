@@ -6,6 +6,7 @@ public class PlayerMovementSystem : ComponentSystem
     // Struct specifying all entites that use this move system
     private struct Group
     {
+        public Transform transform;
         public Rigidbody RigidBody;
         public InputComponent InputComponent;
         public SpeedComponent SpeedComponent;
@@ -114,6 +115,8 @@ public class PlayerMovementSystem : ComponentSystem
         }
         else if (entity.SpeedComponent.Stamina < entity.SpeedComponent.MAX_STAMINA)
         {
+            if (staminaObj != null)
+                staminaObj.SetActive(true);
             entity.SpeedComponent.Stamina += Time.deltaTime;
         }
     }
