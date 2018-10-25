@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using cakeslice;
+using System.Collections;
 using System.Collections.Generic;
 using Unity.Collections;
 using Unity.Entities;
@@ -9,6 +10,7 @@ public class MoveableSystem : ComponentSystem
 
     private struct Group
     {
+        public Outline Outline;
         public MoveableComponent Platform;
         public Transform Transform;
     }
@@ -33,6 +35,7 @@ public class MoveableSystem : ComponentSystem
         var entities = GetEntities<Group>();
         foreach (var entity in entities)
         {
+            var activatorPosition = entity.Transform.position;
             var target = entity.Transform.position;
             var horizontal = input.Horizontal;
             var vertical = input.Vertical;
@@ -45,7 +48,12 @@ public class MoveableSystem : ComponentSystem
                 target = entity.Platform.PointA;
             }
 
-            var distance = Vector3.Distance(entity.Transform.position, player.position);
+            if (entity.Platform.Activator != null)
+            {
+                activatorPosition = entity.Platform.Activator.position;
+            }
+
+            var distance = Vector3.Distance(activatorPosition, player.position);
             if (input.Control("Interact") && CurrentTime > KeyDelay)
             {
                 CurrentTime = 0F;
@@ -53,11 +61,13 @@ public class MoveableSystem : ComponentSystem
                 {
                     entity.Platform.IsSelected = false;
                     input.EnablePlayerMovement = true;
+                    entity.Outline.eraseRenderer = true;
                 }
                 else if (distance < 4F)
                 {
                     entity.Platform.IsSelected = true;
                     input.EnablePlayerMovement = false;
+                    entity.Outline.eraseRenderer = false;
                 }
             }
 

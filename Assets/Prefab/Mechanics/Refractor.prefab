@@ -23,6 +23,12 @@ GameObject:
   - component: {fileID: 23133326581446604}
   - component: {fileID: 65307974810122550}
   - component: {fileID: 114280806194289152}
+  - component: {fileID: 114725958308108596}
+  - component: {fileID: 114241773914784722}
+  - component: {fileID: 114610575706696632}
+  - component: {fileID: 114259862595954588}
+  - component: {fileID: 114123897116031780}
+  - component: {fileID: 114779036241277754}
   m_Layer: 0
   m_Name: Refractor
   m_TagString: Refractor
@@ -97,6 +103,52 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &114123897116031780
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1064681112974580}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94eb196b37b4d6444981d208e8bce47c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsInteractable: 0
+  IsInteracting: 0
+  InteractDistance: 4
+  IsEquiped: 0
+--- !u!114 &114241773914784722
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1064681112974580}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 695bc46524c73ac4d85cb4bea9136d01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PointA: {x: 0, y: 0, z: 0}
+  PointB: {x: 63, y: 5.761156, z: -11.8}
+  IsSelected: 0
+  MoveSpeed: 5
+  RotateSpeed: 120
+  Activator: {fileID: 0}
+--- !u!114 &114259862595954588
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1064681112974580}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12a71fe4ef9792b4dbdc0909dd6ff772, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Canvas: {fileID: 0}
+  offsetHeight: 2.5
+  sprite: {fileID: 21300000, guid: 352c670da8aab484c8e65f911dfc2bd3, type: 3}
 --- !u!114 &114280806194289152
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -109,3 +161,47 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RefractionAngle: 45
+  SplitCount: 2
+  SplitAngleRange: 90
+--- !u!114 &114610575706696632
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1064681112974580}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55c23681836e1b249b28ff7cff1cf270, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  item: {fileID: 0}
+  AddToInventory: 0
+  RemoveFromInventory: 0
+  AddToInventoryTop: 0
+  Throwable: 0
+--- !u!114 &114725958308108596
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1064681112974580}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5bf10cdea1344482e91a4f2b58506b77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114779036241277754
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1064681112974580}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbf3575480402db40813e763382412fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  color: 1
+  eraseRenderer: 1
+  originalLayer: 0
+  originalMaterials: []

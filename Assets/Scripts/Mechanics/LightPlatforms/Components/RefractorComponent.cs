@@ -20,6 +20,10 @@ public class RefractorComponent : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(!Switch.LightIsOn)
+        {
+            DestroyLightInstances();
+        }
 
         Ray ray = new Ray(transform.position, transform.forward);
         Ray ray1 = new Ray(transform.position + transform.right * 0.1F, transform.forward);

@@ -9,6 +9,7 @@ public class MoveableComponent : MonoBehaviour
     public bool IsSelected;
     public float MoveSpeed = 5F;
     public float RotateSpeed = 120F;
+    public Transform Activator;
 
     private void Start()
     {
