@@ -10,6 +10,8 @@ public class PitScript : MonoBehaviour //this script detects enemy and turns the
     //public GameObject enemy;
     //bool isDead = false;
 
+    public CheckpointManager CheckpointManager;
+
     private void OnTriggerEnter(Collider collision)
     {
         if (collision.gameObject.tag == "Enemy")
@@ -32,7 +34,8 @@ public class PitScript : MonoBehaviour //this script detects enemy and turns the
     {
         if (other.gameObject.name == "Player")
         {
-           SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            CheckpointManager.GoToLatestCheckpoint();
+           //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
     }
 }

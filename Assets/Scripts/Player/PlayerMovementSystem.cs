@@ -29,15 +29,18 @@ public class PlayerMovementSystem : ComponentSystem
         // Move all entities with Group components
         foreach (var entity in GetEntities<Group>())
         {
-            var moveVector = new Vector3(entity.InputComponent.Horizontal, 0, entity.InputComponent.Vertical);                      // Move direction vector
-            Sprint(entity, moveVector);
-            Dodge(entity);
-            StaminaControl(entity);
-            var speed = (Mathf.Abs(entity.InputComponent.Horizontal) + Mathf.Abs(entity.InputComponent.Vertical)) * entity.SpeedComponent.Speed;
-            speed = Mathf.Clamp(speed, 0, entity.SpeedComponent.Speed);
-            var movePosition = entity.RigidBody.position + moveVector.normalized * speed * Time.deltaTime;                          // New position
-            entity.RigidBody.MovePosition(movePosition);                                                                            // Update entity position to new position
-            UpdateAnimation(entity, moveVector);
+            if (entity.InputComponent.EnablePlayerMovement)
+            {
+                var moveVector = new Vector3(entity.InputComponent.Horizontal, 0, entity.InputComponent.Vertical);                      // Move direction vector
+                Sprint(entity, moveVector);
+                Dodge(entity);
+                StaminaControl(entity);
+                var speed = (Mathf.Abs(entity.InputComponent.Horizontal) + Mathf.Abs(entity.InputComponent.Vertical)) * entity.SpeedComponent.Speed;
+                speed = Mathf.Clamp(speed, 0, entity.SpeedComponent.Speed);
+                var movePosition = entity.RigidBody.position + moveVector.normalized * speed * Time.deltaTime;                          // New position
+                entity.RigidBody.MovePosition(movePosition);                                                                            // Update entity position to new position
+                UpdateAnimation(entity, moveVector);
+            }
         }
     }
 

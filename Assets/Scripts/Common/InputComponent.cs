@@ -10,6 +10,7 @@ public class InputComponent : MonoBehaviour {
     public float Vertical;
     private int GamepadIndex;
     public XGamepad Gamepad;    // = new XGamepad(index);
+    public bool EnablePlayerMovement = true;
 
     public GameObject Pause;
     PauseMenu pauseMenu = null;
@@ -358,6 +359,10 @@ public class InputComponent : MonoBehaviour {
         bool statusKb = false;
         switch(key)
         {
+            case "Interacting":
+                statusGamepad = this.Gamepad.GetButton("X");
+                statusKb = Input.GetKey(KeyCode.E);
+                break;
             case "Interact":
                 statusGamepad = this.Gamepad.GetButtonDown("X");
                 statusKb = Input.GetKeyDown(KeyCode.E);
@@ -376,7 +381,7 @@ public class InputComponent : MonoBehaviour {
                 statusGamepad = Gamepad.GetButtonDown("DPad_Left");
                 statusKb = Input.GetKeyDown(KeyCode.LeftArrow);
                 var e = Input.GetAxis("Mouse ScrollWheel");
-                if ( e < 0) statusKb = true;
+                if (e < 0) statusKb = true;
                 break;
             case "Dodge":
                 statusGamepad = this.Gamepad.GetButtonDown("A");
