@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(LineRenderer))]
 public class Throw : MonoBehaviour {
+
 
     public LineRenderer lr;
 
@@ -18,6 +20,7 @@ public class Throw : MonoBehaviour {
     List<Vector3> points = new List<Vector3>();
     void Start()
     {
+        lr = GetComponent<LineRenderer>();
         targetComp = GameObject.Find("ThrowTarget").GetComponent<ThrowTarget>();
         target = GameObject.Find("ThrowTarget").transform;
     }

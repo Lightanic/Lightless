@@ -15,6 +15,10 @@ public class PlatformActivatorComponent : MonoBehaviour
     public bool IsReflected = false;
     public GameObject PrevInstance = null;
 
+    public GameObject MainInstance = null;
+    public float MaximumReflectionChain = 8;
+    public float CurrentChainCount = 0;
+
     private void Update()
     {
 
@@ -28,26 +32,16 @@ public class PlatformActivatorComponent : MonoBehaviour
             return;
         }
 
-        if (IsReflected && !Switch.LightIsOn)
-        {
-            LightInstance.GetComponent<PlatformActivatorComponent>().PrevInstance = null;
-        }
+        //if (IsReflected && !Switch.LightIsOn)
+        //{
+        //    LightInstance.GetComponent<PlatformActivatorComponent>().PrevInstance = null;
+        //}
 
-        if(IsReflected && PrevInstance == null)
+        if (IsReflected && PrevInstance == null)
         {
             Destroy(gameObject);
         }
-        //if(ShouldCreateLightInstance && LightInstance == null)
-        //{
-        //    LightInstance = Instantiate(ReflectionLightPrefab);
-        //    ShouldCreateLightInstance = false;
-        //}
 
-        //if (ShouldBeDestroyed && LightInstance!=null)
-        //{
-        //    Destroy(LightInstance);
-        //    ShouldBeDestroyed = false;
-        //}
         Ray ray = new Ray(transform.position, transform.forward);
         Ray ray1 = new Ray(transform.position + transform.right * 0.1F, transform.forward);
         Ray ray2 = new Ray(transform.position + transform.right * -0.1F, transform.forward);
@@ -57,27 +51,33 @@ public class PlatformActivatorComponent : MonoBehaviour
         Debug.DrawRay(ray2.origin, ray2.direction);
 
         RaycastHit hit;
-        if (Physics.Raycast(ray, out hit, 20F))
+        if (Physics.Raycast(ray, out hit, 20F) && Switch.LightIsOn)
         {
             if (hit.collider.tag == "Reflector")
             {
-                if (LightInstance == null)
+                if (LightInstance == null && CurrentChainCount < MaximumReflectionChain)
                 {
                     LightInstance = Instantiate(ReflectionLightPrefab, hit.point, hit.transform.rotation);
                     LightInstance.GetComponent<PlatformActivatorComponent>().IsReflected = true;
                     LightInstance.GetComponent<PlatformActivatorComponent>().PrevInstance = gameObject;
-                    //LightInstance.GetComponent<PlatformActivatorComponent>().MainInstance = MainInstance;
+                    LightInstance.GetComponent<PlatformActivatorComponent>().MainInstance = MainInstance;
+                    LightInstance.GetComponent<PlatformActivatorComponent>().CurrentChainCount = CurrentChainCount + 1;
                 }
-                else
+                else if (LightInstance != null)
                 {
                     LightInstance.transform.position = hit.point;
                 }
-                var point = hit.point;
-                var normal = hit.transform.forward;
-                var reflection = ray.direction - 2 * (Vector3.Dot(ray.direction, normal)) * normal;
-                var lookTowardsPos = point + reflection * 2F;
-                LightInstance.transform.LookAt(lookTowardsPos);
-                Debug.DrawRay(point, reflection);
+
+                if (LightInstance != null)
+                {
+                    var point = hit.point;
+                    var normal = hit.transform.forward;
+                    var reflection = ray.direction - 2 * (Vector3.Dot(ray.direction, normal)) * normal;
+                    var lookTowardsPos = point + reflection * 2F;
+                    LightInstance.transform.LookAt(lookTowardsPos);
+                    Debug.DrawRay(point, reflection);
+                }
+
             }
             else if (LightInstance != null)
             {
