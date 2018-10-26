@@ -76,6 +76,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4360507559153448}
   - component: {fileID: 108541162021047890}
+  - component: {fileID: 114617596758396194}
+  - component: {fileID: 114037567734329788}
   m_Layer: 0
   m_Name: Point Light
   m_TagString: Untagged
@@ -136,8 +138,8 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1161126618801720}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 63.93, y: 4.698124, z: -19.17}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 2.769905, y: -3.1209917, z: -14.405558}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_Children:
   - {fileID: 4869120210558788}
@@ -432,6 +434,25 @@ Light:
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &114037567734329788
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1323421291146448}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78827bcbc59e64f4aa649a2d20cab176, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MaxReduction: 0.2
+  MaxIncrease: 0.2
+  RateDamping: 0.1
+  Strength: 200
+  StopFlickering: 0
+  LightSource: {fileID: 0}
+  CurrentTime: 0
+  BaseIntensity: 0
 --- !u!114 &114057890288711916
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -472,6 +493,17 @@ MonoBehaviour:
   IsInteracting: 0
   InteractDistance: 4
   IsEquiped: 0
+--- !u!114 &114617596758396194
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1323421291146448}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5bf10cdea1344482e91a4f2b58506b77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114656144453012798
 MonoBehaviour:
   m_ObjectHideFlags: 1
