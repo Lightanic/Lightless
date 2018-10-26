@@ -9,6 +9,8 @@ public class ThrowTarget : MonoBehaviour {
 
     void Update()
     {
+        //transform.rotation = Quaternion.LookRotation(transform.parent.forward);
+
         RaycastHit hit;
         if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.down), out hit, Mathf.Infinity))
         {

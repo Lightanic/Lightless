@@ -61,7 +61,7 @@ public class InventoryHUDSystem : ComponentSystem {
         }
 
         // If Nothing is equipped then show empty slot
-        if (equiped == 0)
+        if (equiped == 0 && slotData.Slot.Length != 0)
         {
             prevItem = null;
             selectedItem = null;

@@ -12,7 +12,7 @@ public class PauseMenu : MonoBehaviour {
     bool buttonSelected = false;
 
     //pause check
-    public static bool isPaused = false;
+    public static bool isPaused = true;
     public GameObject pauseMenuUI;
     [SerializeField] GameObject Hud;
     [SerializeField] GameObject EndScreen;
