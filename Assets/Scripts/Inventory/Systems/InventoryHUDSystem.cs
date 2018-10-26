@@ -61,19 +61,19 @@ public class InventoryHUDSystem : ComponentSystem {
         }
 
         // If Nothing is equipped then show empty slot
-        if (equiped == 0)
+        if (equiped == 0 && slotData.Slot.Length != 0)
         {
             prevItem = null;
             selectedItem = null;
             slotData.Slot[0].SetSelectedSlot(null);
         }
 
-        if (items.Count == 1)
+        if (items.Count == 1  && slotData.Slot.Length != 0)
         {
             slotData.Slot[0].SetLeftSlot(items[0].InventoryIcon);
             slotData.Slot[0].SetRightSlot(items[0].InventoryIcon);
         }
-        if(items.Count > 1)
+        if(items.Count > 1 && slotData.Slot.Length != 0)
         {
             slotData.Slot[0].SetLeftSlot(items[items.Count - 1].InventoryIcon);
             slotData.Slot[0].SetRightSlot(items[0].InventoryIcon);
