@@ -68,12 +68,12 @@ public class InventoryHUDSystem : ComponentSystem {
             slotData.Slot[0].SetSelectedSlot(null);
         }
 
-        if (items.Count == 1)
+        if (items.Count == 1  && slotData.Slot.Length != 0)
         {
             slotData.Slot[0].SetLeftSlot(items[0].InventoryIcon);
             slotData.Slot[0].SetRightSlot(items[0].InventoryIcon);
         }
-        if(items.Count > 1)
+        if(items.Count > 1 && slotData.Slot.Length != 0)
         {
             slotData.Slot[0].SetLeftSlot(items[items.Count - 1].InventoryIcon);
             slotData.Slot[0].SetRightSlot(items[0].InventoryIcon);
