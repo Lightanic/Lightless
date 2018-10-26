@@ -113,9 +113,10 @@ public class PickupSystem : ComponentSystem
             if ((Vector3.Distance(playerPos, entity.Transform.position) <= entity.PickItem.InteractDistance) && entity.PickItem.IsEquiped != true)
             {
                 entity.tooltips.RePosition(entity.Transform.position);
-                if (entity.InventoryItem.item == null)
+                if(!entity.InventoryItem.item)
                     entity.tooltips.ToggleOn(entity.tooltips.sprite);
-                else entity.tooltips.ToggleOn(entity.InventoryItem.item.PopupIcon);
+                else
+                    entity.tooltips.ToggleOn(entity.InventoryItem.item.PopupIcon);
                 uiEnabled = true;
             }
             else if (!uiEnabled)

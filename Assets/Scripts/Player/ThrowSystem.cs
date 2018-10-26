@@ -52,28 +52,39 @@ public class ThrowSystem : ComponentSystem {
     {
         
         var lhComponent = leftHandData.data[0];
-        if (playerData.InputComponents[0].Control("ThrowActive"))
+        if (playerData.InputComponents[0].Control("ThrowActive") && !lhComponent.isEmpty )
         {
-            playerData.RotationComponent[0].EnablePlayerRotation = false;
-            targetData.projector[0].enabled = true;
-
-            // Move Throw target
-            var forward = new Vector3(playerData.InputComponents[0].Gamepad.GetStick_R().X, 0, playerData.InputComponents[0].Gamepad.GetStick_R().Y);    // Get forward direction
-            targetData.transform[0].localPosition += forward;
-            Vector3 pos = targetData.transform[0].localPosition; 
-            pos.x = Mathf.Clamp(pos.x, -targetData.target[0].throwDistance, targetData.target[0].throwDistance); // clamp position
-            pos.z = Mathf.Clamp(pos.z, -targetData.target[0].throwDistance, targetData.target[0].throwDistance);
-            targetData.transform[0].localPosition = pos;
-            targetData.throwBehaviour[0].DrawPath(leftHandData.EquipComp[0].EquipedItem);
-            if (!lhComponent.isEmpty && playerData.InputComponents[0].Control("Throw"))
+            // Reset line and target
+            targetData.throwBehaviour[0].ResetLine();
+            targetData.projector[0].enabled = false;
+            if (leftHandData.EquipComp[0].EquipedItem.GetComponent<InventoryItemComponent>().Throwable)
             {
-                if (leftHandData.EquipComp[0].EquipedItem.GetComponent<InventoryItemComponent>().Throwable)
+                playerData.RotationComponent[0].EnablePlayerRotation = false;
+                targetData.projector[0].enabled = true;
+
+                // Move Throw target
+                var forward = new Vector3(playerData.InputComponents[0].Gamepad.GetStick_R().X, 0, playerData.InputComponents[0].Gamepad.GetStick_R().Y);    // Get forward direction
+                targetData.transform[0].position += forward;
+
+                // Clamp target to radiud
+                Vector3 pos = targetData.transform[0].localPosition;
+                pos.x = Mathf.Clamp(pos.x, -targetData.target[0].throwDistance, targetData.target[0].throwDistance); // clamp position
+                pos.z = Mathf.Clamp(pos.z, -targetData.target[0].throwDistance, targetData.target[0].throwDistance);
+                targetData.transform[0].localPosition = pos;
+
+                // Draw travel path
+                targetData.throwBehaviour[0].DrawPath(leftHandData.EquipComp[0].EquipedItem);
+
+                if (!lhComponent.isEmpty && playerData.InputComponents[0].Control("Throw"))
                 {
-                    var equipped = leftHandData.EquipComp[0].EquipedItem;
-                    lhComponent.DropItem();
-                    equipped.GetComponent<Pickup>().IsInteractable = true;
-                    targetData.throwBehaviour[0].Launch(equipped);
-                    leftHandData.EquipComp[0].EquipedItem = null;
+                    if (leftHandData.EquipComp[0].EquipedItem.GetComponent<InventoryItemComponent>().Throwable)
+                    {
+                        var equipped = leftHandData.EquipComp[0].EquipedItem;
+                        lhComponent.DropItem();
+                        equipped.GetComponent<Pickup>().IsInteractable = true;
+                        targetData.throwBehaviour[0].Launch(equipped);
+                        leftHandData.EquipComp[0].EquipedItem = null;
+                    }
                 }
             }
         }
