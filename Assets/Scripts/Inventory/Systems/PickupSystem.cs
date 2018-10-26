@@ -73,7 +73,7 @@ public class PickupSystem : ComponentSystem {
             {
                 animator.playerAnimator.SetTrigger("Interact");
                 entity.PickItem.IsInteracting = true;
-                if (leftHandData.data[0].isEmpty)
+                if (leftHandData.data[0].isEmpty && entity.PickItem.IsInteractable)
                 {
                     entity.PickItem.IsEquiped = true;   // equip to left hand
                     entity.PickItem.IsInteractable = false;
@@ -112,7 +112,10 @@ public class PickupSystem : ComponentSystem {
             if ((Vector3.Distance(playerPos, entity.Transform.position) <= entity.PickItem.InteractDistance) && entity.PickItem.IsEquiped != true)
             {
                 entity.tooltips.RePosition(entity.Transform.position);
-                entity.tooltips.ToggleOn(entity.InventoryItem.item.PopupIcon);
+                if(!entity.InventoryItem.item)
+                    entity.tooltips.ToggleOn(entity.tooltips.sprite);
+                else
+                    entity.tooltips.ToggleOn(entity.InventoryItem.item.PopupIcon);
                 uiEnabled = true;
             }
             else if(!uiEnabled)
