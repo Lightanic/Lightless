@@ -13,6 +13,7 @@ public class LungerSystem : ComponentSystem
         public EnemyVisionComponent EnemyVision;
         public EnemyLungeComponent LungeComponent;
         public EnemyAnimator Animator;
+        public WayPointComponent PatrolData;
 
     }
 
@@ -107,15 +108,18 @@ public class LungerSystem : ComponentSystem
                 {
                     lunger.Animator.isWalking = true;
 
-                    lunger.AgentComponent.Agent.SetDestination(lightData.LightTransform.position); //seek the light
+                     //seek the light
+                    Seek(lunger, lightData.LightTransform.position);
 
                 }
 
                 else
                 {
-                    lunger.Animator.isWalking = false;
+                    lunger.Animator.isWalking = true;
                     lunger.Animator.isRunning = false;
-                    lunger.AgentComponent.Agent.destination = lunger.EnemyTransform.position; //stay where you are
+                
+                    //patrolling
+                    lunger.PatrolData.IsWandering = true;
                 }
 
                 if (distanceToPlayer <= lunger.LungeComponent.LungeValue && !lunger.LungeComponent.IsPrelunging && !lunger.LungeComponent.IsLunging)
@@ -135,7 +139,9 @@ public class LungerSystem : ComponentSystem
                 }
                 else
                 {
-                    lunger.AgentComponent.Agent.destination = lunger.EnemyTransform.position;   //stay where you are
+                    //patrolling
+                    //lunger.AgentComponent.Agent.destination = lunger.EnemyTransform.position;   //stay where you are
+                    lunger.PatrolData.IsWandering = true;
                 }
             }
         }
@@ -147,10 +153,16 @@ public class LungerSystem : ComponentSystem
         {
             //Debug.Log("lunging");
             lunger.AgentComponent.Agent.speed = Random.Range(20, 40);
-            //Debug.Log(lunger.AgentComponent.Agent.speed);
-            lunger.AgentComponent.Agent.SetDestination(player.PlayerTransform.position); //seek player
+            //seek player
+            Seek(lunger, player.PlayerTransform.position);
         }
 
+    }
+
+    void Seek(LungerData lunger, Vector3 target)
+    {
+        lunger.PatrolData.IsWandering = false;
+        lunger.AgentComponent.Agent.SetDestination(target);
     }
 
 }

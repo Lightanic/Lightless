@@ -11,6 +11,7 @@ public class RunnerSystem : ComponentSystem
         public EnemyVisionComponent EnemyVision;
         public EnemyDarkVisionComponent NightVision;
         public EnemyAnimator Animator;
+        public WayPointComponent PatrolData;
 
     }
 
@@ -69,19 +70,22 @@ public class RunnerSystem : ComponentSystem
                 if (distanceToLight <= runner.EnemyVision.Value) //if distance to light is lesser than enemy vision
                 {
                     runner.Animator.isRunning = true;
-                    runner.AgentComponent.Agent.SetDestination(lightData.LightTransform.position); //seek the light
+                     //seek the light
+                    Seek(runner, lightData.LightTransform.position);
 
                 }
                 else
                 {
                     runner.Animator.isRunning = false;
-                    runner.AgentComponent.Agent.destination = runner.EnemyTransform.position; //stay where you are
+                    //patrolling
+                    runner.PatrolData.IsWandering = true;
                 }
 
                 if (distanceToPlayer <= runner.NightVision.Value)
                 {
                     runner.Animator.isRunning = true;
-                    runner.AgentComponent.Agent.SetDestination(playerData.PlayerTransform.position); //seek player
+                    //seek player
+                    Seek(runner, playerData.PlayerTransform.position);
                 }
             }
             else
@@ -89,15 +93,23 @@ public class RunnerSystem : ComponentSystem
                 if (distanceToPlayer <= runner.NightVision.Value)
                 {
                     runner.Animator.isRunning = true;
-                    runner.AgentComponent.Agent.SetDestination(playerData.PlayerTransform.position); //seek player
+                    //seek player
+                    Seek(runner, playerData.PlayerTransform.position);
                 }
                 else
                 {
                     runner.Animator.isRunning = false;
-                    runner.AgentComponent.Agent.destination = runner.EnemyTransform.position;   //stay where you are
+                    //patrolling
+                    runner.PatrolData.IsWandering = true;
                 }
             }
         }
+    }
+
+    void Seek(RunnerData runner, Vector3 target)
+    {
+        runner.PatrolData.IsWandering = false;
+        runner.AgentComponent.Agent.SetDestination(target);
     }
 
 }

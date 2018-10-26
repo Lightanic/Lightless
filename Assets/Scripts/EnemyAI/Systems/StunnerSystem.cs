@@ -68,73 +68,57 @@ public class StunnerSystem : ComponentSystem
                 if (distanceToLight <= stunner.EnemyVision.Value) //if distance to light is lesser than enemy vision
                 {
                     //stunner.Animator.isRunning = true;
-                    stunner.AgentComponent.Agent.SetDestination(lightData.LightTransform.position); //seek the light
+                    //stunner.AgentComponent.Agent.SetDestination(lightData.LightTransform.position); 
+                    //seek the light
+                    Seek(stunner, lightData.LightTransform.position);
 
                 }
                 else
                 {
-                    //runner.Animator.isRunning = false;
-                    //stunner.AgentComponent.Agent.destination = stunner.EnemyTransform.position; //stay where you are
-                    Wander(stunner);
+                    //patrolling
+                    stunner.PatrolData.IsWandering = true;
                 }
+                
 
                 if (distanceToPlayer <= stunner.NightVision.Value)
                 {
-                    //enemyEntity.Animator.isRunning = true;
-                    //stunner.AgentComponent.Agent.SetDestination(playerData.PlayerTransform.position); //seek player
-                    Seek(stunner, playerData);
+                    //seek player
+                    Seek(stunner, playerData.PlayerTransform.position);
                 }
             }
             else
             {
                 if (distanceToPlayer <= stunner.NightVision.Value)
                 {
-                    //stunner.Animator.isRunning = true;
-                    //stunner.AgentComponent.Agent.SetDestination(playerData.PlayerTransform.position); //seek player
-                    Seek(stunner, playerData);
+                    //seek player
+                    Seek(stunner, playerData.PlayerTransform.position);
                 }
                 else
                 {
-                    //stunner.Animator.isRunning = false;
-                    //stunner.AgentComponent.Agent.destination = stunner.EnemyTransform.position;   //stay where you are
-                    
-                    Wander(stunner);
+                    //patroling
+                    stunner.PatrolData.IsWandering = true;
                 }
             }
             if (stunner.StunComponent.IsStunned == true)
             {
                 stunner.AgentComponent.Agent.speed = 0;
             }
-            else if (stunner.StunComponent.IsStunned == false && stunner.PatrolData.IsWandering == false)
+            if (stunner.StunComponent.IsStunned == false && stunner.PatrolData.IsWandering == false)
             {
                 stunner.AgentComponent.Agent.speed = 7;
             }
-            else if (stunner.StunComponent.IsStunned == false && stunner.PatrolData.IsWandering == true)
+            if (stunner.PatrolData.IsWandering == true)
             {
                 stunner.AgentComponent.Agent.speed = 3;
             }
         }
     }
 
-    void Wander(StunnerData stunner)
-    {
-        //stunner.AgentComponent.Agent.speed = 3;
-        stunner.PatrolData.IsWandering = true;
-        stunner.AgentComponent.Agent.SetDestination(stunner.PatrolData.Waypoints[stunner.PatrolData.currentWaypointIndex].position);
 
-        if (Vector3.Distance(stunner.EnemyTransform.position, stunner.PatrolData.Waypoints[stunner.PatrolData.currentWaypointIndex].position) <= 2)
-        {
-            stunner.PatrolData.currentWaypointIndex = Random.Range(0, stunner.PatrolData.Waypoints.Length);
-            stunner.AgentComponent.Agent.SetDestination(stunner.PatrolData.Waypoints[stunner.PatrolData.currentWaypointIndex].position);
-        }
-        
-        
-    }
-
-    void Seek(StunnerData stunner, PlayerData player)
+    void Seek(StunnerData stunner, Vector3 target)
     {
         stunner.PatrolData.IsWandering = false;
-        stunner.AgentComponent.Agent.SetDestination(player.PlayerTransform.position);
+        stunner.AgentComponent.Agent.SetDestination(target);
     }
 
 }
