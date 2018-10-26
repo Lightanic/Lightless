@@ -30,6 +30,7 @@ GameObject:
   - component: {fileID: 114267765725053830}
   - component: {fileID: 54376039013035582}
   - component: {fileID: 114041312339175196}
+  - component: {fileID: 114660354097370850}
   m_Layer: 0
   m_Name: StunnerEnemy
   m_TagString: Enemy
@@ -44,7 +45,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1872553864328302}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 64.92, y: 5.82, z: 5.04}
+  m_LocalPosition: {x: 64.92, y: 5.39, z: 5.04}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -168,6 +169,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Agent: {fileID: 195992883502025846}
+--- !u!114 &114660354097370850
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1872553864328302}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f84535ecace43e4281d684f1d34771c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Waypoints:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  currentWaypointIndex: 0
+  IsWandering: 0
 --- !u!114 &114738851961056974
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -189,7 +207,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 3.02
+  m_Radius: 1.7
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!195 &195992883502025846
 NavMeshAgent:

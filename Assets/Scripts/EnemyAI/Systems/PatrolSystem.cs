@@ -26,7 +26,11 @@ public class PatrolSystem : ComponentSystem
                 }
                 else
                 {
-                    enemy.AgentComponent.Agent.SetDestination(enemy.PatrolComponent.Waypoints[enemy.PatrolComponent.currentWaypointIndex].position);
+
+                    var index = enemy.PatrolComponent.currentWaypointIndex;
+                    if (enemy.PatrolComponent.Waypoints[index] == null) continue;
+                    var pos = enemy.PatrolComponent.Waypoints[index].position;
+                    enemy.AgentComponent.Agent.SetDestination(pos);
 
                     if (Vector3.Distance(enemy.EnemyTransform.position, enemy.PatrolComponent.Waypoints[enemy.PatrolComponent.currentWaypointIndex].position) <= 2)
                     {
@@ -36,7 +40,7 @@ public class PatrolSystem : ComponentSystem
                 }
 
             }
-           
+
         }
 
 
