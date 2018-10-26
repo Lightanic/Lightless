@@ -11,11 +11,15 @@ public class LightComponent : MonoBehaviour
         var lightSource = GetComponentInChildren<Light>();
         lightSource.enabled = !lightSource.enabled;
         LightIsOn = lightSource.enabled;
+
+        var lc = GetComponentInChildren<LightComponent>();
+        if (lc != null)
+            lc.LightIsOn = LightIsOn;
     }
 
     public string GetParent()
     {
-        if(transform.parent != null)
+        if (transform.parent != null)
             return transform.parent.name.ToString();
         return null;
     }

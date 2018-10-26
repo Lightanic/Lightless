@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class CheckpointTrigger : MonoBehaviour
 {
+    public string CheckpointName = "Default1";
     public CheckpointManager manager;
     bool HasTriggeredCheckpoint = false;
 
@@ -17,7 +18,7 @@ public class CheckpointTrigger : MonoBehaviour
         if (!HasTriggeredCheckpoint)
         {
             HasTriggeredCheckpoint = true;
-            manager.SetLatestCheckpoint(transform);
+            manager.SetLatestCheckpoint(CheckpointName);
         }
     }
 }
