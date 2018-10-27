@@ -51,7 +51,7 @@ public class PlatformActivatorComponent : MonoBehaviour
         Debug.DrawRay(ray2.origin, ray2.direction);
 
         RaycastHit hit;
-        if (Physics.Raycast(ray, out hit, 20F) && Switch.LightIsOn)
+        if (Physics.Raycast(ray, out hit, MaxActivationDistance) && Switch.LightIsOn)
         {
             if (hit.collider.tag == "Reflector")
             {
