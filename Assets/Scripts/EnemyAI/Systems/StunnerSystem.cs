@@ -14,6 +14,7 @@ public class StunnerSystem : ComponentSystem
         public EnemyDarkVisionComponent NightVision;
         public EnemyStunComponent StunComponent;
         public WayPointComponent PatrolData;
+        
     }
     private struct PlayerData
     {
@@ -83,6 +84,7 @@ public class StunnerSystem : ComponentSystem
                 if (distanceToPlayer <= stunner.NightVision.Value)
                 {
                     //seek player
+                    
                     Seek(stunner, playerData.PlayerTransform.position);
                 }
             }
@@ -102,6 +104,7 @@ public class StunnerSystem : ComponentSystem
             if (stunner.StunComponent.IsStunned == true)
             {
                 stunner.AgentComponent.Agent.speed = 0;
+                stunner.AgentComponent.Agent.SetDestination(stunner.EnemyTransform.position);
             }
             if (stunner.StunComponent.IsStunned == false && stunner.PatrolData.IsWandering == false)
             {

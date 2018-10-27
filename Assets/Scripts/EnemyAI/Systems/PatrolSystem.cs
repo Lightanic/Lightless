@@ -15,14 +15,14 @@ public class PatrolSystem : ComponentSystem
 
     protected override void OnUpdate()
     {
-
-        foreach (var enemy in GetEntities<EnemyPatrolData>())
+        var entities = GetEntities<EnemyPatrolData>();
+        foreach (var enemy in entities)
         {
             if (enemy.PatrolComponent.IsWandering == true)
             {
                 if (enemy.PatrolComponent.Waypoints.Length == 0)
                 {
-                    return;
+                    continue;
                 }
                 else
                 {

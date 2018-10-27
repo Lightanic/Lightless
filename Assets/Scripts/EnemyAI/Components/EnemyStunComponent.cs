@@ -11,27 +11,34 @@ public class EnemyStunComponent : MonoBehaviour
     {
         if (other.gameObject.tag == "Flashlight")
         {
-            IsStunned = true;
-            Debug.Log("You look stunning!");
+            if (other.GetComponent<LightComponent>().LightIsOn == true)
+            {
+                IsStunned = true;
+            }
+            
+            //Debug.Log("You look stunning!");
         }
 
         else if (other.gameObject.tag == "Player")
         {
             IsSeekingPlayer = true;
         }
+
         //else
         //{
         //    IsStunned = false;
         //}
         
+        
 
     }
+
     private void OnTriggerExit(Collider other)
     {
         if (other.gameObject.tag == "Flashlight")
         {
             IsStunned = false;
-            //Debug.Log("You look stunning!");
+            Debug.Log("I am coming after you!");
         }
     }
 

@@ -29,6 +29,7 @@ GameObject:
   - component: {fileID: 54278802239039948}
   - component: {fileID: 195053267768298974}
   - component: {fileID: 114667807174113122}
+  - component: {fileID: 114464346433387720}
   m_Layer: 0
   m_Name: Runner
   m_TagString: Enemy
@@ -566,7 +567,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1005343561796514}
   m_LocalRotation: {x: -0, y: 0.48893467, z: -0, w: 0.8723204}
-  m_LocalPosition: {x: 3.8025675, y: 46.26992, z: -43.642895}
+  m_LocalPosition: {x: -145.8, y: 46.26992, z: -26.3}
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_Children:
   - {fileID: 4050378192485398}
@@ -612,7 +613,7 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
@@ -668,7 +669,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80f7d2fd1671c4d489efe25c918d7e69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Agent: {fileID: 0}
+  Agent: {fileID: 195053267768298974}
+--- !u!114 &114464346433387720
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1005343561796514}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ebb729e78c2923428e9ef739467416a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EnemyIsDead: 0
 --- !u!114 &114646341764035942
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -693,7 +706,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 660cbdb5d5187cb4dad174034ff1f0e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Value: 5
+  Value: 10
 --- !u!114 &114667807174113122
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -722,7 +735,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7ad72a89e0850e4ea568bea12c575ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Value: 10
+  Value: 30
 --- !u!137 &137711544042247918
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1
