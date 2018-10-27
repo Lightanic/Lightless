@@ -25,9 +25,12 @@ GameObject:
   - component: {fileID: 114490208487978110}
   - component: {fileID: 114705635128726826}
   - component: {fileID: 114742715906910976}
+  - component: {fileID: 136523145807986246}
+  - component: {fileID: 135785484523050106}
+  - component: {fileID: 114873380305571048}
   m_Layer: 0
   m_Name: FlashlightPrefab
-  m_TagString: Untagged
+  m_TagString: Flashlight
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -49,7 +52,6 @@ GameObject:
   - component: {fileID: 114107380958875526}
   - component: {fileID: 114504522443263524}
   - component: {fileID: 114850132529796612}
-  - component: {fileID: 114199030272681602}
   m_Layer: 0
   m_Name: FlashlightPickup
   m_TagString: Untagged
@@ -77,7 +79,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1899340997658810}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3.9599075, y: 1.1508846, z: -28.185558}
+  m_LocalPosition: {x: 64.72, y: 6.11, z: -30.52}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children:
   - {fileID: 4181048663550772}
@@ -166,7 +168,7 @@ Light:
   m_Type: 0
   m_Color: {r: 0.8867924, g: 0.6653359, b: 0.31372374, a: 1}
   m_Intensity: 1.1
-  m_Range: 45.88
+  m_Range: 35.8
   m_SpotAngle: 48
   m_CookieSize: 10
   m_Shadows:
@@ -208,21 +210,6 @@ MonoBehaviour:
   RemoveFromInventory: 0
   AddToInventoryTop: 0
   Throwable: 1
---- !u!114 &114199030272681602
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1899340997658810}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ba57a7d2573ec4646bc6cd327a81096e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  lr: {fileID: 0}
-  h: 4
-  gravity: -18
-  debugPath: 1
 --- !u!114 &114469252822864888
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -333,7 +320,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Canvas: {fileID: 0}
   offsetHeight: 1
-  sprite: {fileID: 0}
+  sprite: {fileID: 21300000, guid: 271edbc011d9e03489f73cef81b2d56a, type: 3}
 --- !u!114 &114867258961414724
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -349,3 +336,43 @@ MonoBehaviour:
   IsInteracting: 0
   InteractDistance: 4
   IsEquiped: 0
+--- !u!114 &114873380305571048
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1031077870734516}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 544e52e7528d39543a55e8259cace9bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_angle: 26
+  m_distance: 28.3
+  m_isTrigger: 1
+  m_isFixScale: 1
+--- !u!135 &135785484523050106
+SphereCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1031077870734516}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 0
+  serializedVersion: 2
+  m_Radius: 3.77
+  m_Center: {x: 0, y: 0, z: 9.12}
+--- !u!136 &136523145807986246
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1031077870734516}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 0
+  m_Radius: 3.17
+  m_Height: 13.24
+  m_Direction: 2
+  m_Center: {x: 0, y: 0, z: 8.23}
