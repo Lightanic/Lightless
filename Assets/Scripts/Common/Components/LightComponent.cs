@@ -14,7 +14,10 @@ public class LightComponent : MonoBehaviour
 
         var lc = lightSource.transform.GetComponent<LightComponent>();
         if (lc != null)
+        {
             lc.LightIsOn = LightIsOn;
+        }
+            
     }
 
     public string GetParent()
