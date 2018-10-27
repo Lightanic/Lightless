@@ -2,17 +2,26 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraController : MonoBehaviour {
+public class CameraController : MonoBehaviour
+{
 
     public Transform player;            // The position that that camera will be following.
     public float smoothing = 5f;        // speed
 
-    private Vector3 offset;
+    public Vector3 offset;
+    bool isOffsetSet = false;
 
     void Start()
     {
         // Calculate the initial offset.
-        offset = transform.position - player.position;
+        if (!isOffsetSet)
+            offset = transform.position - player.position;
+    }
+
+    public void SetOffset(Vector3 offsetVector)
+    {
+        isOffsetSet = true;
+        offset = offsetVector;
     }
 
     void Update()
