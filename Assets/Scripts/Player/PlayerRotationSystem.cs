@@ -20,7 +20,7 @@ public class PlayerRotationSystem : ComponentSystem {
     {
         foreach(var entity in GetEntities<Group>())
         {
-            if (entity.RotationComponent.EnablePlayerRotation)
+            if (entity.RotationComponent.EnablePlayerRotation && entity.InputComponent.EnablePlayerMovement)
             {
                 if (InputManager.Instance.IsGamePadActive)
                 {

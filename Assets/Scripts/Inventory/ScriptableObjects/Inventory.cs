@@ -20,9 +20,8 @@ public class Inventory : ScriptableObject {
         {
             //ItemsDictonary.Add(Items[i].GUID, Items[i]);
         }
-
-        Items.Clear();
-        ItemNumber.Clear();
+        //Items.Clear();
+        //ItemNumber.Clear();
     }
 
     /// <summary>
@@ -101,6 +100,18 @@ public class Inventory : ScriptableObject {
         //    item.GUID = guids[i];
         //    UnityEditor.EditorUtility.SetDirty(this);
         //}
+    }
+
+    private void OnDestroy()
+    {
+        Items.Clear();
+        ItemNumber.Clear();
+    }
+
+    private void OnDisable()
+    {
+        Items.Clear();
+        ItemNumber.Clear();
     }
 
 }

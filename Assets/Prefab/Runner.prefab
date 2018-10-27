@@ -26,8 +26,9 @@ GameObject:
   - component: {fileID: 114401273929052756}
   - component: {fileID: 114909720299175966}
   - component: {fileID: 114655250493184786}
-  - component: {fileID: 54262383467565968}
-  - component: {fileID: 195693418935234146}
+  - component: {fileID: 54278802239039948}
+  - component: {fileID: 195053267768298974}
+  - component: {fileID: 114667807174113122}
   m_Layer: 0
   m_Name: Runner
   m_TagString: Enemy
@@ -564,15 +565,15 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1005343561796514}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 11.8, y: 5.14, z: 15}
+  m_LocalRotation: {x: -0, y: 0.48893467, z: -0, w: 0.8723204}
+  m_LocalPosition: {x: 3.8025675, y: 46.26992, z: -43.642895}
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_Children:
   - {fileID: 4050378192485398}
   - {fileID: 4623955819852202}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 58.541004, z: 0}
 --- !u!4 &4873091708935628
 Transform:
   m_ObjectHideFlags: 1
@@ -600,7 +601,7 @@ Transform:
   m_Father: {fileID: 4514115045019154}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!54 &54262383467565968
+--- !u!54 &54278802239039948
 Rigidbody:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -693,6 +694,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Value: 5
+--- !u!114 &114667807174113122
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1005343561796514}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f84535ecace43e4281d684f1d34771c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Waypoints:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  currentWaypointIndex: 0
+  IsWandering: 0
 --- !u!114 &114909720299175966
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -704,7 +722,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7ad72a89e0850e4ea568bea12c575ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Value: 30
+  Value: 10
 --- !u!137 &137711544042247918
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1
@@ -764,7 +782,7 @@ SkinnedMeshRenderer:
     m_Center: {x: -0.304778, y: -0.06042856, z: -0.00000011920929}
     m_Extent: {x: 0.5782651, y: 0.5841364, z: 0.6601772}
   m_DirtyAABB: 0
---- !u!195 &195693418935234146
+--- !u!195 &195053267768298974
 NavMeshAgent:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
