@@ -23,6 +23,8 @@ GameObject:
   - component: {fileID: 114847352738626488}
   - component: {fileID: 114469252822864888}
   - component: {fileID: 114490208487978110}
+  - component: {fileID: 114705635128726826}
+  - component: {fileID: 114742715906910976}
   m_Layer: 0
   m_Name: FlashlightPrefab
   m_TagString: Untagged
@@ -75,7 +77,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1899340997658810}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 65.12, y: 8.97, z: -32.95}
+  m_LocalPosition: {x: 3.9599075, y: 1.1508846, z: -28.185558}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children:
   - {fileID: 4181048663550772}
@@ -217,6 +219,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba57a7d2573ec4646bc6cd327a81096e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lr: {fileID: 0}
   h: 4
   gravity: -18
   debugPath: 1
@@ -243,7 +246,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CurrentTime: 0
-  TimeThreshold: 1.5
+  TimeThreshold: 0.5
 --- !u!114 &114504522443263524
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -256,6 +259,33 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   LightIsOn: 1
+--- !u!114 &114705635128726826
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1031077870734516}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26b62268162262246a2eb7438cacdc43, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LightIsOn: 1
+--- !u!114 &114742715906910976
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1031077870734516}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c91da05dc2d961c479f2c4081e57627e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ReflectionLightPrefab: {fileID: 1031077870734516}
+  LightInstance: {fileID: 0}
+  Switch: {fileID: 114504522443263524}
+  LightInstances: []
 --- !u!114 &114801954045481404
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -287,6 +317,9 @@ MonoBehaviour:
   Switch: {fileID: 114504522443263524}
   IsReflected: 0
   PrevInstance: {fileID: 0}
+  MainInstance: {fileID: 0}
+  MaximumReflectionChain: 8
+  CurrentChainCount: 0
 --- !u!114 &114850132529796612
 MonoBehaviour:
   m_ObjectHideFlags: 1
