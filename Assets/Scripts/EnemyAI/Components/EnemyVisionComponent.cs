@@ -16,7 +16,9 @@ public class EnemyVisionComponent : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         //Debug.Log(other.gameObject.name);
-        if(other.gameObject.tag == "Player")
+        if (other.gameObject.tag == "Player")
+        {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
     }
 }
