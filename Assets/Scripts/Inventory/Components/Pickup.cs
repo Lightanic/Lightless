@@ -11,7 +11,6 @@ public class Pickup : InteractableComponent {
     /// </summary>
     public override void Interact()
     {
-        Debug.Log("Picking Up");
         gameObject.SetActive(false);
         //Destroy(gameObject);
         this.IsInteracting = false;
