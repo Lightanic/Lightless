@@ -96,7 +96,7 @@ public class CheckpointManager : MonoBehaviour
         pickup.IsInteractable = false;
         lantern.EquipRightHand();
         lamp.GetComponent<LightComponent>().ToggleLightOn();
-
-        lhc.GetComponent<InventoryItemComponent>().AddToInventory = true;
+        if(lhc != null)
+            lhc.GetComponent<InventoryItemComponent>().AddToInventory = true;
     }
 }
