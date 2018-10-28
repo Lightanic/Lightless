@@ -17,6 +17,7 @@ public class IndirectPlatformActivationSystem : ComponentSystem
         public ComponentArray<Transform> Transform;
         public ComponentArray<PlatformActivatorComponent> Activator;
         public ComponentArray<RefractorComponent> Refractor;
+        public ComponentArray<LineRendererComponent> LineComponent;
     }
 
     [Inject]
@@ -27,7 +28,7 @@ public class IndirectPlatformActivationSystem : ComponentSystem
         // Physics ray cast using Job system to check if light is hitting platform. 
         var results = new NativeArray<RaycastHit>(Light.Length, Allocator.Temp);
         var commands = new NativeArray<RaycastCommand>(Light.Length, Allocator.Temp);
-
+        var origins = new Vector3[Light.Length];
         for (int i = 0; i < Light.Length; ++i)
         {
             var lightTransform = Light.Transform[i];
@@ -35,7 +36,7 @@ public class IndirectPlatformActivationSystem : ComponentSystem
 
             var origin = lightTransform.position + lightTransform.forward * 1F;
             var direction = lightTransform.forward;
-
+            origins[i] = origin;
             if (Light.Activator[i].Switch.LightIsOn)
                 commands[i] = new RaycastCommand(origin, direction, activator.MaxActivationDistance);
         }
@@ -47,10 +48,12 @@ public class IndirectPlatformActivationSystem : ComponentSystem
         {
             var isRefracted = Light.Refractor[i].IsRefracted;
             var isReflected = Light.Activator[i].IsReflected;
+            var lineComponent = Light.LineComponent[i];
             RaycastHit hit = results[i];
 
             if (hit.collider != null && hit.collider.tag == "IndirectLightActivatedPlatform")
             {
+                lineComponent.AddLine(new ReflectionLine(origins[i], hit.point));
                 var platform = hit.collider.gameObject.GetComponent<IndirectPlatformActivatorComponent>().PlatformToActivate;
                 var activationTime = hit.collider.gameObject.GetComponent<TimedComponent>();
                 ActivatePlatform(platform, activationTime);
@@ -59,6 +62,7 @@ public class IndirectPlatformActivationSystem : ComponentSystem
             {
                 if (hit.collider != null && hit.collider.tag == "IndirectRefractionActivatedPlatform" && isRefracted)
                 {
+                    lineComponent.AddLine(new ReflectionLine(origins[i], hit.point));
                     var platform = hit.collider.gameObject.GetComponent<IndirectPlatformActivatorComponent>().PlatformToActivate;
                     var activationTime = hit.collider.gameObject.GetComponent<TimedComponent>();
                     ActivatePlatform(platform, activationTime);
@@ -66,6 +70,7 @@ public class IndirectPlatformActivationSystem : ComponentSystem
 
                 if (hit.collider != null && hit.collider.tag == "IndirectReflectionActivatedPlatform" && isReflected)
                 {
+                    lineComponent.AddLine(new ReflectionLine(origins[i], hit.point));
                     var platform = hit.collider.gameObject.GetComponent<IndirectPlatformActivatorComponent>().PlatformToActivate;
                     var activationTime = hit.collider.gameObject.GetComponent<TimedComponent>();
                     ActivatePlatform(platform, activationTime);

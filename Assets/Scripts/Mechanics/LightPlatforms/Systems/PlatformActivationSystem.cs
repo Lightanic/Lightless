@@ -17,6 +17,7 @@ public class PlatformActivationSystem : ComponentSystem
         public ComponentArray<Transform> Transform;
         public ComponentArray<PlatformActivatorComponent> Activator;
         public ComponentArray<TimedComponent> ActivationTime;
+        public ComponentArray<LineRendererComponent> LineComponent;
     }
 
     [Inject]
@@ -28,7 +29,7 @@ public class PlatformActivationSystem : ComponentSystem
         // Physics ray cast using Job system to check if light is hitting platform. 
         var results = new NativeArray<RaycastHit>(Light.Length, Allocator.Temp);
         var commands = new NativeArray<RaycastCommand>(Light.Length, Allocator.Temp);
-
+        var origins = new Vector3[Light.Length];
         for (int i = 0; i < Light.Length; ++i)
         {
             var lightTransform = Light.Transform[i];
@@ -36,7 +37,7 @@ public class PlatformActivationSystem : ComponentSystem
 
             var origin = lightTransform.position + lightTransform.forward * 1F;
             var direction = lightTransform.forward;
-            testStart = origin;
+            origins[i] = origin;
             if (Light.Activator[i].Switch.LightIsOn)
                 commands[i] = new RaycastCommand(origin, direction, activator.MaxActivationDistance);
         }
@@ -46,21 +47,21 @@ public class PlatformActivationSystem : ComponentSystem
 
         for (int i = 0; i < Light.Length; ++i)
         {
+            var lineComponent = Light.LineComponent[i];
             var isReflected = Light.Activator[i].IsReflected;
             var activationTime = Light.ActivationTime[i];
             RaycastHit hit = results[i];
 
             if (hit.collider != null && hit.collider.tag == "LightActivatedPlatform")
             {
-                Debug.DrawLine(testStart, hit.point, Color.red);
+                lineComponent.AddLine(new ReflectionLine(origins[i], hit.point));
                 ActivatePlatform(hit.collider.gameObject, activationTime);
             }
             else
             {
-                
-
                 if (hit.collider != null && hit.collider.tag == "ReflectionActivatedPlatform" && isReflected)
                 {
+                    lineComponent.AddLine(new ReflectionLine(origins[i], hit.point));
                     ActivatePlatform(hit.collider.gameObject, activationTime);
                 }
                 else
