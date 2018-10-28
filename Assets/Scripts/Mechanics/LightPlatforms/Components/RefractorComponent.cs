@@ -39,6 +39,7 @@ public class RefractorComponent : MonoBehaviour
         {
             if (hit.collider.tag == "Refractor" && Switch.LightIsOn)
             {
+                GetComponent<LineRendererComponent>().AddLine(new ReflectionLine(ray.origin, hit.point));
                 var splitCount = hit.transform.gameObject.GetComponent<RefractionAngleComponent>().SplitCount;
                 var hitPoint = hit.point;
                 hitPoint = hitPoint + ray.direction * 1.5F;
@@ -84,6 +85,11 @@ public class RefractorComponent : MonoBehaviour
            // Destroy(LightInstance);
             LightInstance = null;
         }
+    }
+
+    void DrawLine(Vector3 origin, Vector3 point)
+    {
+
     }
 
     void InstantiateLightInstances(int count, Vector3 point, Quaternion rotation)

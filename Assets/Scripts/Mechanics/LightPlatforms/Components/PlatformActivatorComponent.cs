@@ -55,6 +55,7 @@ public class PlatformActivatorComponent : MonoBehaviour
         {
             if (hit.collider.tag == "Reflector")
             {
+                GetComponent<LineRendererComponent>().AddLine(new ReflectionLine(ray.origin, hit.point));
                 if (LightInstance == null && CurrentChainCount < MaximumReflectionChain)
                 {
                     LightInstance = Instantiate(ReflectionLightPrefab, hit.point, hit.transform.rotation);
