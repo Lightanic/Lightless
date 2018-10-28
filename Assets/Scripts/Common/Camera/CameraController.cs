@@ -52,7 +52,6 @@ public class CameraController : MonoBehaviour
             }
             else
             {
-                Debug.Log(info.collider.name);
                 foreach (var outline in playerOutlines)
                 {
                     outline.eraseRenderer = false;

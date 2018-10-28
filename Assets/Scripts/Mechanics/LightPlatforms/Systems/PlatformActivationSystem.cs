@@ -33,7 +33,7 @@ public class PlatformActivationSystem : ComponentSystem
             var lightTransform = Light.Transform[i];
             var activator = Light.Activator[i];
 
-            var origin = lightTransform.position;
+            var origin = lightTransform.position + lightTransform.forward * 1F;
             var direction = lightTransform.forward;
 
             if (Light.Activator[i].Switch.LightIsOn)
