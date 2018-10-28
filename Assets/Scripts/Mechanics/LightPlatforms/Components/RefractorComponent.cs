@@ -25,7 +25,7 @@ public class RefractorComponent : MonoBehaviour
             DestroyLightInstances();
         }
 
-        Ray ray = new Ray(transform.position, transform.forward);
+        Ray ray = new Ray(transform.position + transform.forward * 1F, transform.forward);
         Ray ray1 = new Ray(transform.position + transform.right * 0.1F, transform.forward);
         Ray ray2 = new Ray(transform.position + transform.right * -0.1F, transform.forward);
 
