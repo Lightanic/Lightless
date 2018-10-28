@@ -10,26 +10,30 @@ public class InventoryHUDComponent : MonoBehaviour {
     public Image RightSlot;
 
     [SerializeField]
-    Sprite defaultSelected;
+    public Sprite defaultSelected;
     [SerializeField]
-    Sprite defaultLeft;
+    public Sprite defaultLeft;
     [SerializeField]
-    Sprite defaultRight;
+    public Sprite defaultRight;
 
     float alpha;
     // Use this for initialization
     void Start () {
-        defaultSelected = SelectedSlot.sprite;
-        defaultLeft = LeftSlot.sprite;
-        defaultRight = RightSlot.sprite;
+        if (defaultSelected == null)
+            defaultSelected = SelectedSlot.sprite;
+        if (defaultLeft == null)
+            defaultLeft = LeftSlot.sprite;
+        if (defaultRight == null)
+            defaultRight = RightSlot.sprite;
         alpha = SelectedSlot.color.a;
-	}
+    }
 	
 	public void SetSelectedSlot(Sprite image)
     {
         if(image == null)
         {
             SelectedSlot.sprite = defaultSelected;
+            return;
         }
         SelectedSlot.sprite = image;
     }
@@ -39,6 +43,7 @@ public class InventoryHUDComponent : MonoBehaviour {
         if (image == null)
         {
             LeftSlot.sprite = defaultLeft;
+            return;
         }
         LeftSlot.sprite = image;
     }
@@ -47,6 +52,7 @@ public class InventoryHUDComponent : MonoBehaviour {
         if (image == null)
         {
             RightSlot.sprite = defaultRight;
+            return;
         }
         RightSlot.sprite = image;
     }

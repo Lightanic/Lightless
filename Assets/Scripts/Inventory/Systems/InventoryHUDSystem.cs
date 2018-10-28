@@ -60,6 +60,11 @@ public class InventoryHUDSystem : ComponentSystem {
             }
         }
 
+        if (items.Count == 0)
+        {
+            slotData.Slot[0].SetLeftSlot(null);
+            slotData.Slot[0].SetRightSlot(null);
+        }
         // If Nothing is equipped then show empty slot
         if (equiped == 0 && slotData.Slot.Length != 0)
         {
