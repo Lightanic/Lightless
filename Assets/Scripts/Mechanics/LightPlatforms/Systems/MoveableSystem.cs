@@ -56,15 +56,16 @@ public class MoveableSystem : ComponentSystem
             var distance = Vector3.Distance(activatorPosition, player.position);
             if (input.Control("Interact") && CurrentTime > KeyDelay)
             {
-                CurrentTime = 0F;
                 if (entity.Platform.IsSelected)
                 {
+                    CurrentTime = 0F;
                     entity.Platform.IsSelected = false;
                     input.EnablePlayerMovement = true;
                     entity.Outline.eraseRenderer = true;
                 }
                 else if (distance < 4F)
                 {
+                    CurrentTime = 0F;
                     entity.Platform.IsSelected = true;
                     input.EnablePlayerMovement = false;
                     entity.Outline.eraseRenderer = false;

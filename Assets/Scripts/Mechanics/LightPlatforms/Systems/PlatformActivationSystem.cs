@@ -25,6 +25,7 @@ public class PlatformActivationSystem : ComponentSystem
 
     protected override void OnUpdate()
     {
+        Vector3 testStart = Vector3.zero;
         // Physics ray cast using Job system to check if light is hitting platform. 
         var results = new NativeArray<RaycastHit>(Light.Length, Allocator.Temp);
         var commands = new NativeArray<RaycastCommand>(Light.Length, Allocator.Temp);
