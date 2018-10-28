@@ -41,8 +41,8 @@ public class CameraController : MonoBehaviour
         RaycastHit info;
         if (Physics.Raycast(ray, out info, 100F))
         {
-
-            if (info.collider.name == "Player")
+            Debug.Log(info.collider.name);
+            if (info.collider.tag == "PlayerBodyMesh")
             {
                 foreach (var outline in playerOutlines)
                 {
