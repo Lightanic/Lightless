@@ -8,6 +8,7 @@ public class RefractorComponent : MonoBehaviour
     public GameObject ReflectionLightPrefab;
     public GameObject LightInstance = null;
     public LightComponent Switch;
+    public bool IsRefracted = false;
 
     public List<GameObject> LightInstances;
 
@@ -42,16 +43,6 @@ public class RefractorComponent : MonoBehaviour
                 var hitPoint = hit.point;
                 hitPoint = hitPoint + ray.direction * 1.5F;
                 InstantiateLightInstances(splitCount, hitPoint, hit.transform.rotation);
-                //if (LightInstance == null)
-                //{
-                //    LightInstance = Instantiate(ReflectionLightPrefab, hitPoint, hit.transform.rotation);
-                //    LightInstance.GetComponent<PlatformActivatorComponent>().IsReflected = true;
-                //    LightInstance.GetComponent<PlatformActivatorComponent>().PrevInstance = gameObject;
-                //}
-                //else if (LightInstance != null)
-                //{
-                //    LightInstance.transform.position = hitPoint;
-                //}
 
                 if (LightInstances.Count > 0)
                 {
@@ -101,7 +92,9 @@ public class RefractorComponent : MonoBehaviour
         {
             for (int i = 0; i < count; ++i)
             {
-                LightInstances.Add(Instantiate(ReflectionLightPrefab, point, rotation));
+                var instance = Instantiate(ReflectionLightPrefab, point, rotation);
+                LightInstances.Add(instance);
+                instance.GetComponent<RefractorComponent>().IsRefracted = true;
             }
         }
         else
