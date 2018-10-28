@@ -24,6 +24,7 @@ public class PlatformActivationSystem : ComponentSystem
 
     protected override void OnUpdate()
     {
+        Vector3 testStart = Vector3.zero;
         // Physics ray cast using Job system to check if light is hitting platform. 
         var results = new NativeArray<RaycastHit>(Light.Length, Allocator.Temp);
         var commands = new NativeArray<RaycastCommand>(Light.Length, Allocator.Temp);
@@ -35,7 +36,7 @@ public class PlatformActivationSystem : ComponentSystem
 
             var origin = lightTransform.position + lightTransform.forward * 1F;
             var direction = lightTransform.forward;
-
+            testStart = origin;
             if (Light.Activator[i].Switch.LightIsOn)
                 commands[i] = new RaycastCommand(origin, direction, activator.MaxActivationDistance);
         }
@@ -51,6 +52,7 @@ public class PlatformActivationSystem : ComponentSystem
 
             if (hit.collider != null && hit.collider.tag == "LightActivatedPlatform")
             {
+                Debug.DrawLine(testStart, hit.point, Color.red);
                 ActivatePlatform(hit.collider.gameObject, activationTime);
             }
             else
