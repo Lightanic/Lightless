@@ -16,6 +16,7 @@ public class IndirectPlatformActivationSystem : ComponentSystem
         public readonly int Length;
         public ComponentArray<Transform> Transform;
         public ComponentArray<PlatformActivatorComponent> Activator;
+        public ComponentArray<RefractorComponent> Refractor;
     }
 
     [Inject]
@@ -44,6 +45,7 @@ public class IndirectPlatformActivationSystem : ComponentSystem
 
         for (int i = 0; i < Light.Length; ++i)
         {
+            var isRefracted = Light.Refractor[i].IsRefracted;
             var isReflected = Light.Activator[i].IsReflected;
             RaycastHit hit = results[i];
 
@@ -55,7 +57,13 @@ public class IndirectPlatformActivationSystem : ComponentSystem
             }
             else
             {
-                
+                if (hit.collider != null && hit.collider.tag == "IndirectRefractionActivatedPlatform" && isRefracted)
+                {
+                    var platform = hit.collider.gameObject.GetComponent<IndirectPlatformActivatorComponent>().PlatformToActivate;
+                    var activationTime = hit.collider.gameObject.GetComponent<TimedComponent>();
+                    ActivatePlatform(platform, activationTime);
+                }
+
                 if (hit.collider != null && hit.collider.tag == "IndirectReflectionActivatedPlatform" && isReflected)
                 {
                     var platform = hit.collider.gameObject.GetComponent<IndirectPlatformActivatorComponent>().PlatformToActivate;
