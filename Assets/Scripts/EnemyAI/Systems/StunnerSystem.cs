@@ -14,7 +14,15 @@ public class StunnerSystem : ComponentSystem
         public EnemyDarkVisionComponent NightVision;
         public EnemyStunComponent StunComponent;
         public WayPointComponent PatrolData;
-        
+       // public StunnerAnimator AnimatorComponent;
+    }
+
+    private struct StunnerAnimatorStruct
+    {
+        public EnemyStunComponent StunComponent;
+        public WayPointComponent PatrolData;
+        public StunnerAnimator AnimatorComponent;
+
     }
     private struct PlayerData
     {
@@ -104,6 +112,7 @@ public class StunnerSystem : ComponentSystem
             if (stunner.StunComponent.IsStunned == true)
             {
                 stunner.AgentComponent.Agent.speed = 0;
+                stunner.EnemyTransform.GetComponent<Rigidbody>().isKinematic = false;
                 stunner.AgentComponent.Agent.SetDestination(stunner.EnemyTransform.position);
             }
             if (stunner.StunComponent.IsStunned == false && stunner.PatrolData.IsWandering == false)
@@ -114,7 +123,38 @@ public class StunnerSystem : ComponentSystem
             {
                 stunner.AgentComponent.Agent.speed = 3;
             }
+
         }
+
+        foreach (var e in GetEntities<StunnerAnimatorStruct>())
+        {
+            UpdateAnimation(e);
+
+        }
+    }
+
+    
+    void UpdateAnimation(StunnerAnimatorStruct stunner)
+    {
+        if (stunner.PatrolData.IsWandering && !stunner.StunComponent.IsStunned)
+        {
+            stunner.AnimatorComponent.isRunning = false;
+            stunner.AnimatorComponent.isStunned = false;
+            stunner.AnimatorComponent.isWalking = true;
+        }
+        else if (stunner.StunComponent.IsStunned)
+        {
+            stunner.AnimatorComponent.isStunned = true;
+            stunner.AnimatorComponent.isWalking = false;
+
+        }
+        else //if (!stunner.StunComponent.IsStunned && !stunner.PatrolData.IsWandering)
+        {
+            stunner.AnimatorComponent.isStunned = false;
+            stunner.AnimatorComponent.isWalking = false;
+            stunner.AnimatorComponent.isRunning = true;
+        }
+
     }
 
 

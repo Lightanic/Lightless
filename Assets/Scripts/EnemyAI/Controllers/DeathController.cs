@@ -17,8 +17,11 @@ public class DeathController : MonoBehaviour
     float timer = 0F;
     Material dissolveMatProperties;
     bool isMaterialSet = false;
+    public EnemyDeathComponent deathComponent;
+
     void Start()
     {
+        deathComponent = GetComponentInParent<EnemyDeathComponent>();
         shaderProperty = Shader.PropertyToID("_cutoff");
         DissolveShader = Shader.Find("Custom/Dissolve");
         particleEffect = GetComponentInChildren<ParticleSystem>();
@@ -33,6 +36,11 @@ public class DeathController : MonoBehaviour
 
     void Update()
     {
+        if (deathComponent.EnemyIsDead)
+        {
+            IsDead = true;
+        }
+
         if(IsDead && !StopEffect)
         {
             if(!isMaterialSet)
@@ -53,6 +61,11 @@ public class DeathController : MonoBehaviour
             enemyRenderer.material.shader = DissolveShader;
             enemyRenderer.material.SetFloat(shaderProperty, fadeIn.Evaluate(Mathf.InverseLerp(0, DeathTime, timer)));
             timer += Time.deltaTime;
+        }
+
+        if(StopEffect)
+        {
+            Destroy(deathComponent.gameObject);
         }
     }
 }
