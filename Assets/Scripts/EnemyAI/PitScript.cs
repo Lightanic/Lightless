@@ -10,7 +10,7 @@ public class PitScript : MonoBehaviour //this script detects enemy and turns the
     //public GameObject enemy;
     //bool isDead = false;
 
-    public CheckpointManager CheckpointManager;
+    //public CheckpointManager CheckpointManager;
 
     private void OnTriggerEnter(Collider collision)
     {
@@ -30,13 +30,13 @@ public class PitScript : MonoBehaviour //this script detects enemy and turns the
     //    {
     //        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     //    }
+    ////}
+    //private void OnTriggerExit(Collider other)
+    //{
+    //    if (other.gameObject.name == "Player")
+    //    {
+    //        //CheckpointManager.GoToLatestCheckpoint();
+    //       SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    //    }
     //}
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.gameObject.name == "Player")
-        {
-            //CheckpointManager.GoToLatestCheckpoint();
-           SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        }
-    }
 }
