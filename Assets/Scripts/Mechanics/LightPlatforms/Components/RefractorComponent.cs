@@ -9,7 +9,7 @@ public class RefractorComponent : MonoBehaviour
     public GameObject LightInstance = null;
     public LightComponent Switch;
     public bool IsRefracted = false;
-
+    public float ActivationDistance = 20F;
     public List<GameObject> LightInstances;
 
     // Use this for initialization
@@ -35,7 +35,7 @@ public class RefractorComponent : MonoBehaviour
         Debug.DrawRay(ray2.origin, ray2.direction);
 
         RaycastHit hit;
-        if (Physics.Raycast(ray, out hit, GetComponent<PlatformActivatorComponent>().MaxActivationDistance) && Switch.LightIsOn)
+        if (Physics.Raycast(ray, out hit, ActivationDistance) && Switch.LightIsOn)
         {
             if (hit.collider.tag == "Refractor" && Switch.LightIsOn)
             {
