@@ -28,6 +28,8 @@ public class LungerSystem : ComponentSystem
         public Transform LightTransform;
     }
 
+
+
     protected override void OnUpdate()
     {
 
@@ -162,6 +164,7 @@ public class LungerSystem : ComponentSystem
     void Seek(LungerData lunger, Vector3 target)
     {
         lunger.PatrolData.IsWandering = false;
+        lunger.AgentComponent.Agent.speed = 7;
         lunger.AgentComponent.Agent.SetDestination(target);
     }
 

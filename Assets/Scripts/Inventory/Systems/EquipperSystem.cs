@@ -87,6 +87,7 @@ public class EquipperSystem : ComponentSystem
                 if (leftHandData.data[0].isEmpty)
                 {
                     leftHandData.EquipComp[0].EquipItem(itemData.InventoryItem[i].gameObject);
+                    leftHandData.data[0].isEmpty = false;
                 }
             }
         }
