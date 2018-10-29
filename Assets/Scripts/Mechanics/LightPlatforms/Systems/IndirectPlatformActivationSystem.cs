@@ -51,7 +51,7 @@ public class IndirectPlatformActivationSystem : ComponentSystem
             var lineComponent = Light.LineComponent[i];
             RaycastHit hit = results[i];
 
-            if (hit.collider != null && hit.collider.tag == "IndirectLightActivatedPlatform")
+            if (hit.collider != null && hit.collider.tag == "IndirectLightActivatedPlatform" && !isReflected && !isRefracted)
             {
                 lineComponent.AddLine(new ReflectionLine(origins[i], hit.point));
                 var platform = hit.collider.gameObject.GetComponent<IndirectPlatformActivatorComponent>().PlatformToActivate;
