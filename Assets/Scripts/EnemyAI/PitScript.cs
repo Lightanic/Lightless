@@ -35,8 +35,8 @@ public class PitScript : MonoBehaviour //this script detects enemy and turns the
     {
         if (other.gameObject.name == "Player")
         {
-            CheckpointManager.GoToLatestCheckpoint();
-           //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            //CheckpointManager.GoToLatestCheckpoint();
+           SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
     }
 }

@@ -70,13 +70,17 @@ public class RunnerSystem : ComponentSystem
                 if (distanceToLight <= runner.EnemyVision.Value) //if distance to light is lesser than enemy vision
                 {
                     runner.Animator.isRunning = true;
-                     //seek the light
+                    runner.Animator.isWalking = false;
+
+                    //seek the light
                     Seek(runner, lightData.LightTransform.position);
 
                 }
                 else
                 {
                     runner.Animator.isRunning = false;
+                    runner.Animator.isWalking = true;
+
                     //patrolling
                     runner.PatrolData.IsWandering = true;
                 }
@@ -93,6 +97,7 @@ public class RunnerSystem : ComponentSystem
                 if (distanceToPlayer <= runner.NightVision.Value)
                 {
                     runner.Animator.isRunning = true;
+                    runner.Animator.isWalking = false;
                     //seek player
                     Seek(runner, playerData.PlayerTransform.position);
                 }
@@ -101,14 +106,19 @@ public class RunnerSystem : ComponentSystem
                     runner.Animator.isRunning = false;
                     //patrolling
                     runner.PatrolData.IsWandering = true;
+                    runner.Animator.isWalking = true;
                 }
             }
         }
+
+        
     }
 
     void Seek(RunnerData runner, Vector3 target)
     {
+        
         runner.PatrolData.IsWandering = false;
+        runner.AgentComponent.Agent.speed = 10;
         runner.AgentComponent.Agent.SetDestination(target);
     }
 
