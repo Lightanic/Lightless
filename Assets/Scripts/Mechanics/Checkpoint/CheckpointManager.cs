@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 
 public class CheckpointManager : MonoBehaviour
 {
@@ -14,6 +14,9 @@ public class CheckpointManager : MonoBehaviour
     private static bool created = false;
     public static InventoryComponent latestPlayerInventory;
     public static string leftHandComponent;
+
+    public string CheckpointLocal;
+    public bool DebugModeQuickMove = false;
 
     Dictionary<string, Transform> checkpointMap;
 
@@ -40,6 +43,16 @@ public class CheckpointManager : MonoBehaviour
         if (!string.IsNullOrEmpty(latestCheckpoint))
         {
             GoToLatestCheckpoint();
+        }
+    }
+
+    private void Update()
+    {
+        if(DebugModeQuickMove)
+        {
+            DebugModeQuickMove = false;
+            SetLatestCheckpoint(CheckpointLocal);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
     }
 
