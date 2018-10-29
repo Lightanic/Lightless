@@ -10,6 +10,7 @@ public class PatrolSystem : ComponentSystem
         public NavAgentComponent AgentComponent;
         public Transform EnemyTransform;
         public WayPointComponent PatrolComponent;
+        
 
     }
 
@@ -31,7 +32,7 @@ public class PatrolSystem : ComponentSystem
                     if (enemy.PatrolComponent.Waypoints[index] == null) continue;
                     var pos = enemy.PatrolComponent.Waypoints[index].position;
                     enemy.AgentComponent.Agent.SetDestination(pos);
-
+                    enemy.AgentComponent.Agent.speed = enemy.PatrolComponent.PatrolSpeed;
                     if (Vector3.Distance(enemy.EnemyTransform.position, enemy.PatrolComponent.Waypoints[enemy.PatrolComponent.currentWaypointIndex].position) <= 2)
                     {
                         enemy.PatrolComponent.currentWaypointIndex = Random.Range(0, enemy.PatrolComponent.Waypoints.Length);

@@ -78,6 +78,7 @@ public class PickupSystem : ComponentSystem
                 {
                     entity.PickItem.IsEquiped = true;   // equip to left hand
                     entity.PickItem.IsInteractable = false;
+                    break;
                 }
                 else if (entity.PickItem.IsInteractable)
                 {
