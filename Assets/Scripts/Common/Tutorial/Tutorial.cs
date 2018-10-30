@@ -23,9 +23,10 @@ public class Tutorial : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         Canvas.transform.LookAt(Camera.main.transform);
+        Canvas.transform.Rotate(new Vector3(0,180,0));
 		if(Input.GetKeyDown(KeyCode.Return) || inputComp.Gamepad.GetButtonDown("A"))
         {
-            Time.timeScale = 1;
+            //Time.timeScale = 1;
             ToggleOff();
         }
 	}
@@ -38,7 +39,7 @@ public class Tutorial : MonoBehaviour {
 
     public void ToggleOn(Sprite newSprite)
     {
-        Time.timeScale = 0.0f;
+        //Time.timeScale = 0.0f;
 
         if (newSprite != null)
             Canvas.GetComponentInChildren<Image>().sprite = newSprite;
@@ -52,11 +53,11 @@ public class Tutorial : MonoBehaviour {
         Canvas.SetActive(false);
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
         if(other.gameObject.tag == "Player")
         {
-            RePosition(transform.position);
+            RePosition(other.transform.position);
             ToggleOn(sprite);
         }
     }

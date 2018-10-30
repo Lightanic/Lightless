@@ -12,7 +12,7 @@ public class CheckpointManager : MonoBehaviour
     public CameraController CamController;
     private Vector3 defaultCamOffset = new Vector3(5.4F, 20.5F, -17.1F);
     private static bool created = false;
-    public static InventoryComponent latestPlayerInventory;
+    public static Inventory latestPlayerInventory;
     public static string leftHandComponent;
 
     public string CheckpointLocal;
@@ -86,7 +86,7 @@ public class CheckpointManager : MonoBehaviour
         }
         latestCheckpoint = checkpoint;
         cameraOffset = CamController.offset;
-        latestPlayerInventory = Player.GetComponent<InventoryComponent>();
+        latestPlayerInventory = Player.GetComponent<InventoryComponent>().PlayerInventory;
         var equippedItem = Player.GetComponentInChildren<EquipComponent>().EquipedItem;
         if (equippedItem != null)
             leftHandComponent = equippedItem.name;
@@ -98,6 +98,8 @@ public class CheckpointManager : MonoBehaviour
         {
             Player = GameObject.Find("Player");
         }
+        Player.transform.GetChild(1).transform.DetachChildren();
+        Player.GetComponent<InventoryComponent>().PlayerInventory = latestPlayerInventory;
         CamController.SetOffset(cameraOffset);
         Player.transform.position = checkpointMap[latestCheckpoint].position;
         var lhc = GameObject.Find(leftHandComponent);
