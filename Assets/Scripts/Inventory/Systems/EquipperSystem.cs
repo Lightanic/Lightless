@@ -96,8 +96,7 @@ public class EquipperSystem : ComponentSystem
         // Cycle through inventory items
         if (playerData.InputComponents[0].Control("InventoryNext"))
         {
-            lock (leftHandData.data[0])
-            {
+            
                 if (!lhComponent.isEmpty && lhDataEquipCompPickup != null && lhInventoryItemComp != null)
                 {
                     //Add Item to the inventory
@@ -110,16 +109,14 @@ public class EquipperSystem : ComponentSystem
                     leftHandData.EquipComp[0].EquipItem(inventoryData.Inventory[0].PlayerInventory.Items[0].Prefab);
                     inventoryData.Inventory[0].PlayerInventory.Remove(inventoryData.Inventory[0].PlayerInventory.Items[0]);
                 }
-            }
+            
 
         }
 
         // Cycle through inventory items
         if (playerData.InputComponents[0].Control("InventoryBack"))
         {
-            lock (leftHandData.data[0])
-            {
-
+            
                 if (!lhComponent.isEmpty && lhDataEquipCompPickup != null && lhInventoryItemComp != null)
                 {
                     //Add Item to the top of the inventory
@@ -134,7 +131,7 @@ public class EquipperSystem : ComponentSystem
                     leftHandData.EquipComp[0].EquipItem(inventoryData.Inventory[0].PlayerInventory.Items[inventoryData.Inventory[0].PlayerInventory.Items.Count - 1].Prefab);
                     inventoryData.Inventory[0].PlayerInventory.Remove(inventoryData.Inventory[0].PlayerInventory.Items[inventoryData.Inventory[0].PlayerInventory.Items.Count - 1]);
                 }
-            }
+            
 
         }
 

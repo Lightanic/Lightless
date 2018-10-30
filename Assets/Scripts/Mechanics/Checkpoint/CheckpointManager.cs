@@ -12,9 +12,9 @@ public class CheckpointManager : MonoBehaviour
     public CameraController CamController;
     private Vector3 defaultCamOffset = new Vector3(5.4F, 20.5F, -17.1F);
     private static bool created = false;
-    public static InventoryComponent latestPlayerInventory;
+    public static Inventory latestPlayerInventory;
     public static string leftHandComponent;
-
+    public static List<string> inventoryList;
     public string CheckpointLocal;
     public bool DebugModeQuickMove = false;
 
@@ -70,8 +70,9 @@ public class CheckpointManager : MonoBehaviour
 
         if (!created)
         {
+            inventoryList = new List<string>();
             DontDestroyOnLoad(gameObject);
-            cameraOffset = defaultCamOffset;
+            //cameraOffset = defaultCamOffset;
             created = true;
 
             Debug.Log("Awake: " + gameObject);
@@ -80,27 +81,39 @@ public class CheckpointManager : MonoBehaviour
 
     public void SetLatestCheckpoint(string checkpoint)
     {
+        if (checkpoint == latestCheckpoint) return;
         if (Player == null)
         {
             Player = GameObject.Find("Player");
         }
         latestCheckpoint = checkpoint;
         cameraOffset = CamController.offset;
-        latestPlayerInventory = Player.GetComponent<InventoryComponent>();
+        latestPlayerInventory = Player.GetComponent<InventoryComponent>().PlayerInventory;
         var equippedItem = Player.GetComponentInChildren<EquipComponent>().EquipedItem;
         if (equippedItem != null)
             leftHandComponent = equippedItem.name;
+
+        inventoryList.Clear();
+        foreach(var item in Player.GetComponent<InventoryComponent>().PlayerInventory.Items)
+        {
+            Debug.Log(item.Prefab.name);
+            inventoryList.Add(item.Prefab.name);
+        }
+        inventoryList.Add(leftHandComponent);
     }
 
     public void GoToLatestCheckpoint()
     {
+        Player.GetComponent<InventoryComponent>().PlayerInventory.Items.Clear();
         if (Player == null)
         {
             Player = GameObject.Find("Player");
         }
+        Player.transform.GetChild(1).transform.DetachChildren();
+        Player.GetComponent<InventoryComponent>().PlayerInventory = latestPlayerInventory;
         CamController.SetOffset(cameraOffset);
-        Player.transform.position = checkpointMap[latestCheckpoint].position;
-        var lhc = GameObject.Find(leftHandComponent);
+        Player.transform.position = checkpointMap[latestCheckpoint].position + transform.forward * 2F;
+
         var lamp = GameObject.Find("lamp");
         var pickup = lamp.GetComponent<Pickup>();
         var lantern = lamp.GetComponent<Lantern>();
@@ -108,8 +121,26 @@ public class CheckpointManager : MonoBehaviour
         pickup.IsEquiped = true;   // equip to left hand
         pickup.IsInteractable = false;
         lantern.EquipRightHand();
+
         lamp.GetComponent<LightComponent>().ToggleLightOn();
-        if(lhc != null)
-            lhc.GetComponent<InventoryItemComponent>().AddToInventory = true;
+        foreach(var pickupItem in inventoryList)
+        {
+            PickupItem(pickupItem);
+        }
+    }
+
+    public void ResetScene()
+    {
+        created = false;
+        latestCheckpoint = "section1";
+    }
+
+    void PickupItem(string pickupName)
+    {
+        var item = GameObject.Find(pickupName);
+        if(item!=null)
+        {
+            item.GetComponent<InventoryItemComponent>().AddToInventory = true;
+        }
     }
 }

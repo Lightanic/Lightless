@@ -143,6 +143,8 @@ public class LungerSystem : ComponentSystem
                 {
                     //patrolling
                     //lunger.AgentComponent.Agent.destination = lunger.EnemyTransform.position;   //stay where you are
+                    lunger.Animator.isRunning = false;
+                    lunger.Animator.isWalking = true;
                     lunger.PatrolData.IsWandering = true;
                 }
             }
