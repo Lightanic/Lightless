@@ -103,7 +103,6 @@ public class EquipperSystem : ComponentSystem
                     lhDataEquipCompPickup.IsEquiped = false;
                     lhInventoryItemComp.AddToInventory = true;
                     lhComponent.DropItem();
-                    lhComponent.gameObject.transform.GetChild(0).transform.parent = null;
                 }
                 if (inventoryData.Inventory[0].PlayerInventory.Items.Count > 0)
                 {
