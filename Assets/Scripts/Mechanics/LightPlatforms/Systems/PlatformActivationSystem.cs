@@ -18,6 +18,7 @@ public class PlatformActivationSystem : ComponentSystem
         public ComponentArray<PlatformActivatorComponent> Activator;
         public ComponentArray<TimedComponent> ActivationTime;
         public ComponentArray<LineRendererComponent> LineComponent;
+        public ComponentArray<RefractorComponent> Refractor;
     }
 
     [Inject]
@@ -49,6 +50,7 @@ public class PlatformActivationSystem : ComponentSystem
         {
             var lineComponent = Light.LineComponent[i];
             var isReflected = Light.Activator[i].IsReflected;
+            var isRefractor = Light.Refractor[i].IsRefracted;
             var activationTime = Light.ActivationTime[i];
             RaycastHit hit = results[i];
 

@@ -112,7 +112,7 @@ public class StunnerSystem : ComponentSystem
             if (stunner.StunComponent.IsStunned == true)
             {
                 stunner.AgentComponent.Agent.speed = 0;
-                stunner.EnemyTransform.GetComponent<Rigidbody>().isKinematic = false;
+                //stunner.EnemyTransform.GetComponent<Rigidbody>().isKinematic = true;
                 stunner.AgentComponent.Agent.SetDestination(stunner.EnemyTransform.position);
             }
             if (stunner.StunComponent.IsStunned == false && stunner.PatrolData.IsWandering == false)
@@ -123,6 +123,7 @@ public class StunnerSystem : ComponentSystem
             {
                 stunner.AgentComponent.Agent.speed = 3;
             }
+          
 
         }
 
