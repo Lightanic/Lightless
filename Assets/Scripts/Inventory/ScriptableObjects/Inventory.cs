@@ -6,7 +6,7 @@ using UnityEngine;
 public class Inventory : ScriptableObject {
 
     public List<InventoryItem> Items = new List<InventoryItem>();
-    public List<uint> ItemNumber = new List<uint>(); 
+    //public List<uint> ItemNumber = new List<uint>(); 
 
     public Dictionary<string, InventoryItem> ItemsDictonary = new Dictionary<string, InventoryItem>();
 
@@ -20,7 +20,7 @@ public class Inventory : ScriptableObject {
         {
             //ItemsDictonary.Add(Items[i].GUID, Items[i]);
         }
-        //Items.Clear();
+        Items.Clear();
         //ItemNumber.Clear();
     }
 
@@ -34,13 +34,13 @@ public class Inventory : ScriptableObject {
         {
             //Add item
             Items.Add(item);
-            ItemNumber.Add(1);
+            //ItemNumber.Add(1);
             //ItemsDictonary.Add(Items[Items.Count - 1].GUID, Items[Items.Count - 1]);
         }
         else
         {
             int index = Items.IndexOf(item);
-            ++ItemNumber[index];
+            //++ItemNumber[index];
         }
     }
 
@@ -54,13 +54,13 @@ public class Inventory : ScriptableObject {
         {
             //Add item
             Items.Insert(0,item);
-            ItemNumber.Insert(0,1);
+           // ItemNumber.Insert(0,1);
             //ItemsDictonary.Add(Items[Items.Count - 1].GUID, Items[Items.Count - 1]);
         }
         else
         {
             int index = Items.IndexOf(item);
-            ++ItemNumber[index];
+           // ++ItemNumber[index];
         }
     }
 
@@ -74,12 +74,12 @@ public class Inventory : ScriptableObject {
         if(Items.Contains(item))
         {
             int index = Items.IndexOf(item);
-            --ItemNumber[index];
-            if (ItemNumber[index] <= 0)
-            {
-                ItemNumber.RemoveAt(index);
+           // --ItemNumber[index];
+           // if (ItemNumber[index] <= 0)
+           // {
+               // ItemNumber.RemoveAt(index);
                 Items.Remove(item);
-            }
+           // }
         }
     }
 
@@ -105,13 +105,13 @@ public class Inventory : ScriptableObject {
     private void OnDestroy()
     {
         Items.Clear();
-        ItemNumber.Clear();
+        ///ItemNumber.Clear();
     }
 
     private void OnDisable()
     {
         Items.Clear();
-        ItemNumber.Clear();
+        //ItemNumber.Clear();
     }
 
 }
