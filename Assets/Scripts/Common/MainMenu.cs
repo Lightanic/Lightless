@@ -27,6 +27,12 @@ public class MainMenu : MonoBehaviour {
 
     public void Play()
     {
+        var checkpointManager = GameObject.Find("CheckpointManager");
+        if(checkpointManager!=null)
+        {
+            //Destroy(checkpointManager);
+            checkpointManager.GetComponent<CheckpointManager>().ResetScene();
+        }
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         PauseMenu.isPaused = false;
         Debug.Log("Play");

@@ -72,7 +72,7 @@ public class CheckpointManager : MonoBehaviour
         {
             inventoryList = new List<string>();
             DontDestroyOnLoad(gameObject);
-            cameraOffset = defaultCamOffset;
+            //cameraOffset = defaultCamOffset;
             created = true;
 
             Debug.Log("Awake: " + gameObject);
@@ -125,6 +125,12 @@ public class CheckpointManager : MonoBehaviour
         {
             PickupItem(pickupItem);
         }
+    }
+
+    public void ResetScene()
+    {
+        created = false;
+        latestCheckpoint = "section1";
     }
 
     void PickupItem(string pickupName)
