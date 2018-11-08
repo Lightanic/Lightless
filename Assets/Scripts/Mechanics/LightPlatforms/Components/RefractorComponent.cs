@@ -6,10 +6,12 @@ using UnityEngine;
 public class RefractorComponent : MonoBehaviour
 {
     private static readonly int RaycastCount = 3;
+    [Header("Configuration")]
     public float                LightWidthStep = 0.1F;
-    public bool                 IsRefracted = false;
     public float                ActivationDistance = 20F;
 
+    [Header("Light Instance Data")]
+    public bool                 IsRefracted = false;
     public LightComponent       Switch;
     public GameObject           ReflectionLightPrefab;
     public GameObject           LightInstance = null;

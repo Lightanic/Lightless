@@ -6,12 +6,13 @@ using UnityEngine;
 public class PlatformActivatorComponent : MonoBehaviour
 {
     private static readonly int RaycastCount = 3;
+
+    [Header("Configuration")]
     public float                ActivationDelay = 1F;
     public float                MaxActivationDistance = 15F;
     public float                LightWidthStep = 0.1F;
 
-    public bool                 ShouldBeDestroyed = false;
-    public bool                 ShouldCreateLightInstance = false;
+    [Header("Instance Data")]
     public bool                 IsReflected = false;
 
     public LightComponent       Switch;
