@@ -50,6 +50,19 @@ public class CheckpointManager : MonoBehaviour
     {
         if(DebugModeQuickMove)
         {
+            if (Player == null)
+            {
+                Player = GameObject.Find("Player");
+            }
+            if (CamController == null)
+            {
+                var cam = GameObject.Find("Main Camera");
+                if (cam != null)
+                {
+                    CamController = cam.GetComponent<CameraController>();
+                }
+            }
+
             DebugModeQuickMove = false;
             SetLatestCheckpoint(CheckpointLocal);
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
