@@ -42,10 +42,7 @@ public class PlatformActivatorComponent : MonoBehaviour
             Destroy(gameObject);
         }
 
-        Ray ray = new Ray(transform.position + transform.forward * 1F, transform.forward);
-        Ray ray1 = new Ray(transform.position + transform.right * 0.1F, transform.forward);
-        Ray ray2 = new Ray(transform.position + transform.right * -0.1F, transform.forward);
-
+        var direction = transform.forward;
         var results = new NativeArray<RaycastHit>(RaycastCount, Allocator.Temp);
         var commands = new NativeArray<RaycastCommand>(RaycastCount, Allocator.Temp);
         commands[0] = new RaycastCommand(transform.position + transform.forward * 1F, transform.forward, MaxActivationDistance);
@@ -67,11 +64,6 @@ public class PlatformActivatorComponent : MonoBehaviour
             }
         }
 
-        Debug.DrawRay(ray.origin, ray.direction);
-        Debug.DrawRay(ray1.origin, ray1.direction);
-        Debug.DrawRay(ray2.origin, ray2.direction);
-
-        
         if (hasHit && Switch.LightIsOn)
         {
             if (hit.collider.tag == "Reflector")
@@ -94,7 +86,7 @@ public class PlatformActivatorComponent : MonoBehaviour
                 {
                     var point = hit.point;
                     var normal = hit.transform.forward;
-                    var reflection = ray.direction - 2 * (Vector3.Dot(ray.direction, normal)) * normal;
+                    var reflection = direction - 2 * (Vector3.Dot(direction, normal)) * normal;
                     var lookTowardsPos = point + reflection * 2F;
                     LightInstance.transform.LookAt(lookTowardsPos);
                     Debug.DrawRay(point, reflection);
