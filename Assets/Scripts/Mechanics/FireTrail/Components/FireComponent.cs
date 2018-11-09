@@ -13,7 +13,7 @@ public class FireComponent : MonoBehaviour
     public float PropogationTimeStep = 0.1F; //seconds
     public Queue<Vector3> FireUpQueue;
     public Queue<Vector3> FireDownQueue;
-
+    public OilTrailComponent OilTrail = null;
     private void Start()
     {
         Instances = new List<GameObject>();

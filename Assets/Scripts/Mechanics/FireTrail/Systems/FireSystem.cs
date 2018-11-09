@@ -18,6 +18,7 @@ public class FireSystem : ComponentSystem
     {
         public ComponentArray<OilTrailComponent> OilTrail;
     }
+
     [Inject] private OilCanInstanceGroup OilCanInstance;
 
     /// <summary>
@@ -27,27 +28,29 @@ public class FireSystem : ComponentSystem
     {
         readonly public int Length;
         public ComponentArray<InputComponent> InputComponents;
+        public ComponentArray<Transform> Transforms;
     }
     [Inject] private Player playerData;
 
     protected override void OnUpdate()
     {
+        var playerTransform = playerData.Transforms[0];
         var entities = GetEntities<Group>();
 
-        foreach(var entity in entities)
+        foreach (var entity in entities)
         {
             HandleFireQueue(entity.Fire);
         }
 
-        if (OilCanInstance.OilTrail.Length > 0)
+        foreach (var entity in GetEntities<Group>())
         {
-            var oilTrail = OilCanInstance.OilTrail[0];
-            foreach (var entity in GetEntities<Group>())
+            if (entity.Fire.OilTrail != null)
             {
+                var oilTrail = entity.Fire.OilTrail;
                 var firePrefab = entity.Fire.FirePrefab;
                 var points = oilTrail.TrailPoints.ToArray();
                 int closestPointIndex;
-                bool isPlayerClose = IsPlayerClose(points, entity.Transform.position, entity.Fire.OilTrailDistanceThreshold, out closestPointIndex);
+                bool isPlayerClose = IsPlayerClose(points, playerTransform.position, entity.Fire.OilTrailDistanceThreshold, out closestPointIndex);
 
                 // Allow burning of oil on ground only if player there is oil to burn and player is close to oil trail
                 if (playerData.InputComponents[0].Control("LightFire") && points.Length > 0 && isPlayerClose)
@@ -55,27 +58,20 @@ public class FireSystem : ComponentSystem
                     entity.Fire.IsFireStopped = false;
                     oilTrail.LineRenderer.positionCount = 0;
                     oilTrail.CurrentTrailCount = 0;
-                    for(int i = closestPointIndex; i >= 0; --i)
+                    for (int i = closestPointIndex; i >= 0; --i)
                     {
                         entity.Fire.FireDownQueue.Enqueue(points[i]);
                     }
 
-                    for(int i = closestPointIndex + 1; i < points.Length; ++i)
+                    for (int i = closestPointIndex + 1; i < points.Length; ++i)
                     {
                         entity.Fire.FireUpQueue.Enqueue(points[i]);
                     }
 
-                    //foreach (var point in points)
-                    //{
-                    //    var pos = point;
-                    //    pos.x += 0.2F;
-                    //    var instance = Object.Instantiate(firePrefab, pos, new Quaternion());
-                    //    entity.Fire.Instances.Add(instance);
-                    //}
-
                     oilTrail.TrailPoints.Clear(); //Clear out Oil Trail Component once fire has been instantiated. 
                 }
             }
+
         }
 
     }
@@ -85,7 +81,7 @@ public class FireSystem : ComponentSystem
         if (fireComponent.CurrentTime > fireComponent.PropogationTimeStep)
         {
             fireComponent.CurrentTime = 0;
-            if(fireComponent.FireDownQueue.Count > 0)
+            if (fireComponent.FireDownQueue.Count > 0)
             {
                 DequeueAndInstantiateFire(fireComponent.FireDownQueue, fireComponent.FirePrefab, fireComponent);
             }
