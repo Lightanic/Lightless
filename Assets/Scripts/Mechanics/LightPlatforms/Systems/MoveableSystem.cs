@@ -74,16 +74,27 @@ public class MoveableSystem : ComponentSystem
 
             if (entity.Platform.IsSelected)
             {
-                entity.Transform.position = Vector3.MoveTowards(
-                    entity.Transform.position,
-                    target,
-                    entity.Platform.MoveSpeed * Mathf.Abs(horizontal) * Time.deltaTime
+                if (entity.Platform.CanMove)
+                {
+                    entity.Transform.position = Vector3.MoveTowards(
+                        entity.Transform.position,
+                        target,
+                        entity.Platform.MoveSpeed * Mathf.Abs(horizontal) * Time.deltaTime
                     );
+                }
+              
+                if (entity.Platform.CanRotate)
+                {
+                    var rotation = entity.Transform.rotation;
+                    float max = entity.Platform.InitialAngles.y + entity.Platform.MaxRotationAngle;
+                    float min = entity.Platform.InitialAngles.y - entity.Platform.MaxRotationAngle;
+                    entity.Platform.CurrentAngles.y += vertical * Time.deltaTime * 100F;
+                    entity.Platform.CurrentAngles.y = Mathf.Clamp(entity.Platform.CurrentAngles.y, min, max);
+                    
+                    rotation.eulerAngles = entity.Platform.CurrentAngles;
+                    entity.Transform.rotation = rotation;
+                }
 
-                entity.Transform.Rotate(
-                    entity.Transform.up,
-                    vertical * Time.deltaTime * 100F
-                    );
             }
 
         }
