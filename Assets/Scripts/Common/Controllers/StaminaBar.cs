@@ -27,11 +27,11 @@ public class StaminaBar : MonoBehaviour {
 	void Update () {
         if(playerComponent.canDodge)
         {
-            stamina.color = Color.red;
+            stamina.color = Color.white;
         }
         else
         {
-            stamina.color = Color.white;
+            stamina.color = Color.red;
         }
         transform.rotation = rotation;
         //transform.LookAt(cam.transform);
