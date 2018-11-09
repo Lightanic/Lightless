@@ -50,6 +50,19 @@ public class CheckpointManager : MonoBehaviour
     {
         if(DebugModeQuickMove)
         {
+            if (Player == null)
+            {
+                Player = GameObject.Find("Player");
+            }
+            if (CamController == null)
+            {
+                var cam = GameObject.Find("Main Camera");
+                if (cam != null)
+                {
+                    CamController = cam.GetComponent<CameraController>();
+                }
+            }
+
             DebugModeQuickMove = false;
             SetLatestCheckpoint(CheckpointLocal);
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
@@ -112,7 +125,7 @@ public class CheckpointManager : MonoBehaviour
         Player.transform.GetChild(1).transform.DetachChildren();
         Player.GetComponent<InventoryComponent>().PlayerInventory = latestPlayerInventory;
         CamController.SetOffset(cameraOffset);
-        Player.transform.position = checkpointMap[latestCheckpoint].position + transform.forward * 2F;
+        Player.transform.position = checkpointMap[latestCheckpoint].position + transform.forward * 1.5F;
 
         var lamp = GameObject.Find("lamp");
         var pickup = lamp.GetComponent<Pickup>();

@@ -20,6 +20,7 @@ public class OilTrailSystem : ComponentSystem
         public readonly int Length;
         public ComponentArray<Transform> Transforms;
         public ComponentArray<InputComponent> Inputs;
+        public ComponentArray<FireComponent> FireComponent;
     }
 
     [Inject] private PlayerData Player;
@@ -31,6 +32,7 @@ public class OilTrailSystem : ComponentSystem
     protected override void OnUpdate()
     {
         var transform = Player.Transforms[0];
+        var fireComponent = Player.FireComponent[0];
         var entities = GetEntities<Group>();
         foreach (var entity in entities)
         {
@@ -94,6 +96,16 @@ public class OilTrailSystem : ComponentSystem
                         }
                     }
                 }
+
+                if(lineRenderer.positionCount > 0)
+                {
+                    fireComponent.OilTrail = entity.OilTrail;
+                }
+                else
+                {
+                    fireComponent.OilTrail = null;
+                }
+
             }
         }
     }
