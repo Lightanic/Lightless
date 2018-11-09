@@ -125,7 +125,7 @@ public class CheckpointManager : MonoBehaviour
         Player.transform.GetChild(1).transform.DetachChildren();
         Player.GetComponent<InventoryComponent>().PlayerInventory = latestPlayerInventory;
         CamController.SetOffset(cameraOffset);
-        Player.transform.position = checkpointMap[latestCheckpoint].position + transform.forward * 2F;
+        Player.transform.position = checkpointMap[latestCheckpoint].position + transform.forward * 1.5F;
 
         var lamp = GameObject.Find("lamp");
         var pickup = lamp.GetComponent<Pickup>();
