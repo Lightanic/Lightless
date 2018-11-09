@@ -11,7 +11,7 @@ public class InputManager : MonoBehaviour {
             Instance = this;
         else if (Instance != this)
             Destroy(gameObject);
-        DontDestroyOnLoad(gameObject);
+        //DontDestroyOnLoad(gameObject);
     }
     
     public bool IsGamePadActive = false;
@@ -47,6 +47,7 @@ public class InputManager : MonoBehaviour {
             }
         }
 
+        //Debug.Log("KB Time" + kbTimeStamp + "GP Time" + gamePadTimeStamp);
         if (gamePadTimeStamp >= kbTimeStamp)                                // Check which input was used mast recently
         {
             IsGamePadActive = true;
