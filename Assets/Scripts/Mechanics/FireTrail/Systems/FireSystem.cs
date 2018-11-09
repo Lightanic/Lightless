@@ -11,7 +11,7 @@ public class FireSystem : ComponentSystem
     private struct Group
     {
         public FireComponent Fire;
-        public Transform Transform;
+       // public Transform Transform;
     }
 
     private struct OilCanInstanceGroup
@@ -27,11 +27,13 @@ public class FireSystem : ComponentSystem
     {
         readonly public int Length;
         public ComponentArray<InputComponent> InputComponents;
+        public ComponentArray<Transform> Transforms;
     }
     [Inject] private Player playerData;
 
     protected override void OnUpdate()
     {
+        var playerTransform = playerData.Transforms[0];
         var entities = GetEntities<Group>();
 
         foreach(var entity in entities)
@@ -47,7 +49,7 @@ public class FireSystem : ComponentSystem
                 var firePrefab = entity.Fire.FirePrefab;
                 var points = oilTrail.TrailPoints.ToArray();
                 int closestPointIndex;
-                bool isPlayerClose = IsPlayerClose(points, entity.Transform.position, entity.Fire.OilTrailDistanceThreshold, out closestPointIndex);
+                bool isPlayerClose = IsPlayerClose(points, playerTransform.position, entity.Fire.OilTrailDistanceThreshold, out closestPointIndex);
 
                 // Allow burning of oil on ground only if player there is oil to burn and player is close to oil trail
                 if (playerData.InputComponents[0].Control("LightFire") && points.Length > 0 && isPlayerClose)
