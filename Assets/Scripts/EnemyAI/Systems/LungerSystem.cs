@@ -64,8 +64,9 @@ public class LungerSystem : ComponentSystem
             }
 
             float distanceToLight = currentDistance;
-
             float distanceToPlayer = Vector3.Distance(playerData.PlayerTransform.position, lunger.EnemyTransform.position);
+            lunger.EnemyVision.IsAlerted = false;
+            lunger.EnemyVision.IsSeeking = false;
 
             if (lunger.LungeComponent.IsPrelunging)
             {
@@ -106,7 +107,14 @@ public class LungerSystem : ComponentSystem
 
             if (isThereLight && lightData.LightSwitch.LightIsOn)
             {
-                if (distanceToLight <= lunger.EnemyVision.Value) //if distance to light is lesser than enemy vision
+                if (distanceToLight > lunger.EnemyVision.Value && distanceToLight <= lunger.EnemyVision.Value + lunger.EnemyVision.AlertValue)
+                {
+                    lunger.Animator.isRunning = false;
+                    lunger.Animator.isWalking = true;
+                    lunger.EnemyVision.IsAlerted = true;
+                    lunger.PatrolData.IsWandering = true;
+                }
+                else if (distanceToLight <= lunger.EnemyVision.Value) //if distance to light is lesser than enemy vision
                 {
                     lunger.Animator.isWalking = true;
 
@@ -134,10 +142,11 @@ public class LungerSystem : ComponentSystem
             }
             else
             {
-                if (distanceToPlayer <= lunger.LungeComponent.LungeValue && !lunger.LungeComponent.IsPrelunging && !lunger.LungeComponent.IsLunging)
+                 if (distanceToPlayer <= lunger.LungeComponent.LungeValue && !lunger.LungeComponent.IsPrelunging && !lunger.LungeComponent.IsLunging)
                 {
                     //Debug.Log("get ready for the lunge");
                     lunger.LungeComponent.IsPrelunging = true;
+                    lunger.EnemyVision.IsSeeking = true;
                 }
                 else
                 {
@@ -155,6 +164,7 @@ public class LungerSystem : ComponentSystem
     {
         if (lunger.LungeComponent.IsLunging)
         {
+            lunger.EnemyVision.IsSeeking = true;
             //Debug.Log("lunging");
             lunger.AgentComponent.Agent.speed = Random.Range(20, 40);
             //seek player
@@ -165,6 +175,7 @@ public class LungerSystem : ComponentSystem
 
     void Seek(LungerData lunger, Vector3 target)
     {
+        lunger.EnemyVision.IsSeeking = true;
         lunger.PatrolData.IsWandering = false;
         lunger.AgentComponent.Agent.speed = 7;
         lunger.AgentComponent.Agent.SetDestination(target);
