@@ -71,10 +71,18 @@ public class StunnerSystem : ComponentSystem
 
             float distanceToLight = currentDistance;
             float distanceToPlayer = Vector3.Distance(playerData.PlayerTransform.position, stunner.EnemyTransform.position);
+            stunner.EnemyVision.IsAlerted = false;
+            stunner.EnemyVision.IsSeeking = false;
 
             if (isThereLight && lightData.LightSwitch.LightIsOn)
             {
-                if (distanceToLight <= stunner.EnemyVision.Value) //if distance to light is lesser than enemy vision
+                if (distanceToLight > stunner.EnemyVision.Value && distanceToLight <= stunner.EnemyVision.Value + stunner.EnemyVision.AlertValue)
+                {
+                 
+                    stunner.EnemyVision.IsAlerted = true;
+                    stunner.PatrolData.IsWandering = true;
+                }
+                else if (distanceToLight <= stunner.EnemyVision.Value) //if distance to light is lesser than enemy vision
                 {
                     //stunner.Animator.isRunning = true;
                     //stunner.AgentComponent.Agent.SetDestination(lightData.LightTransform.position); 
@@ -98,7 +106,13 @@ public class StunnerSystem : ComponentSystem
             }
             else
             {
-                if (distanceToPlayer <= stunner.NightVision.Value)
+                if (distanceToLight > stunner.NightVision.Value && distanceToLight <= stunner.NightVision.Value + stunner.EnemyVision.AlertValue)
+                {
+
+                    stunner.EnemyVision.IsAlerted = true;
+                    stunner.PatrolData.IsWandering = true;
+                }
+                else if (distanceToPlayer <= stunner.NightVision.Value)
                 {
                     //seek player
                     Seek(stunner, playerData.PlayerTransform.position);
@@ -161,6 +175,7 @@ public class StunnerSystem : ComponentSystem
 
     void Seek(StunnerData stunner, Vector3 target)
     {
+        stunner.EnemyVision.IsSeeking = true;
         stunner.PatrolData.IsWandering = false;
         stunner.AgentComponent.Agent.SetDestination(target);
     }
