@@ -64,10 +64,20 @@ public class RunnerSystem : ComponentSystem
 
             float distanceToLight = currentDistance;
             float distanceToPlayer = Vector3.Distance(playerData.PlayerTransform.position, runner.EnemyTransform.position);
+            runner.EnemyVision.IsAlerted = false;
+            runner.EnemyVision.IsSeeking = false;
 
             if (isThereLight && lightData.LightSwitch.LightIsOn)
             {
-                if (distanceToLight <= runner.EnemyVision.Value) //if distance to light is lesser than enemy vision
+                
+                if (distanceToLight > runner.EnemyVision.Value && distanceToLight <= runner.EnemyVision.Value + runner.EnemyVision.AlertValue)
+                {
+                    runner.Animator.isRunning = false;
+                    runner.Animator.isWalking = true;
+                    runner.EnemyVision.IsAlerted = true;
+                    runner.PatrolData.IsWandering = true;
+                }
+                else if (distanceToLight <= runner.EnemyVision.Value) //if distance to light is lesser than enemy vision
                 {
                     runner.Animator.isRunning = true;
                     runner.Animator.isWalking = false;
@@ -94,7 +104,14 @@ public class RunnerSystem : ComponentSystem
             }
             else
             {
-                if (distanceToPlayer <= runner.NightVision.Value)
+                if (distanceToLight > runner.NightVision.Value && distanceToLight <= runner.NightVision.Value + runner.EnemyVision.AlertValue)
+                {
+                    runner.Animator.isRunning = false;
+                    runner.Animator.isWalking = true;
+                    runner.EnemyVision.IsAlerted = true;
+                    runner.PatrolData.IsWandering = true;
+                }
+                else if (distanceToPlayer <= runner.NightVision.Value)
                 {
                     runner.Animator.isRunning = true;
                     runner.Animator.isWalking = false;
@@ -116,7 +133,7 @@ public class RunnerSystem : ComponentSystem
 
     void Seek(RunnerData runner, Vector3 target)
     {
-        
+        runner.EnemyVision.IsSeeking = true;
         runner.PatrolData.IsWandering = false;
         runner.AgentComponent.Agent.speed = 10;
         runner.AgentComponent.Agent.SetDestination(target);
