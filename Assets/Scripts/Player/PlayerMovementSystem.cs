@@ -101,12 +101,15 @@ public class PlayerMovementSystem : ComponentSystem
         {
             if (entity.SpeedComponent.isSprinting)
             {
-                entity.SpeedComponent.Stamina -= Time.deltaTime;
+                entity.SpeedComponent.Stamina -= Time.deltaTime * entity.SpeedComponent.StaminaConsumptionRate;
             }
-            else if (entity.SpeedComponent.isDodging)
+            if (entity.SpeedComponent.isDodging)
             {
-                var stAmtLost = Time.deltaTime * entity.SpeedComponent.DodgeMultiplier;
-                entity.SpeedComponent.Stamina -= stAmtLost;
+                var currStamina = entity.SpeedComponent.Stamina;
+                var stAmtLost = entity.SpeedComponent.DodgeMultiplier;
+                currStamina /= stAmtLost;
+                var diff = entity.SpeedComponent.Stamina - currStamina;
+                entity.SpeedComponent.Stamina = diff;
             }
             if (entity.SpeedComponent.Stamina <= (0 + Mathf.Epsilon))
             {
@@ -120,7 +123,7 @@ public class PlayerMovementSystem : ComponentSystem
         {
             if (staminaObj != null)
                 staminaObj.SetActive(true);
-            entity.SpeedComponent.Stamina += Time.deltaTime;
+            entity.SpeedComponent.Stamina += Time.deltaTime * entity.SpeedComponent.StaminaRegenRate;
         }
     }
 
@@ -130,7 +133,12 @@ public class PlayerMovementSystem : ComponentSystem
     /// <param name="entity"></param>
     void Dodge(Group entity)
     {
-        if (entity.InputComponent.Control("Dodge"))
+        if (CalculateDodge(entity) >= entity.SpeedComponent.MIN_STAMINA)
+            entity.SpeedComponent.canDodge = true;
+        else
+            entity.SpeedComponent.canDodge = false;
+
+        if (entity.InputComponent.Control("Dodge") && entity.SpeedComponent.canDodge)
         {
             entity.SpeedComponent.isDodging = true;
             entity.SpeedComponent.Speed = entity.SpeedComponent.DODGE_SPEED;
@@ -139,5 +147,14 @@ public class PlayerMovementSystem : ComponentSystem
         {
             entity.SpeedComponent.isDodging = false;
         }
+    }
+
+    float CalculateDodge(Group entity)
+    {
+        var currStamina = entity.SpeedComponent.Stamina;
+        var stAmtLost = entity.SpeedComponent.DodgeMultiplier;
+        currStamina /= stAmtLost;
+        var diff = entity.SpeedComponent.Stamina - currStamina;
+        return diff;
     }
 }

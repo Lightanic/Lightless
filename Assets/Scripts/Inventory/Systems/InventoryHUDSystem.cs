@@ -60,7 +60,7 @@ public class InventoryHUDSystem : ComponentSystem {
             }
         }
 
-        if (items.Count == 0)
+        if (items.Count == 0 && slotData.Length>0)
         {
             slotData.Slot[0].SetLeftSlot(null);
             slotData.Slot[0].SetRightSlot(null);

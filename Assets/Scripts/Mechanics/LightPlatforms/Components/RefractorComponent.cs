@@ -1,48 +1,67 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Unity.Collections;
 using UnityEngine;
 
 public class RefractorComponent : MonoBehaviour
 {
+    private static readonly int RaycastCount = 3;
+    [Header("Configuration")]
+    public float                LightWidthStep = 0.1F;
+    public float                ActivationDistance = 20F;
 
-    public GameObject ReflectionLightPrefab;
-    public GameObject LightInstance = null;
-    public LightComponent Switch;
-    public bool IsRefracted = false;
-    public float ActivationDistance = 20F;
-    public List<GameObject> LightInstances;
+    [Header("Light Instance Data")]
+    public bool                 IsRefracted = false;
+    public LightComponent       Switch;
+    public GameObject           ReflectionLightPrefab;
+    public GameObject           LightInstance = null;
+    public List<GameObject>     LightInstances;
 
-    // Use this for initialization
     void Start()
     {
         LightInstances = new List<GameObject>(10);
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if(!Switch.LightIsOn)
+        if (!Switch.LightIsOn)
         {
             DestroyLightInstances();
         }
 
-        Ray ray = new Ray(transform.position + transform.forward * 1F, transform.forward);
-        Ray ray1 = new Ray(transform.position + transform.right * 0.1F, transform.forward);
-        Ray ray2 = new Ray(transform.position + transform.right * -0.1F, transform.forward);
+        var lightDirection = transform.forward;
+        var results = new NativeArray<RaycastHit>(RaycastCount, Allocator.Temp);
+        var commands = new NativeArray<RaycastCommand>(RaycastCount, Allocator.Temp);
+        commands[0] = new RaycastCommand(transform.position + transform.forward * 1F, transform.forward, ActivationDistance);
+        commands[1] = new RaycastCommand(transform.position + transform.right * LightWidthStep, transform.forward, ActivationDistance);
+        commands[2] = new RaycastCommand(transform.position + transform.right * -LightWidthStep, transform.forward, ActivationDistance);
 
-        Debug.DrawRay(ray.origin, ray.direction);
-        Debug.DrawRay(ray1.origin, ray1.direction);
-        Debug.DrawRay(ray2.origin, ray2.direction);
+        var handle = RaycastCommand.ScheduleBatch(commands, results, 1);
+        handle.Complete();
 
-        RaycastHit hit;
-        if (Physics.Raycast(ray, out hit, ActivationDistance) && Switch.LightIsOn)
+        for (int i = 0; i < RaycastCount; ++i)
+            Debug.DrawRay(commands[i].from, commands[i].direction);
+
+        bool hasHit = false;
+        RaycastHit hit = new RaycastHit();
+        for (var i = 0; i < RaycastCount; ++i)
+        {
+            if (results[i].collider != null)
+            {
+                hit = results[i];
+                hasHit = true;
+                break;
+            }
+        }
+
+        if (hasHit && Switch.LightIsOn)
         {
             if (hit.collider.tag == "Refractor" && Switch.LightIsOn)
             {
-                GetComponent<LineRendererComponent>().AddLine(new ReflectionLine(ray.origin, hit.point));
+                GetComponent<LineRendererComponent>().AddLine(new ReflectionLine(transform.position, hit.point));
                 var splitCount = hit.transform.gameObject.GetComponent<RefractionAngleComponent>().SplitCount;
                 var hitPoint = hit.point;
-                hitPoint = hitPoint + ray.direction * 1.5F;
+                hitPoint = hitPoint + lightDirection * 1.5F;
                 InstantiateLightInstances(splitCount, hitPoint, hit.transform.rotation);
 
                 if (LightInstances.Count > 0)
@@ -52,10 +71,9 @@ public class RefractorComponent : MonoBehaviour
                     var normal = hit.transform.forward;
                     var refractionAngle = hit.transform.gameObject.GetComponent<RefractionAngleComponent>().RefractionAngle;
 
-                    var reflection = ray.direction + 2 * (Vector3.Dot(ray.direction, normal)) * normal;
+                    var reflection = lightDirection + 2 * (Vector3.Dot(lightDirection, normal)) * normal;
                     reflection = Quaternion.AngleAxis(refractionAngle, hit.transform.up) * reflection;
                     var lookTowardsPos = point + reflection * 2F;
-                  //  LightInstance.transform.LookAt(lookTowardsPos);
                     Debug.DrawRay(point, reflection);
                     var oppAngle = Mathf.Abs(refractionAngle) - range;
                     var total = 2 * Mathf.Abs(refractionAngle);
@@ -75,21 +93,17 @@ public class RefractorComponent : MonoBehaviour
             else if (LightInstances.Count > 0)
             {
                 DestroyLightInstances();
-               // Destroy(LightInstance);
                 LightInstance = null;
             }
         }
         else if (LightInstances.Count > 0)
         {
             DestroyLightInstances();
-           // Destroy(LightInstance);
             LightInstance = null;
         }
-    }
 
-    void DrawLine(Vector3 origin, Vector3 point)
-    {
-
+        results.Dispose();
+        commands.Dispose();
     }
 
     void InstantiateLightInstances(int count, Vector3 point, Quaternion rotation)

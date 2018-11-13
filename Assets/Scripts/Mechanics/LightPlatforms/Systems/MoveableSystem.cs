@@ -74,16 +74,41 @@ public class MoveableSystem : ComponentSystem
 
             if (entity.Platform.IsSelected)
             {
-                entity.Transform.position = Vector3.MoveTowards(
-                    entity.Transform.position,
-                    target,
-                    entity.Platform.MoveSpeed * Mathf.Abs(horizontal) * Time.deltaTime
-                    );
-
-                entity.Transform.Rotate(
-                    entity.Transform.up,
-                    vertical * Time.deltaTime * 100F
-                    );
+                if (InputManager.Instance.IsGamePadActive)
+                {
+                    if (entity.Platform.CanMove)
+                    {
+                        entity.Transform.position = Vector3.MoveTowards(
+                        entity.Transform.position,
+                        target,
+                        entity.Platform.MoveSpeed * Mathf.Abs(Player.Input[0].Gamepad.GetStick_L().X) * Time.deltaTime
+                        );
+                    }
+                    if (entity.Platform.CanRotate)
+                    {
+                        entity.Transform.Rotate(
+                        entity.Transform.up,
+                        Player.Input[0].Gamepad.GetStick_R().X * Time.deltaTime * 100F
+                        );
+                    }
+                }
+                else if (!InputManager.Instance.IsGamePadActive)
+                {
+                    if (entity.Platform.CanMove)
+                    {
+                        entity.Transform.position = Vector3.MoveTowards(
+                        entity.Transform.position,
+                        target,
+                        entity.Platform.MoveSpeed * Mathf.Abs(horizontal) * Time.deltaTime
+                        );
+                    }
+                    if (entity.Platform.CanRotate)
+                    {
+                        entity.Transform.Rotate(
+                        entity.Transform.up,
+                        vertical * Time.deltaTime * 100F);
+                    }
+                }
             }
 
         }

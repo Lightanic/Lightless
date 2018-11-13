@@ -22,6 +22,7 @@ public class PlayerRotationSystem : ComponentSystem {
         {
             if (entity.RotationComponent.EnablePlayerRotation && entity.InputComponent.EnablePlayerMovement)
             {
+                //Debug.Log("rot  " + InputManager.Instance.IsGamePadActive);
                 if (InputManager.Instance.IsGamePadActive)
                 {
                     if (entity.InputComponent.Gamepad.GetStick_R().X != 0 || entity.InputComponent.Gamepad.GetStick_R().Y != 0)
