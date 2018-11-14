@@ -30,6 +30,7 @@ GameObject:
   - component: {fileID: 114464346433387720}
   - component: {fileID: 54750446164315890}
   - component: {fileID: 195486770762069476}
+  - component: {fileID: 114647124587893318}
   m_Layer: 0
   m_Name: Runner
   m_TagString: Enemy
@@ -831,6 +832,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isWalking: 0
   isRunning: 0
+--- !u!114 &114647124587893318
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1005343561796514}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9800d9b80c727a4c8d3186decc877ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BaseEmission: 0.1
+  MaxEmission: 2
+  AlertSpeed: 1
+  SeekSpeed: 3
+  BaseColor: {r: 1, g: 0, b: 0, a: 1}
+  EnemyMaterial: {fileID: 0}
 --- !u!114 &114655250493184786
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -860,6 +878,7 @@ MonoBehaviour:
   - {fileID: 0}
   currentWaypointIndex: 0
   IsWandering: 0
+  PatrolSpeed: 3
 --- !u!114 &114909720299175966
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -872,6 +891,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Value: 30
+  AlertValue: 3
+  IsAlerted: 0
+  IsSeeking: 0
 --- !u!137 &137711544042247918
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1
