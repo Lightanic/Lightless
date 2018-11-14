@@ -6,6 +6,9 @@ using UnityEngine.SceneManagement;
 public class EnemyVisionComponent : MonoBehaviour
 {
     public float Value = 3f;
+    public float AlertValue = 3f;
+    public bool IsAlerted = false;
+    public bool IsSeeking = false;
 
     private void OnDrawGizmos()
     {
