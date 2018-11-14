@@ -743,6 +743,7 @@ GameObject:
   - component: {fileID: 114573371858946270}
   - component: {fileID: 114590998924856532}
   - component: {fileID: 114329532242508144}
+  - component: {fileID: 114182371156455580}
   m_Layer: 0
   m_Name: Lunger (1)
   m_TagString: Enemy
@@ -1507,6 +1508,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Value: 27.81
+  AlertValue: 3
+  IsAlerted: 0
+  IsSeeking: 0
 --- !u!114 &114146777617038764
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1518,6 +1522,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bf10cdea1344482e91a4f2b58506b77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114182371156455580
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1951733273338112}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9800d9b80c727a4c8d3186decc877ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BaseEmission: 0.21
+  MaxEmission: 2
+  AlertSpeed: 1
+  SeekSpeed: 3
+  BaseColor: {r: 0.3280082, g: 0.61239064, b: 0.8584906, a: 1}
+  EnemyMaterial: {fileID: 0}
 --- !u!114 &114329532242508144
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1565,6 +1586,7 @@ MonoBehaviour:
   - {fileID: 0}
   currentWaypointIndex: 0
   IsWandering: 0
+  PatrolSpeed: 3
 --- !u!114 &114739677396886194
 MonoBehaviour:
   m_ObjectHideFlags: 1

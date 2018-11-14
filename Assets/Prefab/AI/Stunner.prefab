@@ -288,6 +288,7 @@ GameObject:
   - component: {fileID: 114904431023335542}
   - component: {fileID: 114409831071871558}
   - component: {fileID: 114412702860126554}
+  - component: {fileID: 114609512762884542}
   m_Layer: 0
   m_Name: Stunner
   m_TagString: Enemy
@@ -1458,6 +1459,24 @@ MonoBehaviour:
   - {fileID: 0}
   currentWaypointIndex: 0
   IsWandering: 0
+  PatrolSpeed: 3
+--- !u!114 &114609512762884542
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1519830447615124}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9800d9b80c727a4c8d3186decc877ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BaseEmission: 0.3
+  MaxEmission: 2.08
+  AlertSpeed: 1
+  SeekSpeed: 3
+  BaseColor: {r: 1, g: 0.94117653, b: 0, a: 1}
+  EnemyMaterial: {fileID: 0}
 --- !u!114 &114848084972792436
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1512,6 +1531,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Value: 15
+  AlertValue: 3
+  IsAlerted: 0
+  IsSeeking: 0
 --- !u!114 &114981966658494998
 MonoBehaviour:
   m_ObjectHideFlags: 1
