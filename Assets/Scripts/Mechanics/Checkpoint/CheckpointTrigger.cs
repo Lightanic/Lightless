@@ -15,7 +15,7 @@ public class CheckpointTrigger : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!HasTriggeredCheckpoint)
+        if (!HasTriggeredCheckpoint && other.name == "Player")
         {
             HasTriggeredCheckpoint = true;
             manager.SetLatestCheckpoint(CheckpointName);
