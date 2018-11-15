@@ -31,6 +31,7 @@ public class InputManager : MonoBehaviour {
     /// </summary>
 	// Update is called once per frame
 	void Update () {
+     
         gamepadConnected = playerInputComponent.Gamepad.IsConnected;   // Check if gamepad in connected this frame
 		if(Input.anyKeyDown)                                                // Poll all keyboard inputs
         {
@@ -44,6 +45,18 @@ public class InputManager : MonoBehaviour {
             if (GamePadActive(gamepad.State))
             {
                 gamePadTimeStamp = Time.realtimeSinceStartup;               // Record last gamepad use
+            }
+        }
+        else if(!gamepadConnected)
+        {
+            for (int i = 0; i < 4; i++)
+            {
+                var state = GamePad.GetState((PlayerIndex)i);
+                if (state.IsConnected)
+                {
+                    playerInputComponent.Gamepad.playerIndex = (PlayerIndex)i;
+                    break;
+                }
             }
         }
 

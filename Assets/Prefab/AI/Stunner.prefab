@@ -306,6 +306,7 @@ GameObject:
   - component: {fileID: 4565296444062912}
   - component: {fileID: 137715277321470834}
   - component: {fileID: 114848084972792436}
+  - component: {fileID: 114594966747002772}
   m_Layer: 0
   m_Name: monster
   m_TagString: Untagged
@@ -1231,7 +1232,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1519830447615124}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 56.3, y: 5.98, z: -4.08}
+  m_LocalPosition: {x: 163.19382, y: -2.0500002, z: 96.880005}
   m_LocalScale: {x: 0.07, y: 0.07, z: 0.07}
   m_Children:
   - {fileID: 4565296444062912}
@@ -1347,7 +1348,7 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
@@ -1361,8 +1362,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 37.4, y: 49.432896, z: 59.3}
-  m_Center: {x: 2.3, y: 24.49, z: -5.2}
+  m_Size: {x: 36.6, y: 36.1, z: 44.6}
+  m_Center: {x: 2.3, y: 25.79, z: -18.4}
 --- !u!95 &95186887201872984
 Animator:
   serializedVersion: 3
@@ -1457,9 +1458,26 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   currentWaypointIndex: 0
   IsWandering: 0
   PatrolSpeed: 3
+--- !u!114 &114594966747002772
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1522817450480198}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbf3575480402db40813e763382412fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  color: 0
+  eraseRenderer: 0
+  originalLayer: 0
+  originalMaterials: []
 --- !u!114 &114609512762884542
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1472,7 +1490,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BaseEmission: 0.3
-  MaxEmission: 2.08
+  MaxEmission: 5
   AlertSpeed: 1
   SeekSpeed: 3
   BaseColor: {r: 1, g: 0.94117653, b: 0, a: 1}
@@ -1530,7 +1548,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7ad72a89e0850e4ea568bea12c575ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Value: 15
+  Value: 25
   AlertValue: 3
   IsAlerted: 0
   IsSeeking: 0
@@ -1630,15 +1648,15 @@ NavMeshAgent:
   m_AgentTypeID: 0
   m_Radius: 16.83
   m_Speed: 3.5
-  m_Acceleration: 8
+  m_Acceleration: 20
   avoidancePriority: 50
   m_AngularSpeed: 120
   m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
+  m_AutoBraking: 0
   m_AutoRepath: 1
-  m_Height: 49.74
-  m_BaseOffset: 1.02
+  m_Height: 41.11
+  m_BaseOffset: -2.54
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
 --- !u!198 &198347670104766768
@@ -1648,7 +1666,7 @@ ParticleSystem:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1653968707805556}
   serializedVersion: 5
-  lengthInSec: 5
+  lengthInSec: 2
   simulationSpeed: 1
   stopAction: 0
   looping: 0
@@ -6190,7 +6208,7 @@ ParticleSystem:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1695178145233306}
   serializedVersion: 5
-  lengthInSec: 5
+  lengthInSec: 2
   simulationSpeed: 1
   stopAction: 0
   looping: 0
@@ -10723,7 +10741,7 @@ ParticleSystem:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1250106655755520}
   serializedVersion: 5
-  lengthInSec: 5
+  lengthInSec: 2
   simulationSpeed: 1
   stopAction: 0
   looping: 0

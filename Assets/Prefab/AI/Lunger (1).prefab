@@ -201,6 +201,7 @@ GameObject:
   - component: {fileID: 4400307199789600}
   - component: {fileID: 137806704890887886}
   - component: {fileID: 114874336498490138}
+  - component: {fileID: 114754029701258496}
   m_Layer: 0
   m_Name: Body_mesh
   m_TagString: Untagged
@@ -930,7 +931,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1951733273338112}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -83.72743, y: 45.72992, z: -38.102894}
+  m_LocalPosition: {x: 138.19382, y: -2.7600002, z: 46.280003}
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_Children:
   - {fileID: 4705715267898934}
@@ -1534,7 +1535,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BaseEmission: 0.21
-  MaxEmission: 2
+  MaxEmission: 5
   AlertSpeed: 1
   SeekSpeed: 3
   BaseColor: {r: 0.3280082, g: 0.61239064, b: 0.8584906, a: 1}
@@ -1584,6 +1585,8 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   currentWaypointIndex: 0
   IsWandering: 0
   PatrolSpeed: 3
@@ -1600,6 +1603,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isWalking: 0
   isRunning: 0
+--- !u!114 &114754029701258496
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1247660342355860}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbf3575480402db40813e763382412fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  color: 0
+  eraseRenderer: 0
+  originalLayer: 0
+  originalMaterials: []
 --- !u!114 &114870327524636074
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1749,17 +1767,17 @@ NavMeshAgent:
   m_AgentTypeID: 0
   m_Radius: 0.5
   m_Speed: 7
-  m_Acceleration: 8
+  m_Acceleration: 20
   avoidancePriority: 50
   m_AngularSpeed: 120
   m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
-  m_AutoRepath: 1
+  m_AutoBraking: 0
+  m_AutoRepath: 0
   m_Height: 1
   m_BaseOffset: -0.06
   m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
+  m_ObstacleAvoidanceType: 1
 --- !u!198 &198026946302318902
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -10761,7 +10779,7 @@ ParticleSystem:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1684440532159392}
   serializedVersion: 5
-  lengthInSec: 5
+  lengthInSec: 2
   simulationSpeed: 1
   stopAction: 0
   looping: 0
