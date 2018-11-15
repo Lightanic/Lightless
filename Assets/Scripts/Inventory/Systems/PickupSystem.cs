@@ -1,7 +1,8 @@
 ﻿using Unity.Entities;
 using UnityEngine;
 
-public class PickupSystem : ComponentSystem {
+public class PickupSystem : ComponentSystem
+{
 
     /// <summary>
     /// Entities taht can be picked up
@@ -69,14 +70,15 @@ public class PickupSystem : ComponentSystem {
 
         foreach (var entity in GetEntities<Group>())
         {
-            if(Vector3.Distance(playerPos,entity.Transform.position) <= entity.PickItem.InteractDistance && (playerData.InputComponents[0].Control("Interact")))
+            if (Vector3.Distance(playerPos, entity.Transform.position) <= entity.PickItem.InteractDistance && (playerData.InputComponents[0].Control("Interact")))
             {
                 animator.playerAnimator.SetTrigger("Interact");
                 entity.PickItem.IsInteracting = true;
-                if (leftHandData.data[0].isEmpty)
+                if (leftHandData.data[0].isEmpty && entity.PickItem.IsInteractable)
                 {
                     entity.PickItem.IsEquiped = true;   // equip to left hand
                     entity.PickItem.IsInteractable = false;
+                    break;
                 }
                 else if (entity.PickItem.IsInteractable)
                 {
@@ -86,7 +88,7 @@ public class PickupSystem : ComponentSystem {
 
         }
 
-        foreach(var entity in GetEntities<LanternData>())
+        foreach (var entity in GetEntities<LanternData>())
         {
             if (Vector3.Distance(playerPos, entity.Transform.position) <= entity.PickItem.InteractDistance && entity.PickItem.IsEquiped != true)
             {
@@ -97,7 +99,7 @@ public class PickupSystem : ComponentSystem {
             {
                 entity.lantern.ShowtoolTip = false;
             }
-                if (Vector3.Distance(playerPos, entity.Transform.position) <= entity.PickItem.InteractDistance && (playerData.InputComponents[0].Control("Interact")))
+            if (Vector3.Distance(playerPos, entity.Transform.position) <= entity.PickItem.InteractDistance && (playerData.InputComponents[0].Control("Interact")))
             {
                 entity.PickItem.IsInteracting = true;
                 entity.PickItem.IsEquiped = true;   // equip to left hand
@@ -107,15 +109,18 @@ public class PickupSystem : ComponentSystem {
             entity.lantern.ToggleToolTip();
         }
 
-        foreach(var entity in GetEntities<PickupUI>())
+        foreach (var entity in GetEntities<PickupUI>())
         {
             if ((Vector3.Distance(playerPos, entity.Transform.position) <= entity.PickItem.InteractDistance) && entity.PickItem.IsEquiped != true)
             {
                 entity.tooltips.RePosition(entity.Transform.position);
-                entity.tooltips.ToggleOn(entity.InventoryItem.item.PopupIcon);
+                if(!entity.InventoryItem.item)
+                    entity.tooltips.ToggleOn(entity.tooltips.sprite);
+                else
+                    entity.tooltips.ToggleOn(entity.InventoryItem.item.PopupIcon);
                 uiEnabled = true;
             }
-            else if(!uiEnabled)
+            else if (!uiEnabled)
             {
                 entity.tooltips.ToggleOff();
             }

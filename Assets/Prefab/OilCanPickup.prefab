@@ -62,22 +62,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!1 &1176941048001866
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4894504176297138}
-  - component: {fileID: 120582532809012668}
-  m_Layer: 0
-  m_Name: OilTrailPrefab
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!1 &1180931828517222
 GameObject:
   m_ObjectHideFlags: 1
@@ -310,7 +294,6 @@ GameObject:
   - component: {fileID: 114272674744033032}
   - component: {fileID: 54655085204150774}
   - component: {fileID: 114688794562708726}
-  - component: {fileID: 114365811459469806}
   - component: {fileID: 65314659910674938}
   - component: {fileID: 114324966686091672}
   m_Layer: 0
@@ -573,7 +556,7 @@ Transform:
   - {fileID: 4054368658682488}
   - {fileID: 4863799367675930}
   m_Father: {fileID: 4582471682943468}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4167376364783912
 Transform:
@@ -712,10 +695,9 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1678637954289194}
   m_LocalRotation: {x: -0, y: 0.67079496, z: -0, w: 0.7416429}
-  m_LocalPosition: {x: -11.41, y: 6.036, z: -12.21}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalPosition: {x: 131.19382, y: -2.7540607, z: 89.18}
+  m_LocalScale: {x: 0.50000024, y: 0.5, z: 0.50000024}
   m_Children:
-  - {fileID: 4894504176297138}
   - {fileID: 4106947411272020}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -810,19 +792,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4106947411272020}
   m_RootOrder: 23
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &4894504176297138
-Transform:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1176941048001866}
-  m_LocalRotation: {x: -0, y: -0, z: -1.1641532e-10, w: 1}
-  m_LocalPosition: {x: 6.771347, y: 3.0600014, z: -10.759796}
-  m_LocalScale: {x: 2, y: 2, z: 2}
-  m_Children: []
-  m_Father: {fileID: 4582471682943468}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4918764279196356
 Transform:
@@ -1899,6 +1868,8 @@ MonoBehaviour:
   item: {fileID: 11400000, guid: d09bbb9997f5b494b9e377dafc3f449a, type: 2}
   AddToInventory: 0
   RemoveFromInventory: 0
+  AddToInventoryTop: 0
+  Throwable: 0
 --- !u!114 &114324966686091672
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1912,23 +1883,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Canvas: {fileID: 0}
   offsetHeight: 2
---- !u!114 &114365811459469806
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1678637954289194}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a6bed5dda813f434ebc3fe6c337bd117, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  FirePrefab: {fileID: 1947403148494762, guid: 4f2aa3e786613684d8fe2ebc31862b69, type: 2}
-  Instances: []
-  TotalFireTime: 6
-  CurrentFireTime: 0
-  IsFireStopped: 1
-  OilTrailDistanceThreshold: 3.2
+  sprite: {fileID: 21300000, guid: 0b57af4c2e022e341885a43c89d53f6f, type: 3}
 --- !u!114 &114533106318378612
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1962,7 +1917,8 @@ MonoBehaviour:
   TrailMaximumDistance: 10
   TrailPoints: []
   IsEquipped: 1
-  OilTrialPrefab: {fileID: 1176941048001866}
+  OilTrialPrefab: {fileID: 1218075475927950, guid: 2a0fd7b4c055c4d4f9b0b68557d057dd,
+    type: 2}
 --- !u!114 &114951277416871982
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1974,93 +1930,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bf10cdea1344482e91a4f2b58506b77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!120 &120582532809012668
-LineRenderer:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1176941048001866}
-  m_Enabled: 1
-  m_CastShadows: 0
-  m_ReceiveShadows: 0
-  m_DynamicOccludee: 0
-  m_MotionVectors: 0
-  m_LightProbeUsage: 0
-  m_ReflectionProbeUsage: 0
-  m_RenderingLayerMask: 4294967295
-  m_Materials:
-  - {fileID: 2100000, guid: 8159eb2ae674a434c9b0b4e47737eb31, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 0
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 15200, guid: 0000000000000000f000000000000000, type: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Positions: []
-  m_Parameters:
-    serializedVersion: 2
-    widthMultiplier: 0.2
-    widthCurve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 1
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    colorGradient:
-      serializedVersion: 2
-      key0: {r: 1, g: 1, b: 1, a: 1}
-      key1: {r: 1, g: 1, b: 1, a: 1}
-      key2: {r: 0, g: 0, b: 0, a: 0}
-      key3: {r: 0, g: 0, b: 0, a: 0}
-      key4: {r: 0, g: 0, b: 0, a: 0}
-      key5: {r: 0, g: 0, b: 0, a: 0}
-      key6: {r: 0, g: 0, b: 0, a: 0}
-      key7: {r: 0, g: 0, b: 0, a: 0}
-      ctime0: 0
-      ctime1: 65535
-      ctime2: 0
-      ctime3: 0
-      ctime4: 0
-      ctime5: 0
-      ctime6: 0
-      ctime7: 0
-      atime0: 0
-      atime1: 65535
-      atime2: 0
-      atime3: 0
-      atime4: 0
-      atime5: 0
-      atime6: 0
-      atime7: 0
-      m_Mode: 0
-      m_NumColorKeys: 2
-      m_NumAlphaKeys: 2
-    numCornerVertices: 4
-    numCapVertices: 4
-    alignment: 0
-    textureMode: 1
-    generateLightingData: 0
-  m_UseWorldSpace: 1
-  m_Loop: 0

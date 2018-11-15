@@ -6,6 +6,7 @@ public class PlayerMovementSystem : ComponentSystem
     // Struct specifying all entites that use this move system
     private struct Group
     {
+        public Transform transform;
         public Rigidbody RigidBody;
         public InputComponent InputComponent;
         public SpeedComponent SpeedComponent;
@@ -28,15 +29,18 @@ public class PlayerMovementSystem : ComponentSystem
         // Move all entities with Group components
         foreach (var entity in GetEntities<Group>())
         {
-            var moveVector = new Vector3(entity.InputComponent.Horizontal, 0, entity.InputComponent.Vertical);                      // Move direction vector
-            Sprint(entity, moveVector);
-            Dodge(entity);
-            StaminaControl(entity);
-            var speed = (Mathf.Abs(entity.InputComponent.Horizontal) + Mathf.Abs(entity.InputComponent.Vertical)) * entity.SpeedComponent.Speed;
-            speed = Mathf.Clamp(speed, 0, entity.SpeedComponent.Speed);
-            var movePosition = entity.RigidBody.position + moveVector.normalized * speed * Time.deltaTime;                          // New position
-            entity.RigidBody.MovePosition(movePosition);                                                                            // Update entity position to new position
-            UpdateAnimation(entity, moveVector);
+            if (entity.InputComponent.EnablePlayerMovement)
+            {
+                var moveVector = new Vector3(entity.InputComponent.Horizontal, 0, entity.InputComponent.Vertical);                      // Move direction vector
+                Sprint(entity, moveVector);
+                Dodge(entity);
+                StaminaControl(entity);
+                var speed = (Mathf.Abs(entity.InputComponent.Horizontal) + Mathf.Abs(entity.InputComponent.Vertical)) * entity.SpeedComponent.Speed;
+                speed = Mathf.Clamp(speed, 0, entity.SpeedComponent.Speed);
+                var movePosition = entity.RigidBody.position + moveVector.normalized * speed * Time.deltaTime;                          // New position
+                entity.RigidBody.MovePosition(movePosition);                                                                            // Update entity position to new position
+                UpdateAnimation(entity, moveVector);
+            }
         }
     }
 
@@ -97,12 +101,15 @@ public class PlayerMovementSystem : ComponentSystem
         {
             if (entity.SpeedComponent.isSprinting)
             {
-                entity.SpeedComponent.Stamina -= Time.deltaTime;
+                entity.SpeedComponent.Stamina -= Time.deltaTime * entity.SpeedComponent.StaminaConsumptionRate;
             }
-            else if (entity.SpeedComponent.isDodging)
+            if (entity.SpeedComponent.isDodging)
             {
-                var stAmtLost = Time.deltaTime * entity.SpeedComponent.DodgeMultiplier;
-                entity.SpeedComponent.Stamina -= stAmtLost;
+                var currStamina = entity.SpeedComponent.Stamina;
+                var stAmtLost = entity.SpeedComponent.DodgeMultiplier;
+                currStamina /= stAmtLost;
+                var diff = entity.SpeedComponent.Stamina - currStamina;
+                entity.SpeedComponent.Stamina = diff;
             }
             if (entity.SpeedComponent.Stamina <= (0 + Mathf.Epsilon))
             {
@@ -114,7 +121,9 @@ public class PlayerMovementSystem : ComponentSystem
         }
         else if (entity.SpeedComponent.Stamina < entity.SpeedComponent.MAX_STAMINA)
         {
-            entity.SpeedComponent.Stamina += Time.deltaTime;
+            if (staminaObj != null)
+                staminaObj.SetActive(true);
+            entity.SpeedComponent.Stamina += Time.deltaTime * entity.SpeedComponent.StaminaRegenRate;
         }
     }
 
@@ -124,7 +133,12 @@ public class PlayerMovementSystem : ComponentSystem
     /// <param name="entity"></param>
     void Dodge(Group entity)
     {
-        if (entity.InputComponent.Control("Dodge"))
+        if (CalculateDodge(entity) >= entity.SpeedComponent.MIN_STAMINA)
+            entity.SpeedComponent.canDodge = true;
+        else
+            entity.SpeedComponent.canDodge = false;
+
+        if (entity.InputComponent.Control("Dodge") && entity.SpeedComponent.canDodge)
         {
             entity.SpeedComponent.isDodging = true;
             entity.SpeedComponent.Speed = entity.SpeedComponent.DODGE_SPEED;
@@ -133,5 +147,14 @@ public class PlayerMovementSystem : ComponentSystem
         {
             entity.SpeedComponent.isDodging = false;
         }
+    }
+
+    float CalculateDodge(Group entity)
+    {
+        var currStamina = entity.SpeedComponent.Stamina;
+        var stAmtLost = entity.SpeedComponent.DodgeMultiplier;
+        currStamina /= stAmtLost;
+        var diff = entity.SpeedComponent.Stamina - currStamina;
+        return diff;
     }
 }

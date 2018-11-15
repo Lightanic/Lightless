@@ -76,6 +76,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4360507559153448}
   - component: {fileID: 108541162021047890}
+  - component: {fileID: 114617596758396194}
+  - component: {fileID: 114037567734329788}
   m_Layer: 0
   m_Name: Point Light
   m_TagString: Untagged
@@ -136,8 +138,8 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1161126618801720}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 63.93, y: 4.698124, z: -19.17}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -92.35, y: 3.3530006, z: 12}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_Children:
   - {fileID: 4869120210558788}
@@ -405,8 +407,8 @@ Light:
   serializedVersion: 8
   m_Type: 2
   m_Color: {r: 0.9056604, g: 0.6922155, b: 0.24350302, a: 1}
-  m_Intensity: 1
-  m_Range: 7.1
+  m_Intensity: 0.95
+  m_Range: 35.9
   m_SpotAngle: 30
   m_CookieSize: 10
   m_Shadows:
@@ -432,6 +434,25 @@ Light:
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &114037567734329788
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1323421291146448}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78827bcbc59e64f4aa649a2d20cab176, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MaxReduction: 0.1
+  MaxIncrease: 0.1
+  RateDamping: 0.1
+  Strength: 200
+  StopFlickering: 0
+  LightSource: {fileID: 0}
+  CurrentTime: 0
+  BaseIntensity: 0
 --- !u!114 &114057890288711916
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -457,6 +478,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Canvas: {fileID: 0}
   offsetHeight: 1
+  sprite: {fileID: 0}
 --- !u!114 &114348469637634294
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -472,6 +494,17 @@ MonoBehaviour:
   IsInteracting: 0
   InteractDistance: 4
   IsEquiped: 0
+--- !u!114 &114617596758396194
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1323421291146448}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5bf10cdea1344482e91a4f2b58506b77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114656144453012798
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -497,5 +530,5 @@ MonoBehaviour:
   RightHand: {fileID: 0}
   TooltipOffset: 1.5
   ShowtoolTip: 0
-  toolTipSprite: {fileID: 21300000, guid: 19d7e31b22ced804896c2719efc3ce92, type: 3}
+  toolTipSprite: {fileID: 21300000, guid: 0b269f45f409b6d42933d1caed0d1540, type: 3}
   Canvas: {fileID: 0}

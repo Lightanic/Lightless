@@ -6,6 +6,9 @@ using UnityEngine.SceneManagement;
 public class EnemyVisionComponent : MonoBehaviour
 {
     public float Value = 3f;
+    public float AlertValue = 3f;
+    public bool IsAlerted = false;
+    public bool IsSeeking = false;
 
     private void OnDrawGizmos()
     {
@@ -15,8 +18,9 @@ public class EnemyVisionComponent : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        //Debug.Log(other.gameObject.name);
-        if(other.gameObject.tag == "Player")
+        if (other.gameObject.tag == "Player" && !GetComponent<EnemyDeathComponent>().EnemyIsDead)
+        {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
     }
 }

@@ -10,6 +10,7 @@ public class InputComponent : MonoBehaviour {
     public float Vertical;
     private int GamepadIndex;
     public XGamepad Gamepad;    // = new XGamepad(index);
+    public bool EnablePlayerMovement = true;
 
     public GameObject Pause;
     PauseMenu pauseMenu = null;
@@ -358,6 +359,10 @@ public class InputComponent : MonoBehaviour {
         bool statusKb = false;
         switch(key)
         {
+            case "Interacting":
+                statusGamepad = this.Gamepad.GetButton("X");
+                statusKb = Input.GetKey(KeyCode.E);
+                break;
             case "Interact":
                 statusGamepad = this.Gamepad.GetButtonDown("X");
                 statusKb = Input.GetKeyDown(KeyCode.E);
@@ -367,10 +372,16 @@ public class InputComponent : MonoBehaviour {
                 statusKb = Input.GetKeyDown(KeyCode.G);
                 break;
             case "InventoryNext":
-                statusGamepad = Gamepad.GetButtonDown("DPad_Right") || Gamepad.GetButtonDown("DPad_Left");
-                statusKb = Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.LeftArrow);
+                statusGamepad = Gamepad.GetButtonDown("DPad_Right");
+                statusKb = Input.GetKeyDown(KeyCode.RightArrow);
                 var d = Input.GetAxis("Mouse ScrollWheel");
-                if (d > 0 || d < 0) statusKb = true;
+                if (d > 0 ) statusKb = true;
+                break;
+            case "InventoryBack":
+                statusGamepad = Gamepad.GetButtonDown("DPad_Left");
+                statusKb = Input.GetKeyDown(KeyCode.LeftArrow);
+                var e = Input.GetAxis("Mouse ScrollWheel");
+                if (e < 0) statusKb = true;
                 break;
             case "Dodge":
                 statusGamepad = this.Gamepad.GetButtonDown("A");
@@ -395,6 +406,14 @@ public class InputComponent : MonoBehaviour {
             case "OilTrail":
                 statusGamepad = this.Gamepad.GetButton("X");
                 statusKb = Input.GetMouseButton(0);
+                break;
+            case "ThrowActive":
+                statusGamepad = this.Gamepad.GetTriggerLeft != 0;
+                statusKb = Input.GetKey(KeyCode.LeftControl);
+                break;
+            case "Throw":
+                statusGamepad = this.Gamepad.GetButton("X");
+                statusKb = Input.GetKeyDown(KeyCode.E);
                 break;
             default:
                 statusGamepad = false;

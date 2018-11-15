@@ -40,9 +40,12 @@ GameObject:
   - component: {fileID: 199964941554222966}
   - component: {fileID: 135706999622935890}
   - component: {fileID: 114713165057526334}
+  - component: {fileID: 114599116075945354}
+  - component: {fileID: 114316071926908786}
+  - component: {fileID: 114108214705233678}
   m_Layer: 0
   m_Name: LargeFire
-  m_TagString: Untagged
+  m_TagString: Fire
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -74,6 +77,43 @@ Transform:
   m_Father: {fileID: 4032869903878084}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114108214705233678
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1947403148494762}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26b62268162262246a2eb7438cacdc43, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LightIsOn: 1
+--- !u!114 &114316071926908786
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1947403148494762}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5bf10cdea1344482e91a4f2b58506b77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114599116075945354
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1947403148494762}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78d934d0518999e4cabf69727cd6cbab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TotalFireTime: 6
+  CurrentFireTime: 0
+  DestroyNextUpdate: 0
 --- !u!114 &114713165057526334
 MonoBehaviour:
   m_ObjectHideFlags: 1
