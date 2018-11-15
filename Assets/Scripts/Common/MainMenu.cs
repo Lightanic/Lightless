@@ -13,6 +13,7 @@ public class MainMenu : MonoBehaviour {
 
     void Update()
     {
+    
         if (Input.GetAxisRaw("Vertical") != 0 && buttonSelected == false)
         {
             eventSystem.SetSelectedGameObject(selectedObject);
