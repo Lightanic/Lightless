@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class InputComponent : MonoBehaviour {
     public enum index { One = 1, Two = 2};
-    public index PlayerNumber;
+    private index PlayerNumber;
 
     public float Horizontal;
     public float Vertical;
@@ -17,6 +17,15 @@ public class InputComponent : MonoBehaviour {
 
     private void Start()
     {
+        for (int i = 0; i < 4; i++)
+        {
+            var state = GamePad.GetState((PlayerIndex)i);
+            if (state.IsConnected)
+            {
+                PlayerNumber = (index)(i + 1);
+                break;
+            }
+        }
         GamepadIndex = (int)PlayerNumber;
         Gamepad = new XGamepad(GamepadIndex);
         pauseMenu = Pause.GetComponent<PauseMenu>();
@@ -82,7 +91,7 @@ public class InputComponent : MonoBehaviour {
         private GamePadState prev_state; // Previous gamepad state
 
         private int gamepadIndex;           // Index
-        private PlayerIndex playerIndex;    // Player index
+        public PlayerIndex playerIndex;    // Player index
         private List<xRumble> rumbleEvents; // Stores rumble events
 
         // Button input map
