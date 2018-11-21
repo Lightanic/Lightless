@@ -8,7 +8,11 @@ public class FireTriggerController : MonoBehaviour {
     {
         if(other.tag == "Enemy")
         {
+<<<<<<< HEAD
             Destroy(other.gameObject);
+=======
+            other.GetComponent<EnemyDeathComponent>().EnemyIsDead = true;
+>>>>>>> Develop
         }
     }
 }

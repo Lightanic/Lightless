@@ -7,8 +7,12 @@ using UnityEngine.SceneManagement;
 
 public class PitScript : MonoBehaviour //this script detects enemy and turns their navmesh off
 {
+<<<<<<< HEAD
     //public GameObject enemy;
     //bool isDead = false;
+=======
+
+>>>>>>> Develop
 
     private void OnTriggerEnter(Collider collision)
     {
@@ -16,6 +20,7 @@ public class PitScript : MonoBehaviour //this script detects enemy and turns the
         {
             //Debug.Log("Collided");
             //this.gameObject.SetActive(false);
+<<<<<<< HEAD
             collision.GetComponent<NavMeshAgent>().enabled = false;
             collision.GetComponent<GameObjectEntity>().enabled = false;
         }
@@ -35,4 +40,15 @@ public class PitScript : MonoBehaviour //this script detects enemy and turns the
            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
     }
+=======
+            collision.GetComponent<Rigidbody>().isKinematic = false;
+            collision.GetComponent<EnemyDeathComponent>().EnemyIsDead = true;
+            collision.GetComponent<NavMeshAgent>().enabled = false;
+            collision.GetComponent<GameObjectEntity>().enabled = false;
+            
+        }
+
+    }
+
+>>>>>>> Develop
 }

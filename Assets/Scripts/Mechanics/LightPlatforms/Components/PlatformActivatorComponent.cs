@@ -1,9 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+<<<<<<< HEAD
+=======
+using Unity.Collections;
+>>>>>>> Develop
 using UnityEngine;
 
 public class PlatformActivatorComponent : MonoBehaviour
 {
+<<<<<<< HEAD
 
     public float ActivationDelay = 1F;
     public float MaxActivationDistance = 15F;
@@ -18,6 +23,30 @@ public class PlatformActivatorComponent : MonoBehaviour
     private void Update()
     {
 
+=======
+    private static readonly int RaycastCount = 3;
+
+    [Header("Configuration")]
+    public float                ActivationDelay = 1F;
+    public float                MaxActivationDistance = 15F;
+    public float                LightWidthStep = 0.1F;
+
+    [Header("Instance Data")]
+    public bool                 IsReflected = false;
+
+    public LightComponent       Switch;
+    public GameObject           PrevInstance = null;
+    public GameObject           ReflectionLightPrefab;
+    public GameObject           LightInstance = null;
+
+
+    public GameObject   MainInstance = null;
+    public float        MaximumReflectionChain = 8;
+    public float        CurrentChainCount = 0;
+
+    private void Update()
+    {
+>>>>>>> Develop
         if (!Switch.LightIsOn)
         {
             if (LightInstance != null)
@@ -28,6 +57,7 @@ public class PlatformActivatorComponent : MonoBehaviour
             return;
         }
 
+<<<<<<< HEAD
         if (IsReflected && !Switch.LightIsOn)
         {
             LightInstance.GetComponent<PlatformActivatorComponent>().PrevInstance = null;
@@ -62,10 +92,46 @@ public class PlatformActivatorComponent : MonoBehaviour
             if (hit.collider.tag == "Reflector")
             {
                 if (LightInstance == null)
+=======
+        if (IsReflected && PrevInstance == null)
+        {
+            Destroy(gameObject);
+        }
+
+        var direction = transform.forward;
+        var results = new NativeArray<RaycastHit>(RaycastCount, Allocator.Temp);
+        var commands = new NativeArray<RaycastCommand>(RaycastCount, Allocator.Temp);
+        commands[0] = new RaycastCommand(transform.position + transform.forward * 1F, transform.forward, MaxActivationDistance);
+        commands[1] = new RaycastCommand(transform.position + transform.right * LightWidthStep, transform.forward, MaxActivationDistance);
+        commands[2] = new RaycastCommand(transform.position + transform.right * -LightWidthStep, transform.forward, MaxActivationDistance);
+
+        var handle = RaycastCommand.ScheduleBatch(commands, results, 1);
+        handle.Complete();
+
+        bool hasHit = false;
+        RaycastHit hit = new RaycastHit();
+        for (var i = 0; i < RaycastCount; ++i)
+        {
+            if (results[i].collider != null)
+            {
+                hit = results[i];
+                hasHit = true;
+                break;
+            }
+        }
+
+        if (hasHit && Switch.LightIsOn)
+        {
+            if (hit.collider.tag == "Reflector")
+            {
+                GetComponent<LineRendererComponent>().AddLine(new ReflectionLine(transform.position, hit.point));
+                if (LightInstance == null && CurrentChainCount < MaximumReflectionChain)
+>>>>>>> Develop
                 {
                     LightInstance = Instantiate(ReflectionLightPrefab, hit.point, hit.transform.rotation);
                     LightInstance.GetComponent<PlatformActivatorComponent>().IsReflected = true;
                     LightInstance.GetComponent<PlatformActivatorComponent>().PrevInstance = gameObject;
+<<<<<<< HEAD
                     //LightInstance.GetComponent<PlatformActivatorComponent>().MainInstance = MainInstance;
                 }
                 else
@@ -78,6 +144,26 @@ public class PlatformActivatorComponent : MonoBehaviour
                 var lookTowardsPos = point + reflection * 2F;
                 LightInstance.transform.LookAt(lookTowardsPos);
                 Debug.DrawRay(point, reflection);
+=======
+                    LightInstance.GetComponent<PlatformActivatorComponent>().MainInstance = MainInstance;
+                    LightInstance.GetComponent<PlatformActivatorComponent>().CurrentChainCount = CurrentChainCount + 1;
+                }
+                else if (LightInstance != null)
+                {
+                    LightInstance.transform.position = hit.point;
+                }
+
+                if (LightInstance != null)
+                {
+                    var point = hit.point;
+                    var normal = hit.transform.forward;
+                    var reflection = direction - 2 * (Vector3.Dot(direction, normal)) * normal;
+                    var lookTowardsPos = point + reflection * 2F;
+                    LightInstance.transform.LookAt(lookTowardsPos);
+                    Debug.DrawRay(point, reflection);
+                }
+
+>>>>>>> Develop
             }
             else if (LightInstance != null)
             {
@@ -90,6 +176,12 @@ public class PlatformActivatorComponent : MonoBehaviour
             Destroy(LightInstance);
             LightInstance = null;
         }
+<<<<<<< HEAD
+=======
+
+        results.Dispose();
+        commands.Dispose();
+>>>>>>> Develop
     }
 
 }

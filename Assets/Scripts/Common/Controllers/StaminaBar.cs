@@ -25,6 +25,17 @@ public class StaminaBar : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+<<<<<<< HEAD
+=======
+        if(playerComponent.canDodge)
+        {
+            stamina.color = Color.white;
+        }
+        else
+        {
+            stamina.color = Color.red;
+        }
+>>>>>>> Develop
         transform.rotation = rotation;
         //transform.LookAt(cam.transform);
         if (playerComponent != null)
