@@ -21,6 +21,9 @@ GameObject:
   - component: {fileID: 4631826217963846}
   - component: {fileID: 33291613498944494}
   - component: {fileID: 23167568058168146}
+  - component: {fileID: 114249650504273230}
+  - component: {fileID: 114379713592009898}
+  - component: {fileID: 114036489736368570}
   m_Layer: 0
   m_Name: LightPlatform
   m_TagString: Untagged
@@ -63,14 +66,14 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1798769013547208}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -162.14, y: 22.24, z: -89.77327}
-  m_LocalScale: {x: 1142.1598, y: 563.4591, z: 282.0995}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: -0.49, y: 7.31, z: -33.68}
+  m_LocalScale: {x: 1755.6138, y: 563.4591, z: 282.0995}
   m_Children:
   - {fileID: 4425713213269158}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!23 &23167568058168146
 MeshRenderer:
   m_ObjectHideFlags: 1
@@ -125,3 +128,44 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &114036489736368570
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1798769013547208}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53efc560c632ea94488d149ab78347ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  StartPosition: {x: 62.99, y: 14.06, z: -12.69}
+  ActivatedPosition: {x: -0.49, y: 7.31, z: -46.52}
+  IsActivated: 0
+  ActivationTime: 4
+  CurrentTime: 0
+  MoveSpeed: 3
+--- !u!114 &114249650504273230
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1798769013547208}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5bf10cdea1344482e91a4f2b58506b77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114379713592009898
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1798769013547208}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e07d086370d587948820918b2a69ddba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SpeedFactor: 0.6
+  GlowColor: 0
