@@ -9,7 +9,11 @@ public class LightComponent : MonoBehaviour
     public void ToggleLightOn()
     {
         var lightSource = GetComponentInChildren<Light>();
+        var volLightSource = GetComponentInChildren<LightShafts>();
+
         lightSource.enabled = !lightSource.enabled;
+        if(volLightSource)
+            volLightSource.enabled = !volLightSource.enabled;
         LightIsOn = lightSource.enabled;
 
         var lc = lightSource.transform.GetComponent<LightComponent>();

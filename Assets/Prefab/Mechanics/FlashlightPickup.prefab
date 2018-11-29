@@ -29,6 +29,7 @@ GameObject:
   - component: {fileID: 114037874038846980}
   - component: {fileID: 136015075830944694}
   - component: {fileID: 135012237041753246}
+  - component: {fileID: 114062411403453622}
   m_Layer: 0
   m_Name: FlashlightPrefab
   m_TagString: Flashlight
@@ -67,7 +68,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1031077870734516}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0.11, y: 0, z: -1.25}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4694551582283546}
@@ -79,8 +80,8 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1899340997658810}
-  m_LocalRotation: {x: -0, y: 0.5303335, z: -0, w: 0.8477891}
-  m_LocalPosition: {x: 40.393814, y: -1.9400005, z: 28.910004}
+  m_LocalRotation: {x: -0, y: 0.932955, z: -0, w: 0.35999307}
+  m_LocalPosition: {x: 46.3, y: -8.481169, z: 10.297353}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children:
   - {fileID: 4181048663550772}
@@ -167,10 +168,10 @@ Light:
   m_Enabled: 1
   serializedVersion: 8
   m_Type: 0
-  m_Color: {r: 0.8867924, g: 0.6653359, b: 0.31372374, a: 1}
-  m_Intensity: 1.1
-  m_Range: 35.8
-  m_SpotAngle: 48
+  m_Color: {r: 0.9403583, g: 0.9716981, b: 0.46293163, a: 1}
+  m_Intensity: 1.8
+  m_Range: 68
+  m_SpotAngle: 22
   m_CookieSize: 10
   m_Shadows:
     m_Type: 1
@@ -207,6 +208,80 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   LineRenderer: {fileID: 0}
+--- !u!114 &114062411403453622
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1031077870734516}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0109504c2f6a31b4498a8fd6a490584a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ShadowmapMode: 0
+  m_Cameras:
+  - {fileID: 0}
+  m_CurrentCamera: {fileID: 0}
+  m_Size: {x: 10, y: 10, z: 20}
+  m_SpotNear: 0.05
+  m_SpotFar: 0.24
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ColorFilterMask:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Brightness: 1
+  m_BrightnessColored: 5
+  m_Extinction: 0.5
+  m_MinDistFromCamera: 0
+  m_ShadowmapRes: 256
+  m_DepthShader: {fileID: 4800000, guid: 7e188a1e08ecfae4785bed08b1013219, type: 3}
+  m_ColorFilterShader: {fileID: 4800000, guid: 78da0b5fc3a6e8a469d047d71187e7ef, type: 3}
+  m_Colored: 0
+  m_ColorBalance: 1
+  m_EpipolarLines: 256
+  m_EpipolarSamples: 512
+  m_CoordShader: {fileID: 4800000, guid: 170533b360a07f945b98b5d9d11bff19, type: 3}
+  m_DepthBreaksShader: {fileID: 4800000, guid: 8675ad07e6cda494d977506a7a2a8fbd, type: 3}
+  m_RaymarchShader: {fileID: 4800000, guid: 8b94af9deac0e2d4e9523f6090a3e61e, type: 3}
+  m_InterpolateAlongRaysShader: {fileID: 4800000, guid: b4040e961c997484e824ff979a17c3c0,
+    type: 3}
+  m_SamplePositionsShader: {fileID: 4800000, guid: 328e45223da3ee24a9b9bc2020d76aa4,
+    type: 3}
+  m_FinalInterpolationShader: {fileID: 4800000, guid: 3fe6f8dd2066bc741806972899aa82f6,
+    type: 3}
+  m_DepthThreshold: 0.5
+  m_InterpolationStep: 32
+  m_ShowSamples: 0
+  m_ShowInterpolatedSamples: 0
+  m_ShowSamplesBackgroundFade: 0.8
+  m_AttenuationCurveOn: 0
+  m_AttenuationCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!114 &114107380958875526
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -282,10 +357,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c91da05dc2d961c479f2c4081e57627e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  LightWidthStep: 0.1
+  ActivationDistance: 20
+  IsRefracted: 0
+  Switch: {fileID: 114504522443263524}
   ReflectionLightPrefab: {fileID: 1031077870734516}
   LightInstance: {fileID: 0}
-  Switch: {fileID: 114504522443263524}
-  IsRefracted: 0
   LightInstances: []
 --- !u!114 &114801954045481404
 MonoBehaviour:
@@ -311,13 +388,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ActivationDelay: 1
   MaxActivationDistance: 50
+  LightWidthStep: 0.1
+  IsReflected: 0
+  Switch: {fileID: 114504522443263524}
+  PrevInstance: {fileID: 0}
   ReflectionLightPrefab: {fileID: 1031077870734516}
   LightInstance: {fileID: 0}
-  ShouldBeDestroyed: 0
-  ShouldCreateLightInstance: 0
-  Switch: {fileID: 114504522443263524}
-  IsReflected: 0
-  PrevInstance: {fileID: 0}
   MainInstance: {fileID: 0}
   MaximumReflectionChain: 8
   CurrentChainCount: 0

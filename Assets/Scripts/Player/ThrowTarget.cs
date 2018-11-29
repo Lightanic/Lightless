@@ -7,8 +7,8 @@ public class ThrowTarget : MonoBehaviour {
     public Vector3 targetPos;
     public float throwDistance = 8f;
 
-    void Update()
-    {
+    void Update() {
+    
         //transform.rotation = Quaternion.LookRotation(transform.parent.forward);
 
         RaycastHit hit;
