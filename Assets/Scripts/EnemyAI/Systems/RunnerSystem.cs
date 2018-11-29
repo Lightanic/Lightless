@@ -14,6 +14,11 @@ public class RunnerSystem : ComponentSystem
         public WayPointComponent PatrolData;
 
     }
+    private struct RunnerDeath
+    {
+        public EnemyDeathComponent DeathComponent;
+        public Transform EnemyTransform;
+    }
 
 
     private struct PlayerData
@@ -40,6 +45,13 @@ public class RunnerSystem : ComponentSystem
 
         }
 
+        foreach (var entity in GetEntities<RunnerDeath>())
+        {
+            if (entity.DeathComponent.EnemyIsDead)
+            {
+                entity.EnemyTransform.GetComponent<BoxCollider>().enabled = false;
+            }
+        }
 
 
         foreach (var runner in GetEntities<RunnerData>())
