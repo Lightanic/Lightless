@@ -28,6 +28,12 @@ public class LungerSystem : ComponentSystem
         public Transform LightTransform;
     }
 
+    private struct LungerDeath
+    {
+        public EnemyDeathComponent DeathComponent;
+        public Transform EnemyTransform;
+    }
+
 
 
     protected override void OnUpdate()
@@ -41,6 +47,14 @@ public class LungerSystem : ComponentSystem
         {
             playerData = entity;
 
+        }
+
+        foreach (var entity in GetEntities<LungerDeath>())
+        {
+            if (entity.DeathComponent.EnemyIsDead)
+            {
+                entity.EnemyTransform.GetComponent<BoxCollider>().enabled = false;
+            }
         }
         foreach (var lunger in GetEntities<LungerData>())
         {

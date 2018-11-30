@@ -35,6 +35,12 @@ public class StunnerSystem : ComponentSystem
         public Transform LightTransform;
     }
 
+    private struct StunnerDeath
+    {
+        public EnemyDeathComponent DeathComponent;
+        public Transform EnemyTransform;
+    }
+
 
     protected override void OnUpdate()
     {
@@ -49,6 +55,15 @@ public class StunnerSystem : ComponentSystem
             playerData = entity;
 
         }
+
+        foreach (var entity in GetEntities<StunnerDeath>())
+        {
+            if (entity.DeathComponent.EnemyIsDead)
+            {
+                entity.EnemyTransform.GetComponent<BoxCollider>().enabled = false;
+            }
+        }
+
         foreach (var stunner in GetEntities<StunnerData>())
         {
             float currentDistance = float.MaxValue;
