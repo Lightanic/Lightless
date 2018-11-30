@@ -81,7 +81,7 @@ public class RunnerSystem : ComponentSystem
 
             if (isThereLight && lightData.LightSwitch.LightIsOn)
             {
-                
+
                 if (distanceToLight > runner.EnemyVision.Value && distanceToLight <= runner.EnemyVision.Value + runner.EnemyVision.AlertValue)
                 {
                     runner.Animator.isRunning = false;
@@ -95,7 +95,7 @@ public class RunnerSystem : ComponentSystem
                     runner.Animator.isWalking = false;
 
                     //seek the light
-                    Seek(runner, lightData.LightTransform.position);
+                    Seek(runner, lightData.LightTransform);
 
                 }
                 else
@@ -111,7 +111,7 @@ public class RunnerSystem : ComponentSystem
                 {
                     runner.Animator.isRunning = true;
                     //seek player
-                    Seek(runner, playerData.PlayerTransform.position);
+                    Seek(runner, playerData.PlayerTransform);
                 }
             }
             else
@@ -128,7 +128,7 @@ public class RunnerSystem : ComponentSystem
                     runner.Animator.isRunning = true;
                     runner.Animator.isWalking = false;
                     //seek player
-                    Seek(runner, playerData.PlayerTransform.position);
+                    Seek(runner, playerData.PlayerTransform);
                 }
                 else
                 {
@@ -140,15 +140,21 @@ public class RunnerSystem : ComponentSystem
             }
         }
 
-        
+
     }
 
-    void Seek(RunnerData runner, Vector3 target)
+    void Seek(RunnerData runner, Transform target)
     {
+
         runner.EnemyVision.IsSeeking = true;
         runner.PatrolData.IsWandering = false;
-        runner.AgentComponent.Agent.speed = 10;
-        runner.AgentComponent.Agent.SetDestination(target);
+        runner.AgentComponent.Agent.speed = 12;
+        if (target.gameObject.tag == "Flashlight")
+        {
+            runner.AgentComponent.Agent.SetDestination(target.position + target.forward * 8);
+        }
+        else
+            runner.AgentComponent.Agent.SetDestination(target.position);
     }
 
 }
