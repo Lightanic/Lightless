@@ -66,6 +66,6 @@ class InventorySystem : ComponentSystem
             }
         }
         if(isPicked)
-            pickedItem.Interact();                                                      // Remove the picked item from the scene
+            pickedItem.AddToInventory();                                                      // Remove the picked item from the scene
     }
 }
