@@ -7,6 +7,7 @@ public class RotationSystem : ComponentSystem {
         readonly public int Length;
         public ComponentArray<RotationComponentLightless> RotationComponents;
         public ComponentArray<Rigidbody> Rigidbody;
+        public ComponentArray<Transform> Transform;
     }
 
     [Inject] private Group data;    // Inject entities with "Group" components
@@ -16,7 +17,8 @@ public class RotationSystem : ComponentSystem {
         for(int i = 0; i < data.Length; i++)                    // Go through all entities with Group components
         {
             var rotation = data.RotationComponents[i].Rotation; // Set rotation value 
-            data.Rigidbody[i].MoveRotation(rotation.normalized);// Set rigidbody rotation
+            //data.Rigidbody[i].MoveRotation(rotation.normalized);// Set rigidbody rotation
+            data.Transform[i].rotation = rotation.normalized;// Set rigidbody rotation
         }
     }
 }
