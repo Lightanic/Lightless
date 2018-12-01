@@ -57,7 +57,7 @@ public class FireSystem : ComponentSystem
                 {
                     entity.Fire.IsFireStopped = false;
                     oilTrail.LineRenderer.positionCount = 0;
-                    oilTrail.CurrentTrailCount = 0;
+                    //oilTrail.CurrentTrailCount = 0;
                     for (int i = closestPointIndex; i >= 0; --i)
                     {
                         entity.Fire.FireDownQueue.Enqueue(points[i]);
