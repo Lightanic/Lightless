@@ -11,16 +11,16 @@ public class PitScript : MonoBehaviour //this script detects enemy and turns the
 
     private void OnTriggerEnter(Collider collision)
     {
+        Physics.IgnoreCollision(collision, GameObject.FindWithTag("Terrain").gameObject.GetComponent<Collider>());
         if (collision.gameObject.tag == "Enemy")
         {
-            //Debug.Log("Collided");
-            //this.gameObject.SetActive(false);
+            
             collision.GetComponent<Rigidbody>().isKinematic = false;
             collision.GetComponent<EnemyDeathComponent>().EnemyIsDead = true;
             collision.GetComponent<NavMeshAgent>().enabled = false;
             collision.GetComponent<NavAgentComponent>().enabled = false;
             collision.GetComponent<WayPointComponent>().enabled = false;
-            //collision.GetComponent<GameObjectEntity>().enabled = false;
+            
             
         }
 
