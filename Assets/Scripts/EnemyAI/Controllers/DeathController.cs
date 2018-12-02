@@ -18,6 +18,7 @@ public class DeathController : MonoBehaviour
     Material dissolveMatProperties;
     bool isMaterialSet = false;
     public EnemyDeathComponent deathComponent;
+    
 
     void Start()
     {
