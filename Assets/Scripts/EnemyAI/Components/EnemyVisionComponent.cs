@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class EnemyVisionComponent : MonoBehaviour
 {
     public float Value = 3f;
-    public float AlertValue = 3f;
+    public float AlertValue = 8f;
     public bool IsAlerted = false;
     public bool IsSeeking = false;
 
