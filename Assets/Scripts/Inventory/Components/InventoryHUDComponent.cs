@@ -9,6 +9,8 @@ public class InventoryHUDComponent : MonoBehaviour {
     public Image LeftSlot;
     public Image RightSlot;
 
+    GameObject selectedSlotMask;
+
     [SerializeField]
     public Sprite defaultSelected;
     [SerializeField]
@@ -26,6 +28,8 @@ public class InventoryHUDComponent : MonoBehaviour {
         if (defaultRight == null)
             defaultRight = RightSlot.sprite;
         alpha = SelectedSlot.color.a;
+
+        selectedSlotMask = GameObject.Find("SelectedSlotMask");
     }
 	
 	public void SetSelectedSlot(Sprite image)
@@ -36,6 +40,7 @@ public class InventoryHUDComponent : MonoBehaviour {
             return;
         }
         SelectedSlot.sprite = image;
+        selectedSlotMask.GetComponent<Image>().sprite = image;
     }
 
     public void SetLeftSlot(Sprite image)

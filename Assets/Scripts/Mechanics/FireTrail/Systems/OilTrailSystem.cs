@@ -11,6 +11,7 @@ public class OilTrailSystem : ComponentSystem
     private struct Group
     {
         public OilTrailComponent OilTrail;
+        public Pickup pickup;
         //  public InputComponent Input;
         public Transform Transform;
     }
@@ -26,23 +27,41 @@ public class OilTrailSystem : ComponentSystem
     [Inject] private PlayerData Player;
 
     /// <summary>
+    /// Left hand data
+    /// </summary>
+    private struct LeftHandData
+    {
+        readonly public int Length;
+        public ComponentArray<EquipComponent> EquipComp;
+        public ComponentArray<LeftHandComponent> data;
+    }
+
+    [Inject] private LeftHandData leftHandData;
+
+    /// <summary>
     /// If equipped, holding down left mouse button will create oil trail on ground. Oil trail is rendered using line renderer where holding down the 
     /// the left mouse button will create "points" on the ground for the oil to be drawn on to. 
     /// </summary>
     protected override void OnUpdate()
     {
+        var lhComponent = leftHandData.data[0];
         var transform = Player.Transforms[0];
         var fireComponent = Player.FireComponent[0];
         var entities = GetEntities<Group>();
         foreach (var entity in entities)
         {
-            if (entity.OilTrail.IsEquipped)
+            if(entity.OilTrail.usedOil >= entity.OilTrail.TrailLimit && entity.pickup.IsEquiped)
+            {
+                lhComponent.DropItem();
+            }
+
+            if (entity.OilTrail.IsEquipped && entity.pickup.IsEquiped)
             {
                 var position = entity.Transform.position;// transform.position;
                                                          // entity.Transform.position = position;
                 var lineRenderer = entity.OilTrail.LineRenderer;
                 var minDistance = entity.OilTrail.TrailMinimumDistance;
-                if (Player.Inputs[0].Control("OilTrail"))
+                if (Player.Inputs[0].Control("OilTrail") && entity.pickup.IsEquiped)
                 {
                     if (entity.OilTrail.CurrentTrailCount == 0)
                     {
@@ -69,7 +88,7 @@ public class OilTrailSystem : ComponentSystem
                             }
                         }
 
-                        if (entity.OilTrail.CurrentTrailCount < entity.OilTrail.TrailLimit && distance >= minDistance)
+                        if (entity.OilTrail.usedOil < entity.OilTrail.TrailLimit && distance >= minDistance)
                         {
                             entity.OilTrail.TrailPoints.Add(position);
                             lineRenderer.positionCount = entity.OilTrail.CurrentTrailCount;
@@ -77,10 +96,11 @@ public class OilTrailSystem : ComponentSystem
                             lineRenderer.SetPosition(entity.OilTrail.CurrentTrailCount - 1, position);
 
                             entity.OilTrail.CurrentTrailCount++;
+                            entity.OilTrail.usedOil++;
                         }
 
                         // Reset the oil trail if the oil can isn't used up. Makes the mechanic a little easier to use. 
-                        if (distance > entity.OilTrail.TrailMaximumDistance && entity.OilTrail.CurrentTrailCount < entity.OilTrail.TrailLimit)
+                        if (distance > entity.OilTrail.TrailMaximumDistance && entity.OilTrail.usedOil < entity.OilTrail.TrailLimit)
                         {
                             entity.OilTrail.TrailPoints.Clear();
                             entity.OilTrail.TrailPoints.Add(position);

@@ -79,18 +79,7 @@ public class EquipperSystem : ComponentSystem
         }
 
 
-        for (int i = 0; i < itemData.Length; i++)
-        {
-            // Always equip item to an empty hand
-            if (itemData.PickItem[i].IsEquiped)
-            {
-                if (leftHandData.data[0].isEmpty)
-                {
-                    leftHandData.EquipComp[0].EquipItem(itemData.InventoryItem[i].gameObject);
-                    leftHandData.data[0].isEmpty = false;
-                }
-            }
-        }
+     
 
 
         // Cycle through inventory items
@@ -133,6 +122,19 @@ public class EquipperSystem : ComponentSystem
                 }
             
 
+        }
+
+        for (int i = 0; i < itemData.Length; i++)
+        {
+            // Always equip item to an empty hand
+            if (itemData.PickItem[i].IsEquiped)
+            {
+                if (leftHandData.data[0].isEmpty)
+                {
+                    leftHandData.EquipComp[0].EquipItem(itemData.InventoryItem[i].gameObject);
+                    leftHandData.data[0].isEmpty = false;
+                }
+            }
         }
 
         // Drop items from inventory

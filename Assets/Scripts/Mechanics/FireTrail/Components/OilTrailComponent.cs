@@ -6,6 +6,7 @@ public class OilTrailComponent : MonoBehaviour
 {
     public LineRenderer LineRenderer; // Oil slick using line renderer
     public int TrailLimit = 5; // Number of oil trail points
+    public int usedOil = 0; // amount of oil currently used 
     public int CurrentTrailCount = 0; // Current oil trail count
     public float TrailMinimumDistance = 1.0f; // Minumum distance between oil trail points
     public float TrailMaximumDistance = 10.0f; // Minumum distance between oil trail points

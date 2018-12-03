@@ -6,13 +6,9 @@ public class Pickup : InteractableComponent {
 
     public bool IsEquiped = false;
 
-    /// <summary>
-    /// Pick up item by disabling the gameobject
-    /// </summary>
-    public override void Interact()
+    public void AddToInventory()
     {
         gameObject.SetActive(false);
-        //Destroy(gameObject);
         this.IsInteracting = false;
     }
 
@@ -25,13 +21,4 @@ public class Pickup : InteractableComponent {
         gameObject.SetActive(true);
     }
 
-
-    /// <summary>
-    /// Draw radius on scene
-    /// </summary>
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.white;
-        Gizmos.DrawWireSphere(transform.position, InteractDistance);
-    }
 }
