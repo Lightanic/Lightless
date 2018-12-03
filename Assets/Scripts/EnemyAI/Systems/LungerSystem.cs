@@ -59,6 +59,11 @@ public class LungerSystem : ComponentSystem
         foreach (var lunger in GetEntities<LungerData>())
         {
 
+            if (lunger.EnemyTransform.GetComponent<EnemyDeathComponent>().EnemyIsDead)
+            {
+                continue;
+            }
+
             float currentDistance = float.MaxValue;
             float lightDistance;
             foreach (var e in GetEntities<LightData>())
