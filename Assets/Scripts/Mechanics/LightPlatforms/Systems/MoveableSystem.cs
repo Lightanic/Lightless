@@ -62,6 +62,14 @@ public class MoveableSystem : ComponentSystem
                     entity.Platform.IsSelected = false;
                     input.EnablePlayerMovement = true;
                     entity.Outline.eraseRenderer = true;
+                    if (entity.Platform.Activator != null)
+                    {
+                        var outline = entity.Platform.Activator.GetComponent<Outline>();
+                        if (outline != null)
+                        {
+                            outline.eraseRenderer = true;
+                        }
+                    }
                 }
                 else if (distance < 4F)
                 {
@@ -69,6 +77,14 @@ public class MoveableSystem : ComponentSystem
                     entity.Platform.IsSelected = true;
                     input.EnablePlayerMovement = false;
                     entity.Outline.eraseRenderer = false;
+                    if (entity.Platform.Activator != null)
+                    {
+                        var outline = entity.Platform.Activator.GetComponent<Outline>();
+                        if(outline!=null)
+                        {
+                            outline.eraseRenderer = false;
+                        }
+                    }
                 }
             }
 
