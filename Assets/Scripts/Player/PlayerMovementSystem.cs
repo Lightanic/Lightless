@@ -42,7 +42,7 @@ public class PlayerMovementSystem : ComponentSystem
                 var speed = (Mathf.Abs(entity.InputComponent.Horizontal) + Mathf.Abs(entity.InputComponent.Vertical)) * entity.SpeedComponent.Speed;
                 speed = Mathf.Clamp(speed, 0, entity.SpeedComponent.Speed);
                 var movePosition = entity.RigidBody.position + moveVector.normalized * speed * Time.deltaTime;                          // New position
-                entity.RigidBody.MovePosition(movePosition);                                                                            // Update entity position to new position
+                entity.transform.position = movePosition;                                                                            // Update entity position to new position
                 UpdateAnimation(entity, moveVector);
             }
         }
