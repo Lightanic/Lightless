@@ -9,12 +9,13 @@ public class InteractableComponent : MonoBehaviour {
     [Range(1,10)]
     public float InteractDistance = 4f;
 
+     
     /// <summary>
-    /// Common Interact function for all interactable objects
+    /// Draw radius on scene
     /// </summary>
-    public virtual void Interact()
+    private void OnDrawGizmos()
     {
-        Debug.Log("Interacting");
+        Gizmos.color = Color.white;
+        Gizmos.DrawWireSphere(transform.position, InteractDistance);
     }
-
 }

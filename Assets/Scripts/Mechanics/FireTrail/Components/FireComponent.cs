@@ -14,10 +14,14 @@ public class FireComponent : MonoBehaviour
     public Queue<Vector3> FireUpQueue;
     public Queue<Vector3> FireDownQueue;
     public OilTrailComponent OilTrail = null;
+
+    public GameObject FireSoundPrefab; // holds fire sound bank
+    public Queue<GameObject> FireSoundList;
     private void Start()
     {
         Instances = new List<GameObject>();
         FireUpQueue = new Queue<Vector3>();
         FireDownQueue = new Queue<Vector3>();
+        FireSoundList = new Queue<GameObject>();
     }
 }

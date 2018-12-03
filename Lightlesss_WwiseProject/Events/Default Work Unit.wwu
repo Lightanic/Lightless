@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WwiseDocument Type="WorkUnit" ID="{E59D2052-E4EE-4858-8E6F-70B073358B20}" SchemaVersion="89">
+	<Events>
+		<WorkUnit Name="Default Work Unit" ID="{E59D2052-E4EE-4858-8E6F-70B073358B20}" PersistMode="Standalone">
+			<ChildrenList>
+				<Event Name="Step" ID="{11779609-2E7F-4DAA-9A87-B7BEF2B57079}">
+					<ChildrenList>
+						<Action Name="" ID="{D6513BAA-DFDA-4D8A-B151-9A11C07CF295}" ShortID="976062971">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="1"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="Steptypes" ID="{D424B4A8-122C-496F-AB8B-5044F8CFB0AE}" WorkUnitID="{ACD9303A-68E0-4485-9E2B-76D76CBEF75D}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="FireStart" ID="{412490D8-73C6-4559-9FCB-88D33ECF2A29}">
+					<ChildrenList>
+						<Action Name="" ID="{68C77DBB-7349-4B0D-9228-C3B4E4839512}" ShortID="941908405">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="1"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="Flare" ID="{7A90F81C-79B4-41CE-BB98-FF3E4B4DA97B}" WorkUnitID="{ACD9303A-68E0-4485-9E2B-76D76CBEF75D}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+						<Action Name="" ID="{86B487B6-0474-4AB7-8BCB-3513C10133CF}" ShortID="897460965">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="1"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="FireSound" ID="{54BF0655-3020-4019-A673-5C180A1BEEFE}" WorkUnitID="{45D787E7-1414-4E35-B756-8274B7CC75B1}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="FireStop" ID="{2F99A3D0-315C-4703-9D24-70D770114386}">
+					<ChildrenList>
+						<Action Name="" ID="{E205D43B-45CF-4E2B-A8C2-D5638B223CCE}" ShortID="179386167">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="2"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="FireSound" ID="{54BF0655-3020-4019-A673-5C180A1BEEFE}" WorkUnitID="{45D787E7-1414-4E35-B756-8274B7CC75B1}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="LighterFlick" ID="{91E14A69-7D82-49C4-B79C-FA51F7C09D63}">
+					<ChildrenList>
+						<Action Name="" ID="{226AC591-9FB2-4D55-8D9B-B7EBD8427464}" ShortID="568369887">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="1"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="Lighter" ID="{0148FB1A-8850-45C6-8929-2F1AC0487BF2}" WorkUnitID="{ACD9303A-68E0-4485-9E2B-76D76CBEF75D}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="BackgroundStart" ID="{5F6BAFEB-1156-46F1-BDF6-625655B408C4}">
+					<ChildrenList>
+						<Action Name="" ID="{21FC21A0-8823-4787-88BA-0E71A33C90DA}" ShortID="361440289">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="1"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="LightlessBg1" ID="{5C5D58A7-BBFB-4A1C-B002-08AE159E3D3F}" WorkUnitID="{ACD9303A-68E0-4485-9E2B-76D76CBEF75D}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="TutorialFX" ID="{A4E05F91-A4B0-4739-A12A-C30D1A4238F5}"/>
+				<Event Name="ItemPickup" ID="{AC6052F9-BE78-4A36-866D-CB1EE20F596E}"/>
+				<Event Name="NarrativePickup" ID="{9E160300-6E94-4D8D-A03C-83BEF5842128}"/>
+				<Event Name="FlashlightSwtich" ID="{319B857D-2076-4CDD-B999-2906AF8248DA}"/>
+				<Event Name="InventoryChange" ID="{C85AA81F-B2C4-46FA-8AC4-375D6B57FDA0}"/>
+				<Event Name="BackgroundStop" ID="{F10AE381-2EBF-40F5-B689-70A5308B5FA1}">
+					<ChildrenList>
+						<Action Name="" ID="{5E90E48C-6DBF-4E11-A5C6-177062E61602}" ShortID="1066979701">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="2"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="LightlessBg1" ID="{5C5D58A7-BBFB-4A1C-B002-08AE159E3D3F}" WorkUnitID="{ACD9303A-68E0-4485-9E2B-76D76CBEF75D}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+			</ChildrenList>
+		</WorkUnit>
+	</Events>
+</WwiseDocument>

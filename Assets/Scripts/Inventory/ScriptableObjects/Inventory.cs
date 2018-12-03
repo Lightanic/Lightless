@@ -6,7 +6,7 @@ using UnityEngine;
 public class Inventory : ScriptableObject {
 
     public List<InventoryItem> Items = new List<InventoryItem>();
-    //public List<uint> ItemNumber = new List<uint>(); 
+    public List<uint> ItemNumber = new List<uint>(); 
 
     public Dictionary<string, InventoryItem> ItemsDictonary = new Dictionary<string, InventoryItem>();
 
@@ -30,16 +30,16 @@ public class Inventory : ScriptableObject {
     /// <param name="item"></param>
     public void Add(InventoryItem item)
     {
-        if(!Items.Contains(item))
+        //if(!Items.Contains(item))
         {
             //Add item
             Items.Add(item);
             //ItemNumber.Add(1);
             //ItemsDictonary.Add(Items[Items.Count - 1].GUID, Items[Items.Count - 1]);
         }
-        else
+        //else
         {
-            int index = Items.IndexOf(item);
+            //int index = Items.IndexOf(item);
             //++ItemNumber[index];
         }
     }
@@ -73,13 +73,14 @@ public class Inventory : ScriptableObject {
     {
         if(Items.Contains(item))
         {
-            int index = Items.IndexOf(item);
-           // --ItemNumber[index];
-           // if (ItemNumber[index] <= 0)
-           // {
-               // ItemNumber.RemoveAt(index);
+            //int index = Items.IndexOf(item);
+            //--ItemNumber[index];
+            //if (ItemNumber[index] <= 0)
+            //{
+            //    ItemNumber.RemoveAt(index);
+            //    Items.RemoveAt(index);
                 Items.Remove(item);
-           // }
+            //}
         }
     }
 
