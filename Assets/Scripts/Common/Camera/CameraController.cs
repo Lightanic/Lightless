@@ -18,6 +18,8 @@ public class CameraController : MonoBehaviour
         if (!isOffsetSet)
             offset = transform.position - player.position;
         playerOutlines = player.GetComponentsInChildren<Outline>();
+
+        AkSoundEngine.PostEvent("BackgroundStart", gameObject);
     }
 
     public void SetOffset(Vector3 offsetVector)
@@ -88,5 +90,10 @@ public class CameraController : MonoBehaviour
                 }
             }
         }
+    }
+
+    private void OnDestroy()
+    {
+        AkSoundEngine.PostEvent("BackgroundStop", gameObject);
     }
 }

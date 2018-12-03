@@ -14,6 +14,7 @@ namespace AK
     namespace EVENTS
     {
         static const AkUniqueID BACKGROUNDSTART = 3459036027U;
+        static const AkUniqueID BACKGROUNDSTOP = 3804518105U;
         static const AkUniqueID FIRESTART = 1077078323U;
         static const AkUniqueID FIRESTOP = 1158554481U;
         static const AkUniqueID LIGHTERFLICK = 1763412163U;

@@ -69,12 +69,39 @@
 						</Action>
 					</ChildrenList>
 				</Event>
-				<Event Name="BackgroundStart" ID="{5F6BAFEB-1156-46F1-BDF6-625655B408C4}"/>
+				<Event Name="BackgroundStart" ID="{5F6BAFEB-1156-46F1-BDF6-625655B408C4}">
+					<ChildrenList>
+						<Action Name="" ID="{21FC21A0-8823-4787-88BA-0E71A33C90DA}" ShortID="361440289">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="1"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="LightlessBg1" ID="{5C5D58A7-BBFB-4A1C-B002-08AE159E3D3F}" WorkUnitID="{ACD9303A-68E0-4485-9E2B-76D76CBEF75D}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
 				<Event Name="TutorialFX" ID="{A4E05F91-A4B0-4739-A12A-C30D1A4238F5}"/>
 				<Event Name="ItemPickup" ID="{AC6052F9-BE78-4A36-866D-CB1EE20F596E}"/>
 				<Event Name="NarrativePickup" ID="{9E160300-6E94-4D8D-A03C-83BEF5842128}"/>
 				<Event Name="FlashlightSwtich" ID="{319B857D-2076-4CDD-B999-2906AF8248DA}"/>
 				<Event Name="InventoryChange" ID="{C85AA81F-B2C4-46FA-8AC4-375D6B57FDA0}"/>
+				<Event Name="BackgroundStop" ID="{F10AE381-2EBF-40F5-B689-70A5308B5FA1}">
+					<ChildrenList>
+						<Action Name="" ID="{5E90E48C-6DBF-4E11-A5C6-177062E61602}" ShortID="1066979701">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="2"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="LightlessBg1" ID="{5C5D58A7-BBFB-4A1C-B002-08AE159E3D3F}" WorkUnitID="{ACD9303A-68E0-4485-9E2B-76D76CBEF75D}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
 			</ChildrenList>
 		</WorkUnit>
 	</Events>
