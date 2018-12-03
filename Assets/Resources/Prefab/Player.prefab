@@ -999,6 +999,8 @@ GameObject:
   - component: {fileID: 114457777909748862}
   - component: {fileID: 114815350952351720}
   - component: {fileID: 114689047973507034}
+  - component: {fileID: 81860333823205730}
+  - component: {fileID: 114814989875745362}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -1485,7 +1487,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1683573350958196}
   m_LocalRotation: {x: 0.00032527678, y: 0.0024601684, z: -0.00039990613, w: 0.9999969}
-  m_LocalPosition: {x: -163.82997, y: 18.3, z: -89.67}
+  m_LocalPosition: {x: -163.8, y: 18.2, z: -93.00018}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4677636418112338}
@@ -2585,6 +2587,13 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.02, y: 0.08, z: 0.05}
   m_Center: {x: -0, y: 0.04, z: 0}
+--- !u!81 &81860333823205730
+AudioListener:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1683573350958196}
+  m_Enabled: 1
 --- !u!95 &95138916363414634
 Animator:
   serializedVersion: 3
@@ -2807,6 +2816,7 @@ MonoBehaviour:
   IsFireStopped: 1
   OilTrailDistanceThreshold: 3.2
   PropogationTimeStep: 0.25
+  OilTrail: {fileID: 0}
 --- !u!114 &114482601634398634
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2889,11 +2899,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 363741b6ec479e848887878afb22e170, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerNumber: 1
   Horizontal: 0
   Vertical: 0
   EnablePlayerMovement: 1
   Pause: {fileID: 0}
+--- !u!114 &114814989875745362
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1683573350958196}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29dec00d49ff4e845aaf448ed9f8d1e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerList: f7e1664c
+  useOtherObject: 0
+  bankName: Footstepbank
+  decodeBank: 0
+  loadAsynchronous: 0
+  saveDecodedBank: 0
+  unloadTriggerList: 958ca0ea
+  valueGuid: 9ae26744dfe0aa4ea09aab949260dc1c
 --- !u!114 &114815350952351720
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2905,8 +2933,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ff21bc2d5d593d42a5cda614bd84b20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DEFAULT_SPEED: 6
-  SPRINT_SPEED: 9
+  DEFAULT_SPEED: 8
+  SPRINT_SPEED: 13
   MAX_STAMINA: 20
   DODGE_SPEED: 80
   MIN_STAMINA: 5
@@ -2920,6 +2948,9 @@ MonoBehaviour:
   canDodge: 1
   Speed: 2
   Stamina: 1
+  isMoving: 0
+  walkTime: 0.15
+  runTime: 0.2
 --- !u!114 &114846777130860958
 MonoBehaviour:
   m_ObjectHideFlags: 1

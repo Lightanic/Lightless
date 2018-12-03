@@ -22,8 +22,42 @@ public class SpeedComponent : MonoBehaviour {
     [HideInInspector]
     public float Stamina = 2;
 
+    public bool isMoving = false;
+    public float walkTime = 0.15f;
+    public float runTime = 0.2f;
+    float curTime = 0;
     private void Start()
     {
         Stamina = MAX_STAMINA;
+    }
+
+    private void FixedUpdate()
+    {
+        Debug.Log(curTime);
+        if (isMoving && !isSprinting)
+        {
+            if(curTime >= walkTime)
+            {
+                AkSoundEngine.PostEvent("Step", gameObject);
+                curTime = 0;
+            }
+            curTime += Time.fixedDeltaTime;
+        }
+        else if(isMoving && isSprinting)
+        {
+            if (curTime >= walkTime)
+            {
+                AkSoundEngine.PostEvent("Step", gameObject);
+                curTime = 0;
+            }
+            curTime += Time.fixedDeltaTime;
+        }
+        //StartCoroutine(WalkSound());
+    }
+
+    IEnumerator WalkSound()
+    {
+        AkSoundEngine.PostEvent("Step", gameObject);
+        yield return new WaitForSeconds(2f); 
     }
 }
