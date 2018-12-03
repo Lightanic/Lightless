@@ -66,6 +66,11 @@ public class StunnerSystem : ComponentSystem
 
         foreach (var stunner in GetEntities<StunnerData>())
         {
+
+            if (stunner.EnemyTransform.GetComponent<EnemyDeathComponent>().EnemyIsDead)
+            {
+                continue;
+            }
             float currentDistance = float.MaxValue;
             float lightDistance;
             foreach (var e in GetEntities<LightData>())

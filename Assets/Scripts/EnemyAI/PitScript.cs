@@ -8,10 +8,14 @@ using UnityEngine.SceneManagement;
 public class PitScript : MonoBehaviour //this script detects enemy and turns their navmesh off
 {
 
-
     private void OnTriggerEnter(Collider collision)
     {
-        Physics.IgnoreCollision(collision, GameObject.FindWithTag("Terrain").gameObject.GetComponent<Collider>());
+        var terrains = GameObject.FindGameObjectsWithTag("Terrain");
+        foreach (var terrain in terrains)
+        {
+            Physics.IgnoreCollision(collision, terrain.gameObject.GetComponent<Collider>());
+        }
+       
         if (collision.gameObject.tag == "Enemy")
         {
             
