@@ -19,6 +19,11 @@ public class PatrolSystem : ComponentSystem
         var entities = GetEntities<EnemyPatrolData>();
         foreach (var enemy in entities)
         {
+            if (enemy.EnemyTransform.GetComponent<EnemyDeathComponent>().EnemyIsDead)
+            {
+                continue;
+            }
+
             if (enemy.PatrolComponent.IsWandering == true)
             {
                 if (enemy.PatrolComponent.Waypoints.Length == 0)

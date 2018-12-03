@@ -56,6 +56,11 @@ public class RunnerSystem : ComponentSystem
 
         foreach (var runner in GetEntities<RunnerData>())
         {
+
+            if (runner.EnemyTransform.GetComponent<EnemyDeathComponent>().EnemyIsDead)
+            {
+                continue;
+            }
             float currentDistance = float.MaxValue;
             float lightDistance;
             foreach (var e in GetEntities<LightData>())
