@@ -28,6 +28,12 @@ public class LungerSystem : ComponentSystem
         public Transform LightTransform;
     }
 
+    private struct LungerDeath
+    {
+        public EnemyDeathComponent DeathComponent;
+        public Transform EnemyTransform;
+    }
+
 
 
     protected override void OnUpdate()
@@ -42,8 +48,21 @@ public class LungerSystem : ComponentSystem
             playerData = entity;
 
         }
+
+        foreach (var entity in GetEntities<LungerDeath>())
+        {
+            if (entity.DeathComponent.EnemyIsDead)
+            {
+                entity.EnemyTransform.GetComponent<BoxCollider>().enabled = false;
+            }
+        }
         foreach (var lunger in GetEntities<LungerData>())
         {
+
+            if (lunger.EnemyTransform.GetComponent<EnemyDeathComponent>().EnemyIsDead)
+            {
+                continue;
+            }
 
             float currentDistance = float.MaxValue;
             float lightDistance;
@@ -118,8 +137,8 @@ public class LungerSystem : ComponentSystem
                 {
                     lunger.Animator.isWalking = true;
 
-                     //seek the light
-                    Seek(lunger, lightData.LightTransform.position);
+                    //seek the light
+                    Seek(lunger, lightData.LightTransform);
 
                 }
 
@@ -127,7 +146,7 @@ public class LungerSystem : ComponentSystem
                 {
                     lunger.Animator.isWalking = true;
                     lunger.Animator.isRunning = false;
-                
+
                     //patrolling
                     lunger.PatrolData.IsWandering = true;
                 }
@@ -142,7 +161,7 @@ public class LungerSystem : ComponentSystem
             }
             else
             {
-                 if (distanceToPlayer <= lunger.LungeComponent.LungeValue && !lunger.LungeComponent.IsPrelunging && !lunger.LungeComponent.IsLunging)
+                if (distanceToPlayer <= lunger.LungeComponent.LungeValue && !lunger.LungeComponent.IsPrelunging && !lunger.LungeComponent.IsLunging)
                 {
                     //Debug.Log("get ready for the lunge");
                     lunger.LungeComponent.IsPrelunging = true;
@@ -168,17 +187,22 @@ public class LungerSystem : ComponentSystem
             //Debug.Log("lunging");
             lunger.AgentComponent.Agent.speed = Random.Range(20, 40);
             //seek player
-            Seek(lunger, player.PlayerTransform.position);
+            Seek(lunger, player.PlayerTransform);
         }
 
     }
 
-    void Seek(LungerData lunger, Vector3 target)
+    void Seek(LungerData lunger, Transform target)
     {
         lunger.EnemyVision.IsSeeking = true;
         lunger.PatrolData.IsWandering = false;
-        lunger.AgentComponent.Agent.speed = 7;
-        lunger.AgentComponent.Agent.SetDestination(target);
+        lunger.AgentComponent.Agent.speed = 9;
+        if (target.gameObject.tag == "Flashlight")
+        {
+            lunger.AgentComponent.Agent.SetDestination(target.position + target.forward * 8);
+        }
+        else
+            lunger.AgentComponent.Agent.SetDestination(target.position);
     }
 
 }

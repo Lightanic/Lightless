@@ -6,16 +6,27 @@ public class EnemyStunComponent : MonoBehaviour
 {
     public bool IsStunned = false;
     public bool IsSeekingPlayer = false;
+    public GameObject flashlight;
+
+    private void Start()
+    {
+        flashlight = GameObject.FindGameObjectWithTag("Flashlight");
+    }
+    private void Update()
+    {
+        if (flashlight.gameObject.activeInHierarchy == false)
+            IsStunned = false;
+    }
 
     private void OnTriggerStay(Collider other)
     {
         if (other.gameObject.tag == "Flashlight")
         {
-            if (other.GetComponent<LightComponent>().LightIsOn == true)
-            {
-                IsStunned = true;
-            }
-            
+                if (other.GetComponent<LightComponent>().LightIsOn == true)
+                {
+                    IsStunned = true;
+                }
+
             //Debug.Log("You look stunning!");
         }
 

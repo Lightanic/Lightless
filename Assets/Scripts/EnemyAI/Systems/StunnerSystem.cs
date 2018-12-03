@@ -14,7 +14,7 @@ public class StunnerSystem : ComponentSystem
         public EnemyDarkVisionComponent NightVision;
         public EnemyStunComponent StunComponent;
         public WayPointComponent PatrolData;
-       // public StunnerAnimator AnimatorComponent;
+        // public StunnerAnimator AnimatorComponent;
     }
 
     private struct StunnerAnimatorStruct
@@ -35,6 +35,12 @@ public class StunnerSystem : ComponentSystem
         public Transform LightTransform;
     }
 
+    private struct StunnerDeath
+    {
+        public EnemyDeathComponent DeathComponent;
+        public Transform EnemyTransform;
+    }
+
 
     protected override void OnUpdate()
     {
@@ -49,8 +55,22 @@ public class StunnerSystem : ComponentSystem
             playerData = entity;
 
         }
+
+        foreach (var entity in GetEntities<StunnerDeath>())
+        {
+            if (entity.DeathComponent.EnemyIsDead)
+            {
+                entity.EnemyTransform.GetComponent<BoxCollider>().enabled = false;
+            }
+        }
+
         foreach (var stunner in GetEntities<StunnerData>())
         {
+
+            if (stunner.EnemyTransform.GetComponent<EnemyDeathComponent>().EnemyIsDead)
+            {
+                continue;
+            }
             float currentDistance = float.MaxValue;
             float lightDistance;
             foreach (var e in GetEntities<LightData>())
@@ -78,7 +98,7 @@ public class StunnerSystem : ComponentSystem
             {
                 if (distanceToLight > stunner.EnemyVision.Value && distanceToLight <= stunner.EnemyVision.Value + stunner.EnemyVision.AlertValue)
                 {
-                 
+
                     stunner.EnemyVision.IsAlerted = true;
                     stunner.PatrolData.IsWandering = true;
                 }
@@ -87,7 +107,7 @@ public class StunnerSystem : ComponentSystem
                     //stunner.Animator.isRunning = true;
                     //stunner.AgentComponent.Agent.SetDestination(lightData.LightTransform.position); 
                     //seek the light
-                    Seek(stunner, lightData.LightTransform.position);
+                    Seek(stunner, lightData.LightTransform);
 
                 }
                 else
@@ -95,13 +115,13 @@ public class StunnerSystem : ComponentSystem
                     //patrolling
                     stunner.PatrolData.IsWandering = true;
                 }
-                
+
 
                 if (distanceToPlayer <= stunner.NightVision.Value)
                 {
                     //seek player
-                    
-                    Seek(stunner, playerData.PlayerTransform.position);
+
+                    Seek(stunner, playerData.PlayerTransform);
                 }
             }
             else
@@ -115,7 +135,7 @@ public class StunnerSystem : ComponentSystem
                 else if (distanceToPlayer <= stunner.NightVision.Value)
                 {
                     //seek player
-                    Seek(stunner, playerData.PlayerTransform.position);
+                    Seek(stunner, playerData.PlayerTransform);
                 }
                 else
                 {
@@ -131,13 +151,13 @@ public class StunnerSystem : ComponentSystem
             }
             if (stunner.StunComponent.IsStunned == false && stunner.PatrolData.IsWandering == false)
             {
-                stunner.AgentComponent.Agent.speed = 7;
+                stunner.AgentComponent.Agent.speed = 9;
             }
             if (stunner.PatrolData.IsWandering == true)
             {
                 stunner.AgentComponent.Agent.speed = 3;
             }
-          
+
 
         }
 
@@ -148,7 +168,7 @@ public class StunnerSystem : ComponentSystem
         }
     }
 
-    
+
     void UpdateAnimation(StunnerAnimatorStruct stunner)
     {
         if (stunner.PatrolData.IsWandering && !stunner.StunComponent.IsStunned)
@@ -173,13 +193,18 @@ public class StunnerSystem : ComponentSystem
     }
 
 
-    void Seek(StunnerData stunner, Vector3 target)
+    void Seek(StunnerData stunner, Transform target)
     {
         stunner.EnemyVision.IsSeeking = true;
         stunner.PatrolData.IsWandering = false;
-        stunner.AgentComponent.Agent.SetDestination(target);
+        if (target.gameObject.tag == "Flashlight")
+        {
+            stunner.AgentComponent.Agent.SetDestination(target.position + target.forward * 8);
+        }
+        else
+            stunner.AgentComponent.Agent.SetDestination(target.position);
     }
 
 }
 
-    
+
