@@ -55,9 +55,10 @@ public class FireSystem : ComponentSystem
                 // Allow burning of oil on ground only if player there is oil to burn and player is close to oil trail
                 if (playerData.InputComponents[0].Control("LightFire") && points.Length > 0 && isPlayerClose)
                 {
+                    entities[0].Fire.FireSoundList.Enqueue(GameObject.Instantiate(entities[0].Fire.FireSoundPrefab,points[0],Quaternion.identity));
                     entity.Fire.IsFireStopped = false;
                     oilTrail.LineRenderer.positionCount = 0;
-                    oilTrail.CurrentTrailCount = 0;
+                    //oilTrail.CurrentTrailCount = 0;
                     for (int i = closestPointIndex; i >= 0; --i)
                     {
                         entity.Fire.FireDownQueue.Enqueue(points[i]);

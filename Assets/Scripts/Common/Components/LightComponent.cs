@@ -8,7 +8,9 @@ public class LightComponent : MonoBehaviour
 
     public void ToggleLightOn()
     {
+        AkSoundEngine.PostEvent("LighterFlick", gameObject);
         var lightSource = GetComponentInChildren<Light>();
+
         lightSource.enabled = !lightSource.enabled;
         LightIsOn = lightSource.enabled;
 

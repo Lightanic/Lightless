@@ -32,6 +32,10 @@ public class PlayerMovementSystem : ComponentSystem
             if (entity.InputComponent.EnablePlayerMovement)
             {
                 var moveVector = new Vector3(entity.InputComponent.Horizontal, 0, entity.InputComponent.Vertical);                      // Move direction vector
+                if (moveVector != Vector3.zero)
+                    entity.SpeedComponent.isMoving = true;
+                else
+                    entity.SpeedComponent.isMoving = false;
                 Sprint(entity, moveVector);
                 Dodge(entity);
                 StaminaControl(entity);
