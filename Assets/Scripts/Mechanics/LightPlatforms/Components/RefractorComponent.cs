@@ -30,8 +30,8 @@ public class RefractorComponent : MonoBehaviour
         }
 
         var lightDirection = transform.forward;
-        var results = new NativeArray<RaycastHit>(RaycastCount, Allocator.Temp);
-        var commands = new NativeArray<RaycastCommand>(RaycastCount, Allocator.Temp);
+        var results = new NativeArray<RaycastHit>(RaycastCount, Allocator.TempJob);
+        var commands = new NativeArray<RaycastCommand>(RaycastCount, Allocator.TempJob);
         commands[0] = new RaycastCommand(transform.position + transform.forward * 1F, transform.forward, ActivationDistance);
         commands[1] = new RaycastCommand(transform.position + transform.right * LightWidthStep, transform.forward, ActivationDistance);
         commands[2] = new RaycastCommand(transform.position + transform.right * -LightWidthStep, transform.forward, ActivationDistance);
