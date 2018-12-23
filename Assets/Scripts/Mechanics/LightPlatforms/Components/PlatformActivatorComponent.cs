@@ -43,8 +43,8 @@ public class PlatformActivatorComponent : MonoBehaviour
         }
 
         var direction = transform.forward;
-        var results = new NativeArray<RaycastHit>(RaycastCount, Allocator.Temp);
-        var commands = new NativeArray<RaycastCommand>(RaycastCount, Allocator.Temp);
+        var results = new NativeArray<RaycastHit>(RaycastCount, Allocator.TempJob);
+        var commands = new NativeArray<RaycastCommand>(RaycastCount, Allocator.TempJob);
         commands[0] = new RaycastCommand(transform.position + transform.forward * 1F, transform.forward, MaxActivationDistance);
         commands[1] = new RaycastCommand(transform.position + transform.right * LightWidthStep, transform.forward, MaxActivationDistance);
         commands[2] = new RaycastCommand(transform.position + transform.right * -LightWidthStep, transform.forward, MaxActivationDistance);
