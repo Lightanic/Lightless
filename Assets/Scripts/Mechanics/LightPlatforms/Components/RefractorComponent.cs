@@ -7,15 +7,16 @@ public class RefractorComponent : MonoBehaviour
 {
     private static readonly int RaycastCount = 3;
     [Header("Configuration")]
-    public float                LightWidthStep = 0.1F;
-    public float                ActivationDistance = 20F;
+    public float LightWidthStep = 0.1F;
+    public float ActivationDistance = 20F;
 
     [Header("Light Instance Data")]
-    public bool                 IsRefracted = false;
-    public LightComponent       Switch;
-    public GameObject           ReflectionLightPrefab;
-    public GameObject           LightInstance = null;
-    public List<GameObject>     LightInstances;
+    public bool IsRefracted = false;
+    public Collider PreviousCollider = null;
+    public LightComponent Switch;
+    public GameObject ReflectionLightPrefab;
+    public RefractorComponent MainRefractorInstance = null;
+    public List<GameObject> LightInstances;
 
     void Start()
     {
@@ -58,11 +59,20 @@ public class RefractorComponent : MonoBehaviour
         {
             if (hit.collider.tag == "Refractor" && Switch.LightIsOn)
             {
+                if (!IsRefracted)
+                {
+                    PreviousCollider = hit.collider;
+                }
+
                 GetComponent<LineRendererComponent>().AddLine(new ReflectionLine(transform.position, hit.point));
                 var splitCount = hit.transform.gameObject.GetComponent<RefractionAngleComponent>().SplitCount;
                 var hitPoint = hit.point;
                 hitPoint = hitPoint + lightDirection * 1.5F;
-                InstantiateLightInstances(splitCount, hitPoint, hit.transform.rotation);
+
+                if (IsRefracted && hit.collider.name != PreviousCollider.name)
+                    InstantiateLightInstances(splitCount, hitPoint, hit.transform.rotation, hit.collider);
+                else if (!IsRefracted)
+                    InstantiateLightInstances(splitCount, hitPoint, hit.transform.rotation, hit.collider);
 
                 if (LightInstances.Count > 0)
                 {
@@ -88,25 +98,24 @@ public class RefractorComponent : MonoBehaviour
                         index++;
                     }
                 }
-
             }
             else if (LightInstances.Count > 0)
             {
                 DestroyLightInstances();
-                LightInstance = null;
+                MainRefractorInstance = null;
             }
         }
         else if (LightInstances.Count > 0)
         {
             DestroyLightInstances();
-            LightInstance = null;
+            MainRefractorInstance = null;
         }
 
         results.Dispose();
         commands.Dispose();
     }
 
-    void InstantiateLightInstances(int count, Vector3 point, Quaternion rotation)
+    void InstantiateLightInstances(int count, Vector3 point, Quaternion rotation, Collider collider)
     {
         if (LightInstances.Count == 0)
         {
@@ -115,6 +124,8 @@ public class RefractorComponent : MonoBehaviour
                 var instance = Instantiate(ReflectionLightPrefab, point, rotation);
                 LightInstances.Add(instance);
                 instance.GetComponent<RefractorComponent>().IsRefracted = true;
+                instance.GetComponent<RefractorComponent>().MainRefractorInstance = MainRefractorInstance;
+                instance.GetComponent<RefractorComponent>().PreviousCollider = collider;
             }
         }
         else
@@ -134,6 +145,10 @@ public class RefractorComponent : MonoBehaviour
         }
 
         LightInstances.Clear();
+        if (IsRefracted)
+        {
+            Destroy(gameObject);
+        }
     }
 
 }
