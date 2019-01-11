@@ -39,7 +39,7 @@ public class NarrativeSystem : ComponentSystem {
 
         foreach (var entity in GetEntities<CanvasGroup>())
         {
-            if (entity.canvas.isDisplayed && playerData.InputComponents[0].Control("Interact"))
+            if (entity.canvas.isDisplayed && playerData.InputComponents[0].Control("Back"))
             {
                 entity.canvas.ToggleOff();
             }

@@ -24,6 +24,18 @@ public class PlatformActivationSystem : ComponentSystem
     [Inject]
     private LightData Light;
 
+    /// <summary>
+    /// Player information
+    /// </summary>
+    private struct PlayerData
+    {
+        readonly public int Length;
+        public ComponentArray<InputComponent> Input;
+    }
+
+    [Inject]
+    private PlayerData Player; //Inject player data. 
+
     protected override void OnUpdate()
     {
         // Physics ray cast using Job system to check if light is hitting platform. 
@@ -95,6 +107,7 @@ public class PlatformActivationSystem : ComponentSystem
             {
                 platform.IsActivated = true;
                 activationTime.CurrentTime = 0;
+                Player.Input[0].Rumble(0.3f, new Vector2(5,5),0);
             }
         }
     }
