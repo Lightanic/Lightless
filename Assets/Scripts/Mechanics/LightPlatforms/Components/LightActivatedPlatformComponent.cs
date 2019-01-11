@@ -11,6 +11,7 @@ public class LightActivatedPlatformComponent : MonoBehaviour
     public float ActivationTime = 4F;
     public float CurrentTime = 0F;
     public float MoveSpeed = 3.0F;
+    public string ID = "";
 
     private void Start()
     {

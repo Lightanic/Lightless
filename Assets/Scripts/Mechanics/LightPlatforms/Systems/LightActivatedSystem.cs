@@ -83,6 +83,10 @@ public class LightActivatedSystem : ComponentSystem
         var distance = Vector3.Distance(endPosition, currentPosition);
         if (distance > 0.1F)
         {
+            if (platform.ID == "elevator")
+            {
+                Player.Input[0].AddSmallRumble();
+            }
             transform.position = Vector3.MoveTowards(transform.position, endPosition, platform.MoveSpeed * Time.deltaTime);
         }
         else

@@ -85,8 +85,12 @@ public class EquipperSystem : ComponentSystem
         // Cycle through inventory items
         if (playerData.InputComponents[0].Control("InventoryNext"))
         {
-            
-                if (!lhComponent.isEmpty && lhDataEquipCompPickup != null && lhInventoryItemComp != null)
+            var light = leftHandData.EquipComp[0].EquipedItem.GetComponent<LightComponent>();
+            if (light != null)
+            {
+                light.ToggleLightOn();
+            }
+            if (!lhComponent.isEmpty && lhDataEquipCompPickup != null && lhInventoryItemComp != null)
                 {
                     //Add Item to the inventory
                     lhDataEquipCompPickup.IsEquiped = false;
@@ -105,8 +109,12 @@ public class EquipperSystem : ComponentSystem
         // Cycle through inventory items
         if (playerData.InputComponents[0].Control("InventoryBack"))
         {
-            
-                if (!lhComponent.isEmpty && lhDataEquipCompPickup != null && lhInventoryItemComp != null)
+            var light = leftHandData.EquipComp[0].EquipedItem.GetComponent<LightComponent>();
+            if (light != null)
+            {
+                light.ToggleLightOn();
+            }
+            if (!lhComponent.isEmpty && lhDataEquipCompPickup != null && lhInventoryItemComp != null)
                 {
                     //Add Item to the top of the inventory
                     lhDataEquipCompPickup.IsEquiped = false;
@@ -142,10 +150,13 @@ public class EquipperSystem : ComponentSystem
         {
             if (!leftHandData.data[0].isEmpty)
             {
-                leftHandData.EquipComp[0].EquipedItem.GetComponent<Pickup>().IsInteractable = true;
-                leftHandData.EquipComp[0].EquipedItem.GetComponent<Pickup>().IsEquiped = false;
-                leftHandData.EquipComp[0].EquipedItem.GetComponent<Rigidbody>().isKinematic = false;    // enable rigidbody
-                leftHandData.data[0].DropItem();
+                if (leftHandData.EquipComp[0].EquipedItem.GetComponent<Pickup>().CanDrop)
+                {
+                    leftHandData.EquipComp[0].EquipedItem.GetComponent<Pickup>().IsInteractable = true;
+                    leftHandData.EquipComp[0].EquipedItem.GetComponent<Pickup>().IsEquiped = false;
+                    leftHandData.EquipComp[0].EquipedItem.GetComponent<Rigidbody>().isKinematic = false;    // enable rigidbody
+                    leftHandData.data[0].DropItem();
+                }
             }
         }
 
