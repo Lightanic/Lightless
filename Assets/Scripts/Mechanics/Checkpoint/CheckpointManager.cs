@@ -151,7 +151,15 @@ public class CheckpointManager : MonoBehaviour
     void PickupItem(string pickupName)
     {
         var item = GameObject.Find(pickupName);
-        if(item!=null)
+        if(leftHandComponent == pickupName)
+        {
+            var pickup = item.GetComponent<Pickup>();
+            pickup.IsInteracting = true;
+            pickup.IsEquiped = true;   // equip to left hand
+            pickup.IsInteractable = false;
+            Player.GetComponentInChildren<EquipComponent>().EquipItem(item);
+        }
+        else if(item!=null)
         {
             item.GetComponent<InventoryItemComponent>().AddToInventory = true;
         }

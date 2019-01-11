@@ -42,7 +42,8 @@ public class NarrativeCanvas : MonoBehaviour {
     public void ToggleOff()
     {
         isDisplayed = false;
-        StartCoroutine(FadeOut());
+        gameObject.SetActive(false);
+        //StartCoroutine(FadeOut());
     }
 
     IEnumerator FadeOut()
