@@ -27,6 +27,7 @@ public class MoveableSystem : ComponentSystem
 
     private float CurrentTime = 0;
     private const float KeyDelay = 0.2F;
+    private Vector3 RotationEulers;
 
     protected override void OnUpdate()
     {
@@ -80,7 +81,7 @@ public class MoveableSystem : ComponentSystem
                     if (entity.Platform.Activator != null)
                     {
                         var outline = entity.Platform.Activator.GetComponent<Outline>();
-                        if(outline!=null)
+                        if (outline != null)
                         {
                             outline.eraseRenderer = false;
                         }
@@ -90,39 +91,49 @@ public class MoveableSystem : ComponentSystem
 
             if (entity.Platform.IsSelected)
             {
+                float x = 0F;
+                float y = 0F;
+                float z = 0F;
                 if (InputManager.Instance.IsGamePadActive)
                 {
+                    float rotation = Player.Input[0].Gamepad.GetStick_R().X * Time.deltaTime * 100F;
+                    if (entity.Platform.XAxis) x = rotation;
+                    if (entity.Platform.YAxis) y = rotation;
+                    if (entity.Platform.XAxis) z = rotation;
+                    RotationEulers.Set(x, y, z);
+
                     if (entity.Platform.CanMove)
                     {
                         entity.Transform.position = Vector3.MoveTowards(
-                        entity.Transform.position,
-                        target,
-                        entity.Platform.MoveSpeed * Mathf.Abs(Player.Input[0].Gamepad.GetStick_L().X) * Time.deltaTime
+                            entity.Transform.position,
+                            target,
+                            entity.Platform.MoveSpeed * Mathf.Abs(Player.Input[0].Gamepad.GetStick_L().X) * Time.deltaTime
                         );
                     }
                     if (entity.Platform.CanRotate)
                     {
-                        entity.Transform.Rotate(
-                        entity.Transform.up,
-                        Player.Input[0].Gamepad.GetStick_R().X * Time.deltaTime * 100F
-                        );
+                        entity.Transform.Rotate(RotationEulers);
                     }
                 }
                 else if (!InputManager.Instance.IsGamePadActive)
                 {
+                    float rotation = vertical * Time.deltaTime * 100F;
+                    if (entity.Platform.XAxis) x = rotation;
+                    if (entity.Platform.YAxis) y = rotation;
+                    if (entity.Platform.XAxis) z = rotation;
+                    RotationEulers.Set(x, y, z);
+
                     if (entity.Platform.CanMove)
                     {
                         entity.Transform.position = Vector3.MoveTowards(
-                        entity.Transform.position,
-                        target,
-                        entity.Platform.MoveSpeed * Mathf.Abs(horizontal) * Time.deltaTime
+                            entity.Transform.position,
+                            target,
+                            entity.Platform.MoveSpeed * Mathf.Abs(horizontal) * Time.deltaTime
                         );
                     }
                     if (entity.Platform.CanRotate)
                     {
-                        entity.Transform.Rotate(
-                        entity.Transform.up,
-                        vertical * Time.deltaTime * 100F);
+                        entity.Transform.Rotate(RotationEulers);
                     }
                 }
             }
