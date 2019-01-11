@@ -37,7 +37,7 @@ public class PlayerMovementSystem : ComponentSystem
                 else
                     entity.SpeedComponent.isMoving = false;
                 Sprint(entity, moveVector);
-                Dodge(entity);
+                //Dodge(entity);
                 StaminaControl(entity);
                 var speed = (Mathf.Abs(entity.InputComponent.Horizontal) + Mathf.Abs(entity.InputComponent.Vertical)) * entity.SpeedComponent.Speed;
                 speed = Mathf.Clamp(speed, 0, entity.SpeedComponent.Speed);

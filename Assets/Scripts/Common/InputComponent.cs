@@ -357,6 +357,15 @@ public class InputComponent : MonoBehaviour {
         }
     }
 
+    public void AddSmallRumble()
+    {
+        this.Gamepad.AddRumble(0.05f, new Vector2(1, 1), 0f);
+    }
+
+    public void Rumble(float timer, Vector2 power, float fadeTime = 0f)
+    {
+        this.Gamepad.AddRumble(timer, power, fadeTime);
+    }
     /// <summary>
     /// Remap input controls
     /// </summary>
@@ -401,7 +410,7 @@ public class InputComponent : MonoBehaviour {
                 statusKb = Input.GetKey(KeyCode.LeftShift);
                 break;
             case "LeftLightToggle":
-                statusGamepad = this.Gamepad.GetButtonDown("X");
+                statusGamepad = this.Gamepad.GetButtonDown("LB");
                 statusKb = Input.GetMouseButtonDown(0);
                 break;
             case "RightLightToggle":
@@ -423,6 +432,10 @@ public class InputComponent : MonoBehaviour {
             case "Throw":
                 statusGamepad = this.Gamepad.GetButton("X");
                 statusKb = Input.GetKeyDown(KeyCode.E);
+                break;
+            case "Back":
+                statusGamepad = this.Gamepad.GetButton("B");
+                statusKb = Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.Escape);
                 break;
             default:
                 statusGamepad = false;
