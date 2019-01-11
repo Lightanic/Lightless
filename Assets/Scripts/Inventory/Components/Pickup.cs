@@ -5,7 +5,7 @@ using UnityEngine;
 public class Pickup : InteractableComponent {
 
     public bool IsEquiped = false;
-
+    public bool CanDrop = true;
     public void AddToInventory()
     {
         gameObject.SetActive(false);
