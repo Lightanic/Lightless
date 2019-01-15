@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Assets.Scripts.Mechanics.Checkpoint;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -99,6 +100,9 @@ public class CheckpointManager : MonoBehaviour
         {
             Player = GameObject.Find("Player");
         }
+
+        GameSaveData saveData = new GameSaveData();
+        saveData.CurrentCheckpoint = checkpoint;
         latestCheckpoint = checkpoint;
         cameraOffset = CamController.offset;
         latestPlayerInventory = Player.GetComponent<InventoryComponent>().PlayerInventory;
@@ -113,6 +117,8 @@ public class CheckpointManager : MonoBehaviour
             inventoryList.Add(item.Prefab.name);
         }
         inventoryList.Add(leftHandComponent);
+
+        saveData.InventoryItems = inventoryList;
     }
 
     public void GoToLatestCheckpoint()
@@ -164,4 +170,11 @@ public class CheckpointManager : MonoBehaviour
             item.GetComponent<InventoryItemComponent>().AddToInventory = true;
         }
     }
+
+    static void SaveGame(GameSaveData data)
+    {
+    }
+
+
+
 }
