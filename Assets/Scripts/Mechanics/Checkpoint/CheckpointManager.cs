@@ -175,6 +175,9 @@ public class CheckpointManager : MonoBehaviour
     {
     }
 
-
+    static GameSaveData LoadGame()
+    {
+        return new GameSaveData();
+    }
 
 }

@@ -101,7 +101,7 @@
 
 			float noise01 = (noise + 1.0) / 2.0;
 			float noiseRemap = lerp(noise, noise01, _NoiseAbs);
-			float noiseRemap1 = lerp(noise1, noise01, _NoiseAbs);
+			float noiseRemap1 = lerp(noise1, noise01, _NoiseAbs); 
 			float noiseRemap2 = lerp(noise2, noise01, _NoiseAbs);
 
 			float3 vertexOffset = float3(noiseRemap * _NoiseAmplitude, noiseRemap1 * _NoiseAmplitude, noiseRemap2 * _NoiseAmplitude);
