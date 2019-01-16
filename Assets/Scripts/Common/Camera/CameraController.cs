@@ -28,6 +28,11 @@ public class CameraController : MonoBehaviour
         offset = offsetVector;
     }
 
+    public void SetRotation(Vector3 rotation)
+    {
+        transform.rotation = Quaternion.Euler(rotation.x, rotation.y, rotation.z);
+    }
+
     void Update()
     {
         DrawPlayerOutline();
