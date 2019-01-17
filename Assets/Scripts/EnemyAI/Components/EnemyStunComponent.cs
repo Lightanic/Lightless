@@ -5,7 +5,9 @@ using UnityEngine;
 public class EnemyStunComponent : MonoBehaviour
 {
     public bool IsStunned = false;
+    public bool IsWaiting = false;
     public bool IsSeekingPlayer = false;
+    public float WaitTime;
     public GameObject flashlight;
 
     private void Start()

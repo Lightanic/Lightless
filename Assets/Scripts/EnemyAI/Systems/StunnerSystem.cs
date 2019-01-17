@@ -146,12 +146,20 @@ public class StunnerSystem : ComponentSystem
             if (stunner.StunComponent.IsStunned == true)
             {
                 stunner.AgentComponent.Agent.speed = 0;
-                //stunner.EnemyTransform.GetComponent<Rigidbody>().isKinematic = true;
+                stunner.StunComponent.WaitTime = 4.0f;
+                
                 stunner.AgentComponent.Agent.SetDestination(stunner.EnemyTransform.position);
             }
-            if (stunner.StunComponent.IsStunned == false && stunner.PatrolData.IsWandering == false)
+            if (stunner.StunComponent.WaitTime > 0)
             {
-                stunner.AgentComponent.Agent.speed = 9;
+                stunner.StunComponent.IsWaiting = true;
+                stunner.StunComponent.WaitTime -= 2 * Time.deltaTime;
+            }
+            if (stunner.StunComponent.IsStunned == false && stunner.PatrolData.IsWandering == false && stunner.StunComponent.WaitTime < 0)
+            {
+                stunner.StunComponent.IsWaiting = false;
+                stunner.AgentComponent.Agent.speed = 9;    
+                
             }
             if (stunner.PatrolData.IsWandering == true)
             {
@@ -177,7 +185,7 @@ public class StunnerSystem : ComponentSystem
             stunner.AnimatorComponent.isStunned = false;
             stunner.AnimatorComponent.isWalking = true;
         }
-        else if (stunner.StunComponent.IsStunned)
+        else if (stunner.StunComponent.IsStunned || stunner.StunComponent.IsWaiting)
         {
             stunner.AnimatorComponent.isStunned = true;
             stunner.AnimatorComponent.isWalking = false;
