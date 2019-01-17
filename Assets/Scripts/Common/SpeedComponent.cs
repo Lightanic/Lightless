@@ -33,7 +33,6 @@ public class SpeedComponent : MonoBehaviour {
 
     private void FixedUpdate()
     {
-        Debug.Log(curTime);
         if (isMoving && !isSprinting)
         {
             if(curTime >= walkTime)
