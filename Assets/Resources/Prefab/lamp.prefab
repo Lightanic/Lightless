@@ -93,7 +93,6 @@ GameObject:
   - component: {fileID: 114719580673255774}
   - component: {fileID: 114656144453012798}
   - component: {fileID: 114214625948271610}
-  - component: {fileID: 234826707}
   m_Layer: 0
   m_Name: lamp
   m_TagString: Untagged
@@ -108,7 +107,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1161126618801720}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -92.35, y: 3.3530006, z: 1.48}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_Children:
@@ -223,26 +222,6 @@ MonoBehaviour:
   Canvas: {fileID: 0}
   offsetHeight: 1
   sprite: {fileID: 0}
---- !u!114 &234826707
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1161126618801720}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 29dec00d49ff4e845aaf448ed9f8d1e4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  triggerList: f7e1664c
-  useOtherObject: 0
-  bankName: Firebank
-  decodeBank: 0
-  loadAsynchronous: 0
-  saveDecodedBank: 0
-  unloadTriggerList: 
-  valueGuid: 56c0c18454cadd429a4ce2fbd14b2b69
 --- !u!1 &1187408608067864
 GameObject:
   m_ObjectHideFlags: 0
@@ -365,14 +344,14 @@ Light:
   m_Type: 2
   m_Color: {r: 0.9150943, g: 0.82724726, b: 0.18560876, a: 1}
   m_Intensity: 1.8
-  m_Range: 15
+  m_Range: 14
   m_SpotAngle: 30
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 1
+    m_Type: 2
     m_Resolution: -1
     m_CustomResolution: -1
-    m_Strength: 0.52
+    m_Strength: 0.51
     m_Bias: 0.05
     m_NormalBias: 0.4
     m_NearPlane: 0.2
