@@ -17,6 +17,7 @@ public class CameraChangeTrigger : MonoBehaviour
     public bool IsChanging;
     private Vector3 currentOffset;
     private Vector3 currentRotation;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -41,10 +42,19 @@ public class CameraChangeTrigger : MonoBehaviour
         }
     }
 
+    void StopOtherTriggers()
+    {
+        foreach (var trigger in FindObjectsOfType<CameraChangeTrigger>())
+        {
+            trigger.IsChanging = false;
+        }
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Player")
         {
+            StopOtherTriggers();
             IsChanging = true;
         }
     }
