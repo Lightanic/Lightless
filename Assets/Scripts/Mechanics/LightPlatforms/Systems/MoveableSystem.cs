@@ -57,7 +57,7 @@ public class MoveableSystem : ComponentSystem
             var distance = Vector3.Distance(activatorPosition, player.position);
             if (input.Control("Interact") && CurrentTime > KeyDelay)
             {
-                if (entity.Platform.IsSelected)
+                if (entity.Platform.IsSelected) //Unselect if already selected
                 {
                     CurrentTime = 0F;
                     entity.Platform.IsSelected = false;
@@ -72,7 +72,7 @@ public class MoveableSystem : ComponentSystem
                         }
                     }
                 }
-                else if (distance < 4F)
+                else if (distance < 4F) //Select if within distance
                 {
                     CurrentTime = 0F;
                     entity.Platform.IsSelected = true;
@@ -85,6 +85,22 @@ public class MoveableSystem : ComponentSystem
                         {
                             outline.eraseRenderer = false;
                         }
+                    }
+                }
+            }
+
+            if(entity.Platform.IsSelected && distance > 4F) //Enable player movement if the player is far enough from the platform
+            {
+                CurrentTime = 0F;
+                entity.Platform.IsSelected = false;
+                input.EnablePlayerMovement = true;
+                entity.Outline.eraseRenderer = true;
+                if (entity.Platform.Activator != null)
+                {
+                    var outline = entity.Platform.Activator.GetComponent<Outline>();
+                    if (outline != null)
+                    {
+                        outline.eraseRenderer = true;
                     }
                 }
             }
