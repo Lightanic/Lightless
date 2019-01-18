@@ -48,6 +48,7 @@ public class CameraController : MonoBehaviour
     {
         foreach (var enemy in enemies)
         {
+            if (enemy == null) continue;
             var outline = enemy.GetComponentInChildren<Outline>();
             if (outline != null)
             {
