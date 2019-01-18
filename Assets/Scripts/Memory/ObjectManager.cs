@@ -32,35 +32,46 @@ namespace Assets.Scripts.Memory
         {
         }
 
-        public static void Register<T>(int poolSize)
+        public static void Register<T>(int poolSize) where T : new()
         {
             instance.RegisterPool<T>(poolSize);
         }
 
-        public static T Get<T>()
+        public static T Get<T>() where T : new()
         {
             return instance.GetObject<T>();
         }
 
-        private void RegisterPool<T>(int poolSize)
+        private void RegisterPool<T>(int poolSize) where T : new()
         {
             var hash = typeof(T).GetHashCode();
-            if(!pools.ContainsKey(hash))
+            if (!pools.ContainsKey(hash))
             {
                 pools.Add(hash, new ObjectPool<T>(poolSize));
             }
         }
 
-        public T GetObject<T>()
+        public T GetObject<T>() where T : new()
         {
             var hash = typeof(T).GetHashCode();
-            return ((ObjectPool<T>)pools[hash]).Get();
+            return GetPool<T>().Get();
         }
 
-        public void Free<T>(T item)
+        public void Free<T>(T item) where T : new()
         {
             var hash = typeof(T).GetHashCode();
-           ((ObjectPool<T>)pools[hash]).Free(item);
+            GetPool<T>().Free(item);
+        }
+
+        private ObjectPool<T> GetPool<T>() where T: new()
+        {
+            var hash = typeof(T).GetHashCode();
+            if (!pools.ContainsKey(hash))
+            {
+                pools.Add(hash, new ObjectPool<T>(1));
+            }
+
+            return ((ObjectPool<T>)pools[hash]);
         }
     }
 }

@@ -121,7 +121,7 @@ public class RefractorComponent : MonoBehaviour
         {
             for (int i = 0; i < count; ++i)
             {
-                var instance = Instantiate(ReflectionLightPrefab, point, rotation);
+                var instance = PrefabPool.Spawn(ReflectionLightPrefab, point, rotation);
                 LightInstances.Add(instance);
                 instance.GetComponent<RefractorComponent>().IsRefracted = true;
                 instance.GetComponent<RefractorComponent>().MainRefractorInstance = MainRefractorInstance;
@@ -141,13 +141,13 @@ public class RefractorComponent : MonoBehaviour
     {
         foreach (var light in LightInstances)
         {
-            Destroy(light);
+            PrefabPool.Despawn(light);
         }
 
         LightInstances.Clear();
         if (IsRefracted)
         {
-            Destroy(gameObject);
+            PrefabPool.Despawn(gameObject);
         }
     }
 

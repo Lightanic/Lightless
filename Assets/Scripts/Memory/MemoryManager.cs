@@ -8,8 +8,8 @@ public class MemoryManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        ObjectManager.Register<Vector3>(1024);
-        ObjectManager.Register<Vector2>(512);
+        //ObjectManager.Register<Vector3>(1024);
+        //ObjectManager.Register<Vector2>(512);
     }
 
     // Update is called once per frame

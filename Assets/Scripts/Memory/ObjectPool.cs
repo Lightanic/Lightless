@@ -21,7 +21,7 @@ namespace Assets.Scripts.Memory
         public ObjectPool(int poolCount)
         {
             poolSize = poolCount;
-            buffer = new T[poolCount];
+           // buffer = new T[poolCount];
             currentIndex = 0;
         }
 
@@ -29,9 +29,9 @@ namespace Assets.Scripts.Memory
         {
             if (freeStack.Count == 0)
             {
-                int returnIndex = currentIndex;
-                currentIndex++;
-                return buffer[returnIndex];
+                //int returnIndex = currentIndex;
+                //currentIndex++;
+                return new T();
             }
             else
             {

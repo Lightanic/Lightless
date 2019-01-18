@@ -109,7 +109,10 @@ public class EquipperSystem : ComponentSystem
         // Cycle through inventory items
         if (playerData.InputComponents[0].Control("InventoryBack"))
         {
-            var light = leftHandData.EquipComp[0].EquipedItem.GetComponent<LightComponent>();
+            LightComponent light = null;
+            if(leftHandData.EquipComp[0].EquipedItem !=null)
+                light = leftHandData.EquipComp[0].EquipedItem.GetComponent<LightComponent>();
+
             if (light != null)
             {
                 light.ToggleLightOn();
