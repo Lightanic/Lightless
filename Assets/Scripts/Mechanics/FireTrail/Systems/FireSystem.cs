@@ -55,6 +55,7 @@ public class FireSystem : ComponentSystem
                 // Allow burning of oil on ground only if player there is oil to burn and player is close to oil trail
                 if (playerData.InputComponents[0].Control("LightFire") && points.Length > 0 && isPlayerClose)
                 {
+                    
                     entities[0].Fire.FireSoundList.Enqueue(GameObject.Instantiate(entities[0].Fire.FireSoundPrefab,points[0],Quaternion.identity));
                     entity.Fire.IsFireStopped = false;
                     oilTrail.LineRenderer.positionCount = 0;
@@ -100,7 +101,7 @@ public class FireSystem : ComponentSystem
     {
         var pos = queue.Dequeue();
         pos.x += 0.2F;
-        var instance = Object.Instantiate(firePrefab, pos, new Quaternion());
+        var instance = PrefabPool.Spawn(firePrefab, pos, new Quaternion());
         fireComponent.Instances.Add(instance);
     }
 

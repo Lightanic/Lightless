@@ -12,7 +12,8 @@ public class FireInstanceComponent : MonoBehaviour
     {
         if (DestroyNextUpdate)
         {
-            Destroy(gameObject);
+            PrefabPool.Despawn(gameObject);
+            //Destroy(gameObject);
         }
     }
 }
