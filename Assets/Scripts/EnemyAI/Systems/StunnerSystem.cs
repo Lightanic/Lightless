@@ -209,6 +209,16 @@ public class StunnerSystem : ComponentSystem
         {
             stunner.AgentComponent.Agent.SetDestination(target.position + target.forward * 8);
         }
+        if (target.gameObject.CompareTag("Fire"))
+        {
+            stunner.AgentComponent.Agent.SetDestination(target.position);
+            if (Vector3.Distance(stunner.EnemyTransform.position, target.position) < 7)
+            {
+                stunner.StunComponent.IsStunned = true;
+            }
+            else
+                stunner.StunComponent.IsStunned = false;
+        }
         else
             stunner.AgentComponent.Agent.SetDestination(target.position);
     }
