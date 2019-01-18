@@ -12,6 +12,7 @@ public class CameraController : MonoBehaviour
     public Vector3 offset;
     bool isOffsetSet = false;
     private Outline[] playerOutlines;
+    private GameObject[] enemies;
     void Start()
     {
         // Calculate the initial offset.
@@ -20,6 +21,7 @@ public class CameraController : MonoBehaviour
         playerOutlines = player.GetComponentsInChildren<Outline>();
 
         AkSoundEngine.PostEvent("BackgroundStart", gameObject);
+        enemies = GameObject.FindGameObjectsWithTag("Enemy");
     }
 
     public void SetOffset(Vector3 offsetVector)
@@ -44,7 +46,6 @@ public class CameraController : MonoBehaviour
 
     void DrawEnemyOutlines()
     {
-        var enemies = GameObject.FindGameObjectsWithTag("Enemy");
         foreach (var enemy in enemies)
         {
             var outline = enemy.GetComponentInChildren<Outline>();

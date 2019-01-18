@@ -17,10 +17,12 @@ public class CameraChangeTrigger : MonoBehaviour
     public bool IsChanging;
     private Vector3 currentOffset;
     private Vector3 currentRotation;
+    private CameraChangeTrigger[] triggers;
 
     // Start is called before the first frame update
     void Start()
     {
+        triggers = FindObjectsOfType<CameraChangeTrigger>();
         IsChanging = false;
         MainCamera = Camera.main.GetComponent<CameraController>();
     }
@@ -44,7 +46,7 @@ public class CameraChangeTrigger : MonoBehaviour
 
     void StopOtherTriggers()
     {
-        foreach (var trigger in FindObjectsOfType<CameraChangeTrigger>())
+        foreach (var trigger in triggers)
         {
             trigger.IsChanging = false;
         }
