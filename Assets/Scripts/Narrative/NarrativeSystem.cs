@@ -32,6 +32,9 @@ public class NarrativeSystem : ComponentSystem {
         public NarrativeCanvas canvas;
     }
 
+    NarrativePickup currentPickup = null;
+    NarrativeCanvas canvas = null;
+    bool canvasOn = false;
     protected override void OnUpdate()
     {
         Vector3 playerPos = playerData.Transform[0].position;
@@ -41,7 +44,8 @@ public class NarrativeSystem : ComponentSystem {
         {
             if (entity.canvas.isDisplayed && playerData.InputComponents[0].Control("Back"))
             {
-                entity.canvas.ToggleOff();
+                canvasOn = true;
+                canvas = entity.canvas;
             }
         }
 
@@ -49,9 +53,20 @@ public class NarrativeSystem : ComponentSystem {
         {
             if (Vector3.Distance(playerPos, entity.Transform.position) <= entity.PickItem.InteractDistance && (playerData.InputComponents[0].Control("Interact")))
             {
-                entity.PickItem.Show();
+                currentPickup = entity.PickItem;
             }
 
+        }
+
+        if (currentPickup != null)
+        {
+            currentPickup.Show();
+            currentPickup = null;
+        }
+        if (canvasOn)
+        {
+            canvas.ToggleOff();
+            canvasOn = false;
         }
     }
 
