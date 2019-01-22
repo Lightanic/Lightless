@@ -5,7 +5,7 @@ using UnityEngine;
 public class GrassTest : MonoBehaviour
 {
     public GameObject grass;
-    public GameObject plane;
+    //public GameObject plane;
     Mesh mesh;
 
     [Header("Quad Size")]
@@ -37,25 +37,38 @@ public class GrassTest : MonoBehaviour
 
     public bool reset = false;
     public bool clear = false;
+
+    Vector3 topLeft;
+    Vector3 topRight;
+    Vector3 bottomRight;
+    Vector3 bottomLeft;
     // Start is called before the first frame update
-        /* Quad ( rot x 90 )
-         * vert 0 = bottom left
-         * vert 2 = bottom right
-         * vert 1 = top right
-         * vert 3 = top left
-         */
+    /* Quad ( rot x 90 )
+     * vert 0 = bottom left
+     * vert 2 = bottom right
+     * vert 1 = top right
+     * vert 3 = top left
+     */
     void Start()
     {
         vertextPts = new List<Vector3>();
         points = new List<Vector3>();
         objs = new List<GameObject>();
-        plane.GetComponent<MeshRenderer>().enabled = false;
-        size = plane.transform.localScale;
-        mesh = plane.GetComponent<MeshFilter>().sharedMesh;
-        for (int j = 0; j < mesh.vertexCount; j++)
-        {
-            vertextPts.Add(plane.transform.TransformPoint(mesh.vertices[j]));
-        }
+        //plane.GetComponent<MeshRenderer>().enabled = false;
+        size = transform.localScale;
+        //mesh = plane.GetComponent<MeshFilter>().sharedMesh;
+        //for (int j = 0; j < mesh.vertexCount; j++)
+        //{
+        //    vertextPts.Add(plane.transform.TransformPoint(mesh.vertices[j]));
+        //}
+        topLeft     = transform.position + new Vector3(-0.5f, 0f, 0.5f);
+        topRight    = topLeft + new Vector3(1.0f, 0f, 0f);
+        bottomRight = topRight + new Vector3(0f, 0f, -1.0f);
+        bottomLeft  = topLeft + new Vector3(0f, 0f, -1.0f);
+        vertextPts.Add(topLeft);
+        vertextPts.Add(topRight);
+        vertextPts.Add(bottomLeft);
+        vertextPts.Add(bottomLeft);
 
         width = Vector3.Distance(vertextPts[0], vertextPts[2]);
         length = Vector3.Distance(vertextPts[1], vertextPts[3]);
@@ -85,6 +98,16 @@ public class GrassTest : MonoBehaviour
         }
     }
 
+    private void OnDrawGizmos()
+    {
+
+
+        Gizmos.color = Color.green;
+        Gizmos.DrawLine(topLeft, topRight);
+        Gizmos.DrawLine(topLeft, bottomLeft);
+        Gizmos.DrawLine(topRight, bottomRight);
+        Gizmos.DrawLine(bottomLeft, bottomRight);
+    }
     // Update is called once per frame
     void Update()
     {
@@ -104,7 +127,7 @@ public class GrassTest : MonoBehaviour
         }
         if(reset)
         {
-            plane.transform.localScale = size;
+            //plane.transform.localScale = size;
             foreach( var obj in objs)
             {
                 if (Application.isEditor)
@@ -116,11 +139,19 @@ public class GrassTest : MonoBehaviour
             vertextPts.Clear();
             points.Clear();
             count = 0;
-            mesh = plane.GetComponent<MeshFilter>().sharedMesh;
-            for (int j = 0; j < mesh.vertexCount; j++)
-            {
-                vertextPts.Add(plane.transform.TransformPoint(mesh.vertices[j]));
-            }
+            //mesh = plane.GetComponent<MeshFilter>().sharedMesh;
+            //for (int j = 0; j < mesh.vertexCount; j++)
+            //{
+            //    vertextPts.Add(plane.transform.TransformPoint(mesh.vertices[j]));
+            //}
+            topLeft = transform.position + new Vector3(-0.5f, 0f, 0.5f);
+            topRight = topLeft + new Vector3(1.0f, 0f, 0f);
+            bottomRight = topRight + new Vector3(0f, 0f, -1.0f);
+            bottomLeft = topLeft + new Vector3(0f, 0f, -1.0f);
+            vertextPts.Add(topLeft);
+            vertextPts.Add(topRight);
+            vertextPts.Add(bottomLeft);
+            vertextPts.Add(bottomLeft);
 
             width = Vector3.Distance(vertextPts[0], vertextPts[2]);
             length = Vector3.Distance(vertextPts[1], vertextPts[3]);
