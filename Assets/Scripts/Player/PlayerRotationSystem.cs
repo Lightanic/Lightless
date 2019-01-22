@@ -65,20 +65,21 @@ public class PlayerRotationSystem : ComponentSystem {
     /// <param name="entity"></param>
     void GamePadRotation( Group entity)
     {
-            forward = new Vector3(entity.InputComponent.Horizontal, 0, entity.InputComponent.Vertical);    // Get forward direction
-            if (forward != Vector3.zero)
-                rotation = Quaternion.LookRotation(forward, entity.Transform.up) * GetFlattenedCamRotation();                          // Rotate to forward direction
-            rotation = Quaternion.Slerp(entity.Transform.rotation, rotation, Time.deltaTime * entity.RotationComponent.RotationSpeed);
-        entity.RotationComponent.Rotation = rotation;// new Quaternion(0, rotation.y, 0, rotation.w).normalized;   // Set rotation vector
-    }
+        Vector3 camForward, camRight;
+        camForward = Camera.main.transform.forward;
+        camRight = Camera.main.transform.right;
 
-    Quaternion GetFlattenedCamRotation()
-    {
-        Vector3 camForward = Camera.main.transform.forward;
-        camForward.y = 0f;
-        Quaternion camRotationFlattened = Quaternion.LookRotation(camForward);
-        //movementRotation = comRotationFlattened * movementRotation;
-        return camRotationFlattened;
+        camForward.y = 0;
+        camRight.y = 0;
+        camForward = camForward.normalized;
+        camRight = camRight.normalized;
+
+        forward = new Vector3(entity.InputComponent.Horizontal, 0, entity.InputComponent.Vertical);    // Get forward direction
+        forward = forward.z * camForward + forward.x * camRight;
+        if (forward != Vector3.zero)
+            rotation = Quaternion.LookRotation(forward, entity.Transform.up);                          // Rotate to forward direction
+            rotation = Quaternion.Slerp(entity.Transform.rotation, rotation, Time.deltaTime * entity.RotationComponent.RotationSpeed);
+        entity.RotationComponent.Rotation = rotation;   // Set rotation vector
     }
 
     /// <summary>
