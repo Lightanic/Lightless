@@ -8,6 +8,7 @@ public class LightActivatedPlatformComponent : MonoBehaviour
     public Vector3 StartPosition;
     public Vector3 ActivatedPosition;
     public bool IsActivated = false;
+    public bool IsRetracting = false;
     public float ActivationTime = 4F;
     public float CurrentTime = 0F;
     public float MoveSpeed = 3.0F;
