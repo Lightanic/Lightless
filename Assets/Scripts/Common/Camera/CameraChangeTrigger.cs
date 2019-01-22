@@ -56,14 +56,6 @@ public class CameraChangeTrigger : MonoBehaviour
 
     void StopOtherTriggers()
     {
-        foreach (var trigger in FindObjectsOfType<CameraChangeTrigger>())
-        {
-            trigger.IsChanging = false;
-        }
-    }
-
-    void StopOtherTriggers()
-    {
         foreach (var trigger in triggers)
         {
             trigger.IsChanging = false;
