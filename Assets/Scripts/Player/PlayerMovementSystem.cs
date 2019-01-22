@@ -32,8 +32,16 @@ public class PlayerMovementSystem : ComponentSystem
         {
             if (entity.InputComponent.EnablePlayerMovement)
             {
+                Vector3 camForward, camRight;
+                camForward = Camera.main.transform.forward;
+                camRight = Camera.main.transform.right;
+
+                camForward.y = 0;
+                camRight.y = 0;
+                camForward = camForward.normalized;
+                camRight = camRight.normalized;
+
                 var moveVector = new Vector3(entity.InputComponent.Horizontal, 0, entity.InputComponent.Vertical);                      // Move direction vector
-                moveVector = GetCameraNormalizedMoveVector(moveVector);
                 if (moveVector != Vector3.zero)
                     entity.SpeedComponent.isMoving = true;
                 else
@@ -43,33 +51,12 @@ public class PlayerMovementSystem : ComponentSystem
                 StaminaControl(entity);
                 var speed = (Mathf.Abs(entity.InputComponent.Horizontal) + Mathf.Abs(entity.InputComponent.Vertical)) * entity.SpeedComponent.Speed;
                 speed = Mathf.Clamp(speed, 0, entity.SpeedComponent.Speed);
-                var movePosition = entity.RigidBody.position + moveVector.normalized * speed * Time.deltaTime;                          // New position
-                entity.transform.position = movePosition;                                                                            // Update entity position to new position
+                //var movePosition = entity.RigidBody.position + moveVector.normalized * speed * Time.deltaTime;                          // New position
+                //entity.transform.position = movePosition;                                                                            // Update entity position to new position
+                entity.transform.position += (moveVector.z * camForward + moveVector.x * camRight) * speed * Time.deltaTime;
                 UpdateAnimation(entity, moveVector);
             }
         }
-    }
-
-    Vector3 GetCameraNormalizedMoveVector(Vector3 move)
-    {
-        normalizedMoveVector = Vector3.zero;
-        if (move.x < 0)
-        {
-            normalizedMoveVector += -Camera.main.transform.right;
-        }
-        if (move.x > 0)
-        {
-            normalizedMoveVector += Camera.main.transform.right;
-        }
-        if (move.z < 0)
-        {
-            normalizedMoveVector += -Camera.main.transform.up;
-        }
-        if (move.z > 0)
-        {
-            normalizedMoveVector += Camera.main.transform.up;
-        }
-        return normalizedMoveVector.normalized + move.normalized;
     }
 
     void UpdateAnimation(Group entity, Vector3 moveVector)
