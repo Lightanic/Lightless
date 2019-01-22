@@ -14,6 +14,13 @@ public class FireSystem : ComponentSystem
         public Transform Transform;
     }
 
+    private struct IgniterGroup
+    {
+        public Pickup PickupItem;
+        public FireIgniterComponent Igniter;
+        public Transform Transform;
+    }
+
     private struct OilCanInstanceGroup
     {
         public ComponentArray<OilTrailComponent> OilTrail;
@@ -50,12 +57,15 @@ public class FireSystem : ComponentSystem
                 var firePrefab = entity.Fire.FirePrefab;
                 var points = oilTrail.TrailPoints.ToArray();
                 int closestPointIndex;
-                bool isPlayerClose = IsPlayerClose(points, playerTransform.position, entity.Fire.OilTrailDistanceThreshold, out closestPointIndex);
+                int igniterIndex;
+                bool isPlayerClose = IsClose(points, playerTransform.position, entity.Fire.OilTrailDistanceThreshold, out closestPointIndex);
+                bool isIgniterClose = IsIgniterClose(points, out igniterIndex);
+                if (isIgniterClose)
+                    closestPointIndex = igniterIndex;
 
                 // Allow burning of oil on ground only if player there is oil to burn and player is close to oil trail
-                if (playerData.InputComponents[0].Control("LightFire") && points.Length > 0 && isPlayerClose)
+                if ((playerData.InputComponents[0].Control("LightFire") && points.Length > 0 && isPlayerClose) || isIgniterClose)
                 {
-                    
                     entities[0].Fire.FireSoundList.Enqueue(GameObject.Instantiate(entities[0].Fire.FireSoundPrefab,points[0],Quaternion.identity));
                     entity.Fire.IsFireStopped = false;
                     oilTrail.LineRenderer.positionCount = 0;
@@ -126,6 +136,47 @@ public class FireSystem : ComponentSystem
             }
         }
 
+        closestIndex = index;
+        return (minDistance <= distanceThreshold);
+    }
+
+    bool IsIgniterClose(Vector3[] points, out int closestIndex)
+    {
+        bool isClose = false;
+        closestIndex = -1;
+        var igniters = GetEntities<IgniterGroup>();
+        foreach(var igniter in igniters)
+        {
+            if (!igniter.PickupItem.IsEquiped)
+            {
+                isClose = IsClose(points, igniter.Transform.position, igniter.Igniter.IgnitionDistance, out closestIndex);
+                if (isClose) break;
+            }
+        }
+
+        return isClose;
+    }
+
+    /// <summary>
+    /// Returns true if given position is close to one of the points in the array. 
+    /// </summary>
+    /// <param name="points"></param>
+    /// <param name="position"></param>
+    /// <param name="distanceThreshold"></param>
+    /// <returns></returns>
+    bool IsClose(Vector3[] points, Vector3 position, float distanceThreshold, out int closestIndex)
+    {
+        int index = -1;
+        var minDistance = float.MaxValue;
+        for (int i = 0; i < points.Length; ++i)
+        {
+            var distance = Vector3.Distance(points[i], position);
+            if (distance < minDistance)
+            {
+                minDistance = distance;
+                index = i;
+            }
+        }
         closestIndex = index;
         return (minDistance <= distanceThreshold);
     }
