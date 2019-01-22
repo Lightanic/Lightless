@@ -113,9 +113,9 @@ public class MoveableSystem : ComponentSystem
                 if (InputManager.Instance.IsGamePadActive)
                 {
                     float rotation = Player.Input[0].Gamepad.GetStick_R().X * Time.deltaTime * 100F;
-                    if (entity.Platform.XAxis) x = rotation;
-                    if (entity.Platform.YAxis) y = rotation;
-                    if (entity.Platform.XAxis) z = rotation;
+                    if (entity.Platform.XAxis) x = Player.Input[0].Gamepad.GetStick_R().X * Time.deltaTime * 100F;
+                    if (entity.Platform.YAxis) y = Player.Input[0].Gamepad.GetStick_R().Y * Time.deltaTime * 100F;
+                    if (entity.Platform.ZAxis) z = rotation;
                     RotationEulers.Set(x, y, z);
 
                     if (entity.Platform.CanMove)
@@ -134,9 +134,9 @@ public class MoveableSystem : ComponentSystem
                 else if (!InputManager.Instance.IsGamePadActive)
                 {
                     float rotation = vertical * Time.deltaTime * 100F;
-                    if (entity.Platform.XAxis) x = rotation;
-                    if (entity.Platform.YAxis) y = rotation;
-                    if (entity.Platform.XAxis) z = rotation;
+                    if (entity.Platform.XAxis) x = horizontal * Time.deltaTime * 100F;
+                    if (entity.Platform.YAxis) y = vertical * Time.deltaTime * 100F;
+                    if (entity.Platform.ZAxis) z = rotation;
                     RotationEulers.Set(x, y, z);
 
                     if (entity.Platform.CanMove)

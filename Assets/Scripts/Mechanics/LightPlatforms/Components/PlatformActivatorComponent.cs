@@ -31,7 +31,7 @@ public class PlatformActivatorComponent : MonoBehaviour
         {
             if (LightInstance != null)
             {
-                Destroy(LightInstance);
+                PrefabPool.Despawn(LightInstance);
                 LightInstance = null;
             }
             return;
@@ -71,7 +71,7 @@ public class PlatformActivatorComponent : MonoBehaviour
                 GetComponent<LineRendererComponent>().AddLine(new ReflectionLine(transform.position, hit.point));
                 if (LightInstance == null && CurrentChainCount < MaximumReflectionChain)
                 {
-                    LightInstance = Instantiate(ReflectionLightPrefab, hit.point, hit.transform.rotation);
+                    LightInstance = PrefabPool.Spawn(ReflectionLightPrefab, hit.point, hit.transform.rotation);
                     LightInstance.GetComponent<PlatformActivatorComponent>().IsReflected = true;
                     LightInstance.GetComponent<PlatformActivatorComponent>().PrevInstance = gameObject;
                     LightInstance.GetComponent<PlatformActivatorComponent>().MainInstance = MainInstance;
@@ -95,13 +95,13 @@ public class PlatformActivatorComponent : MonoBehaviour
             }
             else if (LightInstance != null)
             {
-                Destroy(LightInstance);
+                PrefabPool.Despawn(LightInstance);
                 LightInstance = null;
             }
         }
         else if (LightInstance != null)
         {
-            Destroy(LightInstance);
+            PrefabPool.Despawn(LightInstance);
             LightInstance = null;
         }
 

@@ -29,5 +29,21 @@ public class MoveableComponent : MonoBehaviour
         PointA = transform.position;
         InitialAngles = transform.rotation.eulerAngles;
         CurrentAngles = InitialAngles;
+
+        if (XAxis)
+        {
+            YAxis = false;
+            ZAxis = false;
+        }
+        else if (YAxis)
+        {
+            XAxis = false;
+            ZAxis = false;
+        }
+        else if (ZAxis)
+        {
+            XAxis = false;
+            YAxis = false;
+        }
     }
 }
