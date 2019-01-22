@@ -19,6 +19,7 @@ public class PlayerMovementSystem : ComponentSystem
     }
 
     GameObject staminaObj = null;
+    Vector3 normalizedMoveVector = new Vector3();
 
     protected override void OnUpdate()
     {
@@ -32,6 +33,7 @@ public class PlayerMovementSystem : ComponentSystem
             if (entity.InputComponent.EnablePlayerMovement)
             {
                 var moveVector = new Vector3(entity.InputComponent.Horizontal, 0, entity.InputComponent.Vertical);                      // Move direction vector
+                moveVector = GetCameraNormalizedMoveVector(moveVector);
                 if (moveVector != Vector3.zero)
                     entity.SpeedComponent.isMoving = true;
                 else
@@ -46,6 +48,28 @@ public class PlayerMovementSystem : ComponentSystem
                 UpdateAnimation(entity, moveVector);
             }
         }
+    }
+
+    Vector3 GetCameraNormalizedMoveVector(Vector3 move)
+    {
+        normalizedMoveVector = Vector3.zero;
+        if (move.x < 0)
+        {
+            normalizedMoveVector += -Camera.main.transform.right;
+        }
+        if (move.x > 0)
+        {
+            normalizedMoveVector += Camera.main.transform.right;
+        }
+        if (move.z < 0)
+        {
+            normalizedMoveVector += -Camera.main.transform.up;
+        }
+        if (move.z > 0)
+        {
+            normalizedMoveVector += Camera.main.transform.up;
+        }
+        return normalizedMoveVector.normalized + move.normalized;
     }
 
     void UpdateAnimation(Group entity, Vector3 moveVector)
