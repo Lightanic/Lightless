@@ -6,7 +6,7 @@ public class GrassTest : MonoBehaviour
 {
     public GameObject grass;
     //public GameObject plane;
-    Mesh mesh;
+    BulkMesh bulkMesh;
 
     [Header("Quad Size")]
     public Vector2 size;
@@ -51,7 +51,7 @@ public class GrassTest : MonoBehaviour
      */
     void Start()
     {
-        
+        //CombineGrass();
     }
 
     private void OnDestroy()
@@ -176,5 +176,25 @@ public class GrassTest : MonoBehaviour
                 DestroyImmediate(transform.GetChild(i).gameObject);
             }
         }
+    }
+
+    public void CombineGrass()
+    {
+        MeshFilter[] meshFilters = GetComponentsInChildren<MeshFilter>();
+        Mesh[] combine = new Mesh[meshFilters.Length];
+
+        int i = 0;
+        while (i < meshFilters.Length)
+        {
+            combine[i] = meshFilters[i].sharedMesh;
+            //combine[i].transform = meshFilters[i].transform.localToWorldMatrix;
+            meshFilters[i].gameObject.SetActive(false);
+            i++;
+        }
+
+        bulkMesh = new BulkMesh(combine,4096);
+        transform.GetComponent<MeshFilter>().mesh = bulkMesh.mesh;
+        //transform.GetComponent<MeshFilter>().mesh.CombineMeshes(combine);
+        transform.gameObject.SetActive(true);
     }
 }
