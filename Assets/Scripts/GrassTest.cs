@@ -9,7 +9,7 @@ public class GrassTest : MonoBehaviour
     Mesh mesh;
 
     [Header("Quad Size")]
-    public Vector3 size;
+    public Vector2 size;
 
     [Header("Noise scale")]
     public int scale = 1;
@@ -22,9 +22,9 @@ public class GrassTest : MonoBehaviour
     [SerializeField]
     float threshold = 0.5f;
 
-    List<Vector3> vertextPts;
-    List<Vector3> points;
-    List<GameObject> objs;
+    List<Vector3> vertextPts = new List<Vector3>();
+    List<Vector3> points = new List<Vector3>();
+    List<GameObject> objs = new List<GameObject>();
 
     float large = 0;
     float width;
@@ -35,8 +35,8 @@ public class GrassTest : MonoBehaviour
     float xPos;
     int count = 0;
 
+    [Space(10)]
     public bool reset = false;
-    public bool clear = false;
 
     Vector3 topLeft;
     Vector3 topRight;
@@ -51,45 +51,96 @@ public class GrassTest : MonoBehaviour
      */
     void Start()
     {
-        vertextPts = new List<Vector3>();
-        points = new List<Vector3>();
-        objs = new List<GameObject>();
-        //plane.GetComponent<MeshRenderer>().enabled = false;
-        size = transform.localScale;
-        //mesh = plane.GetComponent<MeshFilter>().sharedMesh;
-        //for (int j = 0; j < mesh.vertexCount; j++)
-        //{
-        //    vertextPts.Add(plane.transform.TransformPoint(mesh.vertices[j]));
-        //}
-        topLeft     = transform.position + new Vector3(-0.5f, 0f, 0.5f);
-        topRight    = topLeft + new Vector3(1.0f, 0f, 0f);
-        bottomRight = topRight + new Vector3(0f, 0f, -1.0f);
-        bottomLeft  = topLeft + new Vector3(0f, 0f, -1.0f);
+        
+    }
+
+    private void OnDestroy()
+    {
+        ResetGrass();
+    }
+
+    private void OnDrawGizmos()
+    {
+        CalculateQuadVertex();
+
+        Gizmos.color = Color.green;
+        Gizmos.DrawLine(topLeft, topRight);
+        Gizmos.DrawLine(topLeft, bottomLeft);
+        Gizmos.DrawLine(topRight, bottomRight);
+        Gizmos.DrawLine(bottomLeft, bottomRight);
+    }
+
+    bool Noise(Vector3 pos)
+    {
+        var Noise = Mathf.PerlinNoise(pos.x / scale, pos.z / scale);
+        if (Noise > large)
+            large = Noise;
+        if (Noise > threshold)
+            return true;
+        return false;
+    }
+
+    void DensityFilter()
+    {
+        var tempCount = points.Count - density;
+        if (tempCount <= 0)
+            tempCount = points.Count/2;
+        while(tempCount!=0)
+        {
+            int rand = Random.Range(0, points.Count);
+            points.RemoveAt(rand);
+            tempCount--;
+        }
+    }
+
+    void CalculateQuadVertex()
+    {
+        topLeft = transform.position + new Vector3(-0.5f * Mathf.Abs(size.x), 0f, 0.5f * Mathf.Abs(size.y));
+        topRight = topLeft + new Vector3(1.0f * Mathf.Abs(size.x), 0f, 0f);
+        bottomRight = topRight + new Vector3(0f, 0f, -1.0f * Mathf.Abs(size.y));
+        bottomLeft = topLeft + new Vector3(0f, 0f, -1.0f * Mathf.Abs(size.y));
+    }
+
+    public void RenderGrass()
+    {
+        foreach (var obj in objs)
+        {
+            if (Application.isEditor)
+                DestroyImmediate(obj);
+            else
+                Destroy(obj);
+        }
+        objs.Clear();
+        vertextPts.Clear();
+        points.Clear();
+        count = 0;
+
+        CalculateQuadVertex();
         vertextPts.Add(topLeft);
         vertextPts.Add(topRight);
         vertextPts.Add(bottomLeft);
         vertextPts.Add(bottomLeft);
 
-        width = Vector3.Distance(vertextPts[0], vertextPts[2]);
-        length = Vector3.Distance(vertextPts[1], vertextPts[3]);
+        width = Vector3.Distance(topLeft, topRight);
+        length = Vector3.Distance(topLeft, bottomLeft);
 
-        xIncrement = width / size.x;
-        yIncrement = length / size.y;
+        xIncrement = 1;
+        yIncrement = 1;
 
         yPos = vertextPts[0].z;
         xPos = vertextPts[0].x;
 
-        for (int i = 0; i < width; i++)
+        for (int i = 0; i < length; i++)
         {
-            for (int j = 0; j < length; j++)
+            for (int j = 0; j < width; j++)
             {
-                var pos = new Vector3(xPos + (xIncrement * j),vertextPts[0].y,yPos);
-                if (noise(pos))
+                var pos = new Vector3(xPos + (xIncrement * j), vertextPts[2].y, yPos);
+                if (Noise(pos))
                 {
                     points.Add(pos);
                 }
             }
-            yPos = vertextPts[0].z + (yIncrement * i);
+            yPos = vertextPts[2].z + (yIncrement * i);
         }
         DensityFilter();
         foreach (var pt in points)
@@ -98,20 +149,9 @@ public class GrassTest : MonoBehaviour
         }
     }
 
-    private void OnDrawGizmos()
+    public void ResetGrass()
     {
-
-
-        Gizmos.color = Color.green;
-        Gizmos.DrawLine(topLeft, topRight);
-        Gizmos.DrawLine(topLeft, bottomLeft);
-        Gizmos.DrawLine(topRight, bottomRight);
-        Gizmos.DrawLine(bottomLeft, bottomRight);
-    }
-    // Update is called once per frame
-    void Update()
-    {
-        if(clear)
+        if (reset)
         {
             foreach (var obj in objs)
             {
@@ -123,84 +163,18 @@ public class GrassTest : MonoBehaviour
             objs.Clear();
             vertextPts.Clear();
             count = 0;
-            clear = !clear;
-        }
-        if(reset)
-        {
-            //plane.transform.localScale = size;
-            foreach( var obj in objs)
-            {
-                if (Application.isEditor)
-                    DestroyImmediate(obj);
-                else
-                    Destroy(obj);
-            }
-            objs.Clear();
-            vertextPts.Clear();
-            points.Clear();
-            count = 0;
-            //mesh = plane.GetComponent<MeshFilter>().sharedMesh;
-            //for (int j = 0; j < mesh.vertexCount; j++)
-            //{
-            //    vertextPts.Add(plane.transform.TransformPoint(mesh.vertices[j]));
-            //}
-            topLeft = transform.position + new Vector3(-0.5f, 0f, 0.5f);
-            topRight = topLeft + new Vector3(1.0f, 0f, 0f);
-            bottomRight = topRight + new Vector3(0f, 0f, -1.0f);
-            bottomLeft = topLeft + new Vector3(0f, 0f, -1.0f);
-            vertextPts.Add(topLeft);
-            vertextPts.Add(topRight);
-            vertextPts.Add(bottomLeft);
-            vertextPts.Add(bottomLeft);
-
-            width = Vector3.Distance(vertextPts[0], vertextPts[2]);
-            length = Vector3.Distance(vertextPts[1], vertextPts[3]);
-
-            xIncrement = width / size.x;
-            yIncrement = length / size.y;
-
-            yPos = vertextPts[0].z;
-            xPos = vertextPts[0].x;
-
-            for (int i = 0; i < width; i++)
-            {
-                for (int j = 0; j < length; j++)
-                {
-                    var pos = new Vector3(xPos + (xIncrement * j), vertextPts[0].y, yPos);
-                    if (noise(pos))
-                    {
-                        points.Add(pos);
-                    }
-                }
-                yPos = vertextPts[0].z + (yIncrement * i);
-            }
-            DensityFilter();
-            foreach(var pt in points)
-            {
-                objs.Add(Instantiate(grass, pt, Quaternion.identity, transform) as GameObject);
-            }
-            reset = !reset;
+            reset = false;
         }
     }
 
-    bool noise(Vector3 pos)
+    public void RemoveChildren()
     {
-        var noise = Mathf.PerlinNoise(pos.x / scale, pos.z / scale);
-        if (noise > large)
-            large = noise;
-        if (noise > threshold)
-            return true;
-        return false;
-    }
-
-    void DensityFilter()
-    {
-        var tempCount = Mathf.Abs(points.Count - density);
-        while(tempCount!=0)
+        if(transform.childCount > 0)
         {
-            int rand = Random.Range(0, points.Count);
-            points.RemoveAt(rand);
-            tempCount--;
+            for(int i = 0; i < transform.childCount; i++)
+            {
+                DestroyImmediate(transform.GetChild(i).gameObject);
+            }
         }
     }
 }

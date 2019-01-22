@@ -11,6 +11,14 @@ public class GrassEditor : Editor
     public override void OnInspectorGUI()
     {
         Grass = target as GrassTest;
+        EditorGUI.BeginChangeCheck();
         DrawDefaultInspector();
+        if (EditorGUI.EndChangeCheck())
+        {
+            Grass.RemoveChildren();
+            Grass.ResetGrass();
+            Grass.RenderGrass();
+        }
     }
+
 }
