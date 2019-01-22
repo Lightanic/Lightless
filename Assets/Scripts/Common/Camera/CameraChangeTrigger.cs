@@ -32,16 +32,26 @@ public class CameraChangeTrigger : MonoBehaviour
     {
         if (IsChanging)
         {
+            var toRotation = ChangeRotation(CameraOptions.Rotation);
             currentOffset = Vector3.Lerp(MainCamera.offset, CameraOptions.Offset, Time.deltaTime);
-            currentRotation = Vector3.Lerp(MainCamera.transform.rotation.eulerAngles, CameraOptions.Rotation, Time.deltaTime);
+            currentRotation = Vector3.Lerp(MainCamera.transform.rotation.eulerAngles, toRotation, Time.deltaTime);
             MainCamera.SetOffset(currentOffset);
             MainCamera.SetRotation(currentRotation);
 
-            if (Vector3.Distance(currentOffset, CameraOptions.Offset) < 0.1F && Vector3.Distance(currentRotation, CameraOptions.Rotation) < 0.1F)
+            if (Vector3.Distance(currentOffset, CameraOptions.Offset) < 0.1F && Vector3.Distance(currentRotation, toRotation) < 0.1F)
             {
                 IsChanging = false;
             }
         }
+    }
+
+    Vector3 ChangeRotation(Vector3 Rotation)
+    {
+        if (Rotation.x < 0) Rotation.x = 360F + Rotation.x;
+        if (Rotation.y < 0) Rotation.y = 360F + Rotation.y;
+        if (Rotation.z < 0) Rotation.z = 360F + Rotation.z;
+
+        return Rotation;
     }
 
     void StopOtherTriggers()
