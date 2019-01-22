@@ -67,9 +67,18 @@ public class PlayerRotationSystem : ComponentSystem {
     {
             forward = new Vector3(entity.InputComponent.Horizontal, 0, entity.InputComponent.Vertical);    // Get forward direction
             if (forward != Vector3.zero)
-                rotation = Quaternion.LookRotation(forward, entity.Transform.up);                          // Rotate to forward direction
+                rotation = Quaternion.LookRotation(forward, entity.Transform.up) * GetFlattenedCamRotation();                          // Rotate to forward direction
             rotation = Quaternion.Slerp(entity.Transform.rotation, rotation, Time.deltaTime * entity.RotationComponent.RotationSpeed);
-            entity.RotationComponent.Rotation = new Quaternion(0, rotation.y, 0, rotation.w).normalized;   // Set rotation vector
+        entity.RotationComponent.Rotation = rotation;// new Quaternion(0, rotation.y, 0, rotation.w).normalized;   // Set rotation vector
+    }
+
+    Quaternion GetFlattenedCamRotation()
+    {
+        Vector3 camForward = Camera.main.transform.forward;
+        camForward.y = 0f;
+        Quaternion camRotationFlattened = Quaternion.LookRotation(camForward);
+        //movementRotation = comRotationFlattened * movementRotation;
+        return camRotationFlattened;
     }
 
     /// <summary>
@@ -81,7 +90,7 @@ public class PlayerRotationSystem : ComponentSystem {
         entity.RotationComponent.RotationSpeed = entity.speedCmp.RotationFineControlSpeed;
         forward = new Vector3(entity.InputComponent.Gamepad.GetStick_R().X, 0, entity.InputComponent.Gamepad.GetStick_R().Y);    // Get forward direction
         if (forward != Vector3.zero)
-            rotation = Quaternion.LookRotation(forward, entity.Transform.up);                          // Rotate to forward direction
+            rotation = Quaternion.LookRotation(forward, entity.Transform.up) * GetFlattenedCamRotation();                          // Rotate to forward direction
         rotation = Quaternion.Slerp(entity.Transform.rotation, rotation, Time.deltaTime * entity.RotationComponent.RotationSpeed);
         entity.RotationComponent.Rotation = new Quaternion(0, rotation.y, 0, rotation.w).normalized;   // Set rotation vector
     }
