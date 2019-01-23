@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GrassTest : MonoBehaviour
+public class Grass : MonoBehaviour
 {
     public GameObject grass;
     //public GameObject plane;
@@ -93,7 +93,7 @@ public class GrassTest : MonoBehaviour
         }
     }
 
-    void CalculateQuadVertex()
+    public void CalculateQuadVertex()
     {
         topLeft = transform.position + new Vector3(-0.5f * Mathf.Abs(size.x), 0f, 0.5f * Mathf.Abs(size.y));
         topRight = topLeft + new Vector3(1.0f * Mathf.Abs(size.x), 0f, 0f);

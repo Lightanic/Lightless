@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
-[CustomEditor(typeof(GrassTest))]
+[CustomEditor(typeof(Grass))]
 public class GrassEditor : Editor
 {
-    GrassTest Grass;
+    Grass Grass;
 
     public override void OnInspectorGUI()
     {
-        Grass = target as GrassTest;
+        Grass = target as Grass;
         EditorGUI.BeginChangeCheck();
         DrawDefaultInspector();
         if (EditorGUI.EndChangeCheck())
@@ -21,4 +21,11 @@ public class GrassEditor : Editor
         }
     }
 
+    private void OnSceneGUI()
+    {
+        Grass = target as Grass;
+
+        Handles.ScaleHandle(Grass.transform.localScale, Grass.transform.position, Grass.transform.rotation, 5.0f);
+        //Handles.PositionHandle(Grass.transform.position, Grass.transform.rotation);
+    }
 }
