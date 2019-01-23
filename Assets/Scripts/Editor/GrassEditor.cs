@@ -20,12 +20,4 @@ public class GrassEditor : Editor
             Grass.RenderGrass();
         }
     }
-
-    private void OnSceneGUI()
-    {
-        Grass = target as Grass;
-
-        Handles.ScaleHandle(Grass.transform.localScale, Grass.transform.position, Grass.transform.rotation, 5.0f);
-        //Handles.PositionHandle(Grass.transform.position, Grass.transform.rotation);
-    }
 }

@@ -95,10 +95,10 @@ public class Grass : MonoBehaviour
 
     public void CalculateQuadVertex()
     {
-        topLeft = transform.position + new Vector3(-0.5f * Mathf.Abs(size.x), 0f, 0.5f * Mathf.Abs(size.y));
-        topRight = topLeft + new Vector3(1.0f * Mathf.Abs(size.x), 0f, 0f);
-        bottomRight = topRight + new Vector3(0f, 0f, -1.0f * Mathf.Abs(size.y));
-        bottomLeft = topLeft + new Vector3(0f, 0f, -1.0f * Mathf.Abs(size.y));
+        topLeft = transform.position + new Vector3(-0.5f * Mathf.Abs(size.x * transform.localScale.x), 0f, 0.5f * Mathf.Abs(size.y * transform.localScale.z));
+        topRight = topLeft + new Vector3(1.0f * Mathf.Abs(size.x * transform.localScale.x), 0f, 0f);
+        bottomRight = topRight + new Vector3(0f, 0f, -1.0f * Mathf.Abs(size.y * transform.localScale.z));
+        bottomLeft = topLeft + new Vector3(0f, 0f, -1.0f * Mathf.Abs(size.y * transform.localScale.z));
     }
 
     public void RenderGrass()

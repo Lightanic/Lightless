@@ -17,7 +17,7 @@
 
 
 	CGPROGRAM
-	#pragma surface surf Standard fullforwardshadows
+	#pragma surface surf Standard fullforwardshadows vertex:vert
 	#pragma target 3.0
 
 	sampler2D _Ramp;
@@ -29,8 +29,6 @@
 	float _SwayMax;
 	float _YOffset;
 	float _Rigidness;
-	half _Glossiness;
-	half _Metallic;
 
 	struct Input {
 		float2 uv_MainTex : TEXCOORD0;
