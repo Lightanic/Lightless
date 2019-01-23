@@ -42,7 +42,6 @@ public class LightActivatedSystem : ComponentSystem
         foreach (var entity in entities)
         {
             var isActivated = entity.Platform.IsActivated;
-            var transform = entity.Transform;
             if (isActivated)
             {
                 HandleActivatedPlatform(entity.Platform, entity.Transform);
@@ -67,6 +66,11 @@ public class LightActivatedSystem : ComponentSystem
         if (distance > 0.01F)
         {
             transform.position = Vector3.MoveTowards(transform.position, startPosition, platform.MoveSpeed * Time.deltaTime);
+            platform.IsRetracting = true;
+        }
+        else
+        {
+            platform.IsRetracting = false;
         }
     }
 
