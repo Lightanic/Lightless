@@ -36,7 +36,8 @@ public class PatrolSystem : ComponentSystem
                     var index = enemy.PatrolComponent.currentWaypointIndex;
                     if (enemy.PatrolComponent.Waypoints[index] == null) continue;
                     var pos = enemy.PatrolComponent.Waypoints[index].position;
-                    enemy.AgentComponent.Agent.SetDestination(pos);
+                    if (enemy.AgentComponent.Agent.enabled)
+                        enemy.AgentComponent.Agent.SetDestination(pos);
                     enemy.AgentComponent.Agent.speed = enemy.PatrolComponent.PatrolSpeed;
                     if (Vector3.Distance(enemy.EnemyTransform.position, enemy.PatrolComponent.Waypoints[enemy.PatrolComponent.currentWaypointIndex].position) <= 2)
                     {
