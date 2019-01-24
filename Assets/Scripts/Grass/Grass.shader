@@ -6,8 +6,10 @@
 		_MainTex("Texture", 2D) = "white" {}
 		_Speed("MoveSpeed", Range(20,100)) = 25 // speed of the swaying
 		_Rigidness("Rigidness", Range(1,50)) = 25 // lower makes it look more "liquid" higher makes it look rigid
-		_SwayMax("Sway Max", Range(0, 0.1)) = .005 // how far the swaying goes
+		_SwayMax("Sway Max", Range(0, 0.5)) = .005 // how far the swaying goes
 		_YOffset("Y offset", float) = 0.5// y offset, below this is no animation
+		_PlayerPush("Player Push force",Range(0,10.0)) = 2.0
+		_Scale("Scale",Range(1.0,3.0)) = 1.0
 	}
 
 	SubShader
@@ -29,6 +31,10 @@
 	float _SwayMax;
 	float _YOffset;
 	float _Rigidness;
+	float _PlayerPush;
+	float _Scale;
+
+	uniform float4 PlayerPos;
 
 	struct Input {
 		float2 uv_MainTex : TEXCOORD0;
@@ -41,6 +47,12 @@
 		v.vertex.x += step(0,v.vertex.y - _YOffset) * x * _SwayMax;// apply the movement if the vertex's y above the YOffset
 		v.vertex.z += step(0,v.vertex.y - _YOffset) * z * _SwayMax;
 
+		float3 dirAway = wpos - float3(PlayerPos.x, PlayerPos.y, PlayerPos.z);
+		float dist = length(dirAway);
+		float scale = max(0,_Scale - min(_Scale, dist));
+		dirAway = normalize(dirAway);
+		v.vertex.x += step(0, v.vertex.y - _YOffset) * dirAway * _PlayerPush * scale;
+		v.vertex.z += step(0, v.vertex.y - _YOffset) * dirAway * _PlayerPush * scale;
 	}
 
 	void surf(Input IN, inout SurfaceOutputStandard o)

@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GrassStomp : MonoBehaviour
+[ExecuteInEditMode]
+public class PlayerProperties : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()
@@ -13,6 +14,6 @@ public class GrassStomp : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        Shader.SetGlobalVector("PlayerPos", gameObject.transform.position);
     }
 }
