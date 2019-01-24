@@ -5,12 +5,13 @@ Material:
   serializedVersion: 6
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_Name: Green
-  m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
+  m_Shader: {fileID: 4800000, guid: 6ad98ea2b23c76940a2247f0632afb31, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
+  m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
   stringTagMap: {}
@@ -54,6 +55,22 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _Ramp:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _RampTex:
+        m_Texture: {fileID: 2800000, guid: 5efe9ca603aef85459829823c12c3e25, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SpecGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _WindTex:
+        m_Texture: {fileID: 2800000, guid: 9a5d8a8d4a902b143bbfda9585d7c324, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     m_Floats:
     - _BumpScale: 1
     - _Cutoff: 0.5
@@ -62,15 +79,27 @@ Material:
     - _GlossMapScale: 1
     - _Glossiness: 0.582
     - _GlossyReflections: 1
+    - _HeightCutoff: 2.1
+    - _HeightFactor: 5.21
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
+    - _PlayerPush: 0.2
+    - _Rigidness: 50
+    - _Scale: 2
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
+    - _Speed: 33.2
     - _SrcBlend: 1
+    - _SwayMax: 0.133
     - _UVSec: 0
+    - _WaveAmp: 3.83
+    - _WaveSpeed: 9.59
+    - _YOffset: 0.04
     - _ZWrite: 1
     m_Colors:
-    - _Color: {r: 0.18640977, g: 0.5566038, b: 0.25818205, a: 1}
+    - _Color: {r: 0.3466536, g: 0.7735849, b: 0.42840645, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _WindSpeed: {r: 1, g: 1, b: 1, a: 1}
+    - _WorldSize: {r: 1, g: 1, b: 1, a: 1}
