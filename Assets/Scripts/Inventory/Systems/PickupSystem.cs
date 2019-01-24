@@ -111,7 +111,9 @@ public class PickupSystem : ComponentSystem
 
         foreach (var entity in GetEntities<PickupUI>())
         {
-            if ((Vector3.Distance(playerPos, entity.Transform.position) <= entity.PickItem.InteractDistance) && entity.PickItem.IsEquiped != true)
+            var s = GetEntities<PickupUI>().Length;
+            var dist = Vector3.Distance(playerPos, entity.Transform.position);
+            if ( dist <= entity.PickItem.InteractDistance && entity.PickItem.IsEquiped != true)
             {
                 entity.tooltips.RePosition(entity.Transform.position);
                 if(!entity.InventoryItem.item)
