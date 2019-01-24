@@ -156,10 +156,14 @@ public class RunnerSystem : ComponentSystem
         runner.AgentComponent.Agent.speed = 12;
         if (target.gameObject.tag == "Flashlight")
         {
-            runner.AgentComponent.Agent.SetDestination(target.position + target.forward * 8);
+            if (runner.AgentComponent.Agent.enabled)
+                runner.AgentComponent.Agent.SetDestination(target.position + target.forward * 8);
         }
         else
-            runner.AgentComponent.Agent.SetDestination(target.position);
+        {
+            if (runner.AgentComponent.Agent.enabled)
+                runner.AgentComponent.Agent.SetDestination(target.position);
+        }
     }
 
 }
