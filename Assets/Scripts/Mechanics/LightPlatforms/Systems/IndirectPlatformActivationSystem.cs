@@ -62,34 +62,37 @@ public class IndirectPlatformActivationSystem : ComponentSystem
             var isReflected = Light.Activator[i].IsReflected;
             var lineComponent = Light.LineComponent[i];
             RaycastHit hit = results[i];
-
-            if (hit.collider != null && hit.collider.tag == "IndirectLightActivatedPlatform" && !isReflected && !isRefracted)
+            if (hit.collider != null)
             {
-                lineComponent.AddLine(new ReflectionLine(origins[i], hit.point));
-                var platform = hit.collider.gameObject.GetComponent<IndirectPlatformActivatorComponent>().PlatformToActivate;
-                var activationTime = hit.collider.gameObject.GetComponent<TimedComponent>();
-                ActivatePlatform(platform, activationTime);
-            }
-            else
-            {
-                if (hit.collider != null && hit.collider.tag == "IndirectRefractionActivatedPlatform" && isRefracted)
+                var indirectActivator = hit.collider.gameObject.GetComponent<IndirectPlatformActivatorComponent>();
+                if (hit.collider.tag == "IndirectLightActivatedPlatform" && !isReflected && !isRefracted)
                 {
                     lineComponent.AddLine(new ReflectionLine(origins[i], hit.point));
-                    var platform = hit.collider.gameObject.GetComponent<IndirectPlatformActivatorComponent>().PlatformToActivate;
+                    var platform = indirectActivator.PlatformToActivate;
                     var activationTime = hit.collider.gameObject.GetComponent<TimedComponent>();
                     ActivatePlatform(platform, activationTime);
                 }
-
-                if (hit.collider != null && hit.collider.tag == "IndirectReflectionActivatedPlatform" && isReflected)
+                else
                 {
-                    lineComponent.AddLine(new ReflectionLine(origins[i], hit.point));
-                    var platform = hit.collider.gameObject.GetComponent<IndirectPlatformActivatorComponent>().PlatformToActivate;
-                    var activationTime = hit.collider.gameObject.GetComponent<TimedComponent>();
-                    ActivatePlatform(platform, activationTime);
+                    if (hit.collider.tag == "IndirectRefractionActivatedPlatform" && isRefracted)
+                    {
+                        lineComponent.AddLine(new ReflectionLine(origins[i], hit.point));
+                        var platform = indirectActivator.PlatformToActivate;
+                        var activationTime = hit.collider.gameObject.GetComponent<TimedComponent>();
+                        ActivatePlatform(platform, activationTime);
+                    }
+
+                    if (hit.collider.tag == "IndirectReflectionActivatedPlatform" && isReflected)
+                    {
+                        lineComponent.AddLine(new ReflectionLine(origins[i], hit.point));
+                        var platform = indirectActivator.PlatformToActivate;
+                        var activationTime = hit.collider.gameObject.GetComponent<TimedComponent>();
+                        ActivatePlatform(platform, activationTime);
+                    }
                 }
             }
+
         }
-
 
         results.Dispose();
         commands.Dispose();
@@ -103,6 +106,11 @@ public class IndirectPlatformActivationSystem : ComponentSystem
     void ActivatePlatform(GameObject platformObject, TimedComponent activationTime)
     {
         var platform = platformObject.GetComponent<LightActivatedPlatformComponent>();
+        if (platform.HasActivated && platform.IsOneTimeActivation)
+        {
+            return;
+        }
+
         if (!platform.IsActivated && !platform.IsRetracting)
         {
             if (activationTime.CurrentTime < activationTime.TimeThreshold)
