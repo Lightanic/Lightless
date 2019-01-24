@@ -4,5 +4,5 @@ using UnityEngine;
 
 public class IndirectPlatformActivatorComponent : MonoBehaviour
 {
-    public GameObject PlatformToActivate;
+    public GameObject   PlatformToActivate;
 }

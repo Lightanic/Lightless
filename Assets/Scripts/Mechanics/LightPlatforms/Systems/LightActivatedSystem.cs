@@ -63,7 +63,11 @@ public class LightActivatedSystem : ComponentSystem
         var startPosition = platform.StartPosition;
         var currentPosition = transform.position;
         var distance = Vector3.Distance(startPosition, currentPosition);
-        if (distance > 0.01F)
+        if(platform.IsOneTimeActivation)
+        {
+            return;
+        }
+        else if (distance > 0.01F)
         {
             transform.position = Vector3.MoveTowards(transform.position, startPosition, platform.MoveSpeed * Time.deltaTime);
             platform.IsRetracting = true;
@@ -82,6 +86,11 @@ public class LightActivatedSystem : ComponentSystem
     /// <param name="transform">Transform of platform</param>
     private void HandleActivatedPlatform(LightActivatedPlatformComponent platform, Transform transform)
     {
+        //if(platform.HasActivated && platform.IsOneTimeActivation)
+        //{
+        //    return;
+        //}
+
         var endPosition = platform.ActivatedPosition;
         var currentPosition = transform.position;
         var distance = Vector3.Distance(endPosition, currentPosition);
@@ -98,6 +107,7 @@ public class LightActivatedSystem : ComponentSystem
             if (platform.CurrentTime > platform.ActivationTime)
             {
                 platform.IsActivated = false;
+                platform.HasActivated = true;
                 platform.CurrentTime = 0F;
             }
             else
