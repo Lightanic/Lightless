@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using Unity.Entities;
 
-public class InventoryHUDSystem : ComponentSystem {
+public class InventoryHUDSystem : ComponentSystem
+{
 
     /// <summary>
     /// Player inventory data
@@ -43,7 +44,9 @@ public class InventoryHUDSystem : ComponentSystem {
     protected override void OnUpdate()
     {
         equiped = 0;
-        var items = inventoryData.Inventory[0].PlayerInventory.Items;
+        List<InventoryItem> items = new List<InventoryItem>();
+        if (inventoryData.Length > 0 && inventoryData.Inventory[0].PlayerInventory != null)
+            items = inventoryData.Inventory[0].PlayerInventory.Items;
         for (int i = 0; i < itemData.Length; i++)
         {
             // Always equip item to an empty hand
@@ -54,13 +57,13 @@ public class InventoryHUDSystem : ComponentSystem {
                 slotData.Slot[0].SetSelectedSlot(itemData.InventoryItem[i].item.InventoryIcon);
                 //break;
             }
-            if(itemData.PickItem[i].IsEquiped)
+            if (itemData.PickItem[i].IsEquiped)
             {
                 equiped++;
             }
         }
 
-        if (items.Count == 0 && slotData.Length>0)
+        if (items.Count == 0 && slotData.Length > 0)
         {
             slotData.Slot[0].SetLeftSlot(null);
             slotData.Slot[0].SetRightSlot(null);
@@ -73,12 +76,12 @@ public class InventoryHUDSystem : ComponentSystem {
             slotData.Slot[0].SetSelectedSlot(null);
         }
 
-        if (items.Count == 1  && slotData.Slot.Length != 0)
+        if (items.Count == 1 && slotData.Slot.Length != 0)
         {
             slotData.Slot[0].SetLeftSlot(items[0].InventoryIcon);
             slotData.Slot[0].SetRightSlot(items[0].InventoryIcon);
         }
-        if(items.Count > 1 && slotData.Slot.Length != 0)
+        if (items.Count > 1 && slotData.Slot.Length != 0)
         {
             slotData.Slot[0].SetLeftSlot(items[items.Count - 1].InventoryIcon);
             slotData.Slot[0].SetRightSlot(items[0].InventoryIcon);

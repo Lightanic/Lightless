@@ -8,7 +8,8 @@ public class InteractUIComponent : MonoBehaviour {
     public GameObject Canvas;
     public float offsetHeight = 2.5f;
     public Sprite sprite = null;
-
+    [Range(0, 10)]
+    public float ShowDistance = 2.0f;
 
     Quaternion rotation;
 
@@ -38,4 +39,9 @@ public class InteractUIComponent : MonoBehaviour {
         Canvas.SetActive(false);
     }
 
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireSphere(transform.position, ShowDistance);
+    }
 }
