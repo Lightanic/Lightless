@@ -13,6 +13,22 @@ public class Lantern : MonoBehaviour {
     [SerializeField] Sprite toolTipSprite;
     [SerializeField] GameObject Canvas;
 
+    [Header("Equip lantern on start")]
+    public bool equipLantern = false;
+
+    void Start()
+    {
+        GameObject lantern = GameObject.Find("lamp");
+        Pickup lanternPickup = lantern.GetComponent<Pickup>();
+        if (equipLantern)
+        {
+            lanternPickup.IsInteracting = true;
+            lanternPickup.IsEquiped = true;   // 
+            lanternPickup.IsInteractable = false;
+            lanternPickup.GetComponent<Lantern>().EquipRightHand();
+        }
+    }
+
     public void EquipRightHand()
     {
             var itemTransform = transform;
