@@ -2,15 +2,24 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyComponent : MonoBehaviour {
+public class EnemyComponent : MonoBehaviour
+{
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    enum EnemyType
+    {
+        Runner, Lunger, Stunner
+    }
+
+    public bool IsWalking;
+    public bool IsRunning;
+    public bool IsDead;
+
+    public bool IsSeeking;
+    public bool IsPatrolling;
+    public bool IsAlerted;
+
+    public bool IsLunging;
+    public bool IsPreLunging;
+
+    public bool IsStunned;
 }
