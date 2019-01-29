@@ -205,6 +205,7 @@ public class StunnerSystem : ComponentSystem
     {
         stunner.EnemyVision.IsSeeking = true;
         stunner.PatrolData.IsWandering = false;
+        stunner.AgentComponent.Agent.speed = 9;
         if (target.gameObject.tag == "Flashlight")
         {
             stunner.AgentComponent.Agent.SetDestination(target.position + target.forward * 8);
