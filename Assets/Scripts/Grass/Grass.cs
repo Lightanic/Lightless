@@ -11,8 +11,6 @@ public class Grass : MonoBehaviour
     [Header("Quad Size")]
     public Vector2 size;
 
-    [Header("Noise scale")]
-    public int scale = 1;
 
     [Header("Density")]
     public int density = 20;
@@ -21,6 +19,16 @@ public class Grass : MonoBehaviour
     [Range(0.2f,1f)]
     [SerializeField]
     float threshold = 0.5f;
+
+    [Header("Noise scale")]
+    public int scale = 1;
+
+    [Header("Noise Frequency")]
+    [Range (0,10)]
+    public float noiseFreq = 1;
+
+    [Header("Noise Offset")]
+    public Vector2 noiseOffset;
 
     List<Vector3> vertextPts = new List<Vector3>();
     List<Vector3> points = new List<Vector3>();
@@ -72,7 +80,7 @@ public class Grass : MonoBehaviour
 
     bool Noise(Vector3 pos)
     {
-        var Noise = Mathf.PerlinNoise(pos.x / scale, pos.z / scale);
+        var Noise = scale * Mathf.PerlinNoise((pos.x + noiseOffset.x) * noiseFreq, (pos.z + noiseOffset.y) * noiseFreq);
         if (Noise > large)
             large = Noise;
         if (Noise > threshold)
