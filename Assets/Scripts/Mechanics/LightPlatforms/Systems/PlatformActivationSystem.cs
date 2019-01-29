@@ -103,7 +103,7 @@ public class PlatformActivationSystem : ComponentSystem
             return;
         }
 
-        if (!platform.IsActivated && !platform.IsRetracting)
+        if (!platform.IsActivated)
         {
             if (activationTime.CurrentTime < activationTime.TimeThreshold)
             {
@@ -115,6 +115,11 @@ public class PlatformActivationSystem : ComponentSystem
                 activationTime.CurrentTime = 0;
                 Player.Input[0].Rumble(0.3f, new Vector2(5,5),0);
             }
+        }
+        else
+        {
+            platform.CurrentTime = 0F;
+            platform.IsActivated = true;
         }
     }
 }
