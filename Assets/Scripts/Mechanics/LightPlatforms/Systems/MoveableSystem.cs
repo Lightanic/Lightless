@@ -57,7 +57,7 @@ public class MoveableSystem : ComponentSystem
             var distance = Vector3.Distance(activatorPosition, player.position);
             if (input.Control("Interact") && CurrentTime > KeyDelay)
             {
-                if (entity.Platform.IsSelected)
+                if (entity.Platform.IsSelected) //Unselect if already selected
                 {
                     CurrentTime = 0F;
                     entity.Platform.IsSelected = false;
@@ -72,7 +72,7 @@ public class MoveableSystem : ComponentSystem
                         }
                     }
                 }
-                else if (distance < 4F)
+                else if (distance < 4F) //Select if within distance
                 {
                     CurrentTime = 0F;
                     entity.Platform.IsSelected = true;
@@ -89,6 +89,22 @@ public class MoveableSystem : ComponentSystem
                 }
             }
 
+            if(entity.Platform.IsSelected && distance > 4F) //Enable player movement if the player is far enough from the platform
+            {
+                CurrentTime = 0F;
+                entity.Platform.IsSelected = false;
+                input.EnablePlayerMovement = true;
+                entity.Outline.eraseRenderer = true;
+                if (entity.Platform.Activator != null)
+                {
+                    var outline = entity.Platform.Activator.GetComponent<Outline>();
+                    if (outline != null)
+                    {
+                        outline.eraseRenderer = true;
+                    }
+                }
+            }
+
             if (entity.Platform.IsSelected)
             {
                 float x = 0F;
@@ -97,9 +113,9 @@ public class MoveableSystem : ComponentSystem
                 if (InputManager.Instance.IsGamePadActive)
                 {
                     float rotation = Player.Input[0].Gamepad.GetStick_R().X * Time.deltaTime * 100F;
-                    if (entity.Platform.XAxis) x = rotation;
-                    if (entity.Platform.YAxis) y = rotation;
-                    if (entity.Platform.XAxis) z = rotation;
+                    if (entity.Platform.XAxis) x = -Player.Input[0].Gamepad.GetStick_R().Y * Time.deltaTime * 100F;
+                    if (entity.Platform.YAxis) y = Player.Input[0].Gamepad.GetStick_R().X * Time.deltaTime * 100F;
+                    if (entity.Platform.ZAxis) z = rotation;
                     RotationEulers.Set(x, y, z);
 
                     if (entity.Platform.CanMove)
@@ -118,9 +134,9 @@ public class MoveableSystem : ComponentSystem
                 else if (!InputManager.Instance.IsGamePadActive)
                 {
                     float rotation = vertical * Time.deltaTime * 100F;
-                    if (entity.Platform.XAxis) x = rotation;
-                    if (entity.Platform.YAxis) y = rotation;
-                    if (entity.Platform.XAxis) z = rotation;
+                    if (entity.Platform.XAxis) x = horizontal * Time.deltaTime * 100F;
+                    if (entity.Platform.YAxis) y = vertical * Time.deltaTime * 100F;
+                    if (entity.Platform.ZAxis) z = rotation;
                     RotationEulers.Set(x, y, z);
 
                     if (entity.Platform.CanMove)

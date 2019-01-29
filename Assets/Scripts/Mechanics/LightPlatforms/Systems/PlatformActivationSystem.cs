@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Assets.Scripts.Memory;
+using System.Collections;
 using System.Collections.Generic;
 using Unity.Collections;
 using Unity.Entities;
@@ -97,7 +98,12 @@ public class PlatformActivationSystem : ComponentSystem
     void ActivatePlatform(GameObject platformObject, TimedComponent activationTime)
     {
         var platform = platformObject.GetComponent<LightActivatedPlatformComponent>();
-        if (!platform.IsActivated)
+        if(platform.HasActivated && platform.IsOneTimeActivation)
+        {
+            return;
+        }
+
+        if (!platform.IsActivated && !platform.IsRetracting)
         {
             if (activationTime.CurrentTime < activationTime.TimeThreshold)
             {

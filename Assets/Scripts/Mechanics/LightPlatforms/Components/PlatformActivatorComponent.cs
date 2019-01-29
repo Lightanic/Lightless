@@ -8,22 +8,22 @@ public class PlatformActivatorComponent : MonoBehaviour
     private static readonly int RaycastCount = 3;
 
     [Header("Configuration")]
-    public float                ActivationDelay = 1F;
-    public float                MaxActivationDistance = 15F;
-    public float                LightWidthStep = 0.1F;
+    public float ActivationDelay = 1F;
+    public float MaxActivationDistance = 15F;
+    public float LightWidthStep = 0.1F;
 
     [Header("Instance Data")]
-    public bool                 IsReflected = false;
+    public bool IsReflected = false;
 
-    public LightComponent       Switch;
-    public GameObject           PrevInstance = null;
-    public GameObject           ReflectionLightPrefab;
-    public GameObject           LightInstance = null;
+    public LightComponent Switch;
+    public GameObject PrevInstance = null;
+    public GameObject ReflectionLightPrefab;
+    public GameObject LightInstance = null;
+    public Collider PreviousCollider = null;
 
-
-    public GameObject   MainInstance = null;
-    public float        MaximumReflectionChain = 8;
-    public float        CurrentChainCount = 0;
+    public GameObject MainInstance = null;
+    public float MaximumReflectionChain = 8;
+    public float CurrentChainCount = 0;
 
     private void Update()
     {
@@ -31,8 +31,7 @@ public class PlatformActivatorComponent : MonoBehaviour
         {
             if (LightInstance != null)
             {
-                Destroy(LightInstance);
-                LightInstance = null;
+                DestroyLightInstance();
             }
             return;
         }
@@ -68,14 +67,20 @@ public class PlatformActivatorComponent : MonoBehaviour
         {
             if (hit.collider.tag == "Reflector")
             {
+                if (!IsReflected)
+                {
+                    PreviousCollider = hit.collider;
+                }
+
                 GetComponent<LineRendererComponent>().AddLine(new ReflectionLine(transform.position, hit.point));
-                if (LightInstance == null && CurrentChainCount < MaximumReflectionChain)
+                if (ShouldInstantiateLight(hit.collider))
                 {
                     LightInstance = Instantiate(ReflectionLightPrefab, hit.point, hit.transform.rotation);
                     LightInstance.GetComponent<PlatformActivatorComponent>().IsReflected = true;
                     LightInstance.GetComponent<PlatformActivatorComponent>().PrevInstance = gameObject;
                     LightInstance.GetComponent<PlatformActivatorComponent>().MainInstance = MainInstance;
                     LightInstance.GetComponent<PlatformActivatorComponent>().CurrentChainCount = CurrentChainCount + 1;
+                    LightInstance.GetComponent<PlatformActivatorComponent>().PreviousCollider = hit.collider;
                 }
                 else if (LightInstance != null)
                 {
@@ -95,18 +100,29 @@ public class PlatformActivatorComponent : MonoBehaviour
             }
             else if (LightInstance != null)
             {
-                Destroy(LightInstance);
-                LightInstance = null;
+                DestroyLightInstance();
             }
         }
         else if (LightInstance != null)
         {
-            Destroy(LightInstance);
-            LightInstance = null;
+            DestroyLightInstance();
         }
 
         results.Dispose();
         commands.Dispose();
+    }
+
+    void DestroyLightInstance()
+    {
+        PrefabPool.Despawn(LightInstance);
+        LightInstance = null;
+        if (IsReflected)
+            PrefabPool.Despawn(gameObject);
+    }
+
+    bool ShouldInstantiateLight(Collider collider)
+    {
+        return (LightInstance == null && CurrentChainCount < MaximumReflectionChain) && ((IsReflected && collider.name != PreviousCollider.name) || !IsReflected);
     }
 
 }
