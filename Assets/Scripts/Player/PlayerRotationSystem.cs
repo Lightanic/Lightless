@@ -36,7 +36,8 @@ public class PlayerRotationSystem : ComponentSystem {
                 else if (!InputManager.Instance.IsGamePadActive)
                 {
                     entity.RotationComponent.RotationSpeed = entity.speedCmp.RotationFineControlSpeed;
-                    GamePadRotation(entity);
+                    MouseRotation(entity);
+                    //GamePadRotation(entity);
                 }
             }
         }
@@ -51,11 +52,17 @@ public class PlayerRotationSystem : ComponentSystem {
         var mousePosition = Input.mousePosition;                        // Current mouse position
         var cameraRay = Camera.main.ScreenPointToRay(mousePosition);    // Ray from mouse poisiton
         var layerMask = LayerMask.GetMask("Floor");                     // Floor layer mask
-        if (Physics.Raycast(cameraRay, out hit, 100, layerMask))        // Raycast to floor - Set layer to floor in editor 
+
+        if(entity.speedCmp.isMoving)
         {
-                forward = hit.point - entity.Transform.position;        // Get forward direction
-                rotation = Quaternion.LookRotation(forward);            // Rotate to forward direction
-                entity.RotationComponent.Rotation = new Quaternion(0, rotation.y, 0, rotation.w).normalized;    // Set rotation vector
+            GamePadRotation(entity);
+        }
+        else if (Physics.Raycast(cameraRay, out hit, 100, layerMask))        // Raycast to floor - Set layer to floor in editor 
+        {
+            forward = hit.point - entity.Transform.position;        // Get forward direction
+            rotation = Quaternion.LookRotation(forward);            // Rotate to forward direction
+            rotation = Quaternion.Slerp(entity.Transform.rotation, rotation, Time.deltaTime * entity.RotationComponent.RotationSpeed);
+            entity.RotationComponent.Rotation = new Quaternion(0, rotation.y, 0, rotation.w).normalized;    // Set rotation vector
         }
     }
 
