@@ -32,12 +32,13 @@ public class CameraChangeTrigger : MonoBehaviour
     {
         if (IsChanging)
         {
-            var toRotation = ChangeRotation(CameraOptions.Rotation);
             currentOffset = Vector3.Lerp(MainCamera.offset, CameraOptions.Offset, Time.deltaTime);
-            currentRotation = Vector3.Lerp(MainCamera.transform.rotation.eulerAngles, toRotation, Time.deltaTime);
+            var Rot = Quaternion.Euler(CameraOptions.Rotation);
+            MainCamera.transform.rotation = Quaternion.Slerp(MainCamera.transform.rotation, Rot, Time.deltaTime);
+            currentRotation = MainCamera.transform.rotation.eulerAngles;
             MainCamera.SetOffset(currentOffset);
-            MainCamera.SetRotation(currentRotation);
 
+            var toRotation = ChangeRotationForCheck(CameraOptions.Rotation);
             if (Vector3.Distance(currentOffset, CameraOptions.Offset) < 0.1F && Vector3.Distance(currentRotation, toRotation) < 0.1F)
             {
                 IsChanging = false;
@@ -45,7 +46,7 @@ public class CameraChangeTrigger : MonoBehaviour
         }
     }
 
-    Vector3 ChangeRotation(Vector3 Rotation)
+    Vector3 ChangeRotationForCheck(Vector3 Rotation)
     {
         if (Rotation.x < 0) Rotation.x = 360F + Rotation.x;
         if (Rotation.y < 0) Rotation.y = 360F + Rotation.y;
