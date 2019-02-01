@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Unity.Entities;
+using static EnemyComponent;
 
-
-public class SeekSystem : ComponentSystem
+public class EnemySystem : ComponentSystem
 {
+
 
     private struct Enemy
     {
@@ -53,7 +54,7 @@ public class SeekSystem : ComponentSystem
             {
                 //lightData = e;
 
-                if (light.LightSwitch.LightIsOn)
+                if (entity.LightSwitch.LightIsOn)
                 {
                     lightDistance = Vector3.Distance(entity.LightTransform.position, enemy.Transform.position);
                     if (lightDistance < currentDistance)
@@ -76,6 +77,8 @@ public class SeekSystem : ComponentSystem
                     enemy.EnemyComponent.IsWalking = true;
                     enemy.EnemyComponent.IsAlerted = true;
                     enemy.EnemyComponent.IsPatrolling = true;
+
+                    enemy.EnemyComponent.State = EnemyState.Patrol;
                 }
                 else if (distanceToLight <= enemy.Seek.VisionRadius) //if distance to light is lesser than enemy vision
                 {
@@ -83,6 +86,11 @@ public class SeekSystem : ComponentSystem
                     enemy.EnemyComponent.IsWalking = false;
 
                     //seek the light
+                    enemy.EnemyComponent.IsSeeking = true;
+
+                    enemy.EnemyComponent.State = EnemyState.Seek;
+
+                   enemy.Seek.Target = light.LightTransform;
                     //Seek(runner, lightData.LightTransform);
 
                 }
@@ -93,12 +101,18 @@ public class SeekSystem : ComponentSystem
 
                     //patrolling
                     enemy.EnemyComponent.IsPatrolling = true;
+                    enemy.EnemyComponent.State = EnemyState.Patrol;
                 }
 
                 if (distanceToPlayer <= enemy.Seek.NightVisionRadius)
                 {
                     enemy.EnemyComponent.IsRunning = true;
                     //seek player
+                    enemy.EnemyComponent.IsSeeking = true;
+
+                    enemy.EnemyComponent.State = EnemyState.Seek;
+
+                   enemy.Seek.Target = player.PlayerTransform;
                     //Seek(runner, playerData.PlayerTransform);
                 }
             }
@@ -110,12 +124,20 @@ public class SeekSystem : ComponentSystem
                     enemy.EnemyComponent.IsWalking = true;
                     enemy.EnemyComponent.IsAlerted = true;
                     enemy.EnemyComponent.IsPatrolling = true;
+
+                    enemy.EnemyComponent.State = EnemyState.Patrol;
                 }
                 else if (distanceToPlayer <= enemy.Seek.NightVisionRadius)
                 {
                     enemy.EnemyComponent.IsRunning = true;
                     enemy.EnemyComponent.IsWalking = false;
                     //seek player
+                    enemy.EnemyComponent.IsSeeking = true;
+
+                    enemy.EnemyComponent.State = EnemyState.Seek;
+
+                    enemy.Seek.Target = player.PlayerTransform;
+
                     //Seek(runner, playerData.PlayerTransform);
                 }
                 else
@@ -123,6 +145,9 @@ public class SeekSystem : ComponentSystem
                     enemy.EnemyComponent.IsRunning = false;
                     //patrolling
                     enemy.EnemyComponent.IsPatrolling = true;
+
+                    enemy.EnemyComponent.State = EnemyState.Patrol;
+
                     enemy.EnemyComponent.IsWalking = true;
                 }
             }

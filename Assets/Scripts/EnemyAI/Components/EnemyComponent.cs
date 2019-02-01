@@ -5,10 +5,17 @@ using UnityEngine;
 public class EnemyComponent : MonoBehaviour
 {
 
-    enum EnemyType
+    public enum EnemyType
     {
         Runner, Lunger, Stunner
     }
+    public enum EnemyState
+    {
+        Alerted, Patrol, Seek
+    }
+
+    public EnemyType Type;
+    public EnemyState State;
 
     public bool IsWalking;
     public bool IsRunning;
