@@ -10,6 +10,7 @@
 		[HDR]_SecondaryEmissionColor("Secondary Emission Color", Color) = (0,0,0)
         _Glossiness ("Smoothness", Range(0,1)) = 0.5
         _Metallic ("Metallic", Range(0,1)) = 0.0
+		_BumpMap("Bumpmap", 2D) = "bump" {}
     }
     SubShader
     {
@@ -26,6 +27,7 @@
 		sampler2D _MainTex;
 		sampler2D _SecondaryTex;
 		sampler2D _EmissionMap;
+		sampler2D _BumpMap;
 		float3 _EmissionColor;
 		float3 _SecondaryEmissionColor;
 		uniform float4 _HitTexCoord;
@@ -34,6 +36,7 @@
         struct Input
         {
             float2 uv_MainTex;
+			float2 uv_BumpMap;
         };
 
         half _Glossiness;
@@ -60,6 +63,7 @@
 
 			fixed4 c2 = tex2D(_EmissionMap, IN.uv_MainTex) * fill;
             o.Albedo = c.rgb;
+			o.Normal = UnpackNormal(tex2D(_BumpMap, IN.uv_BumpMap));
             // Metallic and smoothness come from slider variables
             o.Metallic = _Metallic;
             o.Smoothness = _Glossiness;
