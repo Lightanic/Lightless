@@ -110,7 +110,6 @@ public class PlatformActivationSystem : ComponentSystem
         {
             ShaderHelper.ApplyHitTexCoord(hit);
             ShaderHelper.SetFillValue(platformObject.GetComponent<Renderer>().material, activationTime.CurrentTime / activationTime.TimeThreshold);
-            //Shader.SetGlobalFloat("_FillValue", activationTime.CurrentTime / activationTime.TimeThreshold);
             if (activationTime.CurrentTime < activationTime.TimeThreshold)
             {
                 activationTime.CurrentTime += Time.deltaTime;
@@ -119,7 +118,6 @@ public class PlatformActivationSystem : ComponentSystem
             {
                 platform.IsActivated = true;
                 ShaderHelper.SetFillValue(platformObject.GetComponent<Renderer>().material, 1F);
-               // Shader.SetGlobalFloat("_FillValue", 1F);
                 activationTime.CurrentTime = 0;
                 Player.Input[0].Rumble(0.3f, new Vector2(5,5),0);
             }
@@ -127,7 +125,6 @@ public class PlatformActivationSystem : ComponentSystem
         else
         {
             ShaderHelper.SetFillValue(platformObject.GetComponent<Renderer>().material, 1F);
-            //Shader.SetGlobalFloat("_FillValue", 1F);
             platform.CurrentTime = 0F;
             platform.IsActivated = true;
         }

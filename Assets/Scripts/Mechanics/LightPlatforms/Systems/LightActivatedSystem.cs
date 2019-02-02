@@ -45,6 +45,7 @@ public class LightActivatedSystem : ComponentSystem
             var isActivated = entity.Platform.IsActivated;
             if (isActivated)
             {
+                ShaderHelper.SetFillValue(entity.Transform.GetComponent<Renderer>().material, 1F);
                 HandleActivatedPlatform(entity.Platform, entity.Transform);
             }
             else
@@ -75,14 +76,12 @@ public class LightActivatedSystem : ComponentSystem
             transform.position = Vector3.MoveTowards(transform.position, startPosition, platform.MoveSpeed * Time.deltaTime);
             platform.IsRetracting = true;
             ShaderHelper.SetFillValue(mat, distance / totalDistance);
-            //Shader.SetGlobalFloat("_FillValue", distance/totalDistance);
         }
         else
         {
             if (platform.IsRetracting)
             {
                 ShaderHelper.SetFillValue(mat, 0F);
-                //Shader.SetGlobalFloat("_FillValue", 0F);
             }
             platform.IsRetracting = false;
         }

@@ -30,7 +30,7 @@
 		sampler2D _BumpMap;
 		float3 _EmissionColor;
 		float3 _SecondaryEmissionColor;
-		uniform float4 _HitTexCoord;
+		uniform float4 _HitTexCoord = float4(0.5f, 0.5f,0.f,0.f);
 		uniform float _FillValue = 0.f;
 
         struct Input
@@ -56,7 +56,7 @@
             fixed4 c = tex2D (_MainTex, IN.uv_MainTex) * _Color;
 			float4 secondary = tex2D(_SecondaryTex, IN.uv_MainTex) * _Color;
 			float2 uv = IN.uv_MainTex;
-			float2 center = _HitTexCoord.xy;
+			float2 center = clamp(_HitTexCoord.xy, 0.f, 1.f);
 			float r = abs(_FillValue) * 0.9f;
 			float d = length(uv - center);
 			float fill = (d <= r);
