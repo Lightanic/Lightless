@@ -52,13 +52,18 @@
             fixed4 c = tex2D (_MainTex, IN.uv_MainTex) * _Color;
 			float4 secondary = tex2D(_SecondaryTex, IN.uv_MainTex) * _Color;
 			float2 uv = IN.uv_MainTex;
-			float upLimit = 0.5f + _SinTime.w * 0.5f;
-			float lowLimit = 0.5f - _SinTime.w * 0.5f;
-			float fillx = uv.x < upLimit && uv.x > lowLimit;
-			float filly = uv.y < upLimit && uv.y > lowLimit;
+			float2 center = float2(0.5f, 0.5f);
+			float r = abs(_SinTime.w) * 0.5f;
+			float d = length(uv - center);
+			float fill = (d < r);
 
-			fixed4 c2 = tex2D(_EmissionMap, IN.uv_MainTex) * fillx;
-			c2 = c2 * filly;
+			//float upLimit = 0.5f + abs(_SinTime.w) * 0.5f;
+			//float lowLimit = 0.5f - abs(_SinTime.w) * 0.5f;
+			//float fillx = uv.x < upLimit && uv.x > lowLimit;
+			//float filly = uv.y < upLimit && uv.y > lowLimit;
+
+			fixed4 c2 = tex2D(_EmissionMap, IN.uv_MainTex) * fill;// x;
+			//c2 = c2 * filly;
             o.Albedo = c.rgb;
             // Metallic and smoothness come from slider variables
             o.Metallic = _Metallic;
