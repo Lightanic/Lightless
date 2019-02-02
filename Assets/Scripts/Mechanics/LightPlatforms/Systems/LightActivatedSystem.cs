@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Assets.Scripts.Mechanics.LightPlatforms;
+using System.Collections;
 using System.Collections.Generic;
 using Unity.Entities;
 using Unity.Jobs;
@@ -62,7 +63,9 @@ public class LightActivatedSystem : ComponentSystem
     {
         var startPosition = platform.StartPosition;
         var currentPosition = transform.position;
+        var totalDistance = Vector3.Distance(platform.ActivatedPosition, platform.StartPosition);
         var distance = Vector3.Distance(startPosition, currentPosition);
+        var mat = transform.GetComponent<Renderer>().material;
         if(platform.IsOneTimeActivation)
         {
             return;
@@ -71,9 +74,16 @@ public class LightActivatedSystem : ComponentSystem
         {
             transform.position = Vector3.MoveTowards(transform.position, startPosition, platform.MoveSpeed * Time.deltaTime);
             platform.IsRetracting = true;
+            ShaderHelper.SetFillValue(mat, distance / totalDistance);
+            //Shader.SetGlobalFloat("_FillValue", distance/totalDistance);
         }
         else
         {
+            if (platform.IsRetracting)
+            {
+                ShaderHelper.SetFillValue(mat, 0F);
+                //Shader.SetGlobalFloat("_FillValue", 0F);
+            }
             platform.IsRetracting = false;
         }
     }

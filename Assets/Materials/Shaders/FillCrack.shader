@@ -10,7 +10,6 @@
 		[HDR]_SecondaryEmissionColor("Secondary Emission Color", Color) = (0,0,0)
         _Glossiness ("Smoothness", Range(0,1)) = 0.5
         _Metallic ("Metallic", Range(0,1)) = 0.0
-		
     }
     SubShader
     {
@@ -29,6 +28,8 @@
 		sampler2D _EmissionMap;
 		float3 _EmissionColor;
 		float3 _SecondaryEmissionColor;
+		uniform float4 _HitTexCoord;
+		uniform float _FillValue = 0.f;
 
         struct Input
         {
@@ -52,24 +53,18 @@
             fixed4 c = tex2D (_MainTex, IN.uv_MainTex) * _Color;
 			float4 secondary = tex2D(_SecondaryTex, IN.uv_MainTex) * _Color;
 			float2 uv = IN.uv_MainTex;
-			float2 center = float2(0.5f, 0.5f);
-			float r = abs(_SinTime.w) * 0.5f;
+			float2 center = _HitTexCoord.xy;
+			float r = abs(_FillValue) * 0.9f;
 			float d = length(uv - center);
-			float fill = (d < r);
+			float fill = (d <= r);
 
-			//float upLimit = 0.5f + abs(_SinTime.w) * 0.5f;
-			//float lowLimit = 0.5f - abs(_SinTime.w) * 0.5f;
-			//float fillx = uv.x < upLimit && uv.x > lowLimit;
-			//float filly = uv.y < upLimit && uv.y > lowLimit;
-
-			fixed4 c2 = tex2D(_EmissionMap, IN.uv_MainTex) * fill;// x;
-			//c2 = c2 * filly;
+			fixed4 c2 = tex2D(_EmissionMap, IN.uv_MainTex) * fill;
             o.Albedo = c.rgb;
             // Metallic and smoothness come from slider variables
             o.Metallic = _Metallic;
             o.Smoothness = _Glossiness;
             o.Alpha = 1;
-			o.Emission = c2.rgb * _EmissionColor * c2.a +secondary.rgb * _SecondaryEmissionColor * secondary.a;
+			o.Emission = c2.rgb * _EmissionColor * c2.a + secondary.rgb * _SecondaryEmissionColor * secondary.a;
         }
         ENDCG
     }
