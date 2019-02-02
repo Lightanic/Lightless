@@ -25,6 +25,12 @@ public class PlatformActivatorComponent : MonoBehaviour
     public float MaximumReflectionChain = 8;
     public float CurrentChainCount = 0;
 
+    private void Start()
+    {
+        Shader.SetGlobalVector("_HitTexCoord", new Vector4(0.5f, 0.5f, 0f, 0f));
+        Shader.SetGlobalFloat("_FillValue", 0F); //Ensure all the fill crack shader values are set to 0
+    }
+
     private void Update()
     {
         if (!Switch.LightIsOn)
