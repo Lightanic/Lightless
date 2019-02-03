@@ -24,6 +24,10 @@ public class SeekSystem : ComponentSystem
                     case EnemyType.Runner:
                         RunnerSeek(entity, entity.SeekComponent.Target);
                         break;
+
+                    case EnemyType.Lunger:
+                        LungerSeek(entity, entity.SeekComponent.Target);
+                        break;
                 }
                
 
@@ -34,7 +38,7 @@ public class SeekSystem : ComponentSystem
     void RunnerSeek(Seek entity, Transform target)
     {
         entity.AgentComponent.Agent.speed = 12;
-        if (entity.SeekComponent.Target.gameObject.tag == "Flashlight")
+        if (entity.SeekComponent.Target.gameObject.CompareTag("Flashlight"))
         {
             if (entity.AgentComponent.Agent.enabled)
                 entity.AgentComponent.Agent.SetDestination(target.position + target.forward * 8);
@@ -42,6 +46,33 @@ public class SeekSystem : ComponentSystem
         else
         {
             if (entity.AgentComponent.Agent.enabled)
+                entity.AgentComponent.Agent.SetDestination(target.position);
+        }
+    }
+
+    void LungerSeek(Seek entity, Transform target)
+    {
+        entity.AgentComponent.Agent.speed = 12;
+
+        if (entity.SeekComponent.Target.CompareTag("Player"))
+        {
+           entity.AgentComponent.Agent.SetDestination(target.position);
+            if (entity.AgentComponent.Agent.remainingDistance < entity.SeekComponent.LungeDistance)
+            {
+                entity.Enemy.State = EnemyState.Lunge;
+                entity.AgentComponent.Agent.Move(entity.Enemy.transform.forward * 0.5f);
+                
+            }
+            
+        }
+        else
+        {
+            if (entity.SeekComponent.Target.gameObject.CompareTag("Flashlight"))
+            {
+                if (entity.AgentComponent.Agent.enabled)
+                    entity.AgentComponent.Agent.SetDestination(target.position + target.forward * 8);
+            }
+            else 
                 entity.AgentComponent.Agent.SetDestination(target.position);
         }
     }

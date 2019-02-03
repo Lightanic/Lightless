@@ -11,7 +11,7 @@ public class EnemyComponent : MonoBehaviour
     }
     public enum EnemyState
     {
-        Alerted, Patrol, Seek
+        Alert, Patrol, Seek, Lunge, Stun, Wait, Dead
     }
 
     public EnemyType Type;
@@ -19,14 +19,9 @@ public class EnemyComponent : MonoBehaviour
 
     public bool IsWalking;
     public bool IsRunning;
-    public bool IsDead;
 
-    public bool IsSeeking;
-    public bool IsPatrolling;
-    public bool IsAlerted;
-
-    public bool IsLunging;
-    public bool IsPreLunging;
+    public bool HasLunged;
+    public bool CanLunge;
 
     public bool IsStunned;
 }

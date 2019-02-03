@@ -8,5 +8,7 @@ public class SeekComponent : MonoBehaviour
     public float VisionRadius = 20.0f;
     public float NightVisionRadius = 8.0f;
 
+    public float LungeDistance = 8.0f;
+    public float WaitTime = 2.0f;
     public Transform Target;
 }

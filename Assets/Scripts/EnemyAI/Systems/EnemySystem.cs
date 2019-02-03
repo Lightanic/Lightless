@@ -40,7 +40,6 @@ public class EnemySystem : ComponentSystem
 
         }
 
-
         foreach (var enemy in GetEntities<Enemy>())
         {
             if (enemy.Transform.GetComponent<EnemyDeathComponent>().EnemyIsDead)
@@ -48,12 +47,22 @@ public class EnemySystem : ComponentSystem
                 continue;
             }
 
+            if (enemy.EnemyComponent.CanLunge == false)
+            {
+
+                enemy.Seek.WaitTime -= Time.deltaTime;
+
+                if (enemy.Seek.WaitTime <= 0)
+                {
+                    enemy.EnemyComponent.CanLunge = true;
+                    enemy.Seek.WaitTime = 2.0f;
+                }
+            }
+
             float currentDistance = float.MaxValue;
             float lightDistance;
             foreach (var entity in GetEntities<LightData>())
             {
-                //lightData = e;
-
                 if (entity.LightSwitch.LightIsOn)
                 {
                     lightDistance = Vector3.Distance(entity.LightTransform.position, enemy.Transform.position);
@@ -69,91 +78,32 @@ public class EnemySystem : ComponentSystem
             float distanceToLight = currentDistance;
             float distanceToPlayer = Vector3.Distance(player.PlayerTransform.position, enemy.Transform.position);
 
-            if (isThereLight && light.LightSwitch.LightIsOn)
+            enemy.EnemyComponent.State = EnemyState.Patrol;
+
+            if (distanceToLight <= enemy.Seek.VisionRadius + enemy.Seek.AlertRadius)
             {
-                if (distanceToLight > enemy.Seek.VisionRadius && distanceToLight <= enemy.Seek.VisionRadius + enemy.Seek.AlertRadius)
+                if (isThereLight && light.LightSwitch.LightIsOn)
                 {
-                    enemy.EnemyComponent.IsRunning = false;
-                    enemy.EnemyComponent.IsWalking = true;
-                    enemy.EnemyComponent.IsAlerted = true;
-                    enemy.EnemyComponent.IsPatrolling = true;
+                    enemy.EnemyComponent.State = EnemyState.Alert;
+                    if (distanceToLight <= enemy.Seek.VisionRadius) //if distance to light is lesser than enemy vision
+                    {
+                        enemy.EnemyComponent.State = EnemyState.Seek;
+                        enemy.Seek.Target = light.LightTransform;
 
-                    enemy.EnemyComponent.State = EnemyState.Patrol;
-                }
-                else if (distanceToLight <= enemy.Seek.VisionRadius) //if distance to light is lesser than enemy vision
-                {
-                    enemy.EnemyComponent.IsRunning = true;
-                    enemy.EnemyComponent.IsWalking = false;
-
-                    //seek the light
-                    enemy.EnemyComponent.IsSeeking = true;
-
-                    enemy.EnemyComponent.State = EnemyState.Seek;
-
-                   enemy.Seek.Target = light.LightTransform;
-                    //Seek(runner, lightData.LightTransform);
-
-                }
-                else
-                {
-                    enemy.EnemyComponent.IsRunning = false;
-                    enemy.EnemyComponent.IsWalking = true;
-
-                    //patrolling
-                    enemy.EnemyComponent.IsPatrolling = true;
-                    enemy.EnemyComponent.State = EnemyState.Patrol;
-                }
-
-                if (distanceToPlayer <= enemy.Seek.NightVisionRadius)
-                {
-                    enemy.EnemyComponent.IsRunning = true;
-                    //seek player
-                    enemy.EnemyComponent.IsSeeking = true;
-
-                    enemy.EnemyComponent.State = EnemyState.Seek;
-
-                   enemy.Seek.Target = player.PlayerTransform;
-                    //Seek(runner, playerData.PlayerTransform);
+                    }
                 }
             }
-            else
+
+            if (distanceToPlayer <= enemy.Seek.NightVisionRadius + enemy.Seek.AlertRadius)
             {
-                if (distanceToLight > enemy.Seek.NightVisionRadius && distanceToLight <= enemy.Seek.NightVisionRadius + enemy.Seek.AlertRadius)
+                enemy.EnemyComponent.State = EnemyState.Alert;
+                if (distanceToPlayer <= enemy.Seek.NightVisionRadius)
                 {
-                    enemy.EnemyComponent.IsRunning = false;
-                    enemy.EnemyComponent.IsWalking = true;
-                    enemy.EnemyComponent.IsAlerted = true;
-                    enemy.EnemyComponent.IsPatrolling = true;
-
-                    enemy.EnemyComponent.State = EnemyState.Patrol;
-                }
-                else if (distanceToPlayer <= enemy.Seek.NightVisionRadius)
-                {
-                    enemy.EnemyComponent.IsRunning = true;
-                    enemy.EnemyComponent.IsWalking = false;
-                    //seek player
-                    enemy.EnemyComponent.IsSeeking = true;
-
                     enemy.EnemyComponent.State = EnemyState.Seek;
-
                     enemy.Seek.Target = player.PlayerTransform;
-
-                    //Seek(runner, playerData.PlayerTransform);
-                }
-                else
-                {
-                    enemy.EnemyComponent.IsRunning = false;
-                    //patrolling
-                    enemy.EnemyComponent.IsPatrolling = true;
-
-                    enemy.EnemyComponent.State = EnemyState.Patrol;
-
-                    enemy.EnemyComponent.IsWalking = true;
                 }
             }
         }
-
-
     }
 }
 
