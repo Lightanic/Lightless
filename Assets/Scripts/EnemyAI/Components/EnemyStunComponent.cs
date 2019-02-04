@@ -17,21 +17,36 @@ public class EnemyStunComponent : MonoBehaviour
     }
     private void Update()
     {
+        bool StunFlag = false;
+        foreach (var fire in GameObject.FindGameObjectsWithTag("FireStun"))
+        {
+            StunFlag = true;
+        }
+        if (!StunFlag)
+        {
+            IsStunned = false;
+        }
         if (flashlight.gameObject.activeInHierarchy == false)
             IsStunned = false;
     }
 
     private void OnTriggerStay(Collider other)
     {
+        Debug.Log(other.tag);
         if (other.gameObject.tag == "Flashlight")
         {
-                if (other.GetComponent<LightComponent>().LightIsOn == true)
-                {
-                    this.GetComponent<EnemyComponent>().State = EnemyState.Stun;
+            if (other.GetComponent<LightComponent>().LightIsOn == true)
+            {
+                this.GetComponent<EnemyComponent>().State = EnemyState.Stun;
                 IsStunned = true;
-                }
+            }
 
             //Debug.Log("You look stunning!");
+        }
+        else if (other.gameObject.CompareTag("FireStun"))
+        {
+            this.GetComponent<EnemyComponent>().State = EnemyState.Stun;
+            IsStunned = true;
         }
 
         //else if (other.gameObject.tag == "Player")
@@ -50,11 +65,12 @@ public class EnemyStunComponent : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.tag == "Flashlight")
-        {
-            IsStunned = false;
-            Debug.Log("I am coming after you!");
-        }
+        IsStunned = false;
+        //if (other.gameObject.tag == "Flashlight")
+        //{
+            
+        //    Debug.Log("I am coming after you!");
+        //}
     }
 
 }
