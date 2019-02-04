@@ -28,6 +28,10 @@ public class SeekSystem : ComponentSystem
                     case EnemyType.Lunger:
                         LungerSeek(entity, entity.SeekComponent.Target);
                         break;
+
+                    case EnemyType.Stunner:
+                        StunnerSeek(entity, entity.SeekComponent.Target);
+                        break;
                 }
                
 
@@ -73,6 +77,36 @@ public class SeekSystem : ComponentSystem
                     entity.AgentComponent.Agent.SetDestination(target.position + target.forward * 8);
             }
             else 
+                entity.AgentComponent.Agent.SetDestination(target.position);
+        }
+    }
+
+    void StunnerSeek(Seek entity, Transform target)
+    {
+        entity.AgentComponent.Agent.speed = 12;
+        if (entity.SeekComponent.Target.gameObject.CompareTag("Flashlight"))
+        {
+            if (entity.AgentComponent.Agent.enabled)
+                entity.AgentComponent.Agent.SetDestination(target.position + target.forward * 8);
+            if (entity.Enemy.GetComponent<EnemyStunComponent>().IsStunned)
+            {
+                entity.Enemy.State = EnemyState.Stun;
+                entity.AgentComponent.Agent.speed = 0;
+            }
+        }
+
+        if (entity.SeekComponent.Target.CompareTag("Fire"))
+        {
+            entity.AgentComponent.Agent.SetDestination(target.position);
+            if (entity.AgentComponent.Agent.remainingDistance < 7)
+            {
+                entity.Enemy.State = EnemyState.Stun;
+            }
+            
+        }
+        else
+        {
+            if (entity.AgentComponent.Agent.enabled)
                 entity.AgentComponent.Agent.SetDestination(target.position);
         }
     }

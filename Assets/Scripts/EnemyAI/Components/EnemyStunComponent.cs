@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static EnemyComponent;
 
 public class EnemyStunComponent : MonoBehaviour
 {
@@ -26,16 +27,17 @@ public class EnemyStunComponent : MonoBehaviour
         {
                 if (other.GetComponent<LightComponent>().LightIsOn == true)
                 {
-                    IsStunned = true;
+                    this.GetComponent<EnemyComponent>().State = EnemyState.Stun;
+                IsStunned = true;
                 }
 
             //Debug.Log("You look stunning!");
         }
 
-        else if (other.gameObject.tag == "Player")
-        {
-            IsSeekingPlayer = true;
-        }
+        //else if (other.gameObject.tag == "Player")
+        //{
+        //    IsSeekingPlayer = true;
+        //}
 
         //else
         //{
