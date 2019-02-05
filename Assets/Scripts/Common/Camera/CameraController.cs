@@ -13,6 +13,7 @@ public class CameraController : MonoBehaviour
     bool isOffsetSet = false;
     private Outline[] playerOutlines;
     private GameObject[] enemies;
+    private VolumetricFog fog;
     void Start()
     {
         // Calculate the initial offset.
@@ -22,6 +23,7 @@ public class CameraController : MonoBehaviour
 
         AkSoundEngine.PostEvent("BackgroundStart", gameObject);
         enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        fog = GetComponent<VolumetricFog>();
     }
 
     public void SetOffset(Vector3 offsetVector)
@@ -42,6 +44,8 @@ public class CameraController : MonoBehaviour
         Vector3 targetCamPos = player.position + offset;
         //transform.position = targetCamPos;
         transform.position = Vector3.Lerp(transform.position, targetCamPos, smoothing * Time.deltaTime);
+        if (fog != null)
+            fog.m_HeightFogOffset = Mathf.Lerp(fog.m_HeightFogOffset, player.position.y + 3f, (smoothing / 2F) * Time.deltaTime);
     }
 
     void DrawEnemyOutlines()

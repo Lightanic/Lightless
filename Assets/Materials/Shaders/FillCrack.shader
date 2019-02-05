@@ -19,7 +19,7 @@
 
         CGPROGRAM
         // Physically based Standard lighting model, and enable shadows on all light types
-        #pragma surface surf Standard fullforwardshadows
+        #pragma surface surf Standard fullforwardshadows vertex:vert
 
         // Use shader model 3.0 target, to get nicer looking lighting
         #pragma target 5.0
@@ -28,6 +28,7 @@
 		sampler2D _SecondaryTex;
 		sampler2D _EmissionMap;
 		sampler2D _BumpMap;
+		sampler2D _DisplacementMap;
 		float3 _EmissionColor;
 		float3 _SecondaryEmissionColor;
 		uniform float4 _HitTexCoord = float4(0.5f, 0.5f,0.f,0.f);
@@ -41,7 +42,12 @@
 
         half _Glossiness;
         half _Metallic;
+		float _DisplacementFactor;
         fixed4 _Color;
+
+		void vert(inout appdata_full v)
+		{
+		}
 
         // Add instancing support for this shader. You need to check 'Enable Instancing' on materials that use the shader.
         // See https://docs.unity3d.com/Manual/GPUInstancing.html for more information about instancing.
@@ -63,7 +69,7 @@
 
 			fixed4 c2 = tex2D(_EmissionMap, IN.uv_MainTex) * fill;
             o.Albedo = c.rgb;
-			o.Normal = UnpackNormal(tex2D(_BumpMap, IN.uv_BumpMap));
+			o.Normal = UnpackNormal(tex2D(_BumpMap, IN.uv_BumpMap)) * -20;
             // Metallic and smoothness come from slider variables
             o.Metallic = _Metallic;
             o.Smoothness = _Glossiness;

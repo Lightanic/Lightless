@@ -108,8 +108,9 @@ public class PlatformActivationSystem : ComponentSystem
 
         if (!platform.IsActivated)
         {
+            float fillValue = activationTime.CurrentTime / activationTime.TimeThreshold;
             ShaderHelper.ApplyHitTexCoord(hit);
-            ShaderHelper.SetFillValue(platformObject.GetComponent<Renderer>().material, activationTime.CurrentTime / activationTime.TimeThreshold);
+            ShaderHelper.SetFillValue(platformObject.GetComponent<Renderer>().material, fillValue * fillValue);
             if (activationTime.CurrentTime < activationTime.TimeThreshold)
             {
                 activationTime.CurrentTime += Time.deltaTime;
