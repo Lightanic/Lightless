@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Assets.Scripts.Mechanics.LightPlatforms;
+using System.Collections;
 using System.Collections.Generic;
 using Unity.Collections;
 using Unity.Entities;
@@ -70,7 +71,7 @@ public class IndirectPlatformActivationSystem : ComponentSystem
                     lineComponent.AddLine(new ReflectionLine(origins[i], hit.point));
                     var platform = indirectActivator.PlatformToActivate;
                     var activationTime = hit.collider.gameObject.GetComponent<TimedComponent>();
-                    ActivatePlatform(platform, activationTime);
+                    ActivatePlatform(platform, activationTime, hit);
                 }
                 else
                 {
@@ -79,7 +80,7 @@ public class IndirectPlatformActivationSystem : ComponentSystem
                         lineComponent.AddLine(new ReflectionLine(origins[i], hit.point));
                         var platform = indirectActivator.PlatformToActivate;
                         var activationTime = hit.collider.gameObject.GetComponent<TimedComponent>();
-                        ActivatePlatform(platform, activationTime);
+                        ActivatePlatform(platform, activationTime, hit);
                     }
 
                     if (hit.collider.tag == "IndirectReflectionActivatedPlatform" && isReflected)
@@ -87,7 +88,7 @@ public class IndirectPlatformActivationSystem : ComponentSystem
                         lineComponent.AddLine(new ReflectionLine(origins[i], hit.point));
                         var platform = indirectActivator.PlatformToActivate;
                         var activationTime = hit.collider.gameObject.GetComponent<TimedComponent>();
-                        ActivatePlatform(platform, activationTime);
+                        ActivatePlatform(platform, activationTime, hit);
                     }
                 }
             }
@@ -103,7 +104,7 @@ public class IndirectPlatformActivationSystem : ComponentSystem
     /// </summary>
     /// <param name="platformObject"></param>
     /// <param name="activationTime"></param>
-    void ActivatePlatform(GameObject platformObject, TimedComponent activationTime)
+    void ActivatePlatform(GameObject platformObject, TimedComponent activationTime, RaycastHit hit)
     {
         var platform = platformObject.GetComponent<LightActivatedPlatformComponent>();
         if (platform.HasActivated && platform.IsOneTimeActivation)
@@ -111,18 +112,31 @@ public class IndirectPlatformActivationSystem : ComponentSystem
             return;
         }
 
-        if (!platform.IsActivated && !platform.IsRetracting)
+        if (!platform.IsActivated)
         {
+            var uv = ShaderHelper.ApplyHitTexCoord(hit);
+           // ShaderHelper.SetHitTexCoord(uv, platformObject.GetComponent<Renderer>().material);
+            ShaderHelper.SetFillValue(platformObject.GetComponent<Renderer>().material, activationTime.CurrentTime / activationTime.TimeThreshold);
+            ShaderHelper.SetFillValue(hit.collider.GetComponent<Renderer>().material, activationTime.CurrentTime / activationTime.TimeThreshold);
             if (activationTime.CurrentTime < activationTime.TimeThreshold)
             {
                 activationTime.CurrentTime += Time.deltaTime;
             }
             else
             {
+                ShaderHelper.SetFillValue(platformObject.GetComponent<Renderer>().material, 1F);
+                ShaderHelper.SetFillValue(hit.collider.GetComponent<Renderer>().material, 1F);
                 platform.IsActivated = true;
                 activationTime.CurrentTime = 0;
                 Player.Input[0].Rumble(0.3f, new Vector2(5, 5), 0);
             }
+        }
+        else
+        {
+            ShaderHelper.SetFillValue(platformObject.GetComponent<Renderer>().material, 1F);
+            ShaderHelper.SetFillValue(hit.collider.GetComponent<Renderer>().material, 1F);
+            platform.CurrentTime = 0F;
+            platform.IsActivated = true;
         }
     }
 }

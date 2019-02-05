@@ -111,7 +111,7 @@ public class FireSystem : ComponentSystem
     {
         var pos = queue.Dequeue();
         pos.x += 0.2F;
-        var instance = PrefabPool.Spawn(firePrefab, pos, new Quaternion());
+        var instance = GameObject.Instantiate(firePrefab, pos, new Quaternion());
         fireComponent.Instances.Add(instance);
     }
 
