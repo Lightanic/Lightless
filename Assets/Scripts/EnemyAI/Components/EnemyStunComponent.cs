@@ -10,6 +10,8 @@ public class EnemyStunComponent : MonoBehaviour
     public bool IsSeekingPlayer = false;
     public float WaitTime;
     public GameObject flashlight;
+    bool triggered = false;
+    Collider other;
 
     private void Start()
     {
@@ -17,22 +19,30 @@ public class EnemyStunComponent : MonoBehaviour
     }
     private void Update()
     {
-        bool StunFlag = false;
-        foreach (var fire in GameObject.FindGameObjectsWithTag("FireStun"))
+        //bool StunFlag = false;
+        //foreach (var fire in GameObject.FindGameObjectsWithTag("FireStun"))
+        //{
+        //    StunFlag = true;
+        //}
+        //if (!StunFlag)
+        //{
+        //   // IsStunned = false;
+        //}
+        //if (flashlight.gameObject.activeInHierarchy == false)
+        //    IsStunned = false;
+
+        if (triggered && !other || (triggered && !other.gameObject.activeInHierarchy))
         {
-            StunFlag = true;
-        }
-        if (!StunFlag)
-        {
-           // IsStunned = false;
-        }
-        if (flashlight.gameObject.activeInHierarchy == false)
+            triggered = false;
             IsStunned = false;
+        }
     }
 
     private void OnTriggerStay(Collider other)
     {
-        Debug.Log(other.tag);
+        //Debug.Log(other.tag);
+        this.other = other;
+        triggered = true;
         if (other.gameObject.tag == "Flashlight")
         {
             if (other.GetComponent<LightComponent>().LightIsOn == true)

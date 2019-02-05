@@ -94,7 +94,7 @@ public class EnemySystem : ComponentSystem
                 }
             }
 
-            if (distanceToPlayer <= enemy.Seek.NightVisionRadius + enemy.Seek.AlertRadius)
+            if (distanceToPlayer <= enemy.Seek.NightVisionRadius + enemy.Seek.AlertRadius && !enemy.EnemyComponent.GetComponent<EnemyStunComponent>().IsStunned)
             {
                 enemy.EnemyComponent.State = EnemyState.Alert;
                 if (distanceToPlayer <= enemy.Seek.NightVisionRadius)
@@ -109,6 +109,7 @@ public class EnemySystem : ComponentSystem
                 case EnemyType.Stunner:
                     if (enemy.EnemyComponent.GetComponent<EnemyStunComponent>().IsStunned)
                     {
+                        enemy.Transform.LookAt(enemy.Seek.Target);
                         enemy.EnemyComponent.State = EnemyState.Stun;
                         enemy.Agent.Agent.speed = 0;
                     }
