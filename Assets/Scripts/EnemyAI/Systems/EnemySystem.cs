@@ -103,6 +103,17 @@ public class EnemySystem : ComponentSystem
                     enemy.Seek.Target = player.PlayerTransform;
                 }
             }
+
+            switch (enemy.EnemyComponent.Type)
+            {
+                case EnemyType.Stunner:
+                    if (enemy.EnemyComponent.GetComponent<EnemyStunComponent>().IsStunned)
+                    {
+                        enemy.EnemyComponent.State = EnemyState.Stun;
+                        enemy.Agent.Agent.speed = 0;
+                    }
+                    break;
+            }
         }
     }
 }

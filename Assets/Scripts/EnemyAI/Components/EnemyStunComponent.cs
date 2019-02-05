@@ -24,7 +24,7 @@ public class EnemyStunComponent : MonoBehaviour
         }
         if (!StunFlag)
         {
-            IsStunned = false;
+           // IsStunned = false;
         }
         if (flashlight.gameObject.activeInHierarchy == false)
             IsStunned = false;
@@ -43,7 +43,7 @@ public class EnemyStunComponent : MonoBehaviour
 
             //Debug.Log("You look stunning!");
         }
-        else if (other.gameObject.CompareTag("FireStun"))
+        if (other.gameObject.CompareTag("FireStun"))
         {
             this.GetComponent<EnemyComponent>().State = EnemyState.Stun;
             IsStunned = true;
