@@ -24,4 +24,9 @@ public class EnemyComponent : MonoBehaviour
     public bool CanLunge;
 
     public bool IsStunned;
+
+    public float CurrentTime = 0;
+    public float WaitTime = 2;
+    public float LungeTime = 1;
+    public float AttackTime = 0;
 }

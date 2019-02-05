@@ -17,7 +17,7 @@ public class SeekSystem : ComponentSystem
     {
         foreach (var entity in GetEntities<Seek>())
         {
-            if (entity.Enemy.State == EnemyState.Seek)
+            if (entity.Enemy.State == EnemyState.Seek || entity.Enemy.State == EnemyState.Lunge)
             {
                 switch (entity.Enemy.Type)
                 {
@@ -57,16 +57,20 @@ public class SeekSystem : ComponentSystem
     void LungerSeek(Seek entity, Transform target)
     {
         entity.AgentComponent.Agent.speed = 12;
-
+        entity.Enemy.transform.LookAt(target);
         if (entity.SeekComponent.Target.CompareTag("Player"))
         {
            entity.AgentComponent.Agent.SetDestination(target.position);
-            if (entity.AgentComponent.Agent.remainingDistance < entity.SeekComponent.LungeDistance)
+
+            if (entity.Enemy.State == EnemyState.Lunge)
             {
-                entity.Enemy.State = EnemyState.Lunge;
-                entity.Enemy.transform.LookAt(target);
+
                 entity.AgentComponent.Agent.Move(entity.Enemy.transform.forward * 0.5f);
-                
+
+            }
+            else if (entity.Enemy.State == EnemyState.Wait)
+            {
+                entity.AgentComponent.Agent.speed = 0;
             }
             
         }
