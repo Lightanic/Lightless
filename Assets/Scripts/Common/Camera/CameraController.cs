@@ -45,7 +45,7 @@ public class CameraController : MonoBehaviour
         //transform.position = targetCamPos;
         transform.position = Vector3.Lerp(transform.position, targetCamPos, smoothing * Time.deltaTime);
         if (fog != null)
-            fog.m_HeightFogOffset = player.position.y + 3f;
+            fog.m_HeightFogOffset = Mathf.Lerp(fog.m_HeightFogOffset, player.position.y + 3f, (smoothing / 2F) * Time.deltaTime);
     }
 
     void DrawEnemyOutlines()
