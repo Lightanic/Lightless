@@ -94,7 +94,7 @@ public class EnemySystem : ComponentSystem
                 }
             }
 
-            if (distanceToPlayer <= enemy.Seek.NightVisionRadius + enemy.Seek.AlertRadius && !enemy.EnemyComponent.GetComponent<EnemyStunComponent>().IsStunned)
+            if (distanceToPlayer <= enemy.Seek.NightVisionRadius + enemy.Seek.AlertRadius)
             {
                 enemy.EnemyComponent.State = EnemyState.Alert;
                 if (distanceToPlayer <= enemy.Seek.NightVisionRadius)

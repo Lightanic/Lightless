@@ -64,6 +64,7 @@ public class SeekSystem : ComponentSystem
             if (entity.AgentComponent.Agent.remainingDistance < entity.SeekComponent.LungeDistance)
             {
                 entity.Enemy.State = EnemyState.Lunge;
+                entity.Enemy.transform.LookAt(target);
                 entity.AgentComponent.Agent.Move(entity.Enemy.transform.forward * 0.5f);
                 
             }
