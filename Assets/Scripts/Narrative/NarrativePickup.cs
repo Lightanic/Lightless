@@ -13,7 +13,12 @@ public class NarrativePickup : InteractableComponent {
     public GameObject Canvas;
     public float offsetHeight = 2.5f;
 
+    [Header("Pop up note")]
     public Sprite sprite = null;
+
+    [Header("Full Note shown in diary")]
+    public Sprite fullNote = null;
+
     GameObject player = null;
 
     NarrativeCanvas canvasAction;
@@ -23,6 +28,8 @@ public class NarrativePickup : InteractableComponent {
     {
         player = GameObject.Find("Player");
         canvasAction = Canvas.GetComponent<NarrativeCanvas>();
+        if (fullNote == null)
+            fullNote = sprite;
     }
 
     private void Update()

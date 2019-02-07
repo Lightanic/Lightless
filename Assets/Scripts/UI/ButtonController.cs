@@ -8,17 +8,37 @@ public class ButtonController : MonoBehaviour
     public int index = 0;
     int prevIndex = 0;
     [SerializeField] bool keyDown;
-    [SerializeField] int maxIndex;
+    [Header("Max index in a page")]
+    [SerializeField] int indexPerPage;
+    int maxIndex;
     public AudioSource audioSource;
 
+    InputComponent inputComp;
+
+    [Header("Diary Page object")]
+    [SerializeField] DiaryPage diary;
     void Start()
     {
+        inputComp = GameObject.Find("Player").GetComponent<InputComponent>();
+        maxIndex = diary.CurrentPage * indexPerPage;
         //audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (inputComp.Gamepad.GetButtonDown("LB"))
+        {
+            diary.PageTurnBack();
+            index = (diary.CurrentPage - 1) * 9;
+            maxIndex = diary.CurrentPage * indexPerPage;
+        }
+        else if (inputComp.Gamepad.GetButtonDown("RB"))
+        {
+            diary.PageTurnNext();
+            index = (diary.CurrentPage - 1) * 9;
+            maxIndex = diary.CurrentPage * indexPerPage;
+        }
         if (Input.GetAxis("Vertical") != 0)
         {
             if (!keyDown)
@@ -33,12 +53,12 @@ public class ButtonController : MonoBehaviour
                     }
                     else
                     {
-                        index = 0;
+                        index = (diary.CurrentPage-1) * 9;
                     }
                 }
                 else if (Input.GetAxis("Vertical") > 0)
                 {
-                    if (index > 0)
+                    if (index > (diary.CurrentPage - 1) * 9)
                     {
                         index-=3;
                     }
@@ -63,12 +83,12 @@ public class ButtonController : MonoBehaviour
                     }
                     else
                     {
-                        index = 0;
+                        index = (diary.CurrentPage - 1) * 9;
                     }
                 }
                 else if (Input.GetAxis("Horizontal") < 0)
                 {
-                    if (index > 0)
+                    if (index > (diary.CurrentPage - 1) * 9)
                     {
                         index --;
                     }

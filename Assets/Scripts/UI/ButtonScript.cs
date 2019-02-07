@@ -9,7 +9,7 @@ public class ButtonScript : MonoBehaviour
     [SerializeField] ButtonController menuButtonController;
     [SerializeField] Animator animator;
     //[SerializeField] AnimatorFunctions animatorFunctions;
-    [SerializeField] int thisIndex;
+    [SerializeField] public int thisIndex;
 
     NarrativePickup pickup;
 
@@ -18,8 +18,11 @@ public class ButtonScript : MonoBehaviour
 
     Image image;
 
-    [Header("Diary Page object")]
-    public DiaryPage diary;
+    [Header("Diary Left Page object")]
+    public GameObject LeftHandView;
+
+    [Header("Diary Left Page Sprite")]
+    Sprite noteSprite;
 
     private void Start()
     {
@@ -32,22 +35,30 @@ public class ButtonScript : MonoBehaviour
     {
         if (PlayerProperties.narrativePickups.ContainsKey(thisIndex))
         {
-            PlayerProperties.narrativePickups.TryGetValue(thisIndex, out pickup);
-            image.sprite = pickup.sprite;
+            bool notePresent = PlayerProperties.narrativePickups.TryGetValue(thisIndex, out pickup);
+            if (notePresent)
+            {
+                image.sprite = pickup.sprite;
+                noteSprite = pickup.fullNote;
+            }
+            else
+            {
+                image.sprite = sprite;
+                noteSprite = sprite;
+            }
         }
         else
         {
             image.sprite = sprite;
+            noteSprite = sprite;
         }
         if (menuButtonController.index == thisIndex)
         {
-            //Debug.Log(gameObject.name);
             animator.SetBool("selected", true);
             if (Input.GetAxis("Submit") == 1)
             {
-                //Debug.Log(gameObject.name + "submit");
                 animator.SetBool("pressed", true);
-                //PageTurn();
+                DiaryLeftViewUpdate();
             }
             else if (animator.GetBool("pressed"))
             {
@@ -61,18 +72,8 @@ public class ButtonScript : MonoBehaviour
         }
     }
 
-    void PageTurn()
+    public void DiaryLeftViewUpdate()
     {
-        if(thisIndex == 9) // back button
-        {
-            diary.CurrentPage--;
-        }
-        else if(thisIndex == 10)
-        {
-            diary.CurrentPage++;
-        }
-        diary.CurrentPage = Mathf.Clamp(diary.CurrentPage, 1, diary.MaxPages);
-
-        diary.PageCount.text = diary.CurrentPage.ToString() + " / " + diary.MaxPages;
+        LeftHandView.GetComponent<Image>().sprite = noteSprite;
     }
 }
