@@ -5,10 +5,20 @@ using UnityEngine.UI;
 
 public class NarrativePickup : InteractableComponent {
 
+    [Header("Narrative Index")]
+    public int index;
+    [Header("Is picked up by player")]
+    public bool obtained = false;
+
     public GameObject Canvas;
     public float offsetHeight = 2.5f;
 
+    [Header("Pop up note")]
     public Sprite sprite = null;
+
+    [Header("Full Note shown in diary")]
+    public Sprite fullNote = null;
+
     GameObject player = null;
 
     NarrativeCanvas canvasAction;
@@ -18,6 +28,8 @@ public class NarrativePickup : InteractableComponent {
     {
         player = GameObject.Find("Player");
         canvasAction = Canvas.GetComponent<NarrativeCanvas>();
+        if (fullNote == null)
+            fullNote = sprite;
     }
 
     private void Update()

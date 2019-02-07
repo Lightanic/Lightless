@@ -5,10 +5,11 @@ using UnityEngine;
 [ExecuteInEditMode]
 public class PlayerProperties : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-    }
+    [Header("Number of narrative pickups")]
+    [SerializeField]
+    public int NumNarrativePickup;
+    
+    public static Dictionary<int,NarrativePickup> narrativePickups = new Dictionary<int, NarrativePickup>();
     // Update is called once per frame
     void Update()
     {
