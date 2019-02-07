@@ -1,0 +1,79 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+[RequireComponent(typeof(Image))]
+public class ButtonScript : MonoBehaviour
+{
+    [SerializeField] ButtonController menuButtonController;
+    [SerializeField] Animator animator;
+    //[SerializeField] AnimatorFunctions animatorFunctions;
+    [SerializeField] public int thisIndex;
+
+    NarrativePickup pickup;
+
+    [Header("Default Image")]
+    public Sprite sprite;
+
+    Image image;
+
+    [Header("Diary Left Page object")]
+    public GameObject LeftHandView;
+
+    [Header("Diary Left Page Sprite")]
+    Sprite noteSprite;
+
+    private void Start()
+    {
+        animator = gameObject.GetComponent<Animator>();
+        image = gameObject.GetComponent<Image>();
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (PlayerProperties.narrativePickups.ContainsKey(thisIndex))
+        {
+            bool notePresent = PlayerProperties.narrativePickups.TryGetValue(thisIndex, out pickup);
+            if (notePresent)
+            {
+                image.sprite = pickup.sprite;
+                noteSprite = pickup.fullNote;
+            }
+            else
+            {
+                image.sprite = sprite;
+                noteSprite = sprite;
+            }
+        }
+        else
+        {
+            image.sprite = sprite;
+            noteSprite = sprite;
+        }
+        if (menuButtonController.index == thisIndex)
+        {
+            animator.SetBool("selected", true);
+            if (Input.GetAxis("Submit") == 1)
+            {
+                animator.SetBool("pressed", true);
+                DiaryLeftViewUpdate();
+            }
+            else if (animator.GetBool("pressed"))
+            {
+                animator.SetBool("pressed", false);
+                //animatorFunctions.disableOnce = true;
+            }
+        }
+        else
+        {
+            animator.SetBool("selected", false);
+        }
+    }
+
+    public void DiaryLeftViewUpdate()
+    {
+        LeftHandView.GetComponent<Image>().sprite = noteSprite;
+    }
+}
