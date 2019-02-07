@@ -5,6 +5,11 @@ using UnityEngine.UI;
 
 public class NarrativePickup : InteractableComponent {
 
+    [Header("Narrative Index")]
+    public int index;
+    [Header("Is picked up by player")]
+    public bool obtained = false;
+
     public GameObject Canvas;
     public float offsetHeight = 2.5f;
 
