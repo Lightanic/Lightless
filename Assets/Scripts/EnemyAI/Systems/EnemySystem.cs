@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Unity.Entities;
 using static EnemyComponent;
+using UnityEngine.AI;
 
 public class EnemySystem : ComponentSystem
 {
@@ -42,6 +43,23 @@ public class EnemySystem : ComponentSystem
 
         foreach (var enemy in GetEntities<Enemy>())
         {
+            if (!enemy.AgentComponent.Agent.enabled)
+            {
+
+              //  enemy.Transform.GetComponent<Rigidbody>().AddForce(enemy.Transform.forward * 1000);
+            }
+            NavMeshHit hit;
+            enemy.AgentComponent.Agent.FindClosestEdge(out hit);
+            Debug.Log(hit.distance);
+            if (hit.distance < 0.1 && enemy.AgentComponent.Agent.enabled)
+            {
+                enemy.Transform.LookAt(player.PlayerTransform);
+                enemy.AgentComponent.Agent.enabled = false;
+                enemy.Transform.GetComponent<Rigidbody>().AddForce(enemy.Transform.forward * 500);
+            }
+
+
+
             if (enemy.Transform.GetComponent<EnemyDeathComponent>().EnemyIsDead)
             {
                 continue;
