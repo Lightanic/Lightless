@@ -21,12 +21,12 @@ public class LightController : ComponentSystem {
     {
         foreach(var entities in GetEntities<Lights>())
         {
-           if(playerData.InputComponents[0].Control("LeftLightToggle") && "LeftHand" == entities.light.GetParent())
+           if(playerData.InputComponents[0].Control("LeftLightToggle") && "LeftHand" == entities.light.GetParent() && !PauseMenu.isPaused)
             {
                 entities.light.ToggleLightOn();
             }
 
-            if (playerData.InputComponents[0].Control("RightLightToggle") && "RightHand" == entities.light.GetParent())
+            if (playerData.InputComponents[0].Control("RightLightToggle") && "RightHand" == entities.light.GetParent() && !PauseMenu.isPaused)
             {
                 entities.light.ToggleLightOn();
             }
