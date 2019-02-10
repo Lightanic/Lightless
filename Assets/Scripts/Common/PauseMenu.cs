@@ -12,10 +12,11 @@ public class PauseMenu : MonoBehaviour {
     bool buttonSelected = false;
 
     //pause check
-    public static bool isPaused = true;
+    public static bool isPaused = false;
     public GameObject pauseMenuUI;
     [SerializeField] GameObject Hud;
     [SerializeField] GameObject EndScreen;
+    [SerializeField] GameObject Diary;
 
     // Update is called once per frame
     void Update ()
@@ -48,7 +49,8 @@ public class PauseMenu : MonoBehaviour {
     {
         Hud.SetActive(false);
         EndScreen.SetActive(false);
-        pauseMenuUI.SetActive(true);
+        Diary.SetActive(true);
+        //pauseMenuUI.SetActive(true);
         Time.timeScale = 0f;
         isPaused = true;
 
@@ -59,7 +61,8 @@ public class PauseMenu : MonoBehaviour {
         
         Hud.SetActive(true);
         EndScreen.SetActive(false);
-        pauseMenuUI.SetActive(false);
+        Diary.SetActive(false);
+        //pauseMenuUI.SetActive(false);
         Time.timeScale = 1f;
         isPaused = false;
         Debug.Log("Pressed");
