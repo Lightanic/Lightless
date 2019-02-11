@@ -17,7 +17,7 @@ public class SeekSystem : ComponentSystem
     {
         foreach (var entity in GetEntities<Seek>())
         {
-            if (entity.Enemy.State == EnemyState.Seek || entity.Enemy.State == EnemyState.Lunge)
+            if (entity.Enemy.State == EnemyState.Seek)
             {
                 switch (entity.Enemy.Type)
                 {

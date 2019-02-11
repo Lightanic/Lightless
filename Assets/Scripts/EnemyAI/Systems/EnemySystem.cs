@@ -46,7 +46,7 @@ public class EnemySystem : ComponentSystem
             if (!enemy.AgentComponent.Agent.enabled)
             {
 
-              //  enemy.Transform.GetComponent<Rigidbody>().AddForce(enemy.Transform.forward * 1000);
+                //  enemy.Transform.GetComponent<Rigidbody>().AddForce(enemy.Transform.forward * 1000);
             }
             NavMeshHit hit;
             enemy.AgentComponent.Agent.FindClosestEdge(out hit);
@@ -96,77 +96,152 @@ public class EnemySystem : ComponentSystem
             float distanceToLight = currentDistance;
             float distanceToPlayer = Vector3.Distance(player.PlayerTransform.position, enemy.Transform.position);
 
-            enemy.EnemyComponent.State = EnemyState.Patrol;
+            enemy.EnemyComponent.State = EvaluateState(enemy.EnemyComponent.State, enemy.EnemyComponent, enemy.SeekComponent,
+                distanceToLight, distanceToPlayer, light.LightSwitch, player);
 
-            if (distanceToLight <= enemy.SeekComponent.VisionRadius + enemy.SeekComponent.AlertRadius)
+            if (enemy.EnemyComponent.State == EnemyState.Stun)
             {
-                if (isThereLight && light.LightSwitch.LightIsOn)
-                {
-                    enemy.EnemyComponent.State = EnemyState.Alert;
-                    if (distanceToLight <= enemy.SeekComponent.VisionRadius) //if distance to light is lesser than enemy vision
-                    {
-                        enemy.EnemyComponent.State = EnemyState.Seek;
-                        enemy.SeekComponent.Target = light.LightTransform;
-
-                    }
-                }
+                enemy.AgentComponent.Agent.speed = 0;
             }
 
-            if (distanceToPlayer <= enemy.SeekComponent.NightVisionRadius + enemy.SeekComponent.AlertRadius)
-            {
-                enemy.EnemyComponent.State = EnemyState.Alert;
-                if (distanceToPlayer <= enemy.SeekComponent.NightVisionRadius)
-                {
-                    enemy.EnemyComponent.State = EnemyState.Seek;
-                    enemy.SeekComponent.Target = player.PlayerTransform;
-                }
-            }
+            //    if (distanceToLight <= enemy.SeekComponent.VisionRadius + enemy.SeekComponent.AlertRadius)
+            //    {
+            //        if (isThereLight && light.LightSwitch.LightIsOn)
+            //        {
+            //            enemy.EnemyComponent.State = EnemyState.Alert;
+            //            if (distanceToLight <= enemy.SeekComponent.VisionRadius) //if distance to light is lesser than enemy vision
+            //            {
+            //                enemy.EnemyComponent.State = EnemyState.Seek;
+            //                enemy.SeekComponent.Target = light.LightTransform;
 
-            switch (enemy.EnemyComponent.Type)
-            {
+            //            }
+            //        }
+            //    }
 
-                case EnemyType.Lunger:
-                    if (enemy.SeekComponent.Target != null && enemy.SeekComponent.Target.CompareTag("Player"))
-                    {
-                        if (enemy.AgentComponent.Agent.remainingDistance < enemy.SeekComponent.LungeDistance)
-                        {
-                            enemy.EnemyComponent.State = EnemyState.Wait;
+            //    if (distanceToPlayer <= enemy.SeekComponent.NightVisionRadius + enemy.SeekComponent.AlertRadius)
+            //    {
+            //        enemy.EnemyComponent.State = EnemyState.Alert;
+            //        if (distanceToPlayer <= enemy.SeekComponent.NightVisionRadius)
+            //        {
+            //            enemy.EnemyComponent.State = EnemyState.Seek;
+            //            enemy.SeekComponent.Target = player.PlayerTransform;
+            //        }
+            //    }
 
-                            if (enemy.EnemyComponent.CurrentTime < enemy.EnemyComponent.WaitTime)
-                            {
-                                enemy.EnemyComponent.CurrentTime += Time.deltaTime;
-                            }
-                            else
-                            {
-                                //enemy.EnemyComponent.CurrentTime = 0;
-                                enemy.EnemyComponent.State = EnemyState.Lunge;
-                                if (enemy.EnemyComponent.AttackTime < enemy.EnemyComponent.LungeTime)
-                                {
-                                    enemy.EnemyComponent.AttackTime += Time.deltaTime;
-                                }
-                                else
-                                {
-                                    enemy.EnemyComponent.AttackTime = 0;
-                                    enemy.EnemyComponent.CurrentTime = 0;
-                                }
+            //    switch (enemy.EnemyComponent.Type)
+            //    {
 
-                            }
-                        }
-                        
-                    }
-                        
-                        break;
+            //        case EnemyType.Lunger:
+            //            if (enemy.SeekComponent.Target != null && enemy.SeekComponent.Target.CompareTag("Player"))
+            //            {
+            //                if (enemy.AgentComponent.Agent.remainingDistance < enemy.SeekComponent.LungeDistance)
+            //                {
+            //                    enemy.EnemyComponent.State = EnemyState.Wait;
 
-                case EnemyType.Stunner:
-                    if (enemy.EnemyComponent.GetComponent<EnemyStunComponent>().IsStunned)
-                    {
-                        enemy.Transform.LookAt(enemy.SeekComponent.Target);
-                        enemy.EnemyComponent.State = EnemyState.Stun;
-                        enemy.AgentComponent.Agent.speed = 0;
-                    }
-                    break;
-            }
+            //                    if (enemy.EnemyComponent.CurrentTime < enemy.EnemyComponent.WaitTime)
+            //                    {
+            //                        enemy.EnemyComponent.CurrentTime += Time.deltaTime;
+            //                    }
+            //                    else
+            //                    {
+            //                        //enemy.EnemyComponent.CurrentTime = 0;
+            //                        enemy.EnemyComponent.State = EnemyState.Lunge;
+            //                        if (enemy.EnemyComponent.AttackTime < enemy.EnemyComponent.LungeTime)
+            //                        {
+            //                            enemy.EnemyComponent.AttackTime += Time.deltaTime;
+            //                        }
+            //                        else
+            //                        {
+            //                            enemy.EnemyComponent.AttackTime = 0;
+            //                            enemy.EnemyComponent.CurrentTime = 0;
+            //                        }
+
+            //                    }
+            //                }
+
+            //            }
+
+            //            break;
+
+            //        case EnemyType.Stunner:
+            //            if (enemy.EnemyComponent.GetComponent<EnemyStunComponent>().IsStunned)
+            //            {
+            //                enemy.Transform.LookAt(enemy.SeekComponent.Target);
+            //                enemy.EnemyComponent.State = EnemyState.Stun;
+            //                enemy.AgentComponent.Agent.speed = 0;
+            //            }
+            //            break;
+            //    }
+            //}
         }
+    }
+    EnemyState EvaluateState(EnemyState currentState, EnemyComponent enemyComponent, SeekComponent seekComponent,
+        float distanceToLight, float distanceToPlayer, LightComponent lightComponent, PlayerData player)
+    {
+        switch (currentState)
+        {
+
+            case EnemyState.Patrol:
+                if (distanceToLight < seekComponent.AlertRadius || distanceToPlayer < seekComponent.VisionRadius)
+                    return EnemyState.Alert;
+                else
+                    return EnemyState.Patrol;
+
+            case EnemyState.Alert:
+                if (distanceToLight > seekComponent.AlertRadius && distanceToPlayer > seekComponent.VisionRadius)
+                    return EnemyState.Patrol;
+                else if ((distanceToLight < seekComponent.VisionRadius && lightComponent.LightIsOn) || distanceToPlayer < seekComponent.NightVisionRadius)
+                    return EnemyState.Seek;
+                else
+                    return EnemyState.Alert;
+
+            case EnemyState.Seek:
+                if (distanceToLight > seekComponent.VisionRadius && distanceToPlayer > seekComponent.NightVisionRadius)
+                    return EnemyState.Alert;
+                else
+                    return EvaluateSeek(enemyComponent, seekComponent, distanceToLight, distanceToPlayer, lightComponent, player);
+
+            case EnemyState.Stun:
+                if (!enemyComponent.GetComponent<EnemyStunComponent>().IsStunned)
+                    return EnemyState.Seek;
+                else
+                    return EnemyState.Stun;
+        }
+
+        return currentState;
+    }
+
+
+    EnemyState EvaluateSeek(EnemyComponent enemyComponent, SeekComponent seekComponent,
+        float distanceToLight, float distanceToPlayer, LightComponent lightComponent, PlayerData player)
+    {
+        if (distanceToLight < seekComponent.VisionRadius)
+        {
+            seekComponent.Target = lightComponent.transform;
+        }
+        if (distanceToPlayer < seekComponent.NightVisionRadius)
+        {
+            seekComponent.Target = player.PlayerTransform;
+        }
+
+        switch (enemyComponent.Type)
+        {
+            case EnemyType.Lunger:
+                if (distanceToPlayer < seekComponent.LungeDistance)
+                    return EnemyState.Wait;
+                else
+                    return EnemyState.Seek;
+
+            case EnemyType.Stunner:
+                if (enemyComponent.GetComponent<EnemyStunComponent>().IsStunned 
+                    && GameObject.FindGameObjectWithTag("Flashlight").GetComponent<LightComponent>().LightIsOn)
+                    return EnemyState.Stun;
+                else
+                    return EnemyState.Seek;
+
+
+        }
+        return EnemyState.Seek;
     }
 }
 

@@ -43,6 +43,7 @@ public class EnemyStunComponent : MonoBehaviour
         //Debug.Log(other.tag);
         this.other = other;
         triggered = true;
+        IsStunned = false;
         if (other.gameObject.tag == "Flashlight")
         {
             if (other.GetComponent<LightComponent>().LightIsOn == true)
