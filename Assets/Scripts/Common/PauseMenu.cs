@@ -49,6 +49,7 @@ public class PauseMenu : MonoBehaviour {
     {
         Hud.SetActive(false);
         EndScreen.SetActive(false);
+        // Diary test
         Diary.SetActive(true);
         //pauseMenuUI.SetActive(true);
         Time.timeScale = 0f;
@@ -61,6 +62,7 @@ public class PauseMenu : MonoBehaviour {
         
         Hud.SetActive(true);
         EndScreen.SetActive(false);
+        //Diary Test
         Diary.SetActive(false);
         //pauseMenuUI.SetActive(false);
         Time.timeScale = 1f;
