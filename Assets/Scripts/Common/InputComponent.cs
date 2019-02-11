@@ -12,8 +12,6 @@ public class InputComponent : MonoBehaviour {
     public XGamepad Gamepad;    // = new XGamepad(index);
     public bool EnablePlayerMovement = true;
 
-    public GameObject Pause;
-    PauseMenu pauseMenu = null;
 
     private void Start()
     {
@@ -28,24 +26,10 @@ public class InputComponent : MonoBehaviour {
         }
         GamepadIndex = (int)PlayerNumber;
         Gamepad = new XGamepad(GamepadIndex);
-        pauseMenu = Pause.GetComponent<PauseMenu>();
     }
 
     private void Update()
     {
-        if (Gamepad.GetButtonDown("Back"))
-        {
-            if (PauseMenu.isPaused)
-            {
-                if (pauseMenu != null)
-                    pauseMenu.Resume();
-            }
-            else
-            {
-                if(pauseMenu != null)
-                    pauseMenu.Pause();
-            }
-        }
     }
 
     /// <summary>
@@ -435,7 +419,11 @@ public class InputComponent : MonoBehaviour {
                 break;
             case "Back":
                 statusGamepad = this.Gamepad.GetButton("B");
-                statusKb = Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.Escape);
+                statusKb = Input.GetKeyDown(KeyCode.E);
+                break;
+            case "Escape":
+                statusGamepad = this.Gamepad.GetButtonDown("Back");
+                statusKb = Input.GetKeyDown(KeyCode.Escape);
                 break;
             default:
                 statusGamepad = false;
