@@ -401,9 +401,9 @@ public class InputComponent : MonoBehaviour {
                 var e = Input.GetAxis("Mouse ScrollWheel");
                 if (e < 0) statusKb = true;
                 break;
-            case "Dodge":
+            case "Accept":
                 statusGamepad = this.Gamepad.GetButtonDown("A");
-                statusKb = Input.GetKeyDown(KeyCode.Space);
+                statusKb = Input.GetKeyDown(KeyCode.Return);
                 break;
             case "Sprint":
                 statusGamepad = this.Gamepad.GetTriggerRight != 0 ;
