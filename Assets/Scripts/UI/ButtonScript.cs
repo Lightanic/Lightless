@@ -24,10 +24,13 @@ public class ButtonScript : MonoBehaviour
     [Header("Diary Left Page Sprite")]
     Sprite noteSprite;
 
+    InputComponent inputComp;
+
     private void Start()
     {
         animator = gameObject.GetComponent<Animator>();
         image = gameObject.GetComponent<Image>();
+        inputComp = GameObject.Find("Player").GetComponent<InputComponent>();
     }
 
     // Update is called once per frame
@@ -55,7 +58,7 @@ public class ButtonScript : MonoBehaviour
         if (menuButtonController.index == thisIndex)
         {
             animator.SetBool("selected", true);
-            if (Input.GetAxis("Submit") == 1)
+            if (inputComp.Control("Accept"))
             {
                 animator.SetBool("pressed", true);
                 DiaryLeftViewUpdate();
