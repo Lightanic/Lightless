@@ -33,8 +33,13 @@ public class SeekSystem : ComponentSystem
                         StunnerSeek(entity, entity.SeekComponent.Target);
                         break;
                 }
-               
 
+
+            }
+            else if (entity.Enemy.State == EnemyState.Lunge)
+            {
+                entity.AgentComponent.Agent.speed = 15f;
+                entity.AgentComponent.Agent.Move(entity.Enemy.transform.forward * 0.5f);
             }
         }
     }

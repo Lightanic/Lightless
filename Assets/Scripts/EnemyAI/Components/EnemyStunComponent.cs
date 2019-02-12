@@ -9,6 +9,7 @@ public class EnemyStunComponent : MonoBehaviour
     public bool IsWaiting = false;
     public bool IsSeekingPlayer = false;
     public float WaitTime;
+    public float currentTime;
     public GameObject flashlight;
     bool triggered = false;
     Collider other;
@@ -50,6 +51,7 @@ public class EnemyStunComponent : MonoBehaviour
             {
                 this.GetComponent<EnemyComponent>().State = EnemyState.Stun;
                 IsStunned = true;
+                transform.LookAt(other.transform);
             }
 
             //Debug.Log("You look stunning!");
@@ -58,6 +60,7 @@ public class EnemyStunComponent : MonoBehaviour
         {
             this.GetComponent<EnemyComponent>().State = EnemyState.Stun;
             IsStunned = true;
+            transform.LookAt(other.transform);
         }
 
         //else if (other.gameObject.tag == "Player")

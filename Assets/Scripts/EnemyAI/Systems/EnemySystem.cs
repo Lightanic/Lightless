@@ -51,9 +51,9 @@ public class EnemySystem : ComponentSystem
             NavMeshHit hit;
             enemy.AgentComponent.Agent.FindClosestEdge(out hit);
             Debug.Log(hit.distance);
-            if (hit.distance < 0.1 && enemy.AgentComponent.Agent.enabled)
+            if (hit.distance < 0.01 && enemy.AgentComponent.Agent.enabled)
             {
-                enemy.Transform.LookAt(player.PlayerTransform);
+                //enemy.Transform.LookAt(player.PlayerTransform);
                 enemy.AgentComponent.Agent.enabled = false;
                 enemy.Transform.GetComponent<Rigidbody>().AddForce(enemy.Transform.forward * 500);
             }
@@ -97,7 +97,7 @@ public class EnemySystem : ComponentSystem
             float distanceToPlayer = Vector3.Distance(player.PlayerTransform.position, enemy.Transform.position);
 
             enemy.EnemyComponent.State = EvaluateState(enemy.EnemyComponent.State, enemy.EnemyComponent, enemy.SeekComponent,
-                distanceToLight, distanceToPlayer, light.LightSwitch, player);
+                distanceToLight, distanceToPlayer, light.LightSwitch, player, enemy.AgentComponent);
 
             if (enemy.EnemyComponent.State == EnemyState.Stun)
             {
@@ -176,7 +176,7 @@ public class EnemySystem : ComponentSystem
         }
     }
     EnemyState EvaluateState(EnemyState currentState, EnemyComponent enemyComponent, SeekComponent seekComponent,
-        float distanceToLight, float distanceToPlayer, LightComponent lightComponent, PlayerData player)
+        float distanceToLight, float distanceToPlayer, LightComponent lightComponent, PlayerData player, NavAgentComponent agent)
     {
         switch (currentState)
         {
@@ -203,9 +203,26 @@ public class EnemySystem : ComponentSystem
 
             case EnemyState.Stun:
                 if (!enemyComponent.GetComponent<EnemyStunComponent>().IsStunned)
-                    return EnemyState.Seek;
+                    return EnemyState.Wait;
                 else
                     return EnemyState.Stun;
+
+            case EnemyState.Wait:
+                return EvaluateWait(enemyComponent);
+
+            case EnemyState.Lunge:
+                if (enemyComponent.CurrentTime < enemyComponent.LungeTime)
+                {
+                    enemyComponent.CurrentTime += Time.deltaTime;
+                    return EnemyState.Lunge;
+                }
+                else
+                {
+                    enemyComponent.CurrentTime = 0;
+                    return EnemyState.Seek;
+                }
+
+
         }
 
         return currentState;
@@ -242,6 +259,33 @@ public class EnemySystem : ComponentSystem
 
         }
         return EnemyState.Seek;
+    }
+
+    EnemyState EvaluateWait(EnemyComponent enemyComponent)
+    {
+        if (enemyComponent.CurrentTime < enemyComponent.WaitTime)
+        {
+            enemyComponent.CurrentTime += Time.deltaTime;
+        }
+        else
+        {
+            enemyComponent.CurrentTime = 0;
+            switch (enemyComponent.Type)
+            {
+                case EnemyType.Stunner:
+                    return EnemyState.Seek;
+
+                case EnemyType.Lunger:
+                    return EnemyState.Lunge;
+
+                default:
+                    return EnemyState.Seek;
+            }
+        }
+
+        enemyComponent.GetComponent<NavAgentComponent>().Agent.speed = 0;
+       
+        return EnemyState.Wait;
     }
 }
 
