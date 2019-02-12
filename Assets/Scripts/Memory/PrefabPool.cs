@@ -201,6 +201,7 @@ public static class PrefabPool
     /// </summary>
     static public void Despawn(GameObject obj)
     {
+        if (obj == null) return;
         PoolMember pm = obj.GetComponent<PoolMember>();
         if (pm == null)
         {

@@ -35,10 +35,7 @@ public class PlatformActivatorComponent : MonoBehaviour
     {
         if (!Switch.LightIsOn)
         {
-            if (LightInstance != null)
-            {
-                DestroyLightInstance();
-            }
+            DestroyLightInstance();
             return;
         }
 
