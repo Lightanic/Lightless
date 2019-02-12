@@ -25,9 +25,10 @@ public class MoveableComponent : MonoBehaviour
     public bool YAxis;
     public bool ZAxis;
 
-    //[Header("Constraints")]
-    //public Vector3 MaxRotationConstraints = new Vector3(180F, 180F, 180F);
-    //public Vector3 MinRotationConstraints = new Vector3(-180F, -180F, -180F);
+    [Header("Constraints")]
+    public bool UseConstraints = false;
+    public Vector3 MaxRotationConstraints = new Vector3(0, 45, 0);
+    public Vector3 MinRotationConstraints = new Vector3(-45F, -45F, 0F);
 
     private void Start()
     {
