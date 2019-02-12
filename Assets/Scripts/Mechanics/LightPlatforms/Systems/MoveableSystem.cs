@@ -159,4 +159,13 @@ public class MoveableSystem : ComponentSystem
         CurrentTime += Time.deltaTime;
     }
 
+    Vector3 ClampEulerRotation(Vector3 Rotation, Vector3 Max, Vector3 Min)
+    {
+        Rotation.x = Mathf.Clamp(Rotation.x, Min.x, Max.x);
+        Rotation.y = Mathf.Clamp(Rotation.y, Min.y, Max.y);
+        Rotation.z = Mathf.Clamp(Rotation.z, Min.z, Max.z);
+
+        return Rotation;
+    }
+
 }

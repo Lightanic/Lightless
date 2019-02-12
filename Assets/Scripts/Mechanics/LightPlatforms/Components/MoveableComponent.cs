@@ -18,11 +18,16 @@ public class MoveableComponent : MonoBehaviour
     public Transform Activator;
     public bool CanMove = true;
     public bool CanRotate = true;
+    public bool IsSpotlight = false;
 
     [Header("Rotation Axis")]
     public bool XAxis;
     public bool YAxis;
     public bool ZAxis;
+
+    //[Header("Constraints")]
+    //public Vector3 MaxRotationConstraints = new Vector3(180F, 180F, 180F);
+    //public Vector3 MinRotationConstraints = new Vector3(-180F, -180F, -180F);
 
     private void Start()
     {
@@ -30,20 +35,11 @@ public class MoveableComponent : MonoBehaviour
         InitialAngles = transform.rotation.eulerAngles;
         CurrentAngles = InitialAngles;
 
-        //if (XAxis)
-        //{
-        //    YAxis = false;
-        //    ZAxis = false;
-        //}
-        //else if (YAxis)
-        //{
-        //    XAxis = false;
-        //    ZAxis = false;
-        //}
-        //else if (ZAxis)
-        //{
-        //    XAxis = false;
-        //    YAxis = false;
-        //}
+        if (IsSpotlight)
+        {
+            XAxis = true;
+            YAxis = true;
+            CanRotate = true;
+        }
     }
 }
