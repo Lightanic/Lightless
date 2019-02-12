@@ -25,9 +25,13 @@ public class OptionsMenu : MonoBehaviour
     GameObject selectedObjectDefault;
 
     bool buttonSelected = false;
+    InputComponent inputComp;
+
 
     private void Start()
     {
+        inputComp = GameObject.Find("Player").GetComponent<InputComponent>();
+
         resolutions = Screen.resolutions;
         resolutionDropdown.ClearOptions();
         List<string> res = new List<string>();
@@ -48,14 +52,20 @@ public class OptionsMenu : MonoBehaviour
         qualityDropdown.value =(int) QualitySettings.GetQualityLevel();
 
         selectedObjectDefault = selectedObject;
+        EventSystem.current.SetSelectedGameObject(selectedObjectDefault);
         //eventSystem.SetSelectedGameObject(selectedObjectDefault);
     }
     private void OnEnable()
     {
-        eventSystem.SetSelectedGameObject(selectedObjectDefault);
+        EventSystem.current.SetSelectedGameObject(selectedObjectDefault);
+        //eventSystem.SetSelectedGameObject(selectedObjectDefault);
     }
     private void Update()
     {
+        if (EventSystem.current.currentSelectedGameObject == null)
+        {
+            EventSystem.current.SetSelectedGameObject(selectedObjectDefault);
+        }
         if (Input.GetAxisRaw("Vertical") != 0 && !buttonSelected)
         {
             eventSystem.SetSelectedGameObject(selectedObject);

@@ -75,6 +75,7 @@ public class UIManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Debug.Log(EventSystem.current.currentSelectedGameObject);
         if(inputComp.Control("Escape"))
         {
             isPaused = !isPaused;
@@ -212,6 +213,10 @@ public class UIManager : MonoBehaviour
         {
             if(menu.Key != currentMenu && menu.Value != null)
             {
+                if (menu.Key == CurrentMenu.Options)
+                {
+                    Test();
+                }
                 menu.Value.SetActive(false);
             }
         }
@@ -220,5 +225,14 @@ public class UIManager : MonoBehaviour
     private void OnDisable()
     {
         buttonSelected = false;
+    }
+
+    public void Test()
+    {
+        var a = OptionsCanvas.GetComponentsInChildren<TMPro.TMP_Dropdown>();
+        foreach( var x in a )
+        {
+            x.Hide();
+        }
     }
 }
