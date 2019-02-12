@@ -13,7 +13,14 @@ public class PauseMenu : MonoBehaviour {
 
     //pause check
     public static bool isPaused = false;
-    public GameObject pauseMenuUI;
+    [Header("Pause Menu Canvas")]
+    [SerializeField]
+    GameObject PauseCanvas;
+
+    [Header("Pause start button")]
+    [SerializeField]
+    GameObject PauseStartButton;
+
     [SerializeField] GameObject Hud;
     [SerializeField] GameObject EndScreen;
     [SerializeField] GameObject Diary;
@@ -62,7 +69,7 @@ public class PauseMenu : MonoBehaviour {
         
         Hud.SetActive(true);
         EndScreen.SetActive(false);
-        //Diary Test
+        //fDiary Test
         Diary.SetActive(false);
         //pauseMenuUI.SetActive(false);
         Time.timeScale = 1f;
