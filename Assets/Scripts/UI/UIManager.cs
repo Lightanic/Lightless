@@ -34,6 +34,10 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     GameObject OptionsCanvas;
 
+    [Header("Options start button")]
+    [SerializeField]
+    GameObject optionsStartButton;
+
     [Header("HUD Canvas")]
     [SerializeField]
     GameObject HUDCanvas;
@@ -49,6 +53,7 @@ public class UIManager : MonoBehaviour
     };
 
     CurrentMenu currentMenu;
+    CurrentMenu prevMenu;
 
     Dictionary<CurrentMenu, GameObject> Menus = new Dictionary<CurrentMenu, GameObject>();
     // Start is called before the first frame update
@@ -57,6 +62,7 @@ public class UIManager : MonoBehaviour
         inputComp = GameObject.Find("Player").GetComponent<InputComponent>();
         selectedButton = PauseStartButton;
         currentMenu = CurrentMenu.HUD;
+        prevMenu = CurrentMenu.None;
 
         Menus.Add(CurrentMenu.None, null);
         Menus.Add(CurrentMenu.Pause, PauseCanvas);
@@ -82,7 +88,6 @@ public class UIManager : MonoBehaviour
             else
             {
                 currentMenu = CurrentMenu.Pause;
-                eventSystem.SetSelectedGameObject(PauseStartButton);
                 PauseStartButton.GetComponent<Animator>().SetBool("deselect", false);
                 PauseStartButton.GetComponent<Animator>().SetBool("selected", true);
                 PauseStartButton.GetComponent<Animator>().SetBool("pressed", false);
@@ -116,45 +121,51 @@ public class UIManager : MonoBehaviour
 
     void DisplayMenu()
     {
-        switch(currentMenu)
+        if(currentMenu != prevMenu)
         {
-            case CurrentMenu.None:
-                {
-                    PauseCanvas.SetActive(false);
-                    Time.timeScale = 1.0f;
-                    isPaused = false;
+            switch (currentMenu)
+            {
+                case CurrentMenu.None:
+                    {
+                        PauseCanvas.SetActive(false);
+                        Time.timeScale = 1.0f;
+                        isPaused = false;
+                        break;
+                    }
+                case CurrentMenu.HUD:
+                    {
+                        HUDCanvas.SetActive(true);
+                        PauseCanvas.SetActive(false);
+                        Time.timeScale = 1.0f;
+                        isPaused = false;
+                        break;
+                    }
+                case CurrentMenu.Pause:
+                    {
+                        PauseCanvas.SetActive(true);
+                        eventSystem.SetSelectedGameObject(selectedButton);
+                        break;
+                    }
+                case CurrentMenu.Diary:
+                    {
+                        DiaryCanvas.SetActive(true);
+                        break;
+                    }
+                case CurrentMenu.Controller:
+                    {
+                        ControllerCanvas.SetActive(true);
+                    }
                     break;
-                }
-            case CurrentMenu.HUD:
-                {
-                    HUDCanvas.SetActive(true);
-                    PauseCanvas.SetActive(false);
-                    Time.timeScale = 1.0f;
-                    isPaused = false;
-                    break;
-                }
-            case CurrentMenu.Pause:
-                {
-                    PauseCanvas.SetActive(true);
-                    break;
-                }
-            case CurrentMenu.Diary:
-                {
-                    DiaryCanvas.SetActive(true);
-                    break;
-                }
-            case CurrentMenu.Controller:
-                {
-                    ControllerCanvas.SetActive(true);
-                }
-                break;
-            case CurrentMenu.Options:
-                {
-                    OptionsCanvas.SetActive(true);
-                    break;
-                }
+                case CurrentMenu.Options:
+                    {
+                        OptionsCanvas.SetActive(true);
+                        eventSystem.SetSelectedGameObject(optionsStartButton);
+                        break;
+                    }
+            }
+            CloseInactiveMenus();
+            prevMenu = currentMenu;
         }
-        CloseInactiveMenus();
     }
 
     public void ResumeGame()
