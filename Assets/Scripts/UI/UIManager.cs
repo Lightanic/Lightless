@@ -34,13 +34,18 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     GameObject OptionsCanvas;
 
+    [Header("HUD Canvas")]
+    [SerializeField]
+    GameObject HUDCanvas;
+
     enum CurrentMenu
     {
         None,
         Pause,
         Diary,
         Options,
-        Controller
+        Controller,
+        HUD
     };
 
     CurrentMenu currentMenu;
@@ -51,13 +56,14 @@ public class UIManager : MonoBehaviour
     {
         inputComp = GameObject.Find("Player").GetComponent<InputComponent>();
         selectedButton = PauseStartButton;
-        currentMenu = CurrentMenu.None;
+        currentMenu = CurrentMenu.HUD;
 
         Menus.Add(CurrentMenu.None, null);
         Menus.Add(CurrentMenu.Pause, PauseCanvas);
         Menus.Add(CurrentMenu.Diary, DiaryCanvas);
         Menus.Add(CurrentMenu.Options, OptionsCanvas);
         Menus.Add(CurrentMenu.Controller, ControllerCanvas);
+        Menus.Add(CurrentMenu.HUD, HUDCanvas);
     }
 
     // Update is called once per frame
@@ -68,7 +74,7 @@ public class UIManager : MonoBehaviour
             isPaused = !isPaused;
             if (!isPaused)
             {
-                currentMenu = CurrentMenu.None;
+                currentMenu = CurrentMenu.HUD;
                 selectedButton.GetComponent<Animator>().SetBool("deselect", true);
                 selectedButton.GetComponent<Animator>().SetBool("selected", false);
                 selectedButton.GetComponent<Animator>().SetBool("pressed", false);
@@ -119,6 +125,14 @@ public class UIManager : MonoBehaviour
                     isPaused = false;
                     break;
                 }
+            case CurrentMenu.HUD:
+                {
+                    HUDCanvas.SetActive(true);
+                    PauseCanvas.SetActive(false);
+                    Time.timeScale = 1.0f;
+                    isPaused = false;
+                    break;
+                }
             case CurrentMenu.Pause:
                 {
                     PauseCanvas.SetActive(true);
@@ -145,7 +159,7 @@ public class UIManager : MonoBehaviour
 
     public void ResumeGame()
     {
-        currentMenu = CurrentMenu.None;
+        currentMenu = CurrentMenu.HUD;
     }
 
     public void OpenPauseMenu()
