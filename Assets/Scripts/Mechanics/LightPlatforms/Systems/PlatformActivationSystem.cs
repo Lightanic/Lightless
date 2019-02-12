@@ -110,6 +110,7 @@ public class PlatformActivationSystem : ComponentSystem
         {
             float fillValue = activationTime.CurrentTime / activationTime.TimeThreshold;
             ShaderHelper.ApplyHitTexCoord(hit);
+            platform.FillValue = fillValue * fillValue;
             ShaderHelper.SetFillValue(platformObject.GetComponent<Renderer>().material, fillValue * fillValue);
             if (activationTime.CurrentTime < activationTime.TimeThreshold)
             {
@@ -117,6 +118,7 @@ public class PlatformActivationSystem : ComponentSystem
             }
             else
             {
+                platform.FillValue = 1F;
                 platform.IsActivated = true;
                 ShaderHelper.SetFillValue(platformObject.GetComponent<Renderer>().material, 1F);
                 activationTime.CurrentTime = 0;
@@ -125,6 +127,7 @@ public class PlatformActivationSystem : ComponentSystem
         }
         else
         {
+            platform.FillValue = 1F;
             ShaderHelper.SetFillValue(platformObject.GetComponent<Renderer>().material, 1F);
             platform.CurrentTime = 0F;
             platform.IsActivated = true;
