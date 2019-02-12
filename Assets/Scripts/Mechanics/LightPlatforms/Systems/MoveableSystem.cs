@@ -89,7 +89,7 @@ public class MoveableSystem : ComponentSystem
                 }
             }
 
-            if(entity.Platform.IsSelected && distance > 4F) //Enable player movement if the player is far enough from the platform
+            if (entity.Platform.IsSelected && distance > 4F) //Enable player movement if the player is far enough from the platform
             {
                 CurrentTime = 0F;
                 entity.Platform.IsSelected = false;
@@ -129,6 +129,8 @@ public class MoveableSystem : ComponentSystem
                     if (entity.Platform.CanRotate)
                     {
                         entity.Transform.Rotate(RotationEulers);
+                        if (entity.Platform.UseConstraints)
+                            entity.Transform.eulerAngles = ClampEulerRotation(entity.Transform.eulerAngles, entity.Platform.MaxRotationConstraints, entity.Platform.MinRotationConstraints);
                     }
                 }
                 else if (!InputManager.Instance.IsGamePadActive)
@@ -150,6 +152,8 @@ public class MoveableSystem : ComponentSystem
                     if (entity.Platform.CanRotate)
                     {
                         entity.Transform.Rotate(RotationEulers);
+                        if (entity.Platform.UseConstraints)
+                            entity.Transform.eulerAngles = ClampEulerRotation(entity.Transform.eulerAngles, entity.Platform.MaxRotationConstraints, entity.Platform.MinRotationConstraints);
                     }
                 }
             }
@@ -159,4 +163,20 @@ public class MoveableSystem : ComponentSystem
         CurrentTime += Time.deltaTime;
     }
 
+    Vector3 ClampEulerRotation(Vector3 Rotation, Vector3 Max, Vector3 Min)
+    {
+        Rotation.x = ClampAngle(Rotation.x, Min.x, Max.x);
+        Rotation.y = ClampAngle(Rotation.y, Min.y, Max.y);
+        Rotation.z = ClampAngle(Rotation.z, Min.z, Max.z);
+
+        return Rotation;
+    }
+
+    float ClampAngle(float angle, float from, float to)
+    {
+        // accepts e.g. -80, 80
+        if (angle < 0f) angle = 360 + angle;
+        if (angle > 180f) return Mathf.Max(angle, 360 + from);
+        return Mathf.Min(angle, to);
+    }
 }
