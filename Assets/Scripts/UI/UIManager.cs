@@ -82,16 +82,10 @@ public class UIManager : MonoBehaviour
             if (!isPaused)
             {
                 currentMenu = CurrentMenu.HUD;
-                selectedButton.GetComponent<Animator>().SetBool("deselect", true);
-                selectedButton.GetComponent<Animator>().SetBool("selected", false);
-                selectedButton.GetComponent<Animator>().SetBool("pressed", false);
             }
             else
             {
                 currentMenu = CurrentMenu.Pause;
-                PauseStartButton.GetComponent<Animator>().SetBool("deselect", false);
-                PauseStartButton.GetComponent<Animator>().SetBool("selected", true);
-                PauseStartButton.GetComponent<Animator>().SetBool("pressed", false);
             }
             
         }
@@ -201,9 +195,13 @@ public class UIManager : MonoBehaviour
 
     void BackButtonPress()
     {
-        if(inputComp.Control("Back"))
+        if(inputComp.Control("Back") && currentMenu != CurrentMenu.Pause )
         {
             OpenPauseMenu();
+        }
+        else if(inputComp.Control("Back") && currentMenu == CurrentMenu.Pause )
+        {
+            ResumeGame();
         }
     }
 
@@ -215,7 +213,7 @@ public class UIManager : MonoBehaviour
             {
                 if (menu.Key == CurrentMenu.Options)
                 {
-                    Test();
+                    //Test();
                 }
                 menu.Value.SetActive(false);
             }
@@ -225,14 +223,5 @@ public class UIManager : MonoBehaviour
     private void OnDisable()
     {
         buttonSelected = false;
-    }
-
-    public void Test()
-    {
-        var a = OptionsCanvas.GetComponentsInChildren<TMPro.TMP_Dropdown>();
-        foreach( var x in a )
-        {
-            x.Hide();
-        }
     }
 }

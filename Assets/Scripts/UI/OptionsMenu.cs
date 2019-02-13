@@ -92,4 +92,15 @@ public class OptionsMenu : MonoBehaviour
         // Set master volume
         //SoundEngine.SetRTPCValue("MasterVolume", value);
     }
+
+    private void OnDisable()
+    {
+        var a = resolutionDropdown.transform.GetChild(3);
+        if (a != null)
+            Destroy(a.gameObject);
+        a = null;
+        a = qualityDropdown.transform.GetChild(3);
+        if (a != null)
+            Destroy(a.gameObject);
+    }
 }
