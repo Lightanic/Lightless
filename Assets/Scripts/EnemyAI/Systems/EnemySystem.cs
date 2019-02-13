@@ -188,6 +188,10 @@ public class EnemySystem : ComponentSystem
                     return EnemyState.Patrol;
 
             case EnemyState.Alert:
+                //Vector3 targetDir = player.PlayerTransform.position - enemyComponent.transform.position;
+                //targetDir.y = 0.0f;
+                //enemyComponent.transform.rotation = Quaternion.RotateTowards(enemyComponent.transform.rotation, Quaternion.LookRotation(targetDir), Time.deltaTime);
+                enemyComponent.transform.LookAt(player.PlayerTransform);
                 if (distanceToLight > seekComponent.AlertRadius && distanceToPlayer > seekComponent.VisionRadius)
                     return EnemyState.Patrol;
                 else if ((distanceToLight < seekComponent.VisionRadius && lightComponent.LightIsOn) || distanceToPlayer < seekComponent.NightVisionRadius)

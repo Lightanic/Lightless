@@ -29,4 +29,6 @@ public class EnemyComponent : MonoBehaviour
     public float WaitTime = 2;
     public float LungeTime = 1;
     public float AttackTime = 0;
+
+
 }
