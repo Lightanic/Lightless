@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class EnemyComponent : MonoBehaviour
 {
@@ -30,5 +31,12 @@ public class EnemyComponent : MonoBehaviour
     public float LungeTime = 1;
     public float AttackTime = 0;
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "Player" && !GetComponent<EnemyDeathComponent>().EnemyIsDead)
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
+    }
 
 }
