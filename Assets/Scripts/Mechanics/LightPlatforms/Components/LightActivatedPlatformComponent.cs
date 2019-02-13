@@ -11,6 +11,7 @@ public class LightActivatedPlatformComponent : MonoBehaviour
     public bool     IsRetracting = false;
     public float    CurrentTime = 0F;
     public bool     HasActivated = false;
+    public float    FillValue = 0F;
 
     [Header("Options")]
     public Vector3  ActivatedPosition;

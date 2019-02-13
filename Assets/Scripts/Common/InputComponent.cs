@@ -12,8 +12,6 @@ public class InputComponent : MonoBehaviour {
     public XGamepad Gamepad;    // = new XGamepad(index);
     public bool EnablePlayerMovement = true;
 
-    public GameObject Pause;
-    PauseMenu pauseMenu = null;
 
     private void Start()
     {
@@ -28,24 +26,10 @@ public class InputComponent : MonoBehaviour {
         }
         GamepadIndex = (int)PlayerNumber;
         Gamepad = new XGamepad(GamepadIndex);
-        pauseMenu = Pause.GetComponent<PauseMenu>();
     }
 
     private void Update()
     {
-        if (Gamepad.GetButtonDown("Back"))
-        {
-            if (PauseMenu.isPaused)
-            {
-                if (pauseMenu != null)
-                    pauseMenu.Resume();
-            }
-            else
-            {
-                if(pauseMenu != null)
-                    pauseMenu.Pause();
-            }
-        }
     }
 
     /// <summary>
@@ -401,9 +385,9 @@ public class InputComponent : MonoBehaviour {
                 var e = Input.GetAxis("Mouse ScrollWheel");
                 if (e < 0) statusKb = true;
                 break;
-            case "Dodge":
+            case "Accept":
                 statusGamepad = this.Gamepad.GetButtonDown("A");
-                statusKb = Input.GetKeyDown(KeyCode.Space);
+                statusKb = Input.GetKeyDown(KeyCode.Return);
                 break;
             case "Sprint":
                 statusGamepad = this.Gamepad.GetTriggerRight != 0 ;
@@ -434,8 +418,12 @@ public class InputComponent : MonoBehaviour {
                 statusKb = Input.GetKeyDown(KeyCode.E);
                 break;
             case "Back":
-                statusGamepad = this.Gamepad.GetButton("B");
-                statusKb = Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.Escape);
+                statusGamepad = this.Gamepad.GetButtonDown("B");
+                statusKb = Input.GetKeyDown(KeyCode.E);
+                break;
+            case "Escape":
+                statusGamepad = this.Gamepad.GetButtonDown("Back");
+                statusKb = Input.GetKeyDown(KeyCode.Escape);
                 break;
             default:
                 statusGamepad = false;

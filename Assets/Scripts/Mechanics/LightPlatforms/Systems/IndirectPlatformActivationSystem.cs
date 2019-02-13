@@ -114,16 +114,17 @@ public class IndirectPlatformActivationSystem : ComponentSystem
 
         if (!platform.IsActivated)
         {
-            var uv = ShaderHelper.ApplyHitTexCoord(hit);
-           // ShaderHelper.SetHitTexCoord(uv, platformObject.GetComponent<Renderer>().material);
-            ShaderHelper.SetFillValue(platformObject.GetComponent<Renderer>().material, activationTime.CurrentTime / activationTime.TimeThreshold);
-            ShaderHelper.SetFillValue(hit.collider.GetComponent<Renderer>().material, activationTime.CurrentTime / activationTime.TimeThreshold);
+            var fillValue = activationTime.CurrentTime / activationTime.TimeThreshold;
+            platform.FillValue = fillValue * fillValue;
+            ShaderHelper.SetFillValue(platformObject.GetComponent<Renderer>().material, fillValue * fillValue);
+            ShaderHelper.SetFillValue(hit.collider.GetComponent<Renderer>().material, fillValue * fillValue);
             if (activationTime.CurrentTime < activationTime.TimeThreshold)
             {
                 activationTime.CurrentTime += Time.deltaTime;
             }
             else
             {
+                platform.FillValue = 1F;
                 ShaderHelper.SetFillValue(platformObject.GetComponent<Renderer>().material, 1F);
                 ShaderHelper.SetFillValue(hit.collider.GetComponent<Renderer>().material, 1F);
                 platform.IsActivated = true;
@@ -133,6 +134,7 @@ public class IndirectPlatformActivationSystem : ComponentSystem
         }
         else
         {
+            platform.FillValue = 1F;
             ShaderHelper.SetFillValue(platformObject.GetComponent<Renderer>().material, 1F);
             ShaderHelper.SetFillValue(hit.collider.GetComponent<Renderer>().material, 1F);
             platform.CurrentTime = 0F;
