@@ -126,6 +126,12 @@ public class RefractorComponent : MonoBehaviour
                 instance.GetComponent<RefractorComponent>().IsRefracted = true;
                 instance.GetComponent<RefractorComponent>().MainRefractorInstance = MainRefractorInstance;
                 instance.GetComponent<RefractorComponent>().PreviousCollider = collider;
+
+                var reflectionColor = collider.GetComponent<BeamLight>();
+                if (reflectionColor != null)
+                {
+                    instance.GetComponent<Light>().color = reflectionColor.LightColor;
+                }
             }
         }
         else
