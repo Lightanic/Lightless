@@ -15,8 +15,6 @@ public class OptionsMenu : MonoBehaviour
     [SerializeField]
     TMPro.TMP_Dropdown qualityDropdown;
 
-    [Header("Event System")]
-    [SerializeField]
     EventSystem eventSystem;
 
     [Header(" Options menu first selected")]
@@ -30,6 +28,7 @@ public class OptionsMenu : MonoBehaviour
 
     private void Start()
     {
+        eventSystem = EventSystem.current;
         inputComp = GameObject.Find("Player").GetComponent<InputComponent>();
 
         resolutions = Screen.resolutions;
