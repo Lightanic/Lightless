@@ -84,6 +84,12 @@ public class PlatformActivatorComponent : MonoBehaviour
                     LightInstance.GetComponent<PlatformActivatorComponent>().MainInstance = MainInstance;
                     LightInstance.GetComponent<PlatformActivatorComponent>().CurrentChainCount = CurrentChainCount + 1;
                     LightInstance.GetComponent<PlatformActivatorComponent>().PreviousCollider = hit.collider;
+
+                    var reflectionColor = hit.collider.GetComponent<BeamLight>();
+                    if (reflectionColor != null)
+                    {
+                        LightInstance.GetComponent<Light>().color = reflectionColor.LightColor;
+                    }
                 }
                 else if (LightInstance != null)
                 {
