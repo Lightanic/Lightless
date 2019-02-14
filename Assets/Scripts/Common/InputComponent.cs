@@ -418,7 +418,7 @@ public class InputComponent : MonoBehaviour {
                 statusKb = Input.GetKeyDown(KeyCode.E);
                 break;
             case "Back":
-                statusGamepad = this.Gamepad.GetButton("B");
+                statusGamepad = this.Gamepad.GetButtonDown("B");
                 statusKb = Input.GetKeyDown(KeyCode.E);
                 break;
             case "Escape":
