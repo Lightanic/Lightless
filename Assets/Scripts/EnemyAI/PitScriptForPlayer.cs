@@ -9,16 +9,20 @@ public class PitScriptForPlayer : MonoBehaviour //this script detects enemy and 
 {
     //public GameObject enemy;
     //bool isDead = false;
-
+    GameObject gameManager;
     public CheckpointManager CheckpointManager;
+    private void Start()
+    {
+        gameManager = GameObject.Find("GameManager");
+    }
 
- 
     private void OnTriggerExit(Collider other)
     {
         if (other.gameObject.name == "Player")
         {
-            //CheckpointManager.GoToLatestCheckpoint();
-           SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            Camera.main.gameObject.GetComponent<CameraShake>().enabled = true;
+            Camera.main.gameObject.GetComponent<CameraShake>().shakeDuration = 0.5f;
+            gameManager.GetComponent<GameManager>().StartDeath();
         }
     }
 }

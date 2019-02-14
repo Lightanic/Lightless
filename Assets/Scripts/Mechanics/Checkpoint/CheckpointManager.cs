@@ -159,7 +159,7 @@ public class CheckpointManager : MonoBehaviour
     void PickupItem(string pickupName)
     {
         var item = GameObject.Find(pickupName);
-        if(leftHandComponent == pickupName)
+        if(leftHandComponent == pickupName && item != null)
         {
             var pickup = item.GetComponent<Pickup>();
             pickup.IsInteracting = true;
