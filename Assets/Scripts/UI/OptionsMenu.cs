@@ -15,8 +15,6 @@ public class OptionsMenu : MonoBehaviour
     [SerializeField]
     TMPro.TMP_Dropdown qualityDropdown;
 
-    [Header("Event System")]
-    [SerializeField]
     EventSystem eventSystem;
 
     [Header(" Options menu first selected")]
@@ -30,6 +28,7 @@ public class OptionsMenu : MonoBehaviour
 
     private void Start()
     {
+        eventSystem = EventSystem.current;
         inputComp = GameObject.Find("Player").GetComponent<InputComponent>();
 
         resolutions = Screen.resolutions;
@@ -58,10 +57,11 @@ public class OptionsMenu : MonoBehaviour
     private void OnEnable()
     {
         EventSystem.current.SetSelectedGameObject(selectedObjectDefault);
-        //eventSystem.SetSelectedGameObject(selectedObjectDefault);
+        Destroy(GameObject.Find("Blocker"));
     }
     private void Update()
     {
+        Debug.Log(EventSystem.current.currentSelectedGameObject);
         if (EventSystem.current.currentSelectedGameObject == null)
         {
             EventSystem.current.SetSelectedGameObject(selectedObjectDefault);
@@ -95,12 +95,21 @@ public class OptionsMenu : MonoBehaviour
 
     private void OnDisable()
     {
-        var a = resolutionDropdown.transform.GetChild(3);
-        if (a != null)
-            Destroy(a.gameObject);
-        a = null;
-        a = qualityDropdown.transform.GetChild(3);
-        if (a != null)
-            Destroy(a.gameObject);
+        qualityDropdown.onValueChanged.RemoveAllListeners();
+        eventSystem.UpdateModules();
+        if (resolutionDropdown.transform.childCount > 3)
+        {
+            var a = resolutionDropdown.transform.GetChild(3);
+            if (a != null)
+                Destroy(a.gameObject);
+        }
+        if (qualityDropdown.transform.childCount > 3)
+        {
+            var a = qualityDropdown.transform.GetChild(3);
+            if (a != null)
+                Destroy(a.gameObject);
+        }
+        Destroy(GameObject.Find("Blocker"));
+        buttonSelected = false;
     }
 }
