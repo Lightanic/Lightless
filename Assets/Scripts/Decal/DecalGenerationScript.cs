@@ -8,6 +8,7 @@ public class DecalGenerationScript : MonoBehaviour
     public GameObject DecalPrefab;
 
     private GameObject previousInstance = null;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -20,12 +21,12 @@ public class DecalGenerationScript : MonoBehaviour
         Quaternion quaternion = Quaternion.Euler(90F, transform.eulerAngles.y, transform.eulerAngles.z);
         if (previousInstance == null)
         {
-            previousInstance = Instantiate(DecalPrefab, transform.position, quaternion);
+            previousInstance = PrefabPool.Spawn(DecalPrefab, transform.position, quaternion);
         }
 
         if (Vector3.Distance(previousInstance.transform.position, transform.position) > 1F)
         {
-            previousInstance = Instantiate(DecalPrefab, transform.position, quaternion);
+            previousInstance = PrefabPool.Spawn(DecalPrefab, transform.position, quaternion);
         }
     }
 }

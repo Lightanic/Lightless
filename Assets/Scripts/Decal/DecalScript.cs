@@ -4,13 +4,26 @@ using UnityEngine;
 
 public class DecalScript : MonoBehaviour
 {
+    public float TotalTimeAlive = 2F;
+    public float CurrentTime = 0F;
     // Start is called before the first frame update
     void Start()
     {
 
     }
 
-   void Awake()
+    private void OnEnable()
+    {
+        CurrentTime = 0F;
+        Reposition();
+    }
+
+    void Awake()
+    {
+
+    }
+
+    void Reposition()
     {
         Ray ray = new Ray(transform.position, transform.forward);
         RaycastHit hit;
@@ -18,7 +31,7 @@ public class DecalScript : MonoBehaviour
         {
             if (hit.collider.CompareTag("Terrain"))
             {
-                transform.position = hit.point - transform.forward * 0.01F;
+                transform.position = hit.point - transform.forward * 0.1F;
             }
         }
     }
@@ -26,6 +39,5 @@ public class DecalScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
     }
 }
