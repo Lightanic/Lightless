@@ -1796,6 +1796,38 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 631629143}
   m_PrefabAsset: {fileID: 0}
+--- !u!84 &45523549
+RenderTexture:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_ImageContentsHash:
+    serializedVersion: 2
+    Hash: 00000000000000000000000000000000
+  m_ForcedFallbackFormat: 4
+  m_DownscaleFallback: 0
+  m_Width: 1920
+  m_Height: 1080
+  m_AntiAliasing: 1
+  m_DepthFormat: 1
+  m_ColorFormat: 7
+  m_MipMap: 0
+  m_GenerateMips: 1
+  m_SRGB: 1
+  m_UseDynamicScale: 0
+  m_BindMS: 0
+  m_TextureSettings:
+    serializedVersion: 2
+    m_FilterMode: 1
+    m_Aniso: 1
+    m_MipBias: 0
+    m_WrapU: 1
+    m_WrapV: 1
+    m_WrapW: 1
+  m_Dimension: 2
+  m_VolumeDepth: 1
 --- !u!1001 &49443552
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1803,14 +1835,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 995892018}
     m_Modifications:
-    - target: {fileID: 1798769013547208, guid: c79cc9f04a1e986488b820d5c11b9e34, type: 3}
-      propertyPath: m_TagString
-      value: LightActivatedPlatform
-      objectReference: {fileID: 0}
-    - target: {fileID: 1798769013547208, guid: c79cc9f04a1e986488b820d5c11b9e34, type: 3}
-      propertyPath: m_Name
-      value: DoorWall(9)
-      objectReference: {fileID: 0}
     - target: {fileID: 4631826217963846, guid: c79cc9f04a1e986488b820d5c11b9e34, type: 3}
       propertyPath: m_LocalPosition.x
       value: -88.91998
@@ -1859,6 +1883,24 @@ PrefabInstance:
       propertyPath: m_LocalScale.y
       value: 751.8235
       objectReference: {fileID: 0}
+    - target: {fileID: 1798769013547208, guid: c79cc9f04a1e986488b820d5c11b9e34, type: 3}
+      propertyPath: m_TagString
+      value: LightActivatedPlatform
+      objectReference: {fileID: 0}
+    - target: {fileID: 1798769013547208, guid: c79cc9f04a1e986488b820d5c11b9e34, type: 3}
+      propertyPath: m_Name
+      value: DoorWall(9)
+      objectReference: {fileID: 0}
+    - target: {fileID: 33291613498944494, guid: c79cc9f04a1e986488b820d5c11b9e34,
+        type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 4300000, guid: 036f1258e68373b45bdf8ee449cea1de, type: 3}
+    - target: {fileID: 114379713592009898, guid: c79cc9f04a1e986488b820d5c11b9e34,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 114036489736368570, guid: c79cc9f04a1e986488b820d5c11b9e34,
         type: 3}
       propertyPath: ActivatedPosition.x
@@ -1874,9 +1916,8 @@ PrefabInstance:
       propertyPath: ActivatedPosition.z
       value: 48.68
       objectReference: {fileID: 0}
-    - target: {fileID: 65297934483160484, guid: c79cc9f04a1e986488b820d5c11b9e34,
-        type: 3}
-      propertyPath: m_Enabled
+    - target: {fileID: 1922267337505028, guid: c79cc9f04a1e986488b820d5c11b9e34, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 114249650504273230, guid: c79cc9f04a1e986488b820d5c11b9e34,
@@ -1884,18 +1925,9 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 114379713592009898, guid: c79cc9f04a1e986488b820d5c11b9e34,
+    - target: {fileID: 65297934483160484, guid: c79cc9f04a1e986488b820d5c11b9e34,
         type: 3}
       propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 33291613498944494, guid: c79cc9f04a1e986488b820d5c11b9e34,
-        type: 3}
-      propertyPath: m_Mesh
-      value: 
-      objectReference: {fileID: 4300000, guid: 036f1258e68373b45bdf8ee449cea1de, type: 3}
-    - target: {fileID: 1922267337505028, guid: c79cc9f04a1e986488b820d5c11b9e34, type: 3}
-      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -2075,6 +2107,12 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4804315873042888, guid: 1a463cc66cb05c546b993bc374951301,
     type: 3}
   m_PrefabInstance: {fileID: 51859586}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &55560024 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1979154032848152370, guid: 3081ab9490e87344fb6992f8051757b9,
+    type: 3}
+  m_PrefabInstance: {fileID: 1979154031335096859}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &56681223
 PrefabInstance:
@@ -8910,38 +8948,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1173023009}
   m_PrefabAsset: {fileID: 0}
---- !u!84 &262825811
-RenderTexture:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: 
-  m_ImageContentsHash:
-    serializedVersion: 2
-    Hash: 00000000000000000000000000000000
-  m_ForcedFallbackFormat: 4
-  m_DownscaleFallback: 0
-  m_Width: 1920
-  m_Height: 1080
-  m_AntiAliasing: 1
-  m_DepthFormat: 1
-  m_ColorFormat: 7
-  m_MipMap: 0
-  m_GenerateMips: 1
-  m_SRGB: 1
-  m_UseDynamicScale: 0
-  m_BindMS: 0
-  m_TextureSettings:
-    serializedVersion: 2
-    m_FilterMode: 1
-    m_Aniso: 1
-    m_MipBias: 0
-    m_WrapU: 1
-    m_WrapV: 1
-    m_WrapW: 1
-  m_Dimension: 2
-  m_VolumeDepth: 1
 --- !u!1001 &263840973
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9344,14 +9350,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 995892018}
     m_Modifications:
-    - target: {fileID: 1798769013547208, guid: c79cc9f04a1e986488b820d5c11b9e34, type: 3}
-      propertyPath: m_Name
-      value: LightPlatform (7)
-      objectReference: {fileID: 0}
-    - target: {fileID: 1798769013547208, guid: c79cc9f04a1e986488b820d5c11b9e34, type: 3}
-      propertyPath: m_TagString
-      value: LightActivatedPlatform
-      objectReference: {fileID: 0}
     - target: {fileID: 4631826217963846, guid: c79cc9f04a1e986488b820d5c11b9e34, type: 3}
       propertyPath: m_LocalPosition.x
       value: 305.38
@@ -9404,6 +9402,24 @@ PrefabInstance:
       propertyPath: m_LocalScale.y
       value: 891.13086
       objectReference: {fileID: 0}
+    - target: {fileID: 1798769013547208, guid: c79cc9f04a1e986488b820d5c11b9e34, type: 3}
+      propertyPath: m_Name
+      value: LightPlatform (7)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1798769013547208, guid: c79cc9f04a1e986488b820d5c11b9e34, type: 3}
+      propertyPath: m_TagString
+      value: LightActivatedPlatform
+      objectReference: {fileID: 0}
+    - target: {fileID: 114379713592009898, guid: c79cc9f04a1e986488b820d5c11b9e34,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114379713592009898, guid: c79cc9f04a1e986488b820d5c11b9e34,
+        type: 3}
+      propertyPath: SpeedFactor
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 114036489736368570, guid: c79cc9f04a1e986488b820d5c11b9e34,
         type: 3}
       propertyPath: StartPosition.x
@@ -9448,16 +9464,6 @@ PrefabInstance:
         type: 3}
       propertyPath: ActivationTime
       value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 114379713592009898, guid: c79cc9f04a1e986488b820d5c11b9e34,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114379713592009898, guid: c79cc9f04a1e986488b820d5c11b9e34,
-        type: 3}
-      propertyPath: SpeedFactor
-      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c79cc9f04a1e986488b820d5c11b9e34, type: 3}
@@ -14376,18 +14382,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 995892018}
     m_Modifications:
-    - target: {fileID: 1798769013547208, guid: c79cc9f04a1e986488b820d5c11b9e34, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1798769013547208, guid: c79cc9f04a1e986488b820d5c11b9e34, type: 3}
-      propertyPath: m_TagString
-      value: LightActivatedPlatform
-      objectReference: {fileID: 0}
-    - target: {fileID: 1798769013547208, guid: c79cc9f04a1e986488b820d5c11b9e34, type: 3}
-      propertyPath: m_Name
-      value: DoorWall(0)
-      objectReference: {fileID: 0}
     - target: {fileID: 4631826217963846, guid: c79cc9f04a1e986488b820d5c11b9e34, type: 3}
       propertyPath: m_LocalPosition.x
       value: -463.38998
@@ -14436,6 +14430,33 @@ PrefabInstance:
       propertyPath: m_LocalScale.y
       value: 781.44226
       objectReference: {fileID: 0}
+    - target: {fileID: 1798769013547208, guid: c79cc9f04a1e986488b820d5c11b9e34, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1798769013547208, guid: c79cc9f04a1e986488b820d5c11b9e34, type: 3}
+      propertyPath: m_TagString
+      value: LightActivatedPlatform
+      objectReference: {fileID: 0}
+    - target: {fileID: 1798769013547208, guid: c79cc9f04a1e986488b820d5c11b9e34, type: 3}
+      propertyPath: m_Name
+      value: DoorWall(0)
+      objectReference: {fileID: 0}
+    - target: {fileID: 33291613498944494, guid: c79cc9f04a1e986488b820d5c11b9e34,
+        type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 4300000, guid: 036f1258e68373b45bdf8ee449cea1de, type: 3}
+    - target: {fileID: 114379713592009898, guid: c79cc9f04a1e986488b820d5c11b9e34,
+        type: 3}
+      propertyPath: GlowColor
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114379713592009898, guid: c79cc9f04a1e986488b820d5c11b9e34,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 114036489736368570, guid: c79cc9f04a1e986488b820d5c11b9e34,
         type: 3}
       propertyPath: StartPosition.x
@@ -14471,21 +14492,6 @@ PrefabInstance:
       propertyPath: ActivatedPosition.y
       value: 4.49
       objectReference: {fileID: 0}
-    - target: {fileID: 114379713592009898, guid: c79cc9f04a1e986488b820d5c11b9e34,
-        type: 3}
-      propertyPath: GlowColor
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114379713592009898, guid: c79cc9f04a1e986488b820d5c11b9e34,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 33291613498944494, guid: c79cc9f04a1e986488b820d5c11b9e34,
-        type: 3}
-      propertyPath: m_Mesh
-      value: 
-      objectReference: {fileID: 4300000, guid: 036f1258e68373b45bdf8ee449cea1de, type: 3}
     - target: {fileID: 1922267337505028, guid: c79cc9f04a1e986488b820d5c11b9e34, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -15453,14 +15459,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 995892018}
     m_Modifications:
-    - target: {fileID: 1798769013547208, guid: c79cc9f04a1e986488b820d5c11b9e34, type: 3}
-      propertyPath: m_Name
-      value: DoorWall(10)
-      objectReference: {fileID: 0}
-    - target: {fileID: 1798769013547208, guid: c79cc9f04a1e986488b820d5c11b9e34, type: 3}
-      propertyPath: m_TagString
-      value: LightActivatedPlatform
-      objectReference: {fileID: 0}
     - target: {fileID: 4631826217963846, guid: c79cc9f04a1e986488b820d5c11b9e34, type: 3}
       propertyPath: m_LocalPosition.x
       value: -83.46
@@ -15509,6 +15507,24 @@ PrefabInstance:
       propertyPath: m_LocalScale.y
       value: 737.3509
       objectReference: {fileID: 0}
+    - target: {fileID: 1798769013547208, guid: c79cc9f04a1e986488b820d5c11b9e34, type: 3}
+      propertyPath: m_Name
+      value: DoorWall(10)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1798769013547208, guid: c79cc9f04a1e986488b820d5c11b9e34, type: 3}
+      propertyPath: m_TagString
+      value: LightActivatedPlatform
+      objectReference: {fileID: 0}
+    - target: {fileID: 33291613498944494, guid: c79cc9f04a1e986488b820d5c11b9e34,
+        type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 4300000, guid: 036f1258e68373b45bdf8ee449cea1de, type: 3}
+    - target: {fileID: 114379713592009898, guid: c79cc9f04a1e986488b820d5c11b9e34,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 114036489736368570, guid: c79cc9f04a1e986488b820d5c11b9e34,
         type: 3}
       propertyPath: ActivatedPosition.x
@@ -15524,16 +15540,6 @@ PrefabInstance:
       propertyPath: ActivatedPosition.z
       value: 30.68
       objectReference: {fileID: 0}
-    - target: {fileID: 114379713592009898, guid: c79cc9f04a1e986488b820d5c11b9e34,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 33291613498944494, guid: c79cc9f04a1e986488b820d5c11b9e34,
-        type: 3}
-      propertyPath: m_Mesh
-      value: 
-      objectReference: {fileID: 4300000, guid: 036f1258e68373b45bdf8ee449cea1de, type: 3}
     - target: {fileID: 1922267337505028, guid: c79cc9f04a1e986488b820d5c11b9e34, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -19061,14 +19067,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 995892018}
     m_Modifications:
-    - target: {fileID: 1798769013547208, guid: c79cc9f04a1e986488b820d5c11b9e34, type: 3}
-      propertyPath: m_Name
-      value: DoorWall(2)
-      objectReference: {fileID: 0}
-    - target: {fileID: 1798769013547208, guid: c79cc9f04a1e986488b820d5c11b9e34, type: 3}
-      propertyPath: m_TagString
-      value: LightActivatedPlatform
-      objectReference: {fileID: 0}
     - target: {fileID: 4631826217963846, guid: c79cc9f04a1e986488b820d5c11b9e34, type: 3}
       propertyPath: m_LocalPosition.x
       value: -324
@@ -19117,6 +19115,24 @@ PrefabInstance:
       propertyPath: m_LocalScale.y
       value: 476.91003
       objectReference: {fileID: 0}
+    - target: {fileID: 1798769013547208, guid: c79cc9f04a1e986488b820d5c11b9e34, type: 3}
+      propertyPath: m_Name
+      value: DoorWall(2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1798769013547208, guid: c79cc9f04a1e986488b820d5c11b9e34, type: 3}
+      propertyPath: m_TagString
+      value: LightActivatedPlatform
+      objectReference: {fileID: 0}
+    - target: {fileID: 33291613498944494, guid: c79cc9f04a1e986488b820d5c11b9e34,
+        type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 4300000, guid: 036f1258e68373b45bdf8ee449cea1de, type: 3}
+    - target: {fileID: 114379713592009898, guid: c79cc9f04a1e986488b820d5c11b9e34,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 114036489736368570, guid: c79cc9f04a1e986488b820d5c11b9e34,
         type: 3}
       propertyPath: StartPosition.x
@@ -19147,16 +19163,6 @@ PrefabInstance:
       propertyPath: ActivatedPosition.z
       value: 22.94
       objectReference: {fileID: 0}
-    - target: {fileID: 114379713592009898, guid: c79cc9f04a1e986488b820d5c11b9e34,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 33291613498944494, guid: c79cc9f04a1e986488b820d5c11b9e34,
-        type: 3}
-      propertyPath: m_Mesh
-      value: 
-      objectReference: {fileID: 4300000, guid: 036f1258e68373b45bdf8ee449cea1de, type: 3}
     - target: {fileID: 1922267337505028, guid: c79cc9f04a1e986488b820d5c11b9e34, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -19496,14 +19502,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 995892018}
     m_Modifications:
-    - target: {fileID: 1798769013547208, guid: c79cc9f04a1e986488b820d5c11b9e34, type: 3}
-      propertyPath: m_Name
-      value: DoorWall (2)
-      objectReference: {fileID: 0}
-    - target: {fileID: 1798769013547208, guid: c79cc9f04a1e986488b820d5c11b9e34, type: 3}
-      propertyPath: m_TagString
-      value: LightActivatedPlatform
-      objectReference: {fileID: 0}
     - target: {fileID: 4631826217963846, guid: c79cc9f04a1e986488b820d5c11b9e34, type: 3}
       propertyPath: m_LocalPosition.x
       value: -324
@@ -19552,6 +19550,24 @@ PrefabInstance:
       propertyPath: m_LocalScale.y
       value: 476.91003
       objectReference: {fileID: 0}
+    - target: {fileID: 1798769013547208, guid: c79cc9f04a1e986488b820d5c11b9e34, type: 3}
+      propertyPath: m_Name
+      value: DoorWall (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1798769013547208, guid: c79cc9f04a1e986488b820d5c11b9e34, type: 3}
+      propertyPath: m_TagString
+      value: LightActivatedPlatform
+      objectReference: {fileID: 0}
+    - target: {fileID: 33291613498944494, guid: c79cc9f04a1e986488b820d5c11b9e34,
+        type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 4300000, guid: 036f1258e68373b45bdf8ee449cea1de, type: 3}
+    - target: {fileID: 114379713592009898, guid: c79cc9f04a1e986488b820d5c11b9e34,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 114036489736368570, guid: c79cc9f04a1e986488b820d5c11b9e34,
         type: 3}
       propertyPath: StartPosition.x
@@ -19582,16 +19598,6 @@ PrefabInstance:
       propertyPath: ActivatedPosition.z
       value: -1.44
       objectReference: {fileID: 0}
-    - target: {fileID: 114379713592009898, guid: c79cc9f04a1e986488b820d5c11b9e34,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 33291613498944494, guid: c79cc9f04a1e986488b820d5c11b9e34,
-        type: 3}
-      propertyPath: m_Mesh
-      value: 
-      objectReference: {fileID: 4300000, guid: 036f1258e68373b45bdf8ee449cea1de, type: 3}
     - target: {fileID: 1922267337505028, guid: c79cc9f04a1e986488b820d5c11b9e34, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -25738,6 +25744,38 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5727cd80cc5403d4082eefddf27e4a71, type: 3}
+--- !u!84 &697268065
+RenderTexture:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_ImageContentsHash:
+    serializedVersion: 2
+    Hash: 00000000000000000000000000000000
+  m_ForcedFallbackFormat: 4
+  m_DownscaleFallback: 0
+  m_Width: 1920
+  m_Height: 1080
+  m_AntiAliasing: 1
+  m_DepthFormat: 1
+  m_ColorFormat: 7
+  m_MipMap: 0
+  m_GenerateMips: 1
+  m_SRGB: 1
+  m_UseDynamicScale: 0
+  m_BindMS: 0
+  m_TextureSettings:
+    serializedVersion: 2
+    m_FilterMode: 1
+    m_Aniso: 1
+    m_MipBias: 0
+    m_WrapU: 1
+    m_WrapV: 1
+    m_WrapW: 1
+  m_Dimension: 2
+  m_VolumeDepth: 1
 --- !u!1001 &699342734
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -25833,6 +25871,11 @@ PrefabInstance:
       propertyPath: OptionsStartButton
       value: 
       objectReference: {fileID: 438388915}
+    - target: {fileID: 2126380862169178773, guid: 72f229e538a9e784bb83037b428a463f,
+        type: 3}
+      propertyPath: optionsStartButton
+      value: 
+      objectReference: {fileID: 55560024}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 72f229e538a9e784bb83037b428a463f, type: 3}
 --- !u!1001 &700897836
@@ -26167,14 +26210,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 995892018}
     m_Modifications:
-    - target: {fileID: 1798769013547208, guid: c79cc9f04a1e986488b820d5c11b9e34, type: 3}
-      propertyPath: m_Name
-      value: LightPlatform (5)
-      objectReference: {fileID: 0}
-    - target: {fileID: 1798769013547208, guid: c79cc9f04a1e986488b820d5c11b9e34, type: 3}
-      propertyPath: m_TagString
-      value: LightActivatedPlatform
-      objectReference: {fileID: 0}
     - target: {fileID: 4631826217963846, guid: c79cc9f04a1e986488b820d5c11b9e34, type: 3}
       propertyPath: m_LocalPosition.x
       value: -146.32
@@ -26227,6 +26262,24 @@ PrefabInstance:
       propertyPath: m_LocalScale.y
       value: 977.1479
       objectReference: {fileID: 0}
+    - target: {fileID: 1798769013547208, guid: c79cc9f04a1e986488b820d5c11b9e34, type: 3}
+      propertyPath: m_Name
+      value: LightPlatform (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1798769013547208, guid: c79cc9f04a1e986488b820d5c11b9e34, type: 3}
+      propertyPath: m_TagString
+      value: LightActivatedPlatform
+      objectReference: {fileID: 0}
+    - target: {fileID: 114379713592009898, guid: c79cc9f04a1e986488b820d5c11b9e34,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114379713592009898, guid: c79cc9f04a1e986488b820d5c11b9e34,
+        type: 3}
+      propertyPath: SpeedFactor
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 114036489736368570, guid: c79cc9f04a1e986488b820d5c11b9e34,
         type: 3}
       propertyPath: StartPosition.x
@@ -26266,16 +26319,6 @@ PrefabInstance:
         type: 3}
       propertyPath: IsActivated
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114379713592009898, guid: c79cc9f04a1e986488b820d5c11b9e34,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114379713592009898, guid: c79cc9f04a1e986488b820d5c11b9e34,
-        type: 3}
-      propertyPath: SpeedFactor
-      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c79cc9f04a1e986488b820d5c11b9e34, type: 3}
@@ -36355,9 +36398,13 @@ MonoBehaviour:
   Activator: {fileID: 128770537}
   CanMove: 0
   CanRotate: 1
+  IsSpotlight: 0
   XAxis: 0
   YAxis: 1
   ZAxis: 0
+  UseConstraints: 0
+  MaxRotationConstraints: {x: 0, y: 45, z: 0}
+  MinRotationConstraints: {x: -45, y: -45, z: 0}
 --- !u!114 &1023943323
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -37714,9 +37761,13 @@ MonoBehaviour:
   Activator: {fileID: 128770537}
   CanMove: 0
   CanRotate: 1
+  IsSpotlight: 0
   XAxis: 0
   YAxis: 1
   ZAxis: 0
+  UseConstraints: 0
+  MaxRotationConstraints: {x: 0, y: 45, z: 0}
+  MinRotationConstraints: {x: -45, y: -45, z: 0}
 --- !u!114 &1059934464
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -45234,14 +45285,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 995892018}
     m_Modifications:
-    - target: {fileID: 1798769013547208, guid: c79cc9f04a1e986488b820d5c11b9e34, type: 3}
-      propertyPath: m_Name
-      value: LightPlatform (10)
-      objectReference: {fileID: 0}
-    - target: {fileID: 1798769013547208, guid: c79cc9f04a1e986488b820d5c11b9e34, type: 3}
-      propertyPath: m_TagString
-      value: LightActivatedPlatform
-      objectReference: {fileID: 0}
     - target: {fileID: 4631826217963846, guid: c79cc9f04a1e986488b820d5c11b9e34, type: 3}
       propertyPath: m_LocalPosition.x
       value: 152.34003
@@ -45282,6 +45325,19 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 342.4971
       objectReference: {fileID: 0}
+    - target: {fileID: 1798769013547208, guid: c79cc9f04a1e986488b820d5c11b9e34, type: 3}
+      propertyPath: m_Name
+      value: LightPlatform (10)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1798769013547208, guid: c79cc9f04a1e986488b820d5c11b9e34, type: 3}
+      propertyPath: m_TagString
+      value: LightActivatedPlatform
+      objectReference: {fileID: 0}
+    - target: {fileID: 114379713592009898, guid: c79cc9f04a1e986488b820d5c11b9e34,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 114036489736368570, guid: c79cc9f04a1e986488b820d5c11b9e34,
         type: 3}
       propertyPath: ActivatedPosition.x
@@ -45311,11 +45367,6 @@ PrefabInstance:
         type: 3}
       propertyPath: StartPosition.z
       value: 10.93
-      objectReference: {fileID: 0}
-    - target: {fileID: 114379713592009898, guid: c79cc9f04a1e986488b820d5c11b9e34,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1922267337505028, guid: c79cc9f04a1e986488b820d5c11b9e34, type: 3}
       propertyPath: m_IsActive
@@ -50271,18 +50322,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 995892018}
     m_Modifications:
-    - target: {fileID: 1798769013547208, guid: c79cc9f04a1e986488b820d5c11b9e34, type: 3}
-      propertyPath: m_Name
-      value: LightPlatform (4)
-      objectReference: {fileID: 0}
-    - target: {fileID: 1798769013547208, guid: c79cc9f04a1e986488b820d5c11b9e34, type: 3}
-      propertyPath: m_TagString
-      value: LightActivatedPlatform
-      objectReference: {fileID: 0}
-    - target: {fileID: 1798769013547208, guid: c79cc9f04a1e986488b820d5c11b9e34, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 4631826217963846, guid: c79cc9f04a1e986488b820d5c11b9e34, type: 3}
       propertyPath: m_LocalPosition.x
       value: -323.86707
@@ -50327,6 +50366,23 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 180.00002
       objectReference: {fileID: 0}
+    - target: {fileID: 1798769013547208, guid: c79cc9f04a1e986488b820d5c11b9e34, type: 3}
+      propertyPath: m_Name
+      value: LightPlatform (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1798769013547208, guid: c79cc9f04a1e986488b820d5c11b9e34, type: 3}
+      propertyPath: m_TagString
+      value: LightActivatedPlatform
+      objectReference: {fileID: 0}
+    - target: {fileID: 1798769013547208, guid: c79cc9f04a1e986488b820d5c11b9e34, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114379713592009898, guid: c79cc9f04a1e986488b820d5c11b9e34,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 114036489736368570, guid: c79cc9f04a1e986488b820d5c11b9e34,
         type: 3}
       propertyPath: StartPosition.x
@@ -50356,11 +50412,6 @@ PrefabInstance:
         type: 3}
       propertyPath: ActivatedPosition.z
       value: -4
-      objectReference: {fileID: 0}
-    - target: {fileID: 114379713592009898, guid: c79cc9f04a1e986488b820d5c11b9e34,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c79cc9f04a1e986488b820d5c11b9e34, type: 3}
@@ -50396,18 +50447,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 917342334}
     m_Modifications:
-    - target: {fileID: 1064681112974580, guid: 938aeee0ec84b7c419764b013995b094, type: 3}
-      propertyPath: m_Name
-      value: Reflecter
-      objectReference: {fileID: 0}
-    - target: {fileID: 1064681112974580, guid: 938aeee0ec84b7c419764b013995b094, type: 3}
-      propertyPath: m_TagString
-      value: Reflector
-      objectReference: {fileID: 0}
-    - target: {fileID: 1064681112974580, guid: 938aeee0ec84b7c419764b013995b094, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4563790029298350, guid: 938aeee0ec84b7c419764b013995b094, type: 3}
       propertyPath: m_LocalPosition.x
       value: 211.52002
@@ -50464,6 +50503,23 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 90
       objectReference: {fileID: 0}
+    - target: {fileID: 1064681112974580, guid: 938aeee0ec84b7c419764b013995b094, type: 3}
+      propertyPath: m_Name
+      value: Reflecter
+      objectReference: {fileID: 0}
+    - target: {fileID: 1064681112974580, guid: 938aeee0ec84b7c419764b013995b094, type: 3}
+      propertyPath: m_TagString
+      value: Reflector
+      objectReference: {fileID: 0}
+    - target: {fileID: 1064681112974580, guid: 938aeee0ec84b7c419764b013995b094, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 23133326581446604, guid: 938aeee0ec84b7c419764b013995b094,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: a5a5e64a80c8ad5409f4f02b3f182edc, type: 2}
     - target: {fileID: 114241773914784722, guid: 938aeee0ec84b7c419764b013995b094,
         type: 3}
       propertyPath: Activator
@@ -50509,11 +50565,6 @@ PrefabInstance:
       propertyPath: Canvas
       value: 
       objectReference: {fileID: 1028222120}
-    - target: {fileID: 23133326581446604, guid: 938aeee0ec84b7c419764b013995b094,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: a5a5e64a80c8ad5409f4f02b3f182edc, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 938aeee0ec84b7c419764b013995b094, type: 3}
 --- !u!1001 &1413252829
@@ -51611,14 +51662,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 995892018}
     m_Modifications:
-    - target: {fileID: 1798769013547208, guid: c79cc9f04a1e986488b820d5c11b9e34, type: 3}
-      propertyPath: m_Name
-      value: LightPlatform (6)
-      objectReference: {fileID: 0}
-    - target: {fileID: 1798769013547208, guid: c79cc9f04a1e986488b820d5c11b9e34, type: 3}
-      propertyPath: m_TagString
-      value: LightActivatedPlatform
-      objectReference: {fileID: 0}
     - target: {fileID: 4631826217963846, guid: c79cc9f04a1e986488b820d5c11b9e34, type: 3}
       propertyPath: m_LocalPosition.x
       value: 255.41998
@@ -51671,6 +51714,24 @@ PrefabInstance:
       propertyPath: m_LocalScale.y
       value: 891.1296
       objectReference: {fileID: 0}
+    - target: {fileID: 1798769013547208, guid: c79cc9f04a1e986488b820d5c11b9e34, type: 3}
+      propertyPath: m_Name
+      value: LightPlatform (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1798769013547208, guid: c79cc9f04a1e986488b820d5c11b9e34, type: 3}
+      propertyPath: m_TagString
+      value: LightActivatedPlatform
+      objectReference: {fileID: 0}
+    - target: {fileID: 114379713592009898, guid: c79cc9f04a1e986488b820d5c11b9e34,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114379713592009898, guid: c79cc9f04a1e986488b820d5c11b9e34,
+        type: 3}
+      propertyPath: SpeedFactor
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 114036489736368570, guid: c79cc9f04a1e986488b820d5c11b9e34,
         type: 3}
       propertyPath: StartPosition.x
@@ -51710,16 +51771,6 @@ PrefabInstance:
         type: 3}
       propertyPath: IsActivated
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114379713592009898, guid: c79cc9f04a1e986488b820d5c11b9e34,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114379713592009898, guid: c79cc9f04a1e986488b820d5c11b9e34,
-        type: 3}
-      propertyPath: SpeedFactor
-      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114036489736368570, guid: c79cc9f04a1e986488b820d5c11b9e34, type: 3}
@@ -51766,6 +51817,7 @@ MonoBehaviour:
   IsRetracting: 0
   CurrentTime: 0.47335517
   HasActivated: 0
+  FillValue: 0
   ActivatedPosition: {x: 721.04, y: 68.48, z: 11.5}
   IsOneTimeActivation: 0
   ActivationTime: 2
@@ -52751,14 +52803,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 995892018}
     m_Modifications:
-    - target: {fileID: 1798769013547208, guid: c79cc9f04a1e986488b820d5c11b9e34, type: 3}
-      propertyPath: m_Name
-      value: LightPlatform (8)
-      objectReference: {fileID: 0}
-    - target: {fileID: 1798769013547208, guid: c79cc9f04a1e986488b820d5c11b9e34, type: 3}
-      propertyPath: m_TagString
-      value: LightActivatedPlatform
-      objectReference: {fileID: 0}
     - target: {fileID: 4631826217963846, guid: c79cc9f04a1e986488b820d5c11b9e34, type: 3}
       propertyPath: m_LocalPosition.x
       value: 349.63
@@ -52811,6 +52855,24 @@ PrefabInstance:
       propertyPath: m_LocalScale.y
       value: 891.1303
       objectReference: {fileID: 0}
+    - target: {fileID: 1798769013547208, guid: c79cc9f04a1e986488b820d5c11b9e34, type: 3}
+      propertyPath: m_Name
+      value: LightPlatform (8)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1798769013547208, guid: c79cc9f04a1e986488b820d5c11b9e34, type: 3}
+      propertyPath: m_TagString
+      value: LightActivatedPlatform
+      objectReference: {fileID: 0}
+    - target: {fileID: 114379713592009898, guid: c79cc9f04a1e986488b820d5c11b9e34,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114379713592009898, guid: c79cc9f04a1e986488b820d5c11b9e34,
+        type: 3}
+      propertyPath: SpeedFactor
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 114036489736368570, guid: c79cc9f04a1e986488b820d5c11b9e34,
         type: 3}
       propertyPath: StartPosition.x
@@ -52855,16 +52917,6 @@ PrefabInstance:
         type: 3}
       propertyPath: CurrentTime
       value: 1.6121583
-      objectReference: {fileID: 0}
-    - target: {fileID: 114379713592009898, guid: c79cc9f04a1e986488b820d5c11b9e34,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114379713592009898, guid: c79cc9f04a1e986488b820d5c11b9e34,
-        type: 3}
-      propertyPath: SpeedFactor
-      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c79cc9f04a1e986488b820d5c11b9e34, type: 3}
@@ -54754,18 +54806,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 917342334}
     m_Modifications:
-    - target: {fileID: 1064681112974580, guid: 938aeee0ec84b7c419764b013995b094, type: 3}
-      propertyPath: m_Name
-      value: Reflecter (2)
-      objectReference: {fileID: 0}
-    - target: {fileID: 1064681112974580, guid: 938aeee0ec84b7c419764b013995b094, type: 3}
-      propertyPath: m_TagString
-      value: Reflector
-      objectReference: {fileID: 0}
-    - target: {fileID: 1064681112974580, guid: 938aeee0ec84b7c419764b013995b094, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4563790029298350, guid: 938aeee0ec84b7c419764b013995b094, type: 3}
       propertyPath: m_LocalPosition.x
       value: -26.64
@@ -54817,6 +54857,18 @@ PrefabInstance:
     - target: {fileID: 4563790029298350, guid: 938aeee0ec84b7c419764b013995b094, type: 3}
       propertyPath: m_LocalScale.z
       value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1064681112974580, guid: 938aeee0ec84b7c419764b013995b094, type: 3}
+      propertyPath: m_Name
+      value: Reflecter (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1064681112974580, guid: 938aeee0ec84b7c419764b013995b094, type: 3}
+      propertyPath: m_TagString
+      value: Reflector
+      objectReference: {fileID: 0}
+    - target: {fileID: 1064681112974580, guid: 938aeee0ec84b7c419764b013995b094, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 23133326581446604, guid: 938aeee0ec84b7c419764b013995b094,
         type: 3}
@@ -55470,7 +55522,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_TargetTexture
       value: 
-      objectReference: {fileID: 2102390353}
+      objectReference: {fileID: 45523549}
     - target: {fileID: 20905619240095558, guid: afd4e6e9ad5f1604ca3a12509ba8435f,
         type: 3}
       propertyPath: m_projectionMatrixMode
@@ -62561,14 +62613,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 917342334}
     m_Modifications:
-    - target: {fileID: 1064681112974580, guid: 938aeee0ec84b7c419764b013995b094, type: 3}
-      propertyPath: m_Name
-      value: Reflector (1)
-      objectReference: {fileID: 0}
-    - target: {fileID: 1064681112974580, guid: 938aeee0ec84b7c419764b013995b094, type: 3}
-      propertyPath: m_TagString
-      value: Reflector
-      objectReference: {fileID: 0}
     - target: {fileID: 4563790029298350, guid: 938aeee0ec84b7c419764b013995b094, type: 3}
       propertyPath: m_LocalPosition.x
       value: 356.04
@@ -62625,6 +62669,19 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1064681112974580, guid: 938aeee0ec84b7c419764b013995b094, type: 3}
+      propertyPath: m_Name
+      value: Reflector (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1064681112974580, guid: 938aeee0ec84b7c419764b013995b094, type: 3}
+      propertyPath: m_TagString
+      value: Reflector
+      objectReference: {fileID: 0}
+    - target: {fileID: 23133326581446604, guid: 938aeee0ec84b7c419764b013995b094,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: a5a5e64a80c8ad5409f4f02b3f182edc, type: 2}
     - target: {fileID: 114241773914784722, guid: 938aeee0ec84b7c419764b013995b094,
         type: 3}
       propertyPath: Activator
@@ -62660,11 +62717,6 @@ PrefabInstance:
       propertyPath: Canvas
       value: 
       objectReference: {fileID: 1028222120}
-    - target: {fileID: 23133326581446604, guid: 938aeee0ec84b7c419764b013995b094,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: a5a5e64a80c8ad5409f4f02b3f182edc, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 938aeee0ec84b7c419764b013995b094, type: 3}
 --- !u!4 &1796514495 stripped
@@ -71087,14 +71139,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 995892018}
     m_Modifications:
-    - target: {fileID: 1798769013547208, guid: c79cc9f04a1e986488b820d5c11b9e34, type: 3}
-      propertyPath: m_Name
-      value: DoorWall
-      objectReference: {fileID: 0}
-    - target: {fileID: 1798769013547208, guid: c79cc9f04a1e986488b820d5c11b9e34, type: 3}
-      propertyPath: m_TagString
-      value: LightActivatedPlatform
-      objectReference: {fileID: 0}
     - target: {fileID: 4631826217963846, guid: c79cc9f04a1e986488b820d5c11b9e34, type: 3}
       propertyPath: m_LocalPosition.x
       value: -401.16
@@ -71143,6 +71187,24 @@ PrefabInstance:
       propertyPath: m_LocalScale.y
       value: 679.9261
       objectReference: {fileID: 0}
+    - target: {fileID: 1798769013547208, guid: c79cc9f04a1e986488b820d5c11b9e34, type: 3}
+      propertyPath: m_Name
+      value: DoorWall
+      objectReference: {fileID: 0}
+    - target: {fileID: 1798769013547208, guid: c79cc9f04a1e986488b820d5c11b9e34, type: 3}
+      propertyPath: m_TagString
+      value: LightActivatedPlatform
+      objectReference: {fileID: 0}
+    - target: {fileID: 33291613498944494, guid: c79cc9f04a1e986488b820d5c11b9e34,
+        type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 4300000, guid: 036f1258e68373b45bdf8ee449cea1de, type: 3}
+    - target: {fileID: 114379713592009898, guid: c79cc9f04a1e986488b820d5c11b9e34,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 114036489736368570, guid: c79cc9f04a1e986488b820d5c11b9e34,
         type: 3}
       propertyPath: StartPosition.x
@@ -71178,16 +71240,6 @@ PrefabInstance:
       propertyPath: ActivationTime
       value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 114379713592009898, guid: c79cc9f04a1e986488b820d5c11b9e34,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 33291613498944494, guid: c79cc9f04a1e986488b820d5c11b9e34,
-        type: 3}
-      propertyPath: m_Mesh
-      value: 
-      objectReference: {fileID: 4300000, guid: 036f1258e68373b45bdf8ee449cea1de, type: 3}
     - target: {fileID: 1922267337505028, guid: c79cc9f04a1e986488b820d5c11b9e34, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -72206,38 +72258,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!84 &2102390353
-RenderTexture:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: 
-  m_ImageContentsHash:
-    serializedVersion: 2
-    Hash: 00000000000000000000000000000000
-  m_ForcedFallbackFormat: 4
-  m_DownscaleFallback: 0
-  m_Width: 1920
-  m_Height: 1080
-  m_AntiAliasing: 1
-  m_DepthFormat: 1
-  m_ColorFormat: 7
-  m_MipMap: 0
-  m_GenerateMips: 1
-  m_SRGB: 1
-  m_UseDynamicScale: 0
-  m_BindMS: 0
-  m_TextureSettings:
-    serializedVersion: 2
-    m_FilterMode: 1
-    m_Aniso: 1
-    m_MipBias: 0
-    m_WrapU: 1
-    m_WrapV: 1
-    m_WrapW: 1
-  m_Dimension: 2
-  m_VolumeDepth: 1
 --- !u!1 &2103778535 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1096737871549148, guid: 5727cd80cc5403d4082eefddf27e4a71,

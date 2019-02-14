@@ -75,7 +75,6 @@ public class UIManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(EventSystem.current.currentSelectedGameObject);
         if(inputComp.Control("Escape"))
         {
             isPaused = !isPaused;
@@ -160,6 +159,7 @@ public class UIManager : MonoBehaviour
             }
             CloseInactiveMenus();
             prevMenu = currentMenu;
+            eventSystem.UpdateModules();
         }
     }
 
