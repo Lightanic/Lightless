@@ -46,7 +46,11 @@ public class SeekSystem : ComponentSystem
 
     void RunnerSeek(Seek entity, Transform target)
     {
-        entity.AgentComponent.Agent.speed = 12;
+        entity.Enemy.transform.LookAt(target);
+        if (entity.AgentComponent.Agent.isOnOffMeshLink)
+            entity.AgentComponent.Agent.speed = 4;
+        else
+            entity.AgentComponent.Agent.speed = 12;
         if (entity.SeekComponent.Target.gameObject.CompareTag("Flashlight"))
         {
             if (entity.AgentComponent.Agent.enabled)
@@ -61,11 +65,12 @@ public class SeekSystem : ComponentSystem
 
     void LungerSeek(Seek entity, Transform target)
     {
+        entity.Enemy.transform.LookAt(target);
         entity.AgentComponent.Agent.speed = 12;
         entity.Enemy.transform.LookAt(target);
         if (entity.SeekComponent.Target.CompareTag("Player"))
         {
-           entity.AgentComponent.Agent.SetDestination(target.position);
+            entity.AgentComponent.Agent.SetDestination(target.position);
 
             if (entity.Enemy.State == EnemyState.Lunge)
             {
@@ -77,7 +82,7 @@ public class SeekSystem : ComponentSystem
             {
                 entity.AgentComponent.Agent.speed = 0;
             }
-            
+
         }
         else
         {
@@ -86,13 +91,14 @@ public class SeekSystem : ComponentSystem
                 if (entity.AgentComponent.Agent.enabled)
                     entity.AgentComponent.Agent.SetDestination(target.position + target.forward * 8);
             }
-            else 
+            else
                 entity.AgentComponent.Agent.SetDestination(target.position);
         }
     }
 
     void StunnerSeek(Seek entity, Transform target)
     {
+        entity.Enemy.transform.LookAt(target);
         entity.AgentComponent.Agent.speed = 12;
         entity.AgentComponent.Agent.SetDestination(target.position);
         //if (entity.Enemy.GetComponent<EnemyStunComponent>().IsStunned)
@@ -117,11 +123,11 @@ public class SeekSystem : ComponentSystem
         //    entity.AgentComponent.Agent.SetDestination(target.position);
         //    if (entity.AgentComponent.Agent.remainingDistance < 9)
         //    {
-                
+
         //        entity.Enemy.State = EnemyState.Stun;
         //        entity.AgentComponent.Agent.speed = 0;
         //    }
-            
+
         //}
         //else
         //{

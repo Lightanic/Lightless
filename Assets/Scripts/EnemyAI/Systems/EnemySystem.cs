@@ -55,7 +55,7 @@ public class EnemySystem : ComponentSystem
             {
                 //enemy.Transform.LookAt(player.PlayerTransform);
                 enemy.AgentComponent.Agent.enabled = false;
-                enemy.Transform.GetComponent<Rigidbody>().AddForce(enemy.Transform.forward * 500);
+                enemy.Transform.GetComponent<Rigidbody>().AddForce(enemy.Transform.forward * 300);
             }
 
 
@@ -178,6 +178,7 @@ public class EnemySystem : ComponentSystem
     EnemyState EvaluateState(EnemyState currentState, EnemyComponent enemyComponent, SeekComponent seekComponent,
         float distanceToLight, float distanceToPlayer, LightComponent lightComponent, PlayerData player, NavAgentComponent agent)
     {
+        enemyComponent.GetComponent<Rigidbody>().isKinematic = false;
         switch (currentState)
         {
 
@@ -188,10 +189,13 @@ public class EnemySystem : ComponentSystem
                     return EnemyState.Patrol;
 
             case EnemyState.Alert:
-                //Vector3 targetDir = player.PlayerTransform.position - enemyComponent.transform.position;
-                //targetDir.y = 0.0f;
-                //enemyComponent.transform.rotation = Quaternion.RotateTowards(enemyComponent.transform.rotation, Quaternion.LookRotation(targetDir), Time.deltaTime);
-                enemyComponent.transform.LookAt(player.PlayerTransform);
+                Vector3 targetDir = player.PlayerTransform.position - enemyComponent.transform.position;
+                targetDir.y = enemyComponent.transform.position.y;
+                enemyComponent.transform.rotation = Quaternion.Slerp(enemyComponent.transform.rotation,Quaternion.LookRotation(targetDir), Time.deltaTime); //Quaternion.RotateTowards(enemyComponent.transform.rotation, Quaternion.LookRotation(targetDir), Time.deltaTime);
+                //enemyComponent.transform.LookAt(player.PlayerTransform);
+                agent.Agent.speed = 0;
+                enemyComponent.GetComponent<Rigidbody>().isKinematic = true;
+                //agent.Agent.SetDestination(enemyComponent.transform.position);
                 if (distanceToLight > seekComponent.AlertRadius && distanceToPlayer > seekComponent.VisionRadius)
                     return EnemyState.Patrol;
                 else if ((distanceToLight < seekComponent.VisionRadius && lightComponent.LightIsOn) || distanceToPlayer < seekComponent.NightVisionRadius)
