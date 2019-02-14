@@ -6,4 +6,5 @@ public class FootprintComponent : MonoBehaviour
 {
     public GameObject DecalPrefab;
     public List<GameObject> Instances;// = new Queue<GameObject>();
+    public int MaxFootprintCount = 10;
 }

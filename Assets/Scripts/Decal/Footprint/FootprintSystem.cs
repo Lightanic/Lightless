@@ -19,6 +19,7 @@ public class FootprintSystem : ComponentSystem
 
     protected override void OnUpdate()
     {
+        var light = GameObject.FindGameObjectWithTag("Lantern").GetComponent<LightComponent>();
         foreach (var entity in GetEntities<FootprintGenGroup>())
         {
             Quaternion quaternion = Quaternion.Euler(90F, entity.Transform.eulerAngles.y, entity.Transform.eulerAngles.z);
@@ -38,17 +39,28 @@ public class FootprintSystem : ComponentSystem
             indices.Clear();
             int index = 0;
             var instances = entity.Decal.Instances.ToArray();
-            foreach(var instance in instances)
+            foreach (var instance in instances)
             {
                 var decal = instance.GetComponent<DecalScript>();
                 decal.CurrentTime += Time.deltaTime;
-                if(decal.CurrentTime>decal.TotalTimeAlive)
+                if (decal.CurrentTime > decal.TotalTimeAlive || (instances.Length - index) > entity.Decal.MaxFootprintCount) 
                 {
                     indices.Add(index);
                 }
+
+                if (light.LightIsOn)
+                {
+                    decal.gameObject.SetActive(true);
+                }
+                else
+                {
+                    decal.gameObject.SetActive(false);
+                }
+
+                index++;
             }
 
-            foreach(var i in indices)
+            foreach (var i in indices)
             {
                 PrefabPool.Despawn(entity.Decal.Instances[i]);
                 entity.Decal.Instances.RemoveAt(i);
