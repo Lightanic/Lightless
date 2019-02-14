@@ -9,6 +9,7 @@ Shader "Foliage/EmissionFade"
 		_Color("Color", Color) = (1,1,1,1)
 		_MainTex("Albedo (RGB)", 2D) = "white" {}
 		_EmissionMap("Emission Map", 2D) = "black" {}
+		[HDR]_BaseEmissionColor("Base Emission Color", Color) = (0,0,0)
 		[HDR]_EmissionColor("Emission Color", Color) = (0,0,0)
 		_Glossiness("Smoothness", Range(0,1)) = 0.5
 		_Metallic("Metallic", Range(0,1)) = 0.0
@@ -52,6 +53,7 @@ Shader "Foliage/EmissionFade"
 
 
 		float3 _EmissionColor;
+		float3 _BaseEmissionColor;
         half _Glossiness;
         half _Metallic;
         fixed4 _Color;
@@ -80,7 +82,9 @@ Shader "Foliage/EmissionFade"
             o.Smoothness = _Glossiness;
             o.Alpha = c.a;
 			o.Normal = UnpackNormal(tex2D(_BumpMap, IN.uv_BumpMap));
-			o.Emission = (tex2D(_EmissionMap, IN.uv_MainTex) * _EmissionColor).rgb * (eVal * eVal) * FoliageFillAmount;
+
+			float3 emissionMap = tex2D(_EmissionMap, IN.uv_MainTex);
+			o.Emission = (emissionMap * _EmissionColor).rgb * (eVal * eVal) * FoliageFillAmount + emissionMap * _BaseEmissionColor;
 
         }
         ENDCG
