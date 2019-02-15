@@ -6,7 +6,7 @@ public class MenuButton : MonoBehaviour
 {
 	[SerializeField] MenuButtonController menuButtonController;
 	[SerializeField] Animator animator;
-	[SerializeField] AnimatorFunctions animatorFunctions;
+	//[SerializeField] AnimatorFunctions animatorFunctions;
 	[SerializeField] int thisIndex;
     
     private void Start()
@@ -16,7 +16,7 @@ public class MenuButton : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-		if(menuButtonController.index == thisIndex)
+        if (menuButtonController.index == thisIndex)
 		{
 			animator.SetBool ("selected", true);
 			if(Input.GetAxis ("Submit") == 1)
@@ -27,10 +27,17 @@ public class MenuButton : MonoBehaviour
             else if (animator.GetBool ("pressed"))
             {
 				animator.SetBool ("pressed", false);
-				animatorFunctions.disableOnce = true;
+				//animatorFunctions.disableOnce = true;
 			}
 		}else{
 			animator.SetBool ("selected", false);
+			animator.SetBool ("pressed", false);
 		}
+    }
+
+    public void PressedFalse()
+    {
+        animator.SetBool("selected", false);
+        animator.SetBool("pressed", false);
     }
 }

@@ -11,14 +11,23 @@ public class MenuButtonController : MonoBehaviour {
 	public AudioSource audioSource;
 
     [SerializeField] GameObject creditScene;
-    LevelLoader loadingScreen;
+    [SerializeField] GameObject menuButtons;
+    [SerializeField] Animator MenuAnim;
+
+    [SerializeField] LevelLoader loadingScreen;
     void Start () {
-        loadingScreen = GetComponent<LevelLoader>();
+        //loadingScreen = GetComponent<LevelLoader>();
 		audioSource = GetComponent<AudioSource>();
 	}
 	
 	// Update is called once per frame
 	void Update () {
+        if(Input.GetButtonDown("Cancel"))
+        {
+            StartCoroutine(fade());
+            menuButtons.SetActive(true);
+            creditScene.SetActive(false);
+        }
 		if(Input.GetAxis ("Vertical") != 0){
 			if(!keyDown){
 				if (Input.GetAxis ("Vertical") < 0) {
@@ -44,11 +53,30 @@ public class MenuButtonController : MonoBehaviour {
     public void ButtonActions(int index)
     {
         if (index == 0)         // PlayButton
-            loadingScreen.LoadLevelAsync(1);
+        {
+            MenuAnim.SetBool("Exit", true);
+        }
         else if (index == 1)    // Credits button
+        {
             creditScene.SetActive(true);
+            foreach(var g in menuButtons.GetComponentsInChildren<TMPro.TextMeshProUGUI>())
+            {
+                g.color = new Color(255, 255, 255, 0);
+            }
+        }
         else if (index == 2)    // Quit Button
             Application.Quit();
     }
 
+    IEnumerator fade()
+    {
+        foreach (var g in menuButtons.GetComponentsInChildren<TMPro.TextMeshProUGUI>())
+        {
+            while (g.color.a <= 1)
+            {
+                g.color = new Color(255, 255, 255, g.color.a + Time.deltaTime);
+                yield return null;
+            }
+        }
+    }
 }
