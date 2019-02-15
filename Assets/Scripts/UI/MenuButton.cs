@@ -8,7 +8,7 @@ public class MenuButton : MonoBehaviour
 	[SerializeField] Animator animator;
 	[SerializeField] AnimatorFunctions animatorFunctions;
 	[SerializeField] int thisIndex;
-
+    
     private void Start()
     {
         animator = gameObject.GetComponent<Animator>();
@@ -19,9 +19,13 @@ public class MenuButton : MonoBehaviour
 		if(menuButtonController.index == thisIndex)
 		{
 			animator.SetBool ("selected", true);
-			if(Input.GetAxis ("Submit") == 1){
+			if(Input.GetAxis ("Submit") == 1)
+            {
 				animator.SetBool ("pressed", true);
-			}else if (animator.GetBool ("pressed")){
+                menuButtonController.ButtonActions(thisIndex);
+			}
+            else if (animator.GetBool ("pressed"))
+            {
 				animator.SetBool ("pressed", false);
 				animatorFunctions.disableOnce = true;
 			}
