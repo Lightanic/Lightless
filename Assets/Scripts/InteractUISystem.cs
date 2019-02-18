@@ -43,8 +43,8 @@ public class InteractUISystem : ComponentSystem
                     {
                         entity.item.RePosition(entity.Transform.position);
 
-                        if (entity.item.sprite != null)
-                            entity.item.ToggleOn(entity.item.sprite);
+                        if (entity.item.name != null)
+                            entity.item.ToggleOn(entity.item.Name);
 
                         uiEnabled = true;
                     }
@@ -53,8 +53,8 @@ public class InteractUISystem : ComponentSystem
                 {
                         entity.item.RePosition(entity.Transform.position);
 
-                        if (entity.item.sprite != null)
-                            entity.item.ToggleOn(entity.item.sprite);
+                        if (entity.item.name != null)
+                            entity.item.ToggleOn(entity.item.Name);
 
                         uiEnabled = true;
                 }
