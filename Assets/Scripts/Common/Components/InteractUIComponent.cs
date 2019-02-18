@@ -6,8 +6,16 @@ using UnityEngine.UI;
 public class InteractUIComponent : MonoBehaviour {
 
     public GameObject Canvas;
+
     public float offsetHeight = 2.5f;
-    public Sprite sprite = null;
+
+    [Header("Sprite Name")]
+    public string Name ;
+
+    [Header("Default sprite shown")]
+    public Sprite DefaultSprite = null;
+
+    [Header("Show distance")]
     [Range(0, 10)]
     public float ShowDistance = 2.0f;
 
@@ -25,12 +33,13 @@ public class InteractUIComponent : MonoBehaviour {
         Canvas.transform.position = pos + new Vector3(0, offsetHeight, 0);
     }
 
-    public void ToggleOn(Sprite newSprite)
+    public void ToggleOn(string name)
     {
+        var newSprite = SpriteManager.Instance.GetSprite(name);
         if (newSprite != null)
             Canvas.GetComponentInChildren<Image>().sprite = newSprite;
         else
-            Canvas.GetComponentInChildren<Image>().sprite = sprite;
+            Canvas.GetComponentInChildren<Image>().sprite = DefaultSprite;
         Canvas.SetActive(true);
     }
 

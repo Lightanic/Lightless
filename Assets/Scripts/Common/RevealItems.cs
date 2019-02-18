@@ -4,11 +4,21 @@ using UnityEngine;
 
 public class RevealItems : MonoBehaviour {
 
+    [Header("Rate of fade when approaching")]
     [SerializeField]
     [Range(1,10)]
     float fadeRate = 6;
     GameObject lampLight;
+
+    [Header("Distance at which item is revealed")]
+    [SerializeField]
+    [Range(1,100)]
     float range;
+
+    [Header("Toggle for range gizmo")]
+    [SerializeField]
+    bool showRange = true;
+
     SpriteRenderer sprite;
     Color white = Color.white;
     LightComponent lc;
@@ -16,7 +26,8 @@ public class RevealItems : MonoBehaviour {
 	void Start () {
         lampLight = GameObject.Find("lamp");
         lc = lampLight.GetComponent<LightComponent>();
-        range = lampLight.GetComponent<Pickup>().InteractDistance;
+        if(range == 0)
+            range = lampLight.GetComponent<Pickup>().InteractDistance;
         sprite = gameObject.GetComponent<SpriteRenderer>();
         white.a = 0;
         sprite.color = white;
@@ -34,6 +45,14 @@ public class RevealItems : MonoBehaviour {
             StartCoroutine(FadeOut());
         }
 	}
+
+    void OnDrawGizmos()
+    {
+        Gizmos.color = Color.blue;
+        if(showRange)
+            Gizmos.DrawWireSphere(transform.position, range);
+    }
+
     IEnumerator FadeOut()
     {
         while (sprite.color.a > 0)

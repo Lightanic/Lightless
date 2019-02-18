@@ -18,9 +18,11 @@ GameObject:
   - component: {fileID: 114107380958875526}
   - component: {fileID: 114504522443263524}
   - component: {fileID: 114850132529796612}
+  - component: {fileID: 17306973}
+  - component: {fileID: 17306964}
   m_Layer: 0
   m_Name: FlashlightPickup
-  m_TagString: Untagged
+  m_TagString: Flashlight
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -32,14 +34,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1899340997658810}
-  m_LocalRotation: {x: -0, y: 0.932955, z: -0, w: 0.35999307}
+  m_LocalRotation: {x: 0, y: 0.93295354, z: 0, w: 0.35999689}
   m_LocalPosition: {x: 46.3, y: -8.481169, z: 10.297353}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children:
   - {fileID: 257640229637413621}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 64.056, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 137.8, z: 0}
 --- !u!33 &33277789654621754
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -94,7 +96,7 @@ MeshCollider:
   m_GameObject: {fileID: 1899340997658810}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Convex: 1
   m_CookingOptions: 14
@@ -141,9 +143,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsInteractable: 1
   IsInteracting: 0
-  InteractDistance: 4
+  InteractDistance: 4.93
   IsEquiped: 0
-  CanDrop: 1
+  CanDrop: 0
 --- !u!114 &114107380958875526
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -188,7 +190,42 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Canvas: {fileID: 0}
   offsetHeight: 1
-  sprite: {fileID: 21300000, guid: 0aa4ad822986c7f43aba64ae19464ef1, type: 3}
+  Name: Interact
+  DefaultSprite: {fileID: 0}
+  ShowDistance: 2
+--- !u!65 &17306973
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1899340997658810}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.07589761, y: 0.06572925, z: 0.25878716}
+  m_Center: {x: 0, y: 0, z: -0.001815923}
+--- !u!114 &17306964
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1899340997658810}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29dec00d49ff4e845aaf448ed9f8d1e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerList: f7e1664c
+  useOtherObject: 0
+  bankName: Firebank
+  decodeBank: 0
+  loadAsynchronous: 0
+  saveDecodedBank: 0
+  unloadTriggerList: 
+  valueGuid: 56c0c18454cadd429a4ce2fbd14b2b69
 --- !u!1001 &253205231561949231
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -199,6 +236,31 @@ PrefabInstance:
     - target: {fileID: 1626068869527970, guid: 3d3efc2cc5323b743add7f2a627679c2, type: 3}
       propertyPath: m_Name
       value: FlashlightPrefab
+      objectReference: {fileID: 0}
+    - target: {fileID: 170072712116509873, guid: 3d3efc2cc5323b743add7f2a627679c2,
+        type: 3}
+      propertyPath: m_Radius
+      value: 3.53
+      objectReference: {fileID: 0}
+    - target: {fileID: 170072712116509873, guid: 3d3efc2cc5323b743add7f2a627679c2,
+        type: 3}
+      propertyPath: m_Center.z
+      value: 8.53
+      objectReference: {fileID: 0}
+    - target: {fileID: 171321695683285913, guid: 3d3efc2cc5323b743add7f2a627679c2,
+        type: 3}
+      propertyPath: m_Radius
+      value: 1.99
+      objectReference: {fileID: 0}
+    - target: {fileID: 171321695683285913, guid: 3d3efc2cc5323b743add7f2a627679c2,
+        type: 3}
+      propertyPath: m_Height
+      value: 10.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 171321695683285913, guid: 3d3efc2cc5323b743add7f2a627679c2,
+        type: 3}
+      propertyPath: m_Center.z
+      value: 5.9
       objectReference: {fileID: 0}
     - target: {fileID: 4717718609992410, guid: 3d3efc2cc5323b743add7f2a627679c2, type: 3}
       propertyPath: m_LocalPosition.x
@@ -249,13 +311,29 @@ PrefabInstance:
       propertyPath: Switch
       value: 
       objectReference: {fileID: 114504522443263524}
+    - target: {fileID: 149803191183387439, guid: 3d3efc2cc5323b743add7f2a627679c2,
+        type: 3}
+      propertyPath: ReflectionLightPrefab
+      value: 
+      objectReference: {fileID: 253985225965336973}
     - target: {fileID: 114374848727291876, guid: 3d3efc2cc5323b743add7f2a627679c2,
         type: 3}
       propertyPath: Switch
       value: 
       objectReference: {fileID: 114504522443263524}
+    - target: {fileID: 114374848727291876, guid: 3d3efc2cc5323b743add7f2a627679c2,
+        type: 3}
+      propertyPath: ReflectionLightPrefab
+      value: 
+      objectReference: {fileID: 253985225965336973}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3d3efc2cc5323b743add7f2a627679c2, type: 3}
+--- !u!1 &253985225965336973 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1626068869527970, guid: 3d3efc2cc5323b743add7f2a627679c2,
+    type: 3}
+  m_PrefabInstance: {fileID: 253205231561949231}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &257640229637413621 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4717718609992410, guid: 3d3efc2cc5323b743add7f2a627679c2,
