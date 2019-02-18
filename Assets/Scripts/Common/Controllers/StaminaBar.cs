@@ -33,8 +33,8 @@ public class StaminaBar : MonoBehaviour {
         {
             stamina.color = Color.red;
         }
-        transform.rotation = rotation;
-        //transform.LookAt(cam.transform);
+        //transform.rotation = rotation;
+        transform.LookAt(cam.transform);
         if (playerComponent != null)
         {
             float ratio = playerComponent.Stamina / playerComponent.MAX_STAMINA;
