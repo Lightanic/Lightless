@@ -45,8 +45,7 @@ public class EnemySystem : ComponentSystem
         {
             if (!enemy.AgentComponent.Agent.enabled)
             {
-
-                //  enemy.Transform.GetComponent<Rigidbody>().AddForce(enemy.Transform.forward * 1000);
+                return;
             }
             NavMeshHit hit;
             enemy.AgentComponent.Agent.FindClosestEdge(out hit);
@@ -55,7 +54,7 @@ public class EnemySystem : ComponentSystem
             {
                 //enemy.Transform.LookAt(player.PlayerTransform);
                 enemy.AgentComponent.Agent.enabled = false;
-                enemy.Transform.GetComponent<Rigidbody>().AddForce(enemy.Transform.forward * 300);
+                enemy.Transform.GetComponent<Rigidbody>().AddForce(Vector3.Normalize(enemy.Transform.forward + enemy.Transform.up) * 600);
             }
 
 
@@ -240,6 +239,7 @@ public class EnemySystem : ComponentSystem
     EnemyState EvaluateSeek(EnemyComponent enemyComponent, SeekComponent seekComponent,
         float distanceToLight, float distanceToPlayer, LightComponent lightComponent, PlayerData player)
     {
+       
         if (distanceToLight < seekComponent.VisionRadius)
         {
             seekComponent.Target = lightComponent.transform;
@@ -248,6 +248,8 @@ public class EnemySystem : ComponentSystem
         {
             seekComponent.Target = player.PlayerTransform;
         }
+
+        
 
         switch (enemyComponent.Type)
         {
