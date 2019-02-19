@@ -5,14 +5,25 @@ using UnityEngine.AI;
 
 public class JumpScript : MonoBehaviour
 {
-    private void OnTriggerEnter(Collider other)
+    public GameObject Enemy;
+    public NavMeshAgent Agent;
+
+    private void Start()
     {
-        if (other.gameObject.CompareTag("Enemy"))
+       
+        Agent = Enemy.GetComponentInChildren<NavMeshAgent>();
+    }
+    private void Update()
+    {
+        NavMeshHit hit;
+        Agent.FindClosestEdge(out hit);
+        //Debug.Log(hit.distance);
+        if (hit.distance < 0.01)
         {
-            other.GetComponent<NavMeshAgent>().enabled = false;
-            other.GetComponent<NavAgentComponent>().enabled = false;
-            other.GetComponent<WayPointComponent>().enabled = false;
-            //transform.gameObject.SetActive(false);
+            //enemy.Transform.LookAt(player.PlayerTransform);
+           // Agent.enabled = false;
+           Enemy.transform.GetComponentInChildren<Rigidbody>().AddForce(Vector3.Normalize(Enemy.transform.forward + Enemy.transform.up) * 600);
         }
     }
+ 
 }
