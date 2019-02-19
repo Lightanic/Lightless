@@ -8,12 +8,14 @@ public class EnemyAnimator : MonoBehaviour
     protected Animator enemyAnimator;
     public bool isWalking;
     public bool isRunning;
+    public bool isStunned;
 
     protected virtual void Start()
     {
         enemyAnimator = GetComponent<Animator>();
         isWalking = false;
         isRunning = false;
+        isStunned = false;
     }
 
     void Update()
@@ -51,6 +53,7 @@ public class EnemyAnimator : MonoBehaviour
 
         enemyAnimator.SetBool("isWalking", isWalking);
         enemyAnimator.SetBool("isRunning", isRunning);
+        enemyAnimator.SetBool("isStunned", isStunned);
 
     }
 }
