@@ -17,8 +17,15 @@ public class SeekSystem : ComponentSystem
     {
         foreach (var entity in GetEntities<Seek>())
         {
+            if (!entity.SeekComponent.Target)
+            {
+                continue;
+            }
             if (entity.Enemy.State == EnemyState.Seek)
             {
+                Vector3 targetDir = entity.SeekComponent.Target.transform.position - entity.Enemy.transform.position;
+                targetDir.y = entity.Enemy.transform.position.y;
+                entity.Enemy.transform.rotation = Quaternion.Slerp(entity.Enemy.transform.rotation, Quaternion.LookRotation(targetDir), Time.deltaTime);
                 switch (entity.Enemy.Type)
                 {
                     case EnemyType.Runner:
@@ -46,7 +53,11 @@ public class SeekSystem : ComponentSystem
 
     void RunnerSeek(Seek entity, Transform target)
     {
-        entity.Enemy.transform.LookAt(target);
+        if (!target)
+        {
+            return;
+        }
+        //entity.Enemy.transform.LookAt(target);
         if (entity.AgentComponent.Agent.isOnOffMeshLink)
             entity.AgentComponent.Agent.speed = 4;
         else
@@ -65,9 +76,13 @@ public class SeekSystem : ComponentSystem
 
     void LungerSeek(Seek entity, Transform target)
     {
-        entity.Enemy.transform.LookAt(target);
+        if (!target)
+        {
+            return;
+        }
+        //entity.Enemy.transform.LookAt(target);
         entity.AgentComponent.Agent.speed = 12;
-        entity.Enemy.transform.LookAt(target);
+        //entity.Enemy.transform.LookAt(target);
         if (entity.SeekComponent.Target.CompareTag("Player"))
         {
             entity.AgentComponent.Agent.SetDestination(target.position);
@@ -98,7 +113,11 @@ public class SeekSystem : ComponentSystem
 
     void StunnerSeek(Seek entity, Transform target)
     {
-        entity.Enemy.transform.LookAt(target);
+        if (!target)
+        {
+            return;
+        }
+        //entity.Enemy.transform.LookAt(target);
         entity.AgentComponent.Agent.speed = 12;
         entity.AgentComponent.Agent.SetDestination(target.position);
         //if (entity.Enemy.GetComponent<EnemyStunComponent>().IsStunned)
