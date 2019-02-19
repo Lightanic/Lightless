@@ -31,6 +31,7 @@ public class EnemyAnimationSystem : ComponentSystem
                     break;
 
                 case EnemyState.Stun:
+                case EnemyState.Wait:
                     entity.EnemyAnimator.isStunned = true;
                     break;
 
