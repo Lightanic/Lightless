@@ -185,7 +185,9 @@ public class LungerSystem : ComponentSystem
         {
             lunger.EnemyVision.IsSeeking = true;
             //Debug.Log("lunging");
-            lunger.AgentComponent.Agent.speed = Random.Range(20, 40);
+            lunger.AgentComponent.Agent.speed = 40;
+            //lunger.AgentComponent.Agent.Warp(player.PlayerTransform.position);
+            lunger.AgentComponent.Agent.Move(lunger.EnemyTransform.forward * 0.5f);
             //seek player
             Seek(lunger, player.PlayerTransform);
         }

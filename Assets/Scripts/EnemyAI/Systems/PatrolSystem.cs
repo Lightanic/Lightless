@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Unity.Entities;
+using static EnemyComponent;
 
 public class PatrolSystem : ComponentSystem
 {
@@ -10,6 +11,7 @@ public class PatrolSystem : ComponentSystem
         public NavAgentComponent AgentComponent;
         public Transform EnemyTransform;
         public WayPointComponent PatrolComponent;
+        public EnemyComponent EnemyComponent;
         
 
     }
@@ -24,7 +26,7 @@ public class PatrolSystem : ComponentSystem
                 continue;
             }
 
-            if (enemy.PatrolComponent.IsWandering == true)
+            if (enemy.EnemyComponent.State == EnemyState.Patrol)
             {
                 if (enemy.PatrolComponent.Waypoints.Length == 0)
                 {

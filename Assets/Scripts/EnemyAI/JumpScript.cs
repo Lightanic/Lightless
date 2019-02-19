@@ -12,7 +12,7 @@ public class JumpScript : MonoBehaviour
             other.GetComponent<NavMeshAgent>().enabled = false;
             other.GetComponent<NavAgentComponent>().enabled = false;
             other.GetComponent<WayPointComponent>().enabled = false;
-            transform.gameObject.SetActive(false);
+            //transform.gameObject.SetActive(false);
         }
     }
 }
