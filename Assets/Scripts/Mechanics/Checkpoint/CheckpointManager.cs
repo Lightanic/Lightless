@@ -138,10 +138,12 @@ public class CheckpointManager : MonoBehaviour
         var lamp = GameObject.Find("lamp");
         var pickup = lamp.GetComponent<Pickup>();
         var lantern = lamp.GetComponent<Lantern>();
+        var lanternLght = lamp.GetComponent<LightComponent>();
         pickup.IsInteracting = true;
         pickup.IsEquiped = true;   // equip to left hand
         pickup.IsInteractable = false;
         lantern.EquipRightHand();
+        lanternLght.ToggleLightOn();
 
         lamp.GetComponent<LightComponent>().ToggleLightOn();
         foreach(var pickupItem in inventoryList)
@@ -159,7 +161,7 @@ public class CheckpointManager : MonoBehaviour
     void PickupItem(string pickupName)
     {
         var item = GameObject.Find(pickupName);
-        if(leftHandComponent == pickupName)
+        if(leftHandComponent == pickupName && item != null)
         {
             var pickup = item.GetComponent<Pickup>();
             pickup.IsInteracting = true;

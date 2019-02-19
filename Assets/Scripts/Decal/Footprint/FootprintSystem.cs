@@ -43,7 +43,7 @@ public class FootprintSystem : ComponentSystem
             {
                 var decal = instance.GetComponent<DecalScript>();
                 decal.CurrentTime += Time.deltaTime;
-                if (decal.CurrentTime > decal.TotalTimeAlive || (instances.Length - index) > entity.Decal.MaxFootprintCount) 
+                if (decal.CurrentTime > decal.TotalTimeAlive || (instances.Length - index) > entity.Decal.MaxFootprintCount)
                 {
                     indices.Add(index);
                 }
@@ -62,6 +62,7 @@ public class FootprintSystem : ComponentSystem
 
             foreach (var i in indices)
             {
+                if (i < 0 || i > entity.Decal.Instances.Count - 1) continue;
                 PrefabPool.Despawn(entity.Decal.Instances[i]);
                 entity.Decal.Instances.RemoveAt(i);
             }

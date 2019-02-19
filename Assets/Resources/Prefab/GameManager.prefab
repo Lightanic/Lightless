@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 114682310590821566}
   - component: {fileID: 114689190696523502}
   - component: {fileID: 2126380862169178773}
+  - component: {fileID: 719296521}
+  - component: {fileID: 1928570732}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -139,10 +141,66 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35bcbaaaabe6c8e4194ccd32fbf897f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  eventSystem: {fileID: 0}
   PauseCanvas: {fileID: 0}
   PauseStartButton: {fileID: 0}
   ControllerCanvas: {fileID: 0}
   DiaryCanvas: {fileID: 0}
   OptionsCanvas: {fileID: 0}
+  optionsStartButton: {fileID: 0}
   HUDCanvas: {fileID: 0}
+--- !u!114 &719296521
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1693462873115962}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4013a3cf51a155549967d89e0c1df3c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  deathScreen: {fileID: 0}
+--- !u!114 &1928570732
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1693462873115962}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7cc5e737e8a380947a75136a62173fd7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SpriteList:
+  - name: Interact
+    controllerSprite: {fileID: 21300000, guid: 1670eac73e0b4e64b876794d04bbe82c, type: 3}
+    keyboardSprite: {fileID: 0}
+  - name: Fire
+    controllerSprite: {fileID: 21300000, guid: dadd0485601cd6c42af7dd728b0dae2d, type: 3}
+    keyboardSprite: {fileID: 0}
+  - name: 
+    controllerSprite: {fileID: 0}
+    keyboardSprite: {fileID: 0}
+  - name: 
+    controllerSprite: {fileID: 0}
+    keyboardSprite: {fileID: 0}
+  - name: 
+    controllerSprite: {fileID: 0}
+    keyboardSprite: {fileID: 0}
+  - name: 
+    controllerSprite: {fileID: 0}
+    keyboardSprite: {fileID: 0}
+  - name: 
+    controllerSprite: {fileID: 0}
+    keyboardSprite: {fileID: 0}
+  - name: 
+    controllerSprite: {fileID: 0}
+    keyboardSprite: {fileID: 0}
+  - name: 
+    controllerSprite: {fileID: 0}
+    keyboardSprite: {fileID: 0}
+  - name: 
+    controllerSprite: {fileID: 0}
+    keyboardSprite: {fileID: 0}

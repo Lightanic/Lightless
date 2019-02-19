@@ -50,7 +50,7 @@ public class EnemySystem : ComponentSystem
             }
             NavMeshHit hit;
             enemy.AgentComponent.Agent.FindClosestEdge(out hit);
-            Debug.Log(hit.distance);
+            //Debug.Log(hit.distance);
             if (hit.distance < 0.01 && enemy.AgentComponent.Agent.enabled)
             {
                 //enemy.Transform.LookAt(player.PlayerTransform);
