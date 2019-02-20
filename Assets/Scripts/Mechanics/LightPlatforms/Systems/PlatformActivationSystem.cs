@@ -68,7 +68,7 @@ public class PlatformActivationSystem : ComponentSystem
             var activationTime = Light.ActivationTime[i];
             RaycastHit hit = results[i];
 
-            if (hit.collider != null && hit.collider.tag == "LightActivatedPlatform")
+            if (hit.collider != null && hit.collider.tag == "LightActivatedPlatform" && !isReflected)
             {
                 lineComponent.AddLine(new ReflectionLine(origins[i], hit.point));
                 ActivatePlatform(hit.collider.gameObject, activationTime, hit);
