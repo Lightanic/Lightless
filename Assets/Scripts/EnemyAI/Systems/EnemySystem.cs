@@ -188,12 +188,12 @@ public class EnemySystem : ComponentSystem
                     return EnemyState.Patrol;
 
             case EnemyState.Alert:
-                Vector3 targetDir = player.PlayerTransform.position - enemyComponent.transform.position;
-                targetDir.y = enemyComponent.transform.position.y;
-                enemyComponent.transform.rotation = Quaternion.Slerp(enemyComponent.transform.rotation,Quaternion.LookRotation(targetDir), Time.deltaTime); //Quaternion.RotateTowards(enemyComponent.transform.rotation, Quaternion.LookRotation(targetDir), Time.deltaTime);
-                //enemyComponent.transform.LookAt(player.PlayerTransform);
-                agent.Agent.speed = 0;
-                enemyComponent.GetComponent<Rigidbody>().isKinematic = true;
+                //Vector3 targetDir = player.PlayerTransform.position - enemyComponent.transform.position;
+                //targetDir.y = enemyComponent.transform.position.y;
+                //enemyComponent.transform.rotation = Quaternion.Slerp(enemyComponent.transform.rotation,Quaternion.LookRotation(targetDir), Time.deltaTime); //Quaternion.RotateTowards(enemyComponent.transform.rotation, Quaternion.LookRotation(targetDir), Time.deltaTime);
+                ////enemyComponent.transform.LookAt(player.PlayerTransform);
+                //agent.Agent.speed = 0;
+                //enemyComponent.GetComponent<Rigidbody>().isKinematic = true;
                 //agent.Agent.SetDestination(enemyComponent.transform.position);
                 if (distanceToLight > seekComponent.AlertRadius && distanceToPlayer > seekComponent.VisionRadius)
                     return EnemyState.Patrol;
@@ -260,8 +260,7 @@ public class EnemySystem : ComponentSystem
                     return EnemyState.Seek;
 
             case EnemyType.Stunner:
-                if (enemyComponent.GetComponent<EnemyStunComponent>().IsStunned 
-                    && GameObject.FindGameObjectWithTag("Flashlight").GetComponent<LightComponent>().LightIsOn)
+                if (enemyComponent.GetComponent<EnemyStunComponent>().IsStunned)
                     return EnemyState.Stun;
                 else
                     return EnemyState.Seek;

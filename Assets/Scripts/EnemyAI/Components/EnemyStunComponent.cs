@@ -49,7 +49,7 @@ public class EnemyStunComponent : MonoBehaviour
         {
             if (other.GetComponent<LightComponent>().LightIsOn == true)
             {
-                this.GetComponent<EnemyComponent>().State = EnemyState.Stun;
+                //this.GetComponent<EnemyComponent>().State = EnemyState.Stun;
                 IsStunned = true;
                 transform.LookAt(other.transform);
             }
@@ -58,7 +58,7 @@ public class EnemyStunComponent : MonoBehaviour
         }
         if (other.gameObject.CompareTag("FireStun"))
         {
-            this.GetComponent<EnemyComponent>().State = EnemyState.Stun;
+            //this.GetComponent<EnemyComponent>().State = EnemyState.Stun;
             IsStunned = true;
             transform.LookAt(other.transform);
         }
