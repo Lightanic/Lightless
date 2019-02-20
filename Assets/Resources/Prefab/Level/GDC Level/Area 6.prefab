@@ -366,6 +366,54 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!65 &924494356
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2496079033813666539}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.058145855, y: 0.0152031155, z: 0.011759014}
+  m_Center: {x: 0.00030735225, y: 0.007601556, z: -0.00001709396}
+--- !u!114 &924494357
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2496079033813666539}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5bf10cdea1344482e91a4f2b58506b77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &924494358
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2496079033813666539}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53efc560c632ea94488d149ab78347ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  StartPosition: {x: 14.579987, y: 11.83, z: -29.82}
+  IsActivated: 0
+  IsRetracting: 0
+  CurrentTime: 0.4316195
+  HasActivated: 0
+  FillValue: 0
+  ActivatedPosition: {x: 94.12, y: -5, z: -0.36}
+  IsOneTimeActivation: 0
+  ActivationTime: 5
+  MoveSpeed: 8
+  ID: 
 --- !u!1 &2496092760354708122
 GameObject:
   m_ObjectHideFlags: 0
@@ -645,7 +693,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &2497938628896526062
 Transform:
@@ -1175,7 +1223,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &2496409393979572717
 Transform:
@@ -1377,7 +1425,7 @@ GameObject:
   - component: {fileID: 2496409395460317532}
   m_Layer: 9
   m_Name: Cube (28)
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -1548,7 +1596,7 @@ GameObject:
   - component: {fileID: 2496409395597288917}
   m_Layer: 9
   m_Name: Cube (32)
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -1733,54 +1781,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &924494356
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2496079033813666539}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.058145855, y: 0.0152031155, z: 0.011759014}
-  m_Center: {x: 0.00030735225, y: 0.007601556, z: -0.00001709396}
---- !u!114 &924494357
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2496079033813666539}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5bf10cdea1344482e91a4f2b58506b77, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &924494358
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2496079033813666539}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 53efc560c632ea94488d149ab78347ec, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  StartPosition: {x: 14.579987, y: 11.83, z: -29.82}
-  IsActivated: 0
-  IsRetracting: 0
-  CurrentTime: 0.4316195
-  HasActivated: 0
-  FillValue: 0
-  ActivatedPosition: {x: 94.12, y: -5, z: -0.36}
-  IsOneTimeActivation: 0
-  ActivationTime: 5
-  MoveSpeed: 8
-  ID: 
 --- !u!1 &2496910969898241604
 GameObject:
   m_ObjectHideFlags: 0
@@ -3042,7 +3042,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &2500958396851466098
 Transform:
@@ -3352,7 +3352,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &5643236014326251439
 Transform:
@@ -3387,7 +3387,7 @@ GameObject:
   - component: {fileID: 8517986844489967932}
   m_Layer: 9
   m_Name: Cube (29)
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -3478,7 +3478,7 @@ GameObject:
   - component: {fileID: 8517986844668588737}
   m_Layer: 9
   m_Name: Cube (30)
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -3658,7 +3658,7 @@ GameObject:
   - component: {fileID: 8517986845751552606}
   m_Layer: 9
   m_Name: Cube (31)
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -4251,15 +4251,15 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: e8b472042b25ef6498dd50719f865643, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fb103fc35bd5bb64a88428190ccaa673, type: 3}
---- !u!1 &2496079033813666539 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1932625636796160, guid: fb103fc35bd5bb64a88428190ccaa673,
-    type: 3}
-  m_PrefabInstance: {fileID: 2496409395845606891}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2498089173139505119 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4496729347559988, guid: fb103fc35bd5bb64a88428190ccaa673,
+    type: 3}
+  m_PrefabInstance: {fileID: 2496409395845606891}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2496079033813666539 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1932625636796160, guid: fb103fc35bd5bb64a88428190ccaa673,
     type: 3}
   m_PrefabInstance: {fileID: 2496409395845606891}
   m_PrefabAsset: {fileID: 0}
