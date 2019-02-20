@@ -26,7 +26,7 @@ public class PatrolSystem : ComponentSystem
                 continue;
             }
 
-            if (enemy.EnemyComponent.State == EnemyState.Patrol)
+            if (enemy.EnemyComponent.State == EnemyState.Patrol || enemy.EnemyComponent.State == EnemyState.Alert)
             {
                 if (enemy.PatrolComponent.Waypoints.Length == 0)
                 {
