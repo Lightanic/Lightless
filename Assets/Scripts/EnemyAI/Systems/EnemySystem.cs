@@ -45,7 +45,7 @@ public class EnemySystem : ComponentSystem
         {
             if (!enemy.AgentComponent.Agent.enabled)
             {
-                return;
+                continue;
             }
             NavMeshHit hit;
             enemy.AgentComponent.Agent.FindClosestEdge(out hit);
