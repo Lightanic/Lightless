@@ -16,6 +16,9 @@ public class ButtonScript : MonoBehaviour
     [Header("Default Image")]
     public Sprite sprite;
 
+    [Header("Image to represent no notes")]
+    public Sprite transparent;
+
     Image image;
 
     [Header("Diary Left Page object")]
@@ -26,6 +29,7 @@ public class ButtonScript : MonoBehaviour
 
     InputComponent inputComp;
 
+    public bool notAvailable = false;
     private void Start()
     {
         animator = gameObject.GetComponent<Animator>();
@@ -36,45 +40,54 @@ public class ButtonScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (PlayerProperties.narrativePickups.ContainsKey(thisIndex))
+        if (notAvailable)
         {
-            bool notePresent = PlayerProperties.narrativePickups.TryGetValue(thisIndex, out pickup);
-            if (notePresent)
+            image.sprite = transparent;
+            noteSprite = transparent;
+            gameObject.GetComponent<Button>().enabled = false;
+        }
+        else
+        {
+            gameObject.GetComponent<Button>().enabled = true;
+            if (PlayerProperties.narrativePickups.ContainsKey(thisIndex))
             {
-                image.sprite = pickup.sprite;
-                noteSprite = pickup.fullNote;
+                bool notePresent = PlayerProperties.narrativePickups.TryGetValue(thisIndex, out pickup);
+                if (notePresent)
+                {
+                    image.sprite = pickup.sprite;
+                    noteSprite = pickup.fullNote;
+                }
+                else
+                {
+                    image.sprite = sprite;
+                    noteSprite = sprite;
+                }
             }
             else
             {
                 image.sprite = sprite;
                 noteSprite = sprite;
             }
-        }
-        else
-        {
-            image.sprite = sprite;
-            noteSprite = sprite;
-        }
-        if (menuButtonController.index == thisIndex)
-        {
-            animator.SetBool("selected", true);
-            if (inputComp.Control("Accept"))
+            if (menuButtonController.index == thisIndex)
             {
-                animator.SetBool("pressed", true);
-                DiaryLeftViewUpdate();
+                animator.SetBool("selected", true);
+                if (inputComp.Control("Accept"))
+                {
+                    animator.SetBool("pressed", true);
+                    DiaryLeftViewUpdate();
+                }
+                else if (animator.GetBool("pressed"))
+                {
+                    animator.SetBool("pressed", false);
+                    //animatorFunctions.disableOnce = true;
+                }
             }
-            else if (animator.GetBool("pressed"))
+            else
             {
-                animator.SetBool("pressed", false);
-                //animatorFunctions.disableOnce = true;
+                animator.SetBool("selected", false);
             }
-        }
-        else
-        {
-            animator.SetBool("selected", false);
         }
     }
-
     public void DiaryLeftViewUpdate()
     {
         LeftHandView.GetComponent<Image>().sprite = noteSprite;
