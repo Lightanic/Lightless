@@ -13,6 +13,10 @@ public class DiaryPage : MonoBehaviour
     [SerializeField]
     public int MaxPages = 2;
 
+    [Header("Max Notes")]
+    [SerializeField]
+    public int MaxNotes;
+
     [Header("Page count text")]
     [SerializeField]
     public Text PageCount;
@@ -44,7 +48,14 @@ public class DiaryPage : MonoBehaviour
             var elementList = transform.GetComponentsInChildren<ButtonScript>();
             foreach (var element in elementList)
             {
-                element.thisIndex -= 9;
+                int index = element.thisIndex - 9;
+                if (index < MaxNotes)
+                {
+                    element.notAvailable = false;
+                    element.thisIndex -= 9;
+                }
+                else
+                    element.notAvailable = true;
             }
         }
     }
@@ -61,7 +72,14 @@ public class DiaryPage : MonoBehaviour
             var elementList = transform.GetComponentsInChildren<ButtonScript>();
             foreach (var element in elementList)
             {
-                element.thisIndex += 9;
+                int index = element.thisIndex + 9;
+                if (index < MaxNotes)
+                {
+                    element.notAvailable = false;
+                    element.thisIndex += 9;
+                }
+                else
+                    element.notAvailable = true;
             }
         }
     }
