@@ -5142,6 +5142,7 @@ GameObject:
   - component: {fileID: 763098721}
   - component: {fileID: 763098722}
   - component: {fileID: 763098723}
+  - component: {fileID: 344176399}
   m_Layer: 0
   m_Name: Stunner
   m_TagString: Enemy
@@ -5258,7 +5259,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f84535ecace43e4281d684f1d34771c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Waypoints: []
+  Waypoints:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   currentWaypointIndex: 0
   IsWandering: 0
   PatrolSpeed: 3
@@ -5381,6 +5385,23 @@ MonoBehaviour:
   isWalking: 0
   isRunning: 0
   isStunned: 0
+--- !u!114 &344176399
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1519830447615124}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c30e69a81289c3d409ad26ed25519a76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DecalPrefab: {fileID: 8037479687357641988, guid: 8161112ec1762264e9ae0439617a8b32,
+    type: 3}
+  Instances: []
+  MaxFootprintCount: 10
+  FootprintDistance: 2
 --- !u!1 &1522817450480198
 GameObject:
   m_ObjectHideFlags: 0
