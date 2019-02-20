@@ -25,14 +25,14 @@ public class FootprintSystem : ComponentSystem
             Quaternion quaternion = Quaternion.Euler(90F, entity.Transform.eulerAngles.y, entity.Transform.eulerAngles.z);
             if (entity.Decal.Instances.Count == 0)
             {
-                var instance = PrefabPool.Spawn(entity.Decal.DecalPrefab, entity.Transform.position + Vector3.up * 0.01F, quaternion);
+                var instance = PrefabPool.Spawn(entity.Decal.DecalPrefab, entity.Transform.position + Vector3.up * 1.1F, quaternion);
                 entity.Decal.Instances.Add(instance);
             }
 
             var previousInstance = entity.Decal.Instances.ToArray()[entity.Decal.Instances.Count - 1];
-            if (Vector3.Distance(previousInstance.transform.position, entity.Transform.position) > 1F)
+            if (Vector3.Distance(previousInstance.transform.position, entity.Transform.position) > entity.Decal.FootprintDistance)
             {
-                var instance = PrefabPool.Spawn(entity.Decal.DecalPrefab, entity.Transform.position + Vector3.up * 0.01F, quaternion);
+                var instance = PrefabPool.Spawn(entity.Decal.DecalPrefab, entity.Transform.position + Vector3.up * 1.1F, quaternion);
                 entity.Decal.Instances.Add(instance);
             }
 
