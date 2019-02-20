@@ -109,7 +109,7 @@ public class OptionsMenu : MonoBehaviour
             if (a != null)
                 Destroy(a.gameObject);
         }
-        Destroy(GameObject.Find("Blocker"));
+        //Destroy(GameObject.Find("Blocker"));
         buttonSelected = false;
     }
 }
