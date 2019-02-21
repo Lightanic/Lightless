@@ -1,12 +1,14 @@
 ﻿using Unity.Entities;
 using UnityEngine;
+using static EnemyComponent;
 
 class EnemyGlowSystem : ComponentSystem
 {
     struct EnemyGroup
     {
         public EnemyGlowComponent Glow;
-        public EnemyVisionComponent Vision;
+        //public EnemyVisionComponent Vision;
+        public EnemyComponent EnemyComponent;
     }
 
     protected override void OnUpdate()
@@ -20,9 +22,9 @@ class EnemyGlowSystem : ComponentSystem
             var maxEmission = entity.Glow.MaxEmission;
             var noPingPong = false;
 
-            if (entity.Vision.IsAlerted)
+            if (entity.EnemyComponent.State == EnemyState.Alert)
                 speed = entity.Glow.AlertSpeed;
-            else if (entity.Vision.IsSeeking)
+            else if (entity.EnemyComponent.State == EnemyState.Seek)
                 speed = entity.Glow.SeekSpeed;
             else
                 noPingPong = true;

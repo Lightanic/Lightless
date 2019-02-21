@@ -1,0 +1,280 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &7581526614925631212
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7581526614925631211}
+  m_Layer: 0
+  m_Name: CameraTriggers
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7581526614925631211
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7581526614925631212}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -163.18863, y: 12.959896, z: -65.76066}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 6635479384453606239}
+  - {fileID: 854159801579854440}
+  - {fileID: 7581526614989989844}
+  - {fileID: 2201525609022935943}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &7581526614989989847
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7581526614989989844}
+  - component: {fileID: 7581526614989989845}
+  - component: {fileID: 7581526614989989846}
+  m_Layer: 0
+  m_Name: CameraChangeTrigger 3
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7581526614989989844
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7581526614989989847}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.3713684, y: 9.710104, z: -7.0093384}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 7581526614925631211}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &7581526614989989845
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7581526614989989847}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 31.19, y: 12.26, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &7581526614989989846
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7581526614989989847}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c46b072f3be0cd6478b18d05f97ec136, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CameraOptions:
+    Offset: {x: -7, y: 22.6, z: -21.4}
+    Rotation: {x: 33.5, y: 36.16, z: -0.001}
+  IsChanging: 0
+--- !u!1 &7829482033283368047
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 854159801579854440}
+  - component: {fileID: 3540588894563353440}
+  - component: {fileID: 7137964761014465970}
+  m_Layer: 0
+  m_Name: CameraChangeTrigger 2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &854159801579854440
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7829482033283368047}
+  m_LocalRotation: {x: -0, y: 0.7530671, z: -0, w: 0.6579437}
+  m_LocalPosition: {x: 15.16, y: 8.440001, z: -1.82}
+  m_LocalScale: {x: 0.77817, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 7581526614925631211}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 97.714005, z: 0}
+--- !u!65 &3540588894563353440
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7829482033283368047}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 31.19, y: 12.26, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &7137964761014465970
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7829482033283368047}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c46b072f3be0cd6478b18d05f97ec136, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CameraOptions:
+    Offset: {x: 3, y: 16, z: -16}
+    Rotation: {x: 52, y: 5, z: 0}
+  IsChanging: 0
+--- !u!1 &8030060790925026588
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2201525609022935943}
+  - component: {fileID: 8839103166074199859}
+  - component: {fileID: 1118548490374495088}
+  m_Layer: 0
+  m_Name: CameraChangeTrigger 4
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2201525609022935943
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8030060790925026588}
+  m_LocalRotation: {x: -0, y: 0.88490206, z: -0, w: 0.46577716}
+  m_LocalPosition: {x: 56.05, y: 8.440001, z: 2.24}
+  m_LocalScale: {x: 1.0000005, y: 1, z: 1.0000005}
+  m_Children: []
+  m_Father: {fileID: 7581526614925631211}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 124.479004, z: 0}
+--- !u!65 &8839103166074199859
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8030060790925026588}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 31.19, y: 12.26, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1118548490374495088
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8030060790925026588}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c46b072f3be0cd6478b18d05f97ec136, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CameraOptions:
+    Offset: {x: -10, y: 20, z: -15}
+    Rotation: {x: 35, y: 20, z: 0}
+  IsChanging: 0
+--- !u!1 &8960793661112100184
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6635479384453606239}
+  - component: {fileID: 3288852479447874414}
+  - component: {fileID: 6911798955277172278}
+  m_Layer: 0
+  m_Name: CameraChangeTrigger 1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6635479384453606239
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8960793661112100184}
+  m_LocalRotation: {x: -0, y: 0.983786, z: -0, w: 0.17934656}
+  m_LocalPosition: {x: 0.21, y: 8.440001, z: 25.4}
+  m_LocalScale: {x: 1.0000005, y: 1, z: 1.0000005}
+  m_Children: []
+  m_Father: {fileID: 7581526614925631211}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 159.337, z: 0}
+--- !u!65 &3288852479447874414
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8960793661112100184}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 31.19, y: 12.26, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &6911798955277172278
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8960793661112100184}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c46b072f3be0cd6478b18d05f97ec136, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CameraOptions:
+    Offset: {x: 3, y: 16, z: -16}
+    Rotation: {x: 52, y: 5, z: 0}
+  IsChanging: 0

@@ -5,10 +5,11 @@ Material:
   serializedVersion: 6
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_Name: 570993
   m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
-  m_ShaderKeywords: _NORMALMAP _WETNESS_SIMPLE
+  m_ShaderKeywords: _NORMALMAP _USE_GRADIENT_ON _WETNESS_SIMPLE
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 0
@@ -18,6 +19,10 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - _AO:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _BumpMap:
         m_Texture: {fileID: 2800000, guid: c8d7d110be1dccb41b69941db52004a3, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -42,8 +47,12 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _Gradient:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 16c54b3664cc36a48990db2f86bae81b, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -54,11 +63,27 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _MetallicSmooth:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Noise:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Normal:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ParallaxMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SecondaryTex:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -73,10 +98,12 @@ Material:
     - _DiffuseScatteringContraction: 8
     - _DiffuseScatteringContraction2: 8
     - _DiffuseScatteringEnabled: 0
+    - _DisplaceAmount: 1.5
     - _DoubleSided: 0
     - _DstBlend: 0
+    - _EdgeSize: 0.2
     - _GlossMapScale: 1
-    - _Glossiness: 0.11
+    - _Glossiness: 0
     - _Glossiness2: 0.5
     - _GlossyReflections: 1
     - _Lighting: 0
@@ -86,10 +113,11 @@ Material:
     - _Lux_FlowNormalTiling: 2
     - _Lux_FlowRefraction: 0.02
     - _Lux_FlowSpeed: 0.05
-    - _Metallic: 0.196
+    - _Metallic: 0
     - _Metallic2: 0
     - _MixMappingControl: 0
     - _Mode: 0
+    - _NoiseStrength: 0.4
     - _OcclusionStrength: 1
     - _Parallax: 0.02
     - _ParallaxTiling: 1
@@ -111,15 +139,20 @@ Material:
     - _UseCombinedMap: 0
     - _UseMixMapping: 0
     - _UsePOM: 0
+    - _Use_Gradient: 1
     - _WaterSlopeDamp: 0.707
     - _Wetness: 1
     - _ZWrite: 1
+    - _cutoff: 0
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _Color2: {r: 1, g: 1, b: 1, a: 1}
     - _DiffuseScatteringCol: {r: 0, g: 0, b: 0, a: 0}
     - _DiffuseScatteringCol2: {r: 0, g: 0, b: 0, a: 0}
+    - _EdgeColor1: {r: 1, g: 1, b: 1, a: 1}
+    - _Emission: {r: 0, g: 0, b: 0, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _SecondaryEmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SnowAccumulation: {r: 0, g: 1, b: 0, a: 0}
     - _SnowDetailTiling: {r: 4, g: 4, b: 0, a: 0}
     - _SnowMaskTiling: {r: 0.3, g: 0.3, b: 0, a: 0}

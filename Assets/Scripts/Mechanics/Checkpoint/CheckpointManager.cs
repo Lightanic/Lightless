@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class CheckpointManager : MonoBehaviour
 {
-
+    private static Vector3 cameraRotation;
     public static string latestCheckpoint;
     public static Vector3 cameraOffset;
     public GameObject Player;
@@ -20,6 +20,18 @@ public class CheckpointManager : MonoBehaviour
     public bool DebugModeQuickMove = false;
 
     Dictionary<string, Transform> checkpointMap;
+
+    void GetCamControllerIfNull()
+    {
+        if (CamController == null)
+        {
+            var cam = GameObject.Find("Main Camera");
+            if (cam != null)
+            {
+                CamController = cam.GetComponent<CameraController>();
+            }
+        }
+    }
 
     private void Start()
     {
@@ -95,6 +107,7 @@ public class CheckpointManager : MonoBehaviour
 
     public void SetLatestCheckpoint(string checkpoint)
     {
+        GetCamControllerIfNull();
         if (checkpoint == latestCheckpoint) return;
         if (Player == null)
         {
@@ -104,6 +117,7 @@ public class CheckpointManager : MonoBehaviour
         GameSaveData saveData = new GameSaveData();
         saveData.CurrentCheckpoint = checkpoint;
         latestCheckpoint = checkpoint;
+        cameraRotation = CamController.transform.rotation.eulerAngles;
         cameraOffset = CamController.offset;
         latestPlayerInventory = Player.GetComponent<InventoryComponent>().PlayerInventory;
         var equippedItem = Player.GetComponentInChildren<EquipComponent>().EquipedItem;
@@ -131,15 +145,18 @@ public class CheckpointManager : MonoBehaviour
         Player.transform.GetChild(1).transform.DetachChildren();
         Player.GetComponent<InventoryComponent>().PlayerInventory = latestPlayerInventory;
         CamController.SetOffset(cameraOffset);
+        CamController.SetRotation(cameraRotation);
         Player.transform.position = checkpointMap[latestCheckpoint].position + transform.forward * 1.5F;
 
         var lamp = GameObject.Find("lamp");
         var pickup = lamp.GetComponent<Pickup>();
         var lantern = lamp.GetComponent<Lantern>();
+        var lanternLght = lamp.GetComponent<LightComponent>();
         pickup.IsInteracting = true;
         pickup.IsEquiped = true;   // equip to left hand
         pickup.IsInteractable = false;
         lantern.EquipRightHand();
+        lanternLght.ToggleLightOn();
 
         lamp.GetComponent<LightComponent>().ToggleLightOn();
         foreach(var pickupItem in inventoryList)
@@ -157,7 +174,7 @@ public class CheckpointManager : MonoBehaviour
     void PickupItem(string pickupName)
     {
         var item = GameObject.Find(pickupName);
-        if(leftHandComponent == pickupName)
+        if(leftHandComponent == pickupName && item != null)
         {
             var pickup = item.GetComponent<Pickup>();
             pickup.IsInteracting = true;

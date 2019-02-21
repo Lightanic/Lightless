@@ -1,208 +1,210 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using Unity.Entities;
+﻿//using System.Collections;
+//using System.Collections.Generic;
+//using UnityEngine;
+//using Unity.Entities;
 
-public class LungerSystem : ComponentSystem
-{
+//public class LungerSystem : ComponentSystem
+//{
 
-    private struct LungerData
-    {
-        public NavAgentComponent AgentComponent;
-        public Transform EnemyTransform;
-        public EnemyVisionComponent EnemyVision;
-        public EnemyLungeComponent LungeComponent;
-        public EnemyAnimator Animator;
-        public WayPointComponent PatrolData;
+//    private struct LungerData
+//    {
+//        public NavAgentComponent AgentComponent;
+//        public Transform EnemyTransform;
+//        public EnemyVisionComponent EnemyVision;
+//        public EnemyLungeComponent LungeComponent;
+//        public EnemyAnimator Animator;
+//        public WayPointComponent PatrolData;
 
-    }
+//    }
 
-    private struct PlayerData
-    {
-        public InputComponent PlayerInput;
-        public Transform PlayerTransform;
-    }
-    private struct LightData
-    {
-        public LightComponent LightSwitch;
-        public Transform LightTransform;
-    }
+//    private struct PlayerData
+//    {
+//        public InputComponent PlayerInput;
+//        public Transform PlayerTransform;
+//    }
+//    private struct LightData
+//    {
+//        public LightComponent LightSwitch;
+//        public Transform LightTransform;
+//    }
 
-    private struct LungerDeath
-    {
-        public EnemyDeathComponent DeathComponent;
-        public Transform EnemyTransform;
-    }
+//    private struct LungerDeath
+//    {
+//        public EnemyDeathComponent DeathComponent;
+//        public Transform EnemyTransform;
+//    }
 
 
 
-    protected override void OnUpdate()
-    {
+//    protected override void OnUpdate()
+//    {
 
-        PlayerData playerData = new PlayerData();
-        LightData lightData = new LightData();
-        bool isThereLight = false;
+//        PlayerData playerData = new PlayerData();
+//        LightData lightData = new LightData();
+//        bool isThereLight = false;
 
-        foreach (var entity in GetEntities<PlayerData>())
-        {
-            playerData = entity;
+//        foreach (var entity in GetEntities<PlayerData>())
+//        {
+//            playerData = entity;
 
-        }
+//        }
 
-        foreach (var entity in GetEntities<LungerDeath>())
-        {
-            if (entity.DeathComponent.EnemyIsDead)
-            {
-                entity.EnemyTransform.GetComponent<BoxCollider>().enabled = false;
-            }
-        }
-        foreach (var lunger in GetEntities<LungerData>())
-        {
+//        foreach (var entity in GetEntities<LungerDeath>())
+//        {
+//            if (entity.DeathComponent.EnemyIsDead)
+//            {
+//                entity.EnemyTransform.GetComponent<BoxCollider>().enabled = false;
+//            }
+//        }
+//        foreach (var lunger in GetEntities<LungerData>())
+//        {
 
-            if (lunger.EnemyTransform.GetComponent<EnemyDeathComponent>().EnemyIsDead)
-            {
-                continue;
-            }
+//            if (lunger.EnemyTransform.GetComponent<EnemyDeathComponent>().EnemyIsDead)
+//            {
+//                continue;
+//            }
 
-            float currentDistance = float.MaxValue;
-            float lightDistance;
-            foreach (var e in GetEntities<LightData>())
-            {
-                //lightData = e;
+//            float currentDistance = float.MaxValue;
+//            float lightDistance;
+//            foreach (var e in GetEntities<LightData>())
+//            {
+//                //lightData = e;
 
-                if (e.LightSwitch.LightIsOn)
-                {
-                    lightDistance = Vector3.Distance(e.LightTransform.position, lunger.EnemyTransform.position);
-                    if (lightDistance < currentDistance)
-                    {
-                        currentDistance = lightDistance;
-                        lightData = e;
-                        isThereLight = true;
-                    }
-                }
-            }
+//                if (e.LightSwitch.LightIsOn)
+//                {
+//                    lightDistance = Vector3.Distance(e.LightTransform.position, lunger.EnemyTransform.position);
+//                    if (lightDistance < currentDistance)
+//                    {
+//                        currentDistance = lightDistance;
+//                        lightData = e;
+//                        isThereLight = true;
+//                    }
+//                }
+//            }
 
-            float distanceToLight = currentDistance;
-            float distanceToPlayer = Vector3.Distance(playerData.PlayerTransform.position, lunger.EnemyTransform.position);
-            lunger.EnemyVision.IsAlerted = false;
-            lunger.EnemyVision.IsSeeking = false;
+//            float distanceToLight = currentDistance;
+//            float distanceToPlayer = Vector3.Distance(playerData.PlayerTransform.position, lunger.EnemyTransform.position);
+//            lunger.EnemyVision.IsAlerted = false;
+//            lunger.EnemyVision.IsSeeking = false;
 
-            if (lunger.LungeComponent.IsPrelunging)
-            {
-                lunger.Animator.isWalking = false;
-                lunger.Animator.isRunning = false;
-                lunger.AgentComponent.Agent.speed = 0.0f;
-                if (lunger.LungeComponent.CurrentTimeForPrelunging > lunger.LungeComponent.PrelungeTime)
-                {
-                    lunger.LungeComponent.IsPrelunging = false;
-                    lunger.LungeComponent.IsLunging = true;
-                    lunger.LungeComponent.CurrentTimeForPrelunging = 0.0f;
-                }
-                else
-                {
+//            if (lunger.LungeComponent.IsPrelunging)
+//            {
+//                lunger.Animator.isWalking = false;
+//                lunger.Animator.isRunning = false;
+//                lunger.AgentComponent.Agent.speed = 0.0f;
+//                if (lunger.LungeComponent.CurrentTimeForPrelunging > lunger.LungeComponent.PrelungeTime)
+//                {
+//                    lunger.LungeComponent.IsPrelunging = false;
+//                    lunger.LungeComponent.IsLunging = true;
+//                    lunger.LungeComponent.CurrentTimeForPrelunging = 0.0f;
+//                }
+//                else
+//                {
 
-                    lunger.LungeComponent.CurrentTimeForPrelunging += Time.deltaTime;
-                }
-                continue;
+//                    lunger.LungeComponent.CurrentTimeForPrelunging += Time.deltaTime;
+//                }
+//                continue;
 
-            }
+//            }
 
-            if (lunger.LungeComponent.IsLunging)
-            {
-                lunger.Animator.isRunning = true;
-                Lunge(lunger, playerData);
-                if (lunger.LungeComponent.CurrentTimeForLunging > lunger.LungeComponent.LungeTime)
-                {
-                    lunger.LungeComponent.IsLunging = false;
-                    lunger.LungeComponent.CurrentTimeForLunging = 0.0f;
-                    lunger.AgentComponent.Agent.speed = 7;
-                }
-                else
-                {
-                    lunger.LungeComponent.CurrentTimeForLunging += Time.deltaTime;
-                }
-                continue;
-            }
+//            if (lunger.LungeComponent.IsLunging)
+//            {
+//                lunger.Animator.isRunning = true;
+//                Lunge(lunger, playerData);
+//                if (lunger.LungeComponent.CurrentTimeForLunging > lunger.LungeComponent.LungeTime)
+//                {
+//                    lunger.LungeComponent.IsLunging = false;
+//                    lunger.LungeComponent.CurrentTimeForLunging = 0.0f;
+//                    lunger.AgentComponent.Agent.speed = 7;
+//                }
+//                else
+//                {
+//                    lunger.LungeComponent.CurrentTimeForLunging += Time.deltaTime;
+//                }
+//                continue;
+//            }
 
-            if (isThereLight && lightData.LightSwitch.LightIsOn)
-            {
-                if (distanceToLight > lunger.EnemyVision.Value && distanceToLight <= lunger.EnemyVision.Value + lunger.EnemyVision.AlertValue)
-                {
-                    lunger.Animator.isRunning = false;
-                    lunger.Animator.isWalking = true;
-                    lunger.EnemyVision.IsAlerted = true;
-                    lunger.PatrolData.IsWandering = true;
-                }
-                else if (distanceToLight <= lunger.EnemyVision.Value) //if distance to light is lesser than enemy vision
-                {
-                    lunger.Animator.isWalking = true;
+//            if (isThereLight && lightData.LightSwitch.LightIsOn)
+//            {
+//                if (distanceToLight > lunger.EnemyVision.Value && distanceToLight <= lunger.EnemyVision.Value + lunger.EnemyVision.AlertValue)
+//                {
+//                    lunger.Animator.isRunning = false;
+//                    lunger.Animator.isWalking = true;
+//                    lunger.EnemyVision.IsAlerted = true;
+//                    lunger.PatrolData.IsWandering = true;
+//                }
+//                else if (distanceToLight <= lunger.EnemyVision.Value) //if distance to light is lesser than enemy vision
+//                {
+//                    lunger.Animator.isWalking = true;
 
-                    //seek the light
-                    Seek(lunger, lightData.LightTransform);
+//                    //seek the light
+//                    Seek(lunger, lightData.LightTransform);
 
-                }
+//                }
 
-                else
-                {
-                    lunger.Animator.isWalking = true;
-                    lunger.Animator.isRunning = false;
+//                else
+//                {
+//                    lunger.Animator.isWalking = true;
+//                    lunger.Animator.isRunning = false;
 
-                    //patrolling
-                    lunger.PatrolData.IsWandering = true;
-                }
+//                    //patrolling
+//                    lunger.PatrolData.IsWandering = true;
+//                }
 
-                if (distanceToPlayer <= lunger.LungeComponent.LungeValue && !lunger.LungeComponent.IsPrelunging && !lunger.LungeComponent.IsLunging)
-                {
-                    //Debug.Log("get ready for the lunge");
-                    lunger.LungeComponent.IsPrelunging = true;
+//                if (distanceToPlayer <= lunger.LungeComponent.LungeValue && !lunger.LungeComponent.IsPrelunging && !lunger.LungeComponent.IsLunging)
+//                {
+//                    //Debug.Log("get ready for the lunge");
+//                    lunger.LungeComponent.IsPrelunging = true;
 
-                }
+//                }
 
-            }
-            else
-            {
-                if (distanceToPlayer <= lunger.LungeComponent.LungeValue && !lunger.LungeComponent.IsPrelunging && !lunger.LungeComponent.IsLunging)
-                {
-                    //Debug.Log("get ready for the lunge");
-                    lunger.LungeComponent.IsPrelunging = true;
-                    lunger.EnemyVision.IsSeeking = true;
-                }
-                else
-                {
-                    //patrolling
-                    //lunger.AgentComponent.Agent.destination = lunger.EnemyTransform.position;   //stay where you are
-                    lunger.Animator.isRunning = false;
-                    lunger.Animator.isWalking = true;
-                    lunger.PatrolData.IsWandering = true;
-                }
-            }
-        }
-    }
+//            }
+//            else
+//            {
+//                if (distanceToPlayer <= lunger.LungeComponent.LungeValue && !lunger.LungeComponent.IsPrelunging && !lunger.LungeComponent.IsLunging)
+//                {
+//                    //Debug.Log("get ready for the lunge");
+//                    lunger.LungeComponent.IsPrelunging = true;
+//                    lunger.EnemyVision.IsSeeking = true;
+//                }
+//                else
+//                {
+//                    //patrolling
+//                    //lunger.AgentComponent.Agent.destination = lunger.EnemyTransform.position;   //stay where you are
+//                    lunger.Animator.isRunning = false;
+//                    lunger.Animator.isWalking = true;
+//                    lunger.PatrolData.IsWandering = true;
+//                }
+//            }
+//        }
+//    }
 
-    void Lunge(LungerData lunger, PlayerData player)
-    {
-        if (lunger.LungeComponent.IsLunging)
-        {
-            lunger.EnemyVision.IsSeeking = true;
-            //Debug.Log("lunging");
-            lunger.AgentComponent.Agent.speed = Random.Range(20, 40);
-            //seek player
-            Seek(lunger, player.PlayerTransform);
-        }
+//    void Lunge(LungerData lunger, PlayerData player)
+//    {
+//        if (lunger.LungeComponent.IsLunging)
+//        {
+//            lunger.EnemyVision.IsSeeking = true;
+//            //Debug.Log("lunging");
+//            lunger.AgentComponent.Agent.speed = 40;
+//            //lunger.AgentComponent.Agent.Warp(player.PlayerTransform.position);
+//            lunger.AgentComponent.Agent.Move(lunger.EnemyTransform.forward * 0.5f);
+//            //seek player
+//            Seek(lunger, player.PlayerTransform);
+//        }
 
-    }
+//    }
 
-    void Seek(LungerData lunger, Transform target)
-    {
-        lunger.EnemyVision.IsSeeking = true;
-        lunger.PatrolData.IsWandering = false;
-        lunger.AgentComponent.Agent.speed = 9;
-        if (target.gameObject.tag == "Flashlight")
-        {
-            lunger.AgentComponent.Agent.SetDestination(target.position + target.forward * 8);
-        }
-        else
-            lunger.AgentComponent.Agent.SetDestination(target.position);
-    }
+//    void Seek(LungerData lunger, Transform target)
+//    {
+//        lunger.EnemyVision.IsSeeking = true;
+//        lunger.PatrolData.IsWandering = false;
+//        lunger.AgentComponent.Agent.speed = 9;
+//        if (target.gameObject.tag == "Flashlight")
+//        {
+//            lunger.AgentComponent.Agent.SetDestination(target.position + target.forward * 8);
+//        }
+//        else
+//            lunger.AgentComponent.Agent.SetDestination(target.position);
+//    }
 
-}
+//}

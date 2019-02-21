@@ -1,12 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static EnemyComponent;
 
 public class EnemyStunComponent : MonoBehaviour
 {
     public bool IsStunned = false;
+    public bool IsWaiting = false;
     public bool IsSeekingPlayer = false;
+    public float WaitTime;
+    public float currentTime;
     public GameObject flashlight;
+    bool triggered = false;
+    Collider other;
 
     private void Start()
     {
@@ -14,26 +20,53 @@ public class EnemyStunComponent : MonoBehaviour
     }
     private void Update()
     {
-        if (flashlight.gameObject.activeInHierarchy == false)
+        //bool StunFlag = false;
+        //foreach (var fire in GameObject.FindGameObjectsWithTag("FireStun"))
+        //{
+        //    StunFlag = true;
+        //}
+        //if (!StunFlag)
+        //{
+        //   // IsStunned = false;
+        //}
+        //if (flashlight.gameObject.activeInHierarchy == false)
+        //    IsStunned = false;
+
+        if (triggered && !other || (triggered && !other.gameObject.activeInHierarchy))
+        {
+            triggered = false;
             IsStunned = false;
+        }
     }
 
     private void OnTriggerStay(Collider other)
     {
+        //Debug.Log(other.tag);
+        this.other = other;
+        triggered = true;
+        IsStunned = false;
         if (other.gameObject.tag == "Flashlight")
         {
-                if (other.GetComponent<LightComponent>().LightIsOn == true)
-                {
-                    IsStunned = true;
-                }
+            if (other.GetComponent<LightComponent>().LightIsOn == true)
+            {
+                //this.GetComponent<EnemyComponent>().State = EnemyState.Stun;
+                IsStunned = true;
+                transform.LookAt(other.transform);
+            }
 
             //Debug.Log("You look stunning!");
         }
-
-        else if (other.gameObject.tag == "Player")
+        if (other.gameObject.CompareTag("FireStun"))
         {
-            IsSeekingPlayer = true;
+            //this.GetComponent<EnemyComponent>().State = EnemyState.Stun;
+            IsStunned = true;
+            transform.LookAt(other.transform);
         }
+
+        //else if (other.gameObject.tag == "Player")
+        //{
+        //    IsSeekingPlayer = true;
+        //}
 
         //else
         //{
@@ -46,11 +79,12 @@ public class EnemyStunComponent : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.tag == "Flashlight")
-        {
-            IsStunned = false;
-            Debug.Log("I am coming after you!");
-        }
+        IsStunned = false;
+        //if (other.gameObject.tag == "Flashlight")
+        //{
+            
+        //    Debug.Log("I am coming after you!");
+        //}
     }
 
 }

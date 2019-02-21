@@ -24,6 +24,7 @@ public class NarrativeSystem : ComponentSystem {
         public ComponentArray<Transform> Transform;
         public ComponentArray<InputComponent> InputComponents;
         public ComponentArray<CharacterAnimator> Animators;
+        public ComponentArray<PlayerProperties> props;
     }
     [Inject] private Player playerData;
 
@@ -54,6 +55,8 @@ public class NarrativeSystem : ComponentSystem {
             if (Vector3.Distance(playerPos, entity.Transform.position) <= entity.PickItem.InteractDistance && (playerData.InputComponents[0].Control("Interact")))
             {
                 currentPickup = entity.PickItem;
+                PlayerProperties.narrativePickups.Add(entity.PickItem.index,entity.PickItem);
+                entity.PickItem.obtained = true;
             }
 
         }

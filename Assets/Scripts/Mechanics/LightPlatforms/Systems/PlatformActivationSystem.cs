@@ -1,4 +1,6 @@
-﻿using Assets.Scripts.Memory;
+﻿using Assets.Scripts.Mechanics.LightPlatforms;
+using Assets.Scripts.Memory;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Collections;
@@ -66,17 +68,18 @@ public class PlatformActivationSystem : ComponentSystem
             var activationTime = Light.ActivationTime[i];
             RaycastHit hit = results[i];
 
-            if (hit.collider != null && hit.collider.tag == "LightActivatedPlatform")
+            if (hit.collider != null && hit.collider.tag == "LightActivatedPlatform" && !isReflected)
             {
                 lineComponent.AddLine(new ReflectionLine(origins[i], hit.point));
-                ActivatePlatform(hit.collider.gameObject, activationTime);
+                ActivatePlatform(hit.collider.gameObject, activationTime, hit);
+               
             }
             else
             {
                 if (hit.collider != null && hit.collider.tag == "ReflectionActivatedPlatform" && isReflected)
                 {
                     lineComponent.AddLine(new ReflectionLine(origins[i], hit.point));
-                    ActivatePlatform(hit.collider.gameObject, activationTime);
+                    ActivatePlatform(hit.collider.gameObject, activationTime, hit);
                 }
                 else
                 {
@@ -95,21 +98,40 @@ public class PlatformActivationSystem : ComponentSystem
     /// </summary>
     /// <param name="platformObject"></param>
     /// <param name="activationTime"></param>
-    void ActivatePlatform(GameObject platformObject, TimedComponent activationTime)
+    void ActivatePlatform(GameObject platformObject, TimedComponent activationTime, RaycastHit hit)
     {
         var platform = platformObject.GetComponent<LightActivatedPlatformComponent>();
-        if (!platform.IsActivated && !platform.IsRetracting)
+        if(platform.HasActivated && platform.IsOneTimeActivation)
         {
+            return;
+        }
+
+        if (!platform.IsActivated)
+        {
+            float fillValue = activationTime.CurrentTime / activationTime.TimeThreshold;
+            ShaderHelper.ApplyHitTexCoord(hit);
+            platform.FillValue = fillValue * fillValue;
+            ShaderHelper.SetFillValue(platformObject.GetComponent<Renderer>().material, fillValue * fillValue);
             if (activationTime.CurrentTime < activationTime.TimeThreshold)
             {
                 activationTime.CurrentTime += Time.deltaTime;
             }
             else
             {
+                platform.FillValue = 1F;
                 platform.IsActivated = true;
+                ShaderHelper.SetFillValue(platformObject.GetComponent<Renderer>().material, 1F);
                 activationTime.CurrentTime = 0;
                 Player.Input[0].Rumble(0.3f, new Vector2(5,5),0);
             }
         }
+        else
+        {
+            platform.FillValue = 1F;
+            ShaderHelper.SetFillValue(platformObject.GetComponent<Renderer>().material, 1F);
+            platform.CurrentTime = 0F;
+            platform.IsActivated = true;
+        }
     }
+
 }
