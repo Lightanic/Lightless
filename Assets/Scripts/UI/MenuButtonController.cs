@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class MenuButtonController : MonoBehaviour {
 
+    [Header("WWISE Global")]
+    [SerializeField]
+    GameObject wwiseGlobal;
+
+    [Space]
 	// Use this for initialization
 	public int index;
 	[SerializeField] bool keyDown;
@@ -54,6 +59,8 @@ public class MenuButtonController : MonoBehaviour {
     {
         if (index == 0)         // PlayButton
         {
+            //AkSoundEngine.PostEvent("Start_Gameplay", wwiseGlobal);
+            AkSoundEngine.PostEvent("Start_Ambiance", wwiseGlobal);
             MenuAnim.SetBool("Exit", true);
         }
         else if (index == 1)    // Credits button

@@ -11,7 +11,6 @@ public class AkBankInspector : AkBaseInspector
 {
 	private readonly AkUnityEventHandlerInspector m_LoadBankEventHandlerInspector = new AkUnityEventHandlerInspector();
 	private readonly AkUnityEventHandlerInspector m_UnloadBankEventHandlerInspector = new AkUnityEventHandlerInspector();
-	private UnityEditor.SerializedProperty bankName;
 	private UnityEditor.SerializedProperty decode;
 	private UnityEditor.SerializedProperty loadAsync;
 	private UnityEditor.SerializedProperty saveDecoded;
@@ -21,27 +20,15 @@ public class AkBankInspector : AkBaseInspector
 		m_LoadBankEventHandlerInspector.Init(serializedObject, "triggerList", "Load On: ", false);
 		m_UnloadBankEventHandlerInspector.Init(serializedObject, "unloadTriggerList", "Unload On: ", false);
 
-		bankName = serializedObject.FindProperty("bankName");
 		loadAsync = serializedObject.FindProperty("loadAsynchronous");
 		decode = serializedObject.FindProperty("decodeBank");
 		saveDecoded = serializedObject.FindProperty("saveDecodedBank");
-
-		m_guidProperty = new UnityEditor.SerializedProperty[1];
-		m_guidProperty[0] = serializedObject.FindProperty("valueGuid.Array");
-
-		//Needed by the base class to know which type of component its working with
-		m_typeName = "Bank";
-		m_objectType = AkWwiseProjectData.WwiseObjectType.SOUNDBANK;
 	}
 
 	public override void OnChildInspectorGUI()
 	{
-		serializedObject.Update();
-
 		m_LoadBankEventHandlerInspector.OnGUI();
 		m_UnloadBankEventHandlerInspector.OnGUI();
-
-		UnityEngine.GUILayout.Space(UnityEditor.EditorGUIUtility.standardVerticalSpacing);
 
 		using (new UnityEditor.EditorGUILayout.VerticalScope("box"))
 		{
@@ -61,8 +48,10 @@ public class AkBankInspector : AkBaseInspector
 				UnityEditor.EditorGUILayout.PropertyField(saveDecoded, new UnityEngine.GUIContent("Save decoded bank:"));
 				if (oldSaveDecodedValue && saveDecoded.boolValue == false)
 				{
+					var bank = target as AkBank;
 					var decodedBankPath =
-						System.IO.Path.Combine(AkSoundEngineController.GetDecodedBankFullPath(), bankName.stringValue + ".bnk");
+						System.IO.Path.Combine(AkSoundEngineController.GetDecodedBankFullPath(), bank.data.Name + ".bnk");
+
 					try
 					{
 						System.IO.File.Delete(decodedBankPath);
@@ -74,27 +63,6 @@ public class AkBankInspector : AkBaseInspector
 				}
 			}
 		}
-
-		serializedObject.ApplyModifiedProperties();
-	}
-
-	public override string UpdateIds(System.Guid[] in_guid)
-	{
-		for (var i = 0; i < AkWwiseProjectInfo.GetData().BankWwu.Count; i++)
-		{
-			var bank = AkWwiseProjectInfo.GetData().BankWwu[i].List.Find(x => new System.Guid(x.Guid).Equals(in_guid[0]));
-
-			if (bank != null)
-			{
-				serializedObject.Update();
-				bankName.stringValue = bank.Name;
-				serializedObject.ApplyModifiedProperties();
-
-				return bank.Name;
-			}
-		}
-
-		return string.Empty;
 	}
 }
 #endif

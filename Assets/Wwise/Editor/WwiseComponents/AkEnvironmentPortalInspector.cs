@@ -94,14 +94,10 @@ public class AkEnvironmentPortalInspector : UnityEditor.Editor
 
 	private string GetEnvironmentName(AkEnvironment in_env)
 	{
-		for (var i = 0; i < AkWwiseProjectInfo.GetData().AuxBusWwu.Count; i++)
-		{
-			for (var j = 0; j < AkWwiseProjectInfo.GetData().AuxBusWwu[i].List.Count; j++)
-			{
-				if (in_env.GetAuxBusID() == (uint) AkWwiseProjectInfo.GetData().AuxBusWwu[i].List[j].ID)
-					return AkWwiseProjectInfo.GetData().AuxBusWwu[i].List[j].Name;
-			}
-		}
+		foreach (var wwu in AkWwiseProjectInfo.GetData().AuxBusWwu)
+			foreach (var env in wwu.List)
+				if (in_env.data.Id == env.Id)
+					return env.Name;
 
 		return string.Empty;
 	}

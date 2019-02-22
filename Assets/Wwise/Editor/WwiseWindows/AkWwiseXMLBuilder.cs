@@ -5,49 +5,71 @@
 //
 //////////////////////////////////////////////////////////////////////
 
+[UnityEditor.InitializeOnLoad]
 public class AkWwiseXMLBuilder
 {
 	private static readonly System.DateTime s_LastParsed = System.DateTime.MinValue;
 
+	static AkWwiseXMLBuilder()
+	{
+		AkWwiseXMLWatcher.Instance.PopulateXML = Populate;
+	}
+
 	public static bool Populate()
 	{
 		if (UnityEditor.EditorApplication.isPlayingOrWillChangePlaymode || UnityEditor.EditorApplication.isCompiling)
-			return false;
-
-		// Try getting the SoundbanksInfo.xml file for Windows or Mac first, then try to find any other available platform.
-		var FullSoundbankPath = AkBasePathGetter.GetPlatformBasePath();
-		var filename = System.IO.Path.Combine(FullSoundbankPath, "SoundbanksInfo.xml");
-
-		if (!System.IO.File.Exists(filename))
 		{
-			FullSoundbankPath = System.IO.Path.Combine(UnityEngine.Application.streamingAssetsPath,
-				WwiseSetupWizard.Settings.SoundbankPath);
-			var foundFiles =
-				System.IO.Directory.GetFiles(FullSoundbankPath, "SoundbanksInfo.xml", System.IO.SearchOption.AllDirectories);
-			if (foundFiles.Length > 0)
-				filename = foundFiles[0];
+			return false;
 		}
 
-		var bChanged = false;
-		if (System.IO.File.Exists(filename))
+		try
 		{
+			// Try getting the SoundbanksInfo.xml file for Windows or Mac first, then try to find any other available platform.
+			var FullSoundbankPath = AkBasePathGetter.GetPlatformBasePath();
+			var filename = System.IO.Path.Combine(FullSoundbankPath, "SoundbanksInfo.xml");
+			if (!System.IO.File.Exists(filename))
+			{
+				FullSoundbankPath = System.IO.Path.Combine(UnityEngine.Application.streamingAssetsPath,
+					WwiseSetupWizard.Settings.SoundbankPath);
+
+				if (!System.IO.Directory.Exists(FullSoundbankPath))
+					return false;
+
+				var foundFiles =
+					System.IO.Directory.GetFiles(FullSoundbankPath, "SoundbanksInfo.xml", System.IO.SearchOption.AllDirectories);
+
+				if (foundFiles.Length == 0)
+					return false;
+
+				filename = foundFiles[0];
+			}
+
 			var time = System.IO.File.GetLastWriteTime(filename);
 			if (time <= s_LastParsed)
+			{
 				return false;
+			}
 
 			var doc = new System.Xml.XmlDocument();
 			doc.Load(filename);
 
+			var bChanged = false;
 			var soundBanks = doc.GetElementsByTagName("SoundBanks");
 			for (var i = 0; i < soundBanks.Count; i++)
 			{
 				var soundBank = soundBanks[i].SelectNodes("SoundBank");
 				for (var j = 0; j < soundBank.Count; j++)
+				{
 					bChanged = SerialiseSoundBank(soundBank[j]) || bChanged;
+				}
 			}
-		}
 
-		return bChanged;
+			return bChanged;
+		}
+		catch
+		{
+			return false;
+		}
 	}
 
 	private static bool SerialiseSoundBank(System.Xml.XmlNode node)
@@ -58,7 +80,9 @@ public class AkWwiseXMLBuilder
 		{
 			var events = includedEvents[i].SelectNodes("Event");
 			for (var j = 0; j < events.Count; j++)
+			{
 				bChanged = SerialiseMaxAttenuation(events[j]) || SerialiseEstimatedDuration(events[j]) || bChanged;
+			}
 		}
 
 		return bChanged;
@@ -102,7 +126,9 @@ public class AkWwiseXMLBuilder
 					{
 						var minDuration = UnityEngine.Mathf.Infinity;
 						if (string.Compare(node.Attributes["DurationMin"].InnerText, "Infinite") != 0)
+						{
 							minDuration = float.Parse(node.Attributes["DurationMin"].InnerText);
+						}
 
 						if (AkWwiseProjectInfo.GetData().EventWwu[i].List[j].minDuration != minDuration)
 						{
@@ -115,7 +141,9 @@ public class AkWwiseXMLBuilder
 					{
 						var maxDuration = UnityEngine.Mathf.Infinity;
 						if (string.Compare(node.Attributes["DurationMax"].InnerText, "Infinite") != 0)
+						{
 							maxDuration = float.Parse(node.Attributes["DurationMax"].InnerText);
+						}
 
 						if (AkWwiseProjectInfo.GetData().EventWwu[i].List[j].maxDuration != maxDuration)
 						{

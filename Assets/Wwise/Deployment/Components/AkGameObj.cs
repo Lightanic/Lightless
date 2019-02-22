@@ -111,10 +111,17 @@ public class AkGameObj : UnityEngine.MonoBehaviour
 		if (AkUtilities.IsMigrating)
 			return;
 
-		if (gameObject != null && isStaticObject != gameObject.isStatic)
+		try
 		{
-			isStaticObject = gameObject.isStatic;
-			UnityEditor.EditorUtility.SetDirty(this);
+			if (gameObject != null && isStaticObject != gameObject.isStatic)
+			{
+				isStaticObject = gameObject.isStatic;
+				UnityEditor.EditorUtility.SetDirty(this);
+			}
+		}
+		catch
+		{
+			UnityEditor.EditorApplication.update -= CheckStaticStatus;
 		}
 #endif
 	}
@@ -258,11 +265,14 @@ public class AkGameObj : UnityEngine.MonoBehaviour
 
 #pragma warning disable 0414 // private field assigned but not used.
 
-	[UnityEngine.SerializeField] private AkGameObjPosOffsetData m_posOffsetData;
+	[UnityEngine.HideInInspector]
+	[UnityEngine.SerializeField]
+	private AkGameObjPosOffsetData m_posOffsetData;
 
 	// Wwise v2016.2 and below supported up to 8 listeners[0-7].
 	private const int AK_NUM_LISTENERS = 8;
 
+	[UnityEngine.HideInInspector]
 	[UnityEngine.SerializeField]
 	/// Listener 0 by default.
 	private int listenerMask = 1;

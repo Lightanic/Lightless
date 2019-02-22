@@ -16,7 +16,7 @@
 /// - <a href="https://www.audiokinetic.com/library/edge/?source=SDK&id=integrating__elements__environments.html" target="_blank">Integrating Environments and Game-defined Auxiliary Sends</a> (Note: This is described in the Wwise SDK documentation.)
 /// - <a href="https://www.audiokinetic.com/library/edge/?source=SDK&id=namespace_a_k_1_1_sound_engine_a18f56e8e0e881c4efb9080545efbb233.html#a18f56e8e0e881c4efb9080545efbb233" target="_blank">AK::SoundEngine::SetGameObjectAuxSendValues</a> (Note: This is described in the Wwise SDK documentation.)
 [UnityEngine.ExecuteInEditMode]
-public class AkEnvironment : UnityEngine.MonoBehaviour
+public class AkEnvironment : UnityEngine.MonoBehaviour, UnityEngine.ISerializationCallbackReceiver
 {
 	public const int MAX_NB_ENVIRONMENTS = 4;
 
@@ -31,7 +31,10 @@ public class AkEnvironment : UnityEngine.MonoBehaviour
 	//if isDefault, then this environment will be bumped out if any other is present 
 	public bool isDefault = false;
 
-	public int m_auxBusID;
+	[System.Obsolete(AkSoundEngine.Deprecation_2018_1_2)]
+	public int m_auxBusID { get { return (int)(data == null ? AkSoundEngine.AK_INVALID_UNIQUE_ID : data.Id); } }
+
+	public AK.Wwise.AuxBus data = new AK.Wwise.AuxBus();
 
 	//Cache of the colliders for this environment, to avoid calls to GetComponent.
 	private UnityEngine.Collider m_Collider;
@@ -39,18 +42,10 @@ public class AkEnvironment : UnityEngine.MonoBehaviour
 	//smaller number has a higher priority
 	public int priority = 0;
 
-#if UNITY_EDITOR
-	public byte[] valueGuid = new byte[16];
-#endif
-
+	[System.Obsolete(AkSoundEngine.Deprecation_2018_1_2)]
 	public uint GetAuxBusID()
 	{
-		return (uint) m_auxBusID;
-	}
-
-	public void SetAuxBusID(int in_auxBusID)
-	{
-		m_auxBusID = in_auxBusID;
+		return data.Id;
 	}
 
 	public float GetAuxSendValueForPosition(UnityEngine.Vector3 in_position)
@@ -98,5 +93,29 @@ public class AkEnvironment : UnityEngine.MonoBehaviour
 			return b.excludeOthers ? 1 : base.Compare(a, b);
 		}
 	}
+
+	#region WwiseMigration
+	void UnityEngine.ISerializationCallbackReceiver.OnBeforeSerialize() { }
+
+	void UnityEngine.ISerializationCallbackReceiver.OnAfterDeserialize()
+	{
+#if UNITY_EDITOR
+		if (!data.IsValid() && AK.Wwise.BaseType.IsByteArrayValidGuid(valueGuid))
+		{
+			data.valueGuid = valueGuid;
+			WwiseObjectReference.migrate += data.MigrateData;
+		}
+
+		valueGuid = null;
+#endif
+	}
+
+#pragma warning disable 0414 // private field assigned but not used.
+	[UnityEngine.HideInInspector]
+	[UnityEngine.SerializeField]
+	private byte[] valueGuid;
+#pragma warning restore 0414 // private field assigned but not used.
+
+	#endregion
 }
 #endif // #if ! (UNITY_DASHBOARD_WIDGET || UNITY_WEBPLAYER || UNITY_WII || UNITY_WIIU || UNITY_NACL || UNITY_FLASH || UNITY_BLACKBERRY) // Disable under unsupported platforms.

@@ -15,15 +15,8 @@ public class AkWwiseWWUBuilder
 	private static string s_wwiseProjectPath = System.IO.Path.GetDirectoryName(
 		AkUtilities.GetFullPath(UnityEngine.Application.dataPath, WwiseSettings.LoadSettings().WwiseProjectPath));
 
-	private static readonly string[] FoldersOfInterest =
-	{
-		"Events", "States", "Switches", "SoundBanks", "Master-Mixer Hierarchy", "Game Parameters", "Triggers",
-		"Virtual Acoustics"
-	};
-
 	private static System.DateTime s_lastFileCheck = System.DateTime.Now.AddSeconds(-s_SecondsBetweenChecks);
 	private static readonly FileInfo_CompareByPath s_FileInfo_CompareByPath = new FileInfo_CompareByPath();
-	private static readonly tmpData_CompareByName s_comparetmpDataByName = new tmpData_CompareByName();
 
 	private readonly System.Collections.Generic.HashSet<string> m_WwuToProcess =
 		new System.Collections.Generic.HashSet<string>();
@@ -31,8 +24,10 @@ public class AkWwiseWWUBuilder
 	private int m_currentWwuCnt;
 	private int m_totWwuCnt = 1;
 
-	public static void Tick()
+	private static void Tick()
 	{
+		isTicking = true;
+
 		if (AkWwiseProjectInfo.GetData() != null)
 		{
 			if (System.DateTime.Now.Subtract(s_lastFileCheck).Seconds > s_SecondsBetweenChecks &&
@@ -52,22 +47,34 @@ public class AkWwiseWWUBuilder
 		}
 	}
 
-	public static bool AutoPopulate()
+	public static void InitializeWwiseProjectData()
 	{
-		var fullPath = AkUtilities.GetFullPath(UnityEngine.Application.dataPath, WwiseSetupWizard.Settings.WwiseProjectPath);
-		AkUtilities.IsWwiseProjectAvailable = System.IO.File.Exists(fullPath);
-		if (!AkUtilities.IsWwiseProjectAvailable || UnityEditor.EditorApplication.isPlayingOrWillChangePlaymode || 
-			string.IsNullOrEmpty(s_wwiseProjectPath) || UnityEditor.EditorApplication.isCompiling)
-			return false;
+		try
+		{
+			if (WwiseSetupWizard.Settings.WwiseProjectPath == null)
+				WwiseSettings.LoadSettings();
 
-		AkPluginActivator.Update();
+			if (string.IsNullOrEmpty(WwiseSetupWizard.Settings.WwiseProjectPath))
+			{
+				UnityEngine.Debug.LogError("WwiseUnity: Wwise project needed to populate from Work Units. Aborting.");
+				return;
+			}
 
-		var builder = new AkWwiseWWUBuilder();
-		if (!builder.GatherModifiedFiles())
-			return false;
+			var fullWwiseProjectPath = AkUtilities.GetFullPath(UnityEngine.Application.dataPath, WwiseSetupWizard.Settings.WwiseProjectPath);
+			s_wwiseProjectPath = System.IO.Path.GetDirectoryName(fullWwiseProjectPath);
 
-		builder.UpdateFiles();
-		return true;
+			AkUtilities.IsWwiseProjectAvailable = System.IO.File.Exists(fullWwiseProjectPath);
+			if (!AkUtilities.IsWwiseProjectAvailable || UnityEditor.EditorApplication.isPlayingOrWillChangePlaymode || string.IsNullOrEmpty(s_wwiseProjectPath) ||
+				UnityEditor.EditorApplication.isCompiling)
+				return;
+
+			var builder = new AkWwiseWWUBuilder();
+			builder.GatherModifiedFiles();
+			builder.UpdateFiles();
+		}
+		catch
+		{
+		}
 	}
 
 	public static bool Populate()
@@ -83,30 +90,85 @@ public class AkWwiseWWUBuilder
 				return false;
 			}
 
-			var fullPath = AkUtilities.GetFullPath(UnityEngine.Application.dataPath, WwiseSetupWizard.Settings.WwiseProjectPath);
-			s_wwiseProjectPath = System.IO.Path.GetDirectoryName(fullPath);
+			var fullWwiseProjectPath = AkUtilities.GetFullPath(UnityEngine.Application.dataPath, WwiseSetupWizard.Settings.WwiseProjectPath);
+			s_wwiseProjectPath = System.IO.Path.GetDirectoryName(fullWwiseProjectPath);
 
-			AkUtilities.IsWwiseProjectAvailable = System.IO.File.Exists(fullPath);
-			if (!AkUtilities.IsWwiseProjectAvailable || UnityEditor.EditorApplication.isPlayingOrWillChangePlaymode ||
-				string.IsNullOrEmpty(s_wwiseProjectPath) || UnityEditor.EditorApplication.isCompiling)
+			AkUtilities.IsWwiseProjectAvailable = System.IO.File.Exists(fullWwiseProjectPath);
+			if (!AkUtilities.IsWwiseProjectAvailable || UnityEditor.EditorApplication.isPlayingOrWillChangePlaymode || string.IsNullOrEmpty(s_wwiseProjectPath) ||
+			    UnityEditor.EditorApplication.isCompiling)
 				return false;
 
 			AkPluginActivator.Update();
 
 			var builder = new AkWwiseWWUBuilder();
-			if (!builder.GatherModifiedFiles())
+			if (WwiseObjectReference.migrate == null && !builder.GatherModifiedFiles())
 				return false;
 
 			builder.UpdateFiles();
+
+			if (WwiseObjectReference.migrate != null)
+			{
+				UpdateWwiseObjectReferenceData();
+				PopulateWwiseObjectReferences();
+
+				UnityEditor.AssetDatabase.SaveAssets();
+
+				var currentScene = UnityEngine.SceneManagement.SceneManager.GetActiveScene();
+				UnityEditor.SceneManagement.EditorSceneManager.MarkSceneDirty(currentScene);
+			}
+
 			return true;
 		}
 		catch (System.Exception e)
 		{
 			UnityEngine.Debug.LogError(e.ToString());
 			UnityEditor.EditorUtility.ClearProgressBar();
+			return true;
+		}
+	}
+
+	public static void UpdateWwiseObjectReferenceData()
+	{
+		UnityEngine.Debug.Log("WwiseUnity: Updating Wwise Object References");
+
+		WwiseObjectReference.ClearWwiseObjectDataMap();
+		UpdateWwiseObjectReference(WwiseObjectType.AuxBus, AkWwiseProjectInfo.GetData().AuxBusWwu);
+		UpdateWwiseObjectReference(WwiseObjectType.Event, AkWwiseProjectInfo.GetData().EventWwu);
+		UpdateWwiseObjectReference(WwiseObjectType.Soundbank, AkWwiseProjectInfo.GetData().BankWwu);
+		UpdateWwiseObjectReference(WwiseObjectType.GameParameter, AkWwiseProjectInfo.GetData().RtpcWwu);
+		UpdateWwiseObjectReference(WwiseObjectType.Trigger, AkWwiseProjectInfo.GetData().TriggerWwu);
+		UpdateWwiseObjectReference(WwiseObjectType.AcousticTexture, AkWwiseProjectInfo.GetData().AcousticTextureWwu);
+		UpdateWwiseObjectReference(WwiseObjectType.StateGroup, WwiseObjectType.State, AkWwiseProjectInfo.GetData().StateWwu);
+		UpdateWwiseObjectReference(WwiseObjectType.SwitchGroup, WwiseObjectType.Switch, AkWwiseProjectInfo.GetData().SwitchWwu);
+	}
+
+	public static void PopulateWwiseObjectReferences()
+	{
+		if (WwiseObjectReference.migrate == null)
+			return;
+
+		UnityEngine.Debug.Log("WwiseUnity: Migrating Wwise objects in current scene");
+
+		UpdateProgressBar(0);
+
+		var delegates = WwiseObjectReference.migrate.GetInvocationList();
+		var count = delegates.Length;
+		for (var i = 0; i < count; ++i)
+		{
+			UpdateProgressBar((float)i / count);
+			var d = delegates[i] as UnityEditor.EditorApplication.CallbackFunction;
+			d();
 		}
 
-		return true;
+		foreach (var d in delegates)
+			WwiseObjectReference.migrate -= (UnityEditor.EditorApplication.CallbackFunction)d;
+		WwiseObjectReference.migrate = null;
+
+		UpdateProgressBar(1);
+
+		UnityEngine.Debug.Log("WwiseUnity: Migrated <" + count + "> Wwise objects in current scene");
+
+		UnityEditor.EditorUtility.ClearProgressBar();
 	}
 
 	private int RecurseWorkUnit(AssetType in_type, System.IO.FileInfo in_workUnit, string in_currentPathInProj,
@@ -126,17 +188,15 @@ public class AkWwiseWWUBuilder
 			in_currentPathInProj =
 				System.IO.Path.Combine(in_currentPathInProj, System.IO.Path.GetFileNameWithoutExtension(in_workUnit.Name));
 			in_pathAndIcons.AddLast(new AkWwiseProjectData.PathElement(
-				System.IO.Path.GetFileNameWithoutExtension(in_workUnit.Name), AkWwiseProjectData.WwiseObjectType.WORKUNIT));
+				System.IO.Path.GetFileNameWithoutExtension(in_workUnit.Name), WwiseObjectType.WorkUnit));
 			var WwuPhysicalPath = System.IO.Path.Combine(in_currentPhysicalPath, in_workUnit.Name);
 
-			AkWwiseProjectData.WorkUnit wwu = null;
-
-			ReplaceWwuEntry(WwuPhysicalPath, in_type, out wwu, out wwuIndex);
+			var wwu = ReplaceWwuEntry(WwuPhysicalPath, in_type, out wwuIndex);
 
 			wwu.ParentPhysicalPath = in_parentPhysicalPath;
 			wwu.PhysicalPath = WwuPhysicalPath;
-			wwu.Guid = "";
-			wwu.SetLastTime(System.IO.File.GetLastWriteTime(in_workUnit.FullName));
+			wwu.Guid = System.Guid.Empty;
+			wwu.LastTime = System.IO.File.GetLastWriteTime(in_workUnit.FullName);
 
 			reader = System.Xml.XmlReader.Create(in_workUnit.FullName);
 
@@ -146,8 +206,19 @@ public class AkWwiseWWUBuilder
 			{
 				if (reader.NodeType == System.Xml.XmlNodeType.Element && reader.Name.Equals("WorkUnit"))
 				{
-					if (wwu.Guid.Equals(""))
-						wwu.Guid = reader.GetAttribute("ID");
+					if (wwu.Guid.Equals(System.Guid.Empty))
+					{
+						var ID = reader.GetAttribute("ID");
+						try
+						{
+							wwu.Guid = new System.Guid(ID);
+						}
+						catch
+						{
+							UnityEngine.Debug.LogWarning("WwiseUnity: Error reading ID <" + ID + "> from work unit <" + in_workUnit.FullName + ">.");
+							throw;
+						}
+					}
 
 					var persistMode = reader.GetAttribute("PersistMode");
 					if (persistMode == "Reference")
@@ -175,8 +246,7 @@ public class AkWwiseWWUBuilder
 				else if (reader.NodeType == System.Xml.XmlNodeType.Element && reader.Name.Equals("AuxBus"))
 				{
 					in_currentPathInProj = System.IO.Path.Combine(in_currentPathInProj, reader.GetAttribute("Name"));
-					in_pathAndIcons.AddLast(new AkWwiseProjectData.PathElement(reader.GetAttribute("Name"),
-						AkWwiseProjectData.WwiseObjectType.AUXBUS));
+					in_pathAndIcons.AddLast(new AkWwiseProjectData.PathElement(reader.GetAttribute("Name"), WwiseObjectType.AuxBus));
 					var isEmpty = reader.IsEmptyElement;
 					AddElementToList(in_currentPathInProj, reader, in_type, in_pathAndIcons, wwuIndex);
 
@@ -197,15 +267,9 @@ public class AkWwiseWWUBuilder
 						// Add the folder/bus to the path
 						in_currentPathInProj = System.IO.Path.Combine(in_currentPathInProj, reader.GetAttribute("Name"));
 						if (reader.Name.Equals("Folder"))
-						{
-							in_pathAndIcons.AddLast(new AkWwiseProjectData.PathElement(reader.GetAttribute("Name"),
-								AkWwiseProjectData.WwiseObjectType.FOLDER));
-						}
+							in_pathAndIcons.AddLast(new AkWwiseProjectData.PathElement(reader.GetAttribute("Name"), WwiseObjectType.Folder));
 						else if (reader.Name.Equals("Bus"))
-						{
-							in_pathAndIcons.AddLast(new AkWwiseProjectData.PathElement(reader.GetAttribute("Name"),
-								AkWwiseProjectData.WwiseObjectType.BUS));
-						}
+							in_pathAndIcons.AddLast(new AkWwiseProjectData.PathElement(reader.GetAttribute("Name"), WwiseObjectType.Bus));
 					}
 
 					// Advance the reader
@@ -232,7 +296,7 @@ public class AkWwiseWWUBuilder
 			}
 
 			// Sort the newly populated Wwu alphabetically
-			SortWwu(in_type.RootDirectoryName, wwuIndex);
+			SortWwu(in_type, wwuIndex);
 		}
 		catch (System.Exception e)
 		{
@@ -247,23 +311,129 @@ public class AkWwiseWWUBuilder
 		return wwuIndex;
 	}
 
+	private static bool isTicking = false;
+
 	public static void StartWWUWatcher()
 	{
+		if (isTicking)
+			return;
+
 		Tick();
 		UnityEditor.EditorApplication.update += Tick;
 	}
 
 	public static void StopWWUWatcher()
 	{
-		UnityEditor.EditorApplication.update -= Tick;
+		if (isTicking)
+			UnityEditor.EditorApplication.update -= Tick;
+	}
+
+	private static void RestartWWUWatcher()
+	{
+		if (AkWwiseProjectInfo.GetData().autoPopulateEnabled)
+			StartWWUWatcher();
+	}
+
+	static AkWwiseWWUBuilder()
+	{
+		InitializeWwiseProjectData();
+
+#if UNITY_2017_2_OR_NEWER
+		UnityEditor.EditorApplication.playModeStateChanged += (UnityEditor.PlayModeStateChange playMode) => 
+		{
+			if (playMode == UnityEditor.PlayModeStateChange.EnteredEditMode)
+				RestartWWUWatcher();
+		};
+#else
+		UnityEditor.EditorApplication.playmodeStateChanged += () =>
+		{
+			if (UnityEditor.EditorApplication.isPlayingOrWillChangePlaymode && UnityEditor.EditorApplication.isPlaying)
+				RestartWWUWatcher();
+		};
+#endif
+	}
+
+	private static System.Collections.Generic.Dictionary<WwiseObjectType, System.Collections.Generic.List<AkWwiseProjectData.AkBaseInformation>> _WwiseObjectsToRemove 
+		= new System.Collections.Generic.Dictionary<WwiseObjectType, System.Collections.Generic.List<AkWwiseProjectData.AkBaseInformation>>();
+
+	private static System.Collections.Generic.Dictionary<WwiseObjectType, System.Collections.Generic.List<AkWwiseProjectData.AkBaseInformation>> _WwiseObjectsToAdd
+		= new System.Collections.Generic.Dictionary<WwiseObjectType, System.Collections.Generic.List<AkWwiseProjectData.AkBaseInformation>>();
+
+	private static void FlagForRemoval(WwiseObjectType type, int wwuIndex)
+	{
+		switch (type)
+		{
+			case WwiseObjectType.AuxBus:
+				foreach (var wwobject in AkWwiseProjectInfo.GetData().AuxBusWwu[wwuIndex].List)
+					FlagForRemoval(wwobject, type);
+				break;
+
+			case WwiseObjectType.Event:
+				foreach (var wwobject in AkWwiseProjectInfo.GetData().EventWwu[wwuIndex].List)
+					FlagForRemoval(wwobject, type);
+				break;
+
+			case WwiseObjectType.Soundbank:
+				foreach (var wwobject in AkWwiseProjectInfo.GetData().BankWwu[wwuIndex].List)
+					FlagForRemoval(wwobject, type);
+				break;
+
+			case WwiseObjectType.GameParameter:
+				foreach (var wwobject in AkWwiseProjectInfo.GetData().RtpcWwu[wwuIndex].List)
+					FlagForRemoval(wwobject, type);
+				break;
+
+			case WwiseObjectType.Trigger:
+				foreach (var wwobject in AkWwiseProjectInfo.GetData().TriggerWwu[wwuIndex].List)
+					FlagForRemoval(wwobject, type);
+				break;
+
+			case WwiseObjectType.AcousticTexture:
+				foreach (var wwobject in AkWwiseProjectInfo.GetData().AcousticTextureWwu[wwuIndex].List)
+					FlagForRemoval(wwobject, type);
+				break;
+
+			case WwiseObjectType.StateGroup:
+				foreach (var wwobject in AkWwiseProjectInfo.GetData().StateWwu[wwuIndex].List)
+					FlagForRemoval(wwobject, type);
+				break;
+
+			case WwiseObjectType.SwitchGroup:
+				foreach (var wwobject in AkWwiseProjectInfo.GetData().SwitchWwu[wwuIndex].List)
+					FlagForRemoval(wwobject, type);
+				break;
+		}
+	}
+
+	private static void FlagForInsertion(AkWwiseProjectData.AkBaseInformation info, WwiseObjectType type)
+	{
+		if (!_WwiseObjectsToAdd.ContainsKey(type))
+			_WwiseObjectsToAdd[type] = new System.Collections.Generic.List<AkWwiseProjectData.AkBaseInformation>();
+
+		_WwiseObjectsToAdd[type].Add(info);
+
+		if (!AkUtilities.IsMigrating)
+			WwiseObjectReference.UpdateWwiseObject(type, info.Name, info.Guid);
+	}
+
+	private static void FlagForRemoval(AkWwiseProjectData.AkBaseInformation info, WwiseObjectType type)
+	{
+		if (!_WwiseObjectsToRemove.ContainsKey(type))
+			_WwiseObjectsToRemove[type] = new System.Collections.Generic.List<AkWwiseProjectData.AkBaseInformation>();
+
+		_WwiseObjectsToRemove[type].Add(info);
 	}
 
 	private bool GatherModifiedFiles()
 	{
+		_WwiseObjectsToRemove.Clear();
+		_WwiseObjectsToAdd.Clear();
+
 		var bChanged = false;
 		var iBasePathLen = s_wwiseProjectPath.Length + 1;
-		foreach (var dir in FoldersOfInterest)
+		foreach (var scannedAsset in AssetType.ScannedAssets)
 		{
+			var dir = scannedAsset.RootDirectoryName;
 			var deleted = new System.Collections.Generic.List<int>();
 			var knownFiles = AkWwiseProjectInfo.GetData().GetWwuListByString(dir);
 			var cKnownBefore = knownFiles.Count;
@@ -289,16 +459,16 @@ public class AkWwiseWWUBuilder
 							//File was there and is still there.  Check the FileTimes.
 							try
 							{
-								var lastParsed = workunit.GetLastTime();
-								if (files[iFound].LastWriteTime > lastParsed)
+								if (files[iFound].LastWriteTime > workunit.LastTime)
 								{
 									//File has been changed!   
 									//If this file had a parent, parse recursively the parent itself
 									m_WwuToProcess.Add(files[iFound].FullName);
+									FlagForRemoval(scannedAsset.Type, iKnown);
 									bChanged = true;
 								}
 							}
-							catch (System.Exception)
+							catch
 							{
 								//Access denied probably (file does exists since it was picked up by GetFiles).
 								//Just ignore this file.
@@ -327,15 +497,23 @@ public class AkWwiseWWUBuilder
 
 				//All the remainder is deleted.  From the end, of course.
 				if (iKnown < knownFiles.Count)
+				{
+					for (var i = iKnown; i < knownFiles.Count; ++i)
+						FlagForRemoval(scannedAsset.Type, i);
+
 					knownFiles.RemoveRange(iKnown, knownFiles.Count - iKnown);
+				}
 
 				//Delete those tagged.
 				for (var i = deleted.Count - 1; i >= 0; i--)
+				{
+					FlagForRemoval(scannedAsset.Type, deleted[i]);
 					knownFiles.RemoveAt(deleted[i]);
+				}
 
 				bChanged |= cKnownBefore != knownFiles.Count;
 			}
-			catch (System.Exception)
+			catch
 			{
 				return false;
 			}
@@ -359,7 +537,7 @@ public class AkWwiseWWUBuilder
 			var fullPath = e.Current as string;
 			var relPath = fullPath.Substring(iBasePathLen);
 			var typeStr = relPath.Remove(relPath.IndexOf(System.IO.Path.DirectorySeparatorChar));
-			if (!createWorkUnit(relPath, typeStr, fullPath))
+			if (!CreateWorkUnit(relPath, typeStr, fullPath))
 				iUnprocessed++;
 		}
 
@@ -375,90 +553,145 @@ public class AkWwiseWWUBuilder
 			UpdateWorkUnit(string.Empty, fullPath, typeStr, relPath);
 		}
 
+		foreach (var pair in _WwiseObjectsToAdd)
+		{
+			System.Collections.Generic.List<AkWwiseProjectData.AkBaseInformation> removeList = null;
+			if (!_WwiseObjectsToRemove.TryGetValue(pair.Key, out removeList))
+				continue;
+
+			removeList.Sort(AkWwiseProjectData.AkBaseInformation.CompareByGuid);
+			foreach (var info in pair.Value)
+			{
+				var index = removeList.BinarySearch(info, AkWwiseProjectData.AkBaseInformation.CompareByGuid);
+				if (index >= 0)
+					removeList.RemoveAt(index);
+			}
+		}
+
+		foreach (var pair in _WwiseObjectsToRemove)
+		{
+			var type = pair.Key;
+			var childType = type == WwiseObjectType.StateGroup ? WwiseObjectType.State : WwiseObjectType.Switch;
+
+			foreach (var info in pair.Value)
+			{
+				var groupValue = info as AkWwiseProjectData.GroupValue;
+				if (groupValue != null)
+					foreach (var value in groupValue.values)
+						WwiseObjectReference.DeleteWwiseObject(childType, value.Guid);
+
+				WwiseObjectReference.DeleteWwiseObject(type, info.Guid);
+			}
+		}
+
 		UnityEditor.EditorUtility.ClearProgressBar();
 	}
 
-	private static void SortValues(AkWwiseProjectData.GroupValue groupToSort)
+	private static void UpdateProgressBar(float progress)
 	{
-		if (groupToSort.values.Count > 0)
+		UnityEditor.EditorUtility.DisplayProgressBar("Wwise Object References", "Update in progress - Please wait...", progress);
+	}
+
+	private static void UpdateWwiseObjectReference(WwiseObjectType type, System.Collections.Generic.List<AkWwiseProjectData.AkInfoWorkUnit> infoWwus)
+	{
+		foreach (var infoWwu in infoWwus)
+			foreach (var info in infoWwu.List)
+				WwiseObjectReference.UpdateWwiseObjectDataMap(type, info.Name, info.Guid);
+	}
+
+	private static void UpdateWwiseObjectReference(WwiseObjectType type, System.Collections.Generic.List<AkWwiseProjectData.EventWorkUnit> infoWwus)
+	{
+		foreach (var infoWwu in infoWwus)
+			foreach (var info in infoWwu.List)
+				WwiseObjectReference.UpdateWwiseObjectDataMap(type, info.Name, info.Guid);
+	}
+
+	private static void UpdateWwiseObjectReference(WwiseObjectType groupType, WwiseObjectType type, System.Collections.Generic.List<AkWwiseProjectData.GroupValWorkUnit> infoWwus)
+	{
+		foreach (var infoWwu in infoWwus)
 		{
-			var listToSort = new tmpData[groupToSort.values.Count];
-			for (var i = 0; i < groupToSort.values.Count; i++)
+			foreach (var info in infoWwu.List)
 			{
-				listToSort[i] = new tmpData();
-				listToSort[i].valueName = groupToSort.values[i];
-				listToSort[i].pathElem = groupToSort.ValueIcons[i];
-				listToSort[i].ID = groupToSort.valueIDs[i];
-				listToSort[i].Guid = groupToSort.ValueGuids[i];
-			}
-
-			System.Array.Sort(listToSort, s_comparetmpDataByName);
-
-			for (var i = 0; i < groupToSort.values.Count; i++)
-			{
-				groupToSort.values[i] = listToSort[i].valueName;
-				groupToSort.ValueIcons[i] = listToSort[i].pathElem;
-				groupToSort.valueIDs[i] = listToSort[i].ID;
-				groupToSort.ValueGuids[i] = listToSort[i].Guid;
+				WwiseObjectReference.UpdateWwiseObjectDataMap(groupType, info.Name, info.Guid);
+				foreach (var subTypeInfo in info.values)
+					WwiseObjectReference.UpdateWwiseObjectDataMap(type, subTypeInfo.Name, subTypeInfo.Guid);
 			}
 		}
 	}
 
-	private static void SortWwu(string in_type, int in_wwuIndex)
+	private static void SortWwu(AssetType in_type, int in_wwuIndex)
 	{
-		if (string.Equals(in_type, "Events", System.StringComparison.OrdinalIgnoreCase))
+		switch (in_type.Type)
 		{
-			System.Collections.ArrayList.Adapter(AkWwiseProjectInfo.GetData().EventWwu[in_wwuIndex].List)
-				.Sort(AkWwiseProjectData.s_compareAkInformationByName);
-		}
-		else if (string.Equals(in_type, "States", System.StringComparison.OrdinalIgnoreCase))
-		{
-			var StateList = AkWwiseProjectInfo.GetData().StateWwu[in_wwuIndex].List;
-			System.Collections.ArrayList.Adapter(StateList).Sort(AkWwiseProjectData.s_compareAkInformationByName);
-			foreach (var StateGroup in StateList)
-				SortValues(StateGroup);
-		}
-		else if (string.Equals(in_type, "Switches", System.StringComparison.OrdinalIgnoreCase))
-		{
-			var SwitchList = AkWwiseProjectInfo.GetData().SwitchWwu[in_wwuIndex].List;
-			System.Collections.ArrayList.Adapter(SwitchList).Sort(AkWwiseProjectData.s_compareAkInformationByName);
-			foreach (var SwitchGroup in SwitchList)
-				SortValues(SwitchGroup);
-		}
-		else if (string.Equals(in_type, "Master-Mixer Hierarchy", System.StringComparison.OrdinalIgnoreCase))
-		{
-			System.Collections.ArrayList.Adapter(AkWwiseProjectInfo.GetData().AuxBusWwu[in_wwuIndex].List)
-				.Sort(AkWwiseProjectData.s_compareAkInformationByName);
-		}
-		else if (string.Equals(in_type, "SoundBanks", System.StringComparison.OrdinalIgnoreCase))
-		{
-			System.Collections.ArrayList.Adapter(AkWwiseProjectInfo.GetData().BankWwu[in_wwuIndex].List)
-				.Sort(AkWwiseProjectData.s_compareAkInformationByName);
-		}
-		else if (string.Equals(in_type, "Game Parameters", System.StringComparison.OrdinalIgnoreCase))
-		{
-			System.Collections.ArrayList.Adapter(AkWwiseProjectInfo.GetData().RtpcWwu[in_wwuIndex].List)
-				.Sort(AkWwiseProjectData.s_compareAkInformationByName);
-		}
-		else if (string.Equals(in_type, "Triggers", System.StringComparison.OrdinalIgnoreCase))
-		{
-			System.Collections.ArrayList.Adapter(AkWwiseProjectInfo.GetData().TriggerWwu[in_wwuIndex].List)
-				.Sort(AkWwiseProjectData.s_compareAkInformationByName);
-		}
-		else if (string.Equals(in_type, "Virtual Acoustics", System.StringComparison.OrdinalIgnoreCase))
-		{
-			System.Collections.ArrayList.Adapter(AkWwiseProjectInfo.GetData().AcousticTextureWwu[in_wwuIndex].List)
-				.Sort(AkWwiseProjectData.s_compareAkInformationByName);
+			case WwiseObjectType.AuxBus:
+				AkWwiseProjectInfo.GetData().AuxBusWwu[in_wwuIndex].List.Sort();
+				break;
+
+			case WwiseObjectType.Event:
+				AkWwiseProjectInfo.GetData().EventWwu[in_wwuIndex].List.Sort();
+				break;
+
+			case WwiseObjectType.Soundbank:
+				AkWwiseProjectInfo.GetData().BankWwu[in_wwuIndex].List.Sort();
+				break;
+
+			case WwiseObjectType.GameParameter:
+				AkWwiseProjectInfo.GetData().RtpcWwu[in_wwuIndex].List.Sort();
+				break;
+
+			case WwiseObjectType.Trigger:
+				AkWwiseProjectInfo.GetData().TriggerWwu[in_wwuIndex].List.Sort();
+				break;
+
+			case WwiseObjectType.AcousticTexture:
+				AkWwiseProjectInfo.GetData().AcousticTextureWwu[in_wwuIndex].List.Sort();
+				break;
+
+			case WwiseObjectType.StateGroup:
+				var stateList = AkWwiseProjectInfo.GetData().StateWwu[in_wwuIndex].List;
+				stateList.Sort();
+				foreach (var group in stateList)
+					if (group.values.Count > 0)
+						group.values.Sort();
+				break;
+
+			case WwiseObjectType.SwitchGroup:
+				var switchList = AkWwiseProjectInfo.GetData().SwitchWwu[in_wwuIndex].List;
+				switchList.Sort();
+				foreach (var group in switchList)
+					if (group.values.Count > 0)
+						group.values.Sort();
+				break;
 		}
 	}
 
-	private static void ReplaceWwuEntry(string in_currentPhysicalPath, AssetType in_type,
-		out AkWwiseProjectData.WorkUnit out_wwu, out int out_wwuIndex)
+	private static AkWwiseProjectData.WorkUnit CreateWorkUnit(WwiseObjectType type)
+	{
+		switch (type)
+		{
+			case WwiseObjectType.Event:
+				return new AkWwiseProjectData.EventWorkUnit();
+
+			case WwiseObjectType.StateGroup:
+			case WwiseObjectType.SwitchGroup:
+				return new AkWwiseProjectData.GroupValWorkUnit();
+
+			case WwiseObjectType.AuxBus:
+			case WwiseObjectType.Soundbank:
+			case WwiseObjectType.GameParameter:
+			case WwiseObjectType.Trigger:
+			case WwiseObjectType.AcousticTexture:
+				return new AkWwiseProjectData.AkInfoWorkUnit();
+		}
+
+		return null;
+	}
+
+	private static AkWwiseProjectData.WorkUnit ReplaceWwuEntry(string in_currentPhysicalPath, AssetType in_type, out int out_wwuIndex)
 	{
 		var list = AkWwiseProjectInfo.GetData().GetWwuListByString(in_type.RootDirectoryName);
-		out_wwuIndex = list.BinarySearch(new AkWwiseProjectData.WorkUnit(in_currentPhysicalPath),
-			AkWwiseProjectData.s_compareByPhysicalPath);
-		out_wwu = AkWwiseProjectInfo.GetData().NewChildWorkUnit(in_type.RootDirectoryName);
+		out_wwuIndex = list.BinarySearch(new AkWwiseProjectData.WorkUnit { PhysicalPath = in_currentPhysicalPath });
+		var out_wwu = CreateWorkUnit(in_type.Type);
 
 		if (out_wwuIndex < 0)
 		{
@@ -467,122 +700,132 @@ public class AkWwiseWWUBuilder
 		}
 		else
 			list[out_wwuIndex] = out_wwu;
+
+		return out_wwu;
 	}
 
 	private static void AddElementToList(string in_currentPathInProj, System.Xml.XmlReader in_reader, AssetType in_type,
 		System.Collections.Generic.LinkedList<AkWwiseProjectData.PathElement> in_pathAndIcons, int in_wwuIndex)
 	{
-		if (in_type.RootDirectoryName == "Events" || in_type.RootDirectoryName == "Master-Mixer Hierarchy" ||
-		    in_type.RootDirectoryName == "SoundBanks" || in_type.RootDirectoryName == "Game Parameters" ||
-		    in_type.RootDirectoryName == "Triggers" || in_type.RootDirectoryName == "Virtual Acoustics")
+		switch (in_type.Type)
 		{
-			var valueToAdd = new AkWwiseProjectData.Event();
-
-			valueToAdd.Name = in_reader.GetAttribute("Name");
-			valueToAdd.Guid = new System.Guid(in_reader.GetAttribute("ID")).ToByteArray();
-			valueToAdd.ID = (int) AkUtilities.ShortIDGenerator.Compute(valueToAdd.Name);
-			valueToAdd.PathAndIcons = new System.Collections.Generic.List<AkWwiseProjectData.PathElement>(in_pathAndIcons);
-
-			switch (in_type.RootDirectoryName)
-			{
-				case "Events":
-					valueToAdd.Path = System.IO.Path.Combine(in_currentPathInProj, valueToAdd.Name);
-					valueToAdd.PathAndIcons.Add(
-						new AkWwiseProjectData.PathElement(valueToAdd.Name, AkWwiseProjectData.WwiseObjectType.EVENT));
-					AkWwiseProjectInfo.GetData().EventWwu[in_wwuIndex].List.Add(valueToAdd);
-					break;
-
-				case "SoundBanks":
-					valueToAdd.Path = System.IO.Path.Combine(in_currentPathInProj, valueToAdd.Name);
-					valueToAdd.PathAndIcons.Add(
-						new AkWwiseProjectData.PathElement(valueToAdd.Name, AkWwiseProjectData.WwiseObjectType.SOUNDBANK));
-					AkWwiseProjectInfo.GetData().BankWwu[in_wwuIndex].List.Add(valueToAdd);
-					break;
-
-				case "Master-Mixer Hierarchy":
-					valueToAdd.Path = in_currentPathInProj;
-					AkWwiseProjectInfo.GetData().AuxBusWwu[in_wwuIndex].List.Add(valueToAdd);
-					break;
-
-				case "Game Parameters":
-					valueToAdd.Path = System.IO.Path.Combine(in_currentPathInProj, valueToAdd.Name);
-					valueToAdd.PathAndIcons.Add(
-						new AkWwiseProjectData.PathElement(valueToAdd.Name, AkWwiseProjectData.WwiseObjectType.GAMEPARAMETER));
-					AkWwiseProjectInfo.GetData().RtpcWwu[in_wwuIndex].List.Add(valueToAdd);
-					break;
-
-				case "Triggers":
-					valueToAdd.Path = System.IO.Path.Combine(in_currentPathInProj, valueToAdd.Name);
-					valueToAdd.PathAndIcons.Add(
-						new AkWwiseProjectData.PathElement(valueToAdd.Name, AkWwiseProjectData.WwiseObjectType.TRIGGER));
-					AkWwiseProjectInfo.GetData().TriggerWwu[in_wwuIndex].List.Add(valueToAdd);
-					break;
-
-				case "Virtual Acoustics":
-					valueToAdd.Path = System.IO.Path.Combine(in_currentPathInProj, valueToAdd.Name);
-					valueToAdd.PathAndIcons.Add(new AkWwiseProjectData.PathElement(valueToAdd.Name,
-						AkWwiseProjectData.WwiseObjectType.ACOUSTICTEXTURE));
-					AkWwiseProjectInfo.GetData().AcousticTextureWwu[in_wwuIndex].List.Add(valueToAdd);
-					break;
-			}
-
-			in_reader.Read();
-		}
-		else if (in_type.RootDirectoryName == "States" || in_type.RootDirectoryName == "Switches")
-		{
-			var XmlElement = System.Xml.Linq.XNode.ReadFrom(in_reader) as System.Xml.Linq.XElement;
-
-			var valueToAdd = new AkWwiseProjectData.GroupValue();
-			AkWwiseProjectData.WwiseObjectType SubElemIcon;
-			valueToAdd.Name = XmlElement.Attribute("Name").Value;
-			valueToAdd.Guid = new System.Guid(XmlElement.Attribute("ID").Value).ToByteArray();
-			valueToAdd.ID = (int) AkUtilities.ShortIDGenerator.Compute(valueToAdd.Name);
-			valueToAdd.Path = System.IO.Path.Combine(in_currentPathInProj, valueToAdd.Name);
-			valueToAdd.PathAndIcons = new System.Collections.Generic.List<AkWwiseProjectData.PathElement>(in_pathAndIcons);
-
-			if (in_type.RootDirectoryName == "States")
-			{
-				SubElemIcon = AkWwiseProjectData.WwiseObjectType.STATE;
-				valueToAdd.PathAndIcons.Add(
-					new AkWwiseProjectData.PathElement(valueToAdd.Name, AkWwiseProjectData.WwiseObjectType.STATEGROUP));
-			}
-			else
-			{
-				SubElemIcon = AkWwiseProjectData.WwiseObjectType.SWITCH;
-				valueToAdd.PathAndIcons.Add(
-					new AkWwiseProjectData.PathElement(valueToAdd.Name, AkWwiseProjectData.WwiseObjectType.SWITCHGROUP));
-			}
-
-			var ChildrenList = System.Xml.Linq.XName.Get("ChildrenList");
-			var ChildElem = System.Xml.Linq.XName.Get(in_type.ChildElementName);
-
-			var ChildrenElement = XmlElement.Element(ChildrenList);
-			if (ChildrenElement != null)
-			{
-				foreach (var element in ChildrenElement.Elements(ChildElem))
+			case WwiseObjectType.AuxBus:
+			case WwiseObjectType.Event:
+			case WwiseObjectType.Soundbank:
+			case WwiseObjectType.GameParameter:
+			case WwiseObjectType.Trigger:
+			case WwiseObjectType.AcousticTexture:
 				{
-					if (element.Name == in_type.ChildElementName)
+					var name = in_reader.GetAttribute("Name");
+					var valueToAdd = in_type.Type == WwiseObjectType.Event ? new AkWwiseProjectData.Event() : new AkWwiseProjectData.AkInformation();
+					valueToAdd.Name = name;
+					valueToAdd.Guid = new System.Guid(in_reader.GetAttribute("ID"));
+					valueToAdd.PathAndIcons = new System.Collections.Generic.List<AkWwiseProjectData.PathElement>(in_pathAndIcons);
+
+					FlagForInsertion(valueToAdd, in_type.Type);
+
+					switch (in_type.Type)
 					{
-						var elementName = element.Attribute("Name").Value;
-						valueToAdd.values.Add(elementName);
-						valueToAdd.ValueGuids.Add(
-							new AkWwiseProjectData.ByteArrayWrapper(new System.Guid(element.Attribute("ID").Value).ToByteArray()));
-						valueToAdd.valueIDs.Add((int) AkUtilities.ShortIDGenerator.Compute(elementName));
-						valueToAdd.ValueIcons.Add(new AkWwiseProjectData.PathElement(elementName, SubElemIcon));
+						case WwiseObjectType.AuxBus:
+							valueToAdd.Path = in_currentPathInProj;
+							break;
+
+						default:
+							valueToAdd.Path = System.IO.Path.Combine(in_currentPathInProj, name);
+							valueToAdd.PathAndIcons.Add(new AkWwiseProjectData.PathElement(name, in_type.Type));
+							break;
+					}
+
+					switch (in_type.Type)
+					{
+						case WwiseObjectType.AuxBus:
+							AkWwiseProjectInfo.GetData().AuxBusWwu[in_wwuIndex].List.Add(valueToAdd);
+							break;
+
+						case WwiseObjectType.Event:
+							AkWwiseProjectInfo.GetData().EventWwu[in_wwuIndex].List.Add(valueToAdd as AkWwiseProjectData.Event);
+							break;
+
+						case WwiseObjectType.Soundbank:
+							AkWwiseProjectInfo.GetData().BankWwu[in_wwuIndex].List.Add(valueToAdd);
+							break;
+
+						case WwiseObjectType.GameParameter:
+							AkWwiseProjectInfo.GetData().RtpcWwu[in_wwuIndex].List.Add(valueToAdd);
+							break;
+
+						case WwiseObjectType.Trigger:
+							AkWwiseProjectInfo.GetData().TriggerWwu[in_wwuIndex].List.Add(valueToAdd);
+							break;
+
+						case WwiseObjectType.AcousticTexture:
+							AkWwiseProjectInfo.GetData().AcousticTextureWwu[in_wwuIndex].List.Add(valueToAdd);
+							break;
 					}
 				}
-			}
 
-			if (in_type.RootDirectoryName == "States")
-				AkWwiseProjectInfo.GetData().StateWwu[in_wwuIndex].List.Add(valueToAdd);
-			else
-				AkWwiseProjectInfo.GetData().SwitchWwu[in_wwuIndex].List.Add(valueToAdd);
+				in_reader.Read();
+				break;
+
+			case WwiseObjectType.StateGroup:
+			case WwiseObjectType.SwitchGroup:
+				{
+					var XmlElement = System.Xml.Linq.XNode.ReadFrom(in_reader) as System.Xml.Linq.XElement;
+					var ChildrenList = System.Xml.Linq.XName.Get("ChildrenList");
+					var ChildrenElement = XmlElement.Element(ChildrenList);
+					if (ChildrenElement != null)
+					{
+						var name = XmlElement.Attribute("Name").Value;
+						var valueToAdd = new AkWwiseProjectData.GroupValue
+						{
+							Name = name,
+							Guid = new System.Guid(XmlElement.Attribute("ID").Value),
+							Path = System.IO.Path.Combine(in_currentPathInProj, name),
+							PathAndIcons = new System.Collections.Generic.List<AkWwiseProjectData.PathElement>(in_pathAndIcons),
+						};
+						valueToAdd.PathAndIcons.Add(new AkWwiseProjectData.PathElement(name, in_type.Type));
+
+						FlagForInsertion(valueToAdd, in_type.Type);
+
+						var ChildElem = System.Xml.Linq.XName.Get(in_type.ChildElementName);
+						foreach (var element in ChildrenElement.Elements(ChildElem))
+						{
+							if (element.Name != in_type.ChildElementName)
+								continue;
+
+							var elementName = element.Attribute("Name").Value;
+							var childValue = new AkWwiseProjectData.AkBaseInformation
+							{
+								Name = elementName,
+								Guid = new System.Guid(element.Attribute("ID").Value),
+							};
+							childValue.PathAndIcons.Add(new AkWwiseProjectData.PathElement(elementName, in_type.ChildType));
+							valueToAdd.values.Add(childValue);
+
+							FlagForInsertion(childValue, in_type.ChildType);
+						}
+
+						switch (in_type.Type)
+						{
+							case WwiseObjectType.StateGroup:
+								AkWwiseProjectInfo.GetData().StateWwu[in_wwuIndex].List.Add(valueToAdd);
+								break;
+
+							case WwiseObjectType.SwitchGroup:
+								AkWwiseProjectInfo.GetData().SwitchWwu[in_wwuIndex].List.Add(valueToAdd);
+								break;
+						}
+					}
+				}
+				break;
+
+			default:
+				UnityEngine.Debug.LogError("WwiseUnity: Unknown asset type in WWU parser");
+				break;
 		}
-		else
-			UnityEngine.Debug.LogError("WwiseUnity: Unknown asset type in WWU parser");
 	}
 
-	private bool createWorkUnit(string in_relativePath, string in_wwuType, string in_fullPath)
+	private bool CreateWorkUnit(string in_relativePath, string in_wwuType, string in_fullPath)
 	{
 		var ParentID = string.Empty;
 		try
@@ -613,17 +856,27 @@ public class AkWwiseWWUBuilder
 
 		if (!string.IsNullOrEmpty(ParentID))
 		{
-			var parentPhysicalPath = string.Empty;
+			System.Guid parentGuid = System.Guid.Empty;
+
+			try
+			{
+				parentGuid = new System.Guid(ParentID);
+			}
+			catch
+			{
+				UnityEngine.Debug.LogWarning("WwiseUnity: \"OwnerID\" in <" + in_fullPath + "> cannot be converted to a GUID (" + ParentID + ")");
+				return false;
+			}
 
 			var list = AkWwiseProjectInfo.GetData().GetWwuListByString(in_wwuType);
 
 			//search for the parent and save its physical path
 			for (var i = 0; i < list.Count; i++)
 			{
-				if ((list[i] as AkWwiseProjectData.WorkUnit).Guid.Equals(ParentID))
+				var wwu = list[i] as AkWwiseProjectData.WorkUnit;
+				if (wwu.Guid.Equals(parentGuid))
 				{
-					parentPhysicalPath = (list[i] as AkWwiseProjectData.WorkUnit).PhysicalPath;
-					UpdateWorkUnit(parentPhysicalPath, in_fullPath, in_wwuType, in_relativePath);
+					UpdateWorkUnit(wwu.PhysicalPath, in_fullPath, in_wwuType, in_relativePath);
 					return true;
 				}
 			}
@@ -652,12 +905,11 @@ public class AkWwiseWWUBuilder
 			var wwuName = System.IO.Path.GetFileNameWithoutExtension(wwuRelPath);
 			currentPathInProj = System.IO.Path.Combine(wwuName, currentPathInProj);
 			//Add work unit icon to the hierarchy
-			PathAndIcons.AddFirst(new AkWwiseProjectData.PathElement(wwuName, AkWwiseProjectData.WwiseObjectType.WORKUNIT));
+			PathAndIcons.AddFirst(new AkWwiseProjectData.PathElement(wwuName, WwiseObjectType.WorkUnit));
 
 			//Get the physical path of the parent work unit if any
 			var list = AkWwiseProjectInfo.GetData().GetWwuListByString(in_wwuType);
-			var index = list.BinarySearch(new AkWwiseProjectData.WorkUnit(wwuRelPath),
-				AkWwiseProjectData.s_compareByPhysicalPath);
+			var index = list.BinarySearch(new AkWwiseProjectData.WorkUnit { PhysicalPath = wwuRelPath });
 			wwuRelPath = (list[index] as AkWwiseProjectData.WorkUnit).ParentPhysicalPath;
 		}
 
@@ -666,50 +918,56 @@ public class AkWwiseWWUBuilder
 		for (var i = physicalPath.Length - 2; i > 0; i--)
 		{
 			PathAndIcons.AddFirst(
-				new AkWwiseProjectData.PathElement(physicalPath[i], AkWwiseProjectData.WwiseObjectType.PHYSICALFOLDER));
+				new AkWwiseProjectData.PathElement(physicalPath[i], WwiseObjectType.PhysicalFolder));
 			currentPathInProj = System.IO.Path.Combine(physicalPath[i], currentPathInProj);
 		}
 
 		//Parse the work unit file
-		RecurseWorkUnit(GetAssetTypeByRootDir(in_wwuType), new System.IO.FileInfo(in_wwuFullPath), currentPathInProj,
+		RecurseWorkUnit(AssetType.Create(in_wwuType), new System.IO.FileInfo(in_wwuFullPath), currentPathInProj,
 			in_relativePath.Remove(in_relativePath.LastIndexOf(System.IO.Path.DirectorySeparatorChar)), PathAndIcons,
 			in_parentRelativePath);
 	}
 
-	private static AssetType GetAssetTypeByRootDir(string in_rootDir)
-	{
-		if (string.Equals(in_rootDir, "Events", System.StringComparison.OrdinalIgnoreCase))
-			return new AssetType("Events", "Event", "");
-		if (string.Equals(in_rootDir, "States", System.StringComparison.OrdinalIgnoreCase))
-			return new AssetType("States", "StateGroup", "State");
-		if (string.Equals(in_rootDir, "Switches", System.StringComparison.OrdinalIgnoreCase))
-			return new AssetType("Switches", "SwitchGroup", "Switch");
-		if (string.Equals(in_rootDir, "Master-Mixer Hierarchy", System.StringComparison.OrdinalIgnoreCase))
-			return new AssetType("Master-Mixer Hierarchy", "AuxBus", "");
-		if (string.Equals(in_rootDir, "SoundBanks", System.StringComparison.OrdinalIgnoreCase))
-			return new AssetType("SoundBanks", "SoundBank", "");
-		if (string.Equals(in_rootDir, "Game Parameters", System.StringComparison.OrdinalIgnoreCase))
-			return new AssetType("Game Parameters", "GameParameter", "");
-		if (string.Equals(in_rootDir, "Triggers", System.StringComparison.OrdinalIgnoreCase))
-			return new AssetType("Triggers", "Trigger", "");
-		if (string.Equals(in_rootDir, "Virtual Acoustics", System.StringComparison.OrdinalIgnoreCase))
-			return new AssetType("Virtual Acoustics", "AcousticTexture", "");
-
-		return null;
-	}
-
 	public class AssetType
 	{
-		public string ChildElementName;
-		public string RootDirectoryName;
+		public string RootDirectoryName { get; set; }
 		public string XmlElementName;
+		public string ChildElementName;
+		public WwiseObjectType Type = WwiseObjectType.None;
+		public WwiseObjectType ChildType = WwiseObjectType.None;
 
-		public AssetType(string RootFolder, string XmlElemName, string ChildName)
+		public static AssetType[] ScannedAssets
+		{
+			get { return _ScannedAssets; }
+		}
+
+		public static AssetType Create(string rootDirectoryName)
+		{
+			foreach (var asset in ScannedAssets)
+				if (string.Equals(rootDirectoryName, asset.RootDirectoryName, System.StringComparison.OrdinalIgnoreCase))
+					return asset;
+
+			return null;
+		}
+
+		private AssetType(string RootFolder, string XmlElemName, WwiseObjectType type)
 		{
 			RootDirectoryName = RootFolder;
 			XmlElementName = XmlElemName;
-			ChildElementName = ChildName;
+			Type = type;
 		}
+
+		private static readonly AssetType[] _ScannedAssets = new AssetType[]
+		{
+			new AssetType("Master-Mixer Hierarchy", "AuxBus", WwiseObjectType.AuxBus),
+			new AssetType("Events", "Event", WwiseObjectType.Event),
+			new AssetType("SoundBanks", "SoundBank", WwiseObjectType.Soundbank),
+			new AssetType("States", "StateGroup", WwiseObjectType.StateGroup) { ChildElementName = "State", ChildType = WwiseObjectType.State },
+			new AssetType("Switches", "SwitchGroup", WwiseObjectType.SwitchGroup) { ChildElementName = "Switch", ChildType = WwiseObjectType.Switch },
+			new AssetType("Game Parameters", "GameParameter", WwiseObjectType.GameParameter),
+			new AssetType("Triggers", "Trigger", WwiseObjectType.Trigger),
+			new AssetType("Virtual Acoustics", "AcousticTexture", WwiseObjectType.AcousticTexture),
+		};
 	}
 
 	private class FileInfo_CompareByPath : System.Collections.Generic.IComparer<System.IO.FileInfo>
@@ -717,22 +975,6 @@ public class AkWwiseWWUBuilder
 		int System.Collections.Generic.IComparer<System.IO.FileInfo>.Compare(System.IO.FileInfo wwuA, System.IO.FileInfo wwuB)
 		{
 			return wwuA.FullName.CompareTo(wwuB.FullName);
-		}
-	}
-
-	private class tmpData
-	{
-		public AkWwiseProjectData.ByteArrayWrapper Guid;
-		public int ID;
-		public AkWwiseProjectData.PathElement pathElem;
-		public string valueName;
-	}
-
-	private class tmpData_CompareByName : System.Collections.Generic.IComparer<tmpData>
-	{
-		int System.Collections.Generic.IComparer<tmpData>.Compare(tmpData AkInfA, tmpData AkInfB)
-		{
-			return AkInfA.valueName.CompareTo(AkInfB.valueName);
 		}
 	}
 }

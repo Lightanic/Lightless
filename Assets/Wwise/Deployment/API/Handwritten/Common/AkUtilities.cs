@@ -208,11 +208,17 @@ public partial class AkUtilities
 					  (success ? "successful" : (warning ? "has warning(s)" : "error")) + ":\n" + output;
 
 		if (success)
+		{
 			UnityEngine.Debug.Log(message);
+		}
 		else if (warning)
+		{
 			UnityEngine.Debug.LogWarning(message);
+		}
 		else
+		{
 			UnityEngine.Debug.LogError(message);
+		}
 
 		UnityEditor.AssetDatabase.Refresh();
 	}
