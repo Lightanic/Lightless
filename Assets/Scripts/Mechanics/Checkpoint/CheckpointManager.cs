@@ -21,6 +21,18 @@ public class CheckpointManager : MonoBehaviour
 
     Dictionary<string, Transform> checkpointMap;
 
+    void GetCamControllerIfNull()
+    {
+        if (CamController == null)
+        {
+            var cam = GameObject.Find("Main Camera");
+            if (cam != null)
+            {
+                CamController = cam.GetComponent<CameraController>();
+            }
+        }
+    }
+
     private void Start()
     {
         if (CamController == null)
@@ -95,6 +107,7 @@ public class CheckpointManager : MonoBehaviour
 
     public void SetLatestCheckpoint(string checkpoint)
     {
+        GetCamControllerIfNull();
         if (checkpoint == latestCheckpoint) return;
         if (Player == null)
         {

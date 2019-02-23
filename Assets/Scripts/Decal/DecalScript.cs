@@ -6,7 +6,7 @@ public class DecalScript : MonoBehaviour
 {
     public float TotalTimeAlive = 2F;
     public float CurrentTime = 0F;
-    private float AliveCounter = 0F;
+    private int AliveCounter = 0;
     // Start is called before the first frame update
     void Start()
     {
@@ -26,7 +26,7 @@ public class DecalScript : MonoBehaviour
 
     void Reposition()
     {
-        AliveCounter = 0F;
+        AliveCounter = 0;
         Ray ray = new Ray(transform.position, transform.forward);
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit, 3F))
@@ -41,12 +41,12 @@ public class DecalScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(CurrentTime>TotalTimeAlive)
+        if (CurrentTime > TotalTimeAlive)
         {
             AliveCounter++;
         }
 
-        if(AliveCounter>10)
+        if (AliveCounter > 10)
         {
             PrefabPool.Despawn(gameObject);
         }

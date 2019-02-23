@@ -45,22 +45,23 @@ public class EnemySystem : ComponentSystem
 
         foreach (var enemy in GetEntities<Enemy>())
         {
-            if (!enemy.AgentComponent.Agent.enabled)
+            if(enemy.EnemyComponent.Type != EnemyType.Stunner) //Stunner does not jump off edges
             {
-                continue;
+                if (!enemy.AgentComponent.Agent.enabled)
+                {
+                    continue;
+                }
+                NavMeshHit hit;
+                enemy.AgentComponent.Agent.FindClosestEdge(out hit);
+                //Debug.Log(hit.distance);
+                if (hit.distance < 0.01 && enemy.AgentComponent.Agent.enabled)
+                {
+                    //enemy.Transform.LookAt(player.PlayerTransform);
+                    enemy.AgentComponent.Agent.enabled = false;
+                    enemy.Transform.GetComponent<Rigidbody>().AddForce(Vector3.Normalize(enemy.Transform.forward + enemy.Transform.up) * 600);
+                }
             }
-            NavMeshHit hit;
-            enemy.AgentComponent.Agent.FindClosestEdge(out hit);
-            //Debug.Log(hit.distance);
-            if (hit.distance < 0.01 && enemy.AgentComponent.Agent.enabled)
-            {
-                //enemy.Transform.LookAt(player.PlayerTransform);
-                enemy.AgentComponent.Agent.enabled = false;
-                enemy.Transform.GetComponent<Rigidbody>().AddForce(Vector3.Normalize(enemy.Transform.forward + enemy.Transform.up) * 600);
-            }
-
-
-
+            
             if (enemy.Transform.GetComponent<EnemyDeathComponent>().EnemyIsDead)
             {
                 continue;

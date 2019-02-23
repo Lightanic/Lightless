@@ -21,5 +21,6 @@ public class LevelLoader : MonoBehaviour
             //Debug.Log(operation.progress);
             yield return null;
         }
+        SceneManager.UnloadSceneAsync(0);
     }
 }
