@@ -29,6 +29,8 @@ public class EnemySystem : ComponentSystem
         public Transform LightTransform;
     }
 
+    EnemyState prevState;
+
     protected override void OnUpdate()
     {
         PlayerData player = new PlayerData();
@@ -95,12 +97,19 @@ public class EnemySystem : ComponentSystem
             float distanceToLight = currentDistance;
             float distanceToPlayer = Vector3.Distance(player.PlayerTransform.position, enemy.Transform.position);
 
+            prevState = enemy.EnemyComponent.State;
+
             enemy.EnemyComponent.State = EvaluateState(enemy.EnemyComponent.State, enemy.EnemyComponent, enemy.SeekComponent,
                 distanceToLight, distanceToPlayer, light.LightSwitch, player, enemy.AgentComponent);
 
             if (enemy.EnemyComponent.State == EnemyState.Stun)
             {
                 enemy.AgentComponent.Agent.speed = 0;
+            }
+
+            if (enemy.EnemyComponent.State == EnemyState.Alert && prevState != enemy.EnemyComponent.State)
+            {
+                AkSoundEngine.PostEvent("Play_BlueMonster_Agro",enemy.EnemyComponent.gameObject);
             }
 
             //    if (distanceToLight <= enemy.SeekComponent.VisionRadius + enemy.SeekComponent.AlertRadius)

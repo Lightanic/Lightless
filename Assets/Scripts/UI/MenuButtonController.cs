@@ -59,8 +59,6 @@ public class MenuButtonController : MonoBehaviour {
     {
         if (index == 0)         // PlayButton
         {
-            //AkSoundEngine.PostEvent("Start_Gameplay", wwiseGlobal);
-            AkSoundEngine.PostEvent("Start_Ambiance", wwiseGlobal);
             MenuAnim.SetBool("Exit", true);
         }
         else if (index == 1)    // Credits button

@@ -56,7 +56,7 @@ public class SpeedComponent : MonoBehaviour {
 
     IEnumerator WalkSound()
     {
-        AkSoundEngine.PostEvent("Step", gameObject);
+        //AkSoundEngine.PostEvent("Step", gameObject);
         yield return new WaitForSeconds(2f); 
     }
 }
