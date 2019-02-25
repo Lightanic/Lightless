@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FlickerComponent : MonoBehaviour {
+public class FlickerComponent : MonoBehaviour
+{
 
     public float MaxReduction = 0.2F;
     public float MaxIncrease = 0.2F;
@@ -15,13 +16,15 @@ public class FlickerComponent : MonoBehaviour {
     public float BaseIntensity = 0F;
     public Light LightSource;
     public float BaseRange;
+    public Color BaseColor;
+    public Color AlertColor;
 
-
-    void Start ()
+    void Start()
     {
         LightSource = GetComponent<Light>();
         BaseIntensity = LightSource.intensity;
         BaseRange = LightSource.range;
-	}
-	
+        BaseColor = LightSource.color;
+    }
+
 }
