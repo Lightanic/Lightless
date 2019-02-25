@@ -49,12 +49,14 @@ public class FlickerSystem : ComponentSystem
 
         if (isEnemyNearby)
         {
+            light.color = Color.Lerp(light.color, entity.Flicker.AlertColor, Time.deltaTime);
             light.range = Mathf.Lerp(light.range, Random.Range(
                     entity.Flicker.BaseRange - 5F,
                     entity.Flicker.BaseRange - 2F), Time.deltaTime * 2F);
         }
         else
         {
+            light.color = Color.Lerp(light.color, entity.Flicker.BaseColor, Time.deltaTime);
             light.range = Mathf.Lerp(light.range, entity.Flicker.BaseRange, Time.deltaTime * 2F);
         }
 
