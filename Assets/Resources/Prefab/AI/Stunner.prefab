@@ -5143,6 +5143,7 @@ GameObject:
   - component: {fileID: 763098722}
   - component: {fileID: 763098723}
   - component: {fileID: 344176399}
+  - component: {fileID: 4075277124491852196}
   m_Layer: 0
   m_Name: Stunner
   m_TagString: Enemy
@@ -5348,6 +5349,7 @@ MonoBehaviour:
   HasLunged: 0
   CanLunge: 0
   IsStunned: 0
+  IsTargetInView: 0
   CurrentTime: 0
   WaitTime: 2
   LungeTime: 1
@@ -5402,6 +5404,26 @@ MonoBehaviour:
   Instances: []
   MaxFootprintCount: 10
   FootprintDistance: 2
+--- !u!114 &4075277124491852196
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1519830447615124}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c09d6deec6855c4187f9babeb74a2b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ViewRadius: 25
+  ViewAngle: 90
+  TargetMask:
+    serializedVersion: 2
+    m_Bits: 2048
+  ObstacleMask:
+    serializedVersion: 2
+    m_Bits: 1024
 --- !u!1 &1522817450480198
 GameObject:
   m_ObjectHideFlags: 0
