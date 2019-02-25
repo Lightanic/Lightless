@@ -75,7 +75,8 @@ Shader "Foliage/EmissionFade"
             fixed4 c = tex2D (_MainTex, IN.uv_MainTex) * _Color;
             o.Albedo = c.rgb;
 			float distance = length(LanternPos - IN.worldPos);
-			float eVal = (FoliageEmissionDistance - distance) / FoliageEmissionDistance;
+			float eDist = (FoliageEmissionDistance - distance);
+			float eVal = (eDist) / FoliageEmissionDistance;
 			eVal = saturate(eVal);
             // Metallic and smoothness come from slider variables
             o.Metallic = _Metallic;
@@ -84,7 +85,7 @@ Shader "Foliage/EmissionFade"
 			o.Normal = UnpackNormal(tex2D(_BumpMap, IN.uv_BumpMap));
 
 			float3 emissionMap = tex2D(_EmissionMap, IN.uv_MainTex);
-			o.Emission = (emissionMap * _EmissionColor).rgb * (eVal * eVal) * FoliageFillAmount + emissionMap * _BaseEmissionColor;
+			o.Emission = (emissionMap * _EmissionColor).rgb * (eVal) * FoliageFillAmount + emissionMap * _BaseEmissionColor;
 
         }
         ENDCG
