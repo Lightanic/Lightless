@@ -8,15 +8,20 @@ public class FlickerComponent : MonoBehaviour {
     public float MaxIncrease = 0.2F;
     public float RateDamping = 0.1F;
     public float Strength = 300;
+
     public bool StopFlickering = false;
-    public Light LightSource;
     public float CurrentTime = 0F;
+
     public float BaseIntensity = 0F;
+    public Light LightSource;
+    public float BaseRange;
+
 
     void Start ()
     {
         LightSource = GetComponent<Light>();
         BaseIntensity = LightSource.intensity;
+        BaseRange = LightSource.range;
 	}
 	
 }
