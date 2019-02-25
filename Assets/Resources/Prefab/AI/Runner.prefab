@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 595021043}
   - component: {fileID: 7872229955635682607}
   - component: {fileID: 7678155093850985305}
+  - component: {fileID: 2101050118838163372}
   m_Layer: 0
   m_Name: Runner
   m_TagString: Enemy
@@ -222,6 +223,7 @@ MonoBehaviour:
   HasLunged: 0
   CanLunge: 0
   IsStunned: 0
+  IsTargetInView: 0
   CurrentTime: 0
   WaitTime: 0.1
   LungeTime: 0.2
@@ -275,6 +277,26 @@ MonoBehaviour:
   Instances: []
   MaxFootprintCount: 10
   FootprintDistance: 2
+--- !u!114 &2101050118838163372
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1005343561796514}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c09d6deec6855c4187f9babeb74a2b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ViewRadius: 30.5
+  ViewAngle: 88
+  TargetMask:
+    serializedVersion: 2
+    m_Bits: 2048
+  ObstacleMask:
+    serializedVersion: 2
+    m_Bits: 1024
 --- !u!1 &1079421814572976
 GameObject:
   m_ObjectHideFlags: 0
