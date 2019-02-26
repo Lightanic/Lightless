@@ -35,7 +35,7 @@ public class ViewConeSystem : ComponentSystem
                 {
                     bool shouldRaycast = false;
                     float distToTarget = Vector3.Distance(enemyPosWithOffset, target.position);
-                    if (target.CompareTag("Lantern") || target.CompareTag("Flashlight"))
+                    if (target.CompareTag("Lantern") || target.CompareTag("Flashlight") || target.CompareTag("Fire"))
                     {
                         if (target.GetComponent<LightComponent>().LightIsOn)
                             shouldRaycast = true;
@@ -49,7 +49,7 @@ public class ViewConeSystem : ComponentSystem
                     
                     if (shouldRaycast && Physics.Raycast(enemyPosWithOffset, actualDirToTarget, out hit, distToTarget + 1))
                     {
-                        if (hit.collider.CompareTag("Lantern") || hit.collider.CompareTag("Flashlight")
+                        if (hit.collider.CompareTag("Lantern") || hit.collider.CompareTag("Flashlight") || hit.collider.CompareTag("Fire")
                             || hit.collider.CompareTag("PlayerBodyMesh"))
                         {
                             entity.EnemyComponent.IsTargetInView = true;

@@ -115,7 +115,9 @@ public class EnemySystem : ComponentSystem
         {
 
             case EnemyState.Patrol:
-                if (distanceToLight < seekComponent.AlertRadius || distanceToPlayer < seekComponent.VisionRadius)
+                //if (distanceToPlayer < seekComponent.VisionRadius)
+                //    return EnemyState.Alert;
+                if (distanceToLight < seekComponent.AlertRadius || distanceToPlayer < seekComponent.NightVisionRadius)
                     return EnemyState.Alert;
                 else
                     return EnemyState.Patrol;
@@ -128,7 +130,7 @@ public class EnemySystem : ComponentSystem
                 //agent.Agent.speed = 0;
                 //enemyComponent.GetComponent<Rigidbody>().isKinematic = true;
                 //agent.Agent.SetDestination(enemyComponent.transform.position);
-                if ((distanceToLight < seekComponent.AlertRadius || distanceToPlayer < seekComponent.VisionRadius) && !enemyComponent.IsTargetInView)
+                if ((distanceToLight < seekComponent.AlertRadius || distanceToPlayer <= seekComponent.NightVisionRadius) && !enemyComponent.IsTargetInView)
                     return EnemyState.Alert;
                 else if (enemyComponent.IsTargetInView)
                     return EnemyState.Seek;
