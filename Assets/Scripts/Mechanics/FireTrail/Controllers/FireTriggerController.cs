@@ -8,6 +8,7 @@ public class FireTriggerController : MonoBehaviour {
     {
         if(other.tag == "Enemy")
         {
+            other.GetComponent<CapsuleCollider>().enabled = false;
             other.GetComponent<EnemyDeathComponent>().EnemyIsDead = true;
         }
     }
