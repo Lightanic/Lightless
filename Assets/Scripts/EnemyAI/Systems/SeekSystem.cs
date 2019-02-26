@@ -113,7 +113,7 @@ public class SeekSystem : ComponentSystem
 
     void StunnerSeek(Seek entity, Transform target)
     {
-        if (!target)
+        if (!target || !entity.AgentComponent.Agent.isActiveAndEnabled)
         {
             return;
         }
