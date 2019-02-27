@@ -40,7 +40,7 @@ public class ViewConeSystem : ComponentSystem
                         if (target.GetComponent<LightComponent>().LightIsOn)
                             shouldRaycast = true;
                     }
-                    if (target.CompareTag("PlayerBodyMesh") || target.CompareTag("FireStun"))
+                    if (target.CompareTag("PlayerBodyMesh") || target.CompareTag("FireStun") || target.CompareTag("Player"))
                         shouldRaycast = true;
                     RaycastHit hit;
 
