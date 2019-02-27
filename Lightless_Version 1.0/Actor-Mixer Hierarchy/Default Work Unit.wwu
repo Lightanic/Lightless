@@ -724,7 +724,7 @@
 								</Property>
 								<Property Name="Volume" Type="Real64">
 									<ValueList>
-										<Value>1</Value>
+										<Value>-9</Value>
 									</ValueList>
 								</Property>
 							</PropertyList>
@@ -917,7 +917,6 @@
 									</ModifierList>
 								</Property>
 								<Property Name="PlayMechanismLoop" Type="bool" Value="True"/>
-								<Property Name="PlayMechanismStepOrContinuous" Type="int16" Value="0"/>
 								<Property Name="RandomOrSequence" Type="int16" Value="0"/>
 								<Property Name="Volume" Type="Real64">
 									<ValueList>
@@ -2058,122 +2057,6 @@
 						<Sound Name="Fire_Stationary" ID="{10BBEB0C-A762-4558-9C19-08EDFB5041E2}" ShortID="764824645">
 							<PropertyList>
 								<Property Name="IsLoopingEnabled" Type="bool" Value="True"/>
-								<Property Name="Lowpass" Type="int16">
-									<RTPCList>
-										<RTPC Name="" ID="{1E6DFF43-EA02-451D-B0C9-172947A4AC26}" ShortID="170110293">
-											<ReferenceList>
-												<Reference Name="ControlInput">
-													<ObjectRef Name="Fire_Proximity" ID="{3CAD4DD3-AB1B-4DDE-8E42-B2B066098BAF}" WorkUnitID="{A4416AED-E337-4D75-B8FE-ADD173CA00DB}"/>
-												</Reference>
-											</ReferenceList>
-											<Curve Name="" ID="{BBD70B86-FBDE-4BBF-8549-BB30008EC3B1}">
-												<PropertyList>
-													<Property Name="Flags" Type="int32" Value="65537"/>
-												</PropertyList>
-												<PointList>
-													<Point>
-														<XPos>0</XPos>
-														<YPos>6</YPos>
-														<Flags>5</Flags>
-													</Point>
-													<Point>
-														<XPos>7.32357</XPos>
-														<YPos>27</YPos>
-														<Flags>0</Flags>
-													</Point>
-													<Point>
-														<XPos>17.44041</XPos>
-														<YPos>59</YPos>
-														<Flags>0</Flags>
-													</Point>
-													<Point>
-														<XPos>17.44141</XPos>
-														<YPos>54</YPos>
-														<Flags>0</Flags>
-													</Point>
-													<Point>
-														<XPos>17.44241</XPos>
-														<YPos>59</YPos>
-														<Flags>0</Flags>
-													</Point>
-													<Point>
-														<XPos>17.44341</XPos>
-														<YPos>68</YPos>
-														<Flags>0</Flags>
-													</Point>
-													<Point>
-														<XPos>49.8002663115846</XPos>
-														<YPos>0</YPos>
-														<Flags>0</Flags>
-													</Point>
-													<Point>
-														<XPos>100</XPos>
-														<YPos>0</YPos>
-														<Flags>37</Flags>
-													</Point>
-												</PointList>
-											</Curve>
-										</RTPC>
-									</RTPCList>
-								</Property>
-								<Property Name="Volume" Type="Real64">
-									<RTPCList>
-										<RTPC Name="" ID="{068C4433-E405-437E-882E-C365A64BD197}" ShortID="461726675">
-											<ReferenceList>
-												<Reference Name="ControlInput">
-													<ObjectRef Name="Fire_Proximity" ID="{3CAD4DD3-AB1B-4DDE-8E42-B2B066098BAF}" WorkUnitID="{A4416AED-E337-4D75-B8FE-ADD173CA00DB}"/>
-												</Reference>
-											</ReferenceList>
-											<Curve Name="" ID="{10568921-5ED1-4EF7-AE9B-90A14DD6FCEB}">
-												<PropertyList>
-													<Property Name="Flags" Type="int32" Value="3"/>
-												</PropertyList>
-												<PointList>
-													<Point>
-														<XPos>0</XPos>
-														<YPos>6.64877</YPos>
-														<Flags>5</Flags>
-													</Point>
-													<Point>
-														<XPos>5.45939</XPos>
-														<YPos>-2.03979</YPos>
-														<Flags>0</Flags>
-													</Point>
-													<Point>
-														<XPos>11.18509</XPos>
-														<YPos>-8.58697</YPos>
-														<Flags>0</Flags>
-													</Point>
-													<Point>
-														<XPos>29.96005</XPos>
-														<YPos>-200</YPos>
-														<Flags>0</Flags>
-													</Point>
-													<Point>
-														<XPos>59.78695</XPos>
-														<YPos>-200</YPos>
-														<Flags>0</Flags>
-													</Point>
-													<Point>
-														<XPos>80.02664</XPos>
-														<YPos>-200</YPos>
-														<Flags>0</Flags>
-													</Point>
-													<Point>
-														<XPos>92.01065</XPos>
-														<YPos>-200</YPos>
-														<Flags>0</Flags>
-													</Point>
-													<Point>
-														<XPos>100</XPos>
-														<YPos>-200</YPos>
-														<Flags>37</Flags>
-													</Point>
-												</PointList>
-											</Curve>
-										</RTPC>
-									</RTPCList>
-								</Property>
 							</PropertyList>
 							<ReferenceList>
 								<Reference Name="Conversion">

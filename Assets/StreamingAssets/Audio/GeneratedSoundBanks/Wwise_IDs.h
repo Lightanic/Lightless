@@ -15,6 +15,8 @@ namespace AK
     {
         static const AkUniqueID ENDOFGAME = 4035088645U;
         static const AkUniqueID FIRE_START = 1712046992U;
+        static const AkUniqueID FIRE_STATIONARY_START = 3357662779U;
+        static const AkUniqueID FIRE_STATIONARY_STOP = 4105340313U;
         static const AkUniqueID PAUSE = 3092587493U;
         static const AkUniqueID PLAY_BLUEMONSTER_AGRO = 2432590798U;
         static const AkUniqueID PLAY_BLUEMONSTER_DEATH = 654930343U;

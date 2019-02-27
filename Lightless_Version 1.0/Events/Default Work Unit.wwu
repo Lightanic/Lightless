@@ -730,6 +730,34 @@
 								</Action>
 							</ChildrenList>
 						</Event>
+						<Event Name="Fire_Stationary_Start" ID="{DD5F0AF9-CCD3-456C-9985-8AA1031E4BDB}">
+							<ChildrenList>
+								<Action Name="" ID="{CE1BED20-7CA4-4CEC-868B-103CDEC803A4}" ShortID="67980362">
+									<PropertyList>
+										<Property Name="ActionType" Type="int16" Value="1"/>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="Fire_Stationary" ID="{10BBEB0C-A762-4558-9C19-08EDFB5041E2}" WorkUnitID="{1D09721E-1177-463D-828C-1173372A699B}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+							</ChildrenList>
+						</Event>
+						<Event Name="Fire_Stationary_Stop" ID="{C9889354-03F3-4AD5-A0B3-E46BF2FF398A}">
+							<ChildrenList>
+								<Action Name="" ID="{BD2DE7ED-C365-4180-97FD-F60838C2D170}" ShortID="296573008">
+									<PropertyList>
+										<Property Name="ActionType" Type="int16" Value="2"/>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="Fire_Stationary" ID="{10BBEB0C-A762-4558-9C19-08EDFB5041E2}" WorkUnitID="{1D09721E-1177-463D-828C-1173372A699B}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+							</ChildrenList>
+						</Event>
 					</ChildrenList>
 				</Folder>
 			</ChildrenList>
