@@ -319,7 +319,7 @@ public class VolumetricLightRenderer : MonoBehaviour
             PreRenderEvent(this, _viewProj);
     }
 
-    [ImageEffectOpaque]
+    //[ImageEffectOpaque] Removing since we need it to play nice with the fog
     public void OnRenderImage(RenderTexture source, RenderTexture destination)
     {
         if (Resolution == VolumtericResolution.Quarter)
