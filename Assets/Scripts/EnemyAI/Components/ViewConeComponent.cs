@@ -10,7 +10,7 @@ public class ViewConeComponent : MonoBehaviour
     public float ViewAngle;
     public LayerMask TargetMask;
     public LayerMask ObstacleMask;
-
+    public Vector3 EyeOffset;
 
     public Vector3 DirFromAngle(float angleInDegrees, bool angleIsGlobal)
     {
