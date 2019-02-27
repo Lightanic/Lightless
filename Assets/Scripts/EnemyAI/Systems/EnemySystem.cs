@@ -196,9 +196,9 @@ public class EnemySystem : ComponentSystem
                     return EnemyState.Patrol;
 
             case EnemyState.Alert:
-                if ((distanceToLight < seekComponent.AlertRadius || distanceToPlayer <= seekComponent.NightVisionRadius) && !enemyComponent.IsTargetInView)
+                if ((distanceToLight < seekComponent.AlertRadius && !enemyComponent.IsTargetInView))
                     return EnemyState.Alert;
-                else if (enemyComponent.IsTargetInView)
+                else if (enemyComponent.IsTargetInView || distanceToPlayer <= seekComponent.NightVisionRadius)
                     return EnemyState.Seek;
                 else
                     return EnemyState.Patrol;
@@ -240,14 +240,14 @@ public class EnemySystem : ComponentSystem
         float distanceToLight, float distanceToPlayer, LightComponent lightComponent, PlayerData player)
     {
        
-        if (distanceToLight < seekComponent.VisionRadius)
-        {
-            seekComponent.Target = lightComponent.transform;
-        }
-        if (distanceToPlayer < seekComponent.NightVisionRadius)
-        {
-            seekComponent.Target = player.PlayerTransform;
-        }
+        //if (distanceToLight < seekComponent.VisionRadius)
+        //{
+        //    seekComponent.Target = lightComponent.transform;
+        //}
+        //if (distanceToPlayer < seekComponent.NightVisionRadius)
+        //{
+        //    seekComponent.Target = player.PlayerTransform;
+        //}
 
         
 
