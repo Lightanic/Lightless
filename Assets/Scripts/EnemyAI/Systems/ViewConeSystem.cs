@@ -19,11 +19,11 @@ public class ViewConeSystem : ComponentSystem
         foreach (var entity in GetEntities<Enemy>())
         {
             entity.EnemyComponent.IsTargetInView = false;
-            Collider[] targetsInView = Physics.OverlapSphere(entity.EnemyTransform.position, 
-                entity.ViewConeComponent.ViewRadius, entity.ViewConeComponent.TargetMask);
+            Collider[] targetsInView = Physics.OverlapSphere(entity.EnemyTransform.position,
+                entity.ViewConeComponent.ViewRadius, entity.ViewConeComponent.TargetMask, QueryTriggerInteraction.Collide);
 
-            Vector3 offset = new Vector3(0, 2, 0);
-            Vector3 enemyPosWithOffset = entity.EnemyTransform.position + offset;
+            
+            Vector3 enemyPosWithOffset = entity.EnemyTransform.position + entity.ViewConeComponent.EyeOffset;
             for (int i = 0; i < targetsInView.Length; ++i)
             {
                 Transform target = targetsInView[i].transform;
@@ -35,27 +35,27 @@ public class ViewConeSystem : ComponentSystem
                 {
                     bool shouldRaycast = false;
                     float distToTarget = Vector3.Distance(enemyPosWithOffset, target.position);
-                    if (target.CompareTag("Lantern") || target.CompareTag("Flashlight") || target.CompareTag("Fire"))
+                    if (target.CompareTag("Lantern") || target.CompareTag("Flashlight"))
                     {
                         if (target.GetComponent<LightComponent>().LightIsOn)
                             shouldRaycast = true;
                     }
-                    if (target.CompareTag("PlayerBodyMesh"))
+                    if (target.CompareTag("PlayerBodyMesh") || target.CompareTag("FireStun"))
                         shouldRaycast = true;
                     RaycastHit hit;
-                   
+
                     Debug.DrawRay(enemyPosWithOffset, actualDirToTarget, Color.red);
                     Debug.DrawLine(enemyPosWithOffset, target.position, Color.blue);
-                    
-                    if (shouldRaycast && Physics.Raycast(enemyPosWithOffset, actualDirToTarget, out hit, distToTarget + 1))
+
+                    if (shouldRaycast && Physics.Raycast(enemyPosWithOffset, actualDirToTarget, out hit, distToTarget + 1.0f, entity.ViewConeComponent.TargetMask, QueryTriggerInteraction.Collide))
                     {
-                        if (hit.collider.CompareTag("Lantern") || hit.collider.CompareTag("Flashlight") || hit.collider.CompareTag("Fire")
-                            || hit.collider.CompareTag("PlayerBodyMesh"))
+                        if (hit.collider.CompareTag("Lantern") || hit.collider.CompareTag("Flashlight") || hit.collider.CompareTag("FireStun")
+                            || hit.collider.CompareTag("PlayerBodyMesh") || hit.collider.CompareTag("Player"))
                         {
                             entity.EnemyComponent.IsTargetInView = true;
                             entity.SeekComponent.Target = target;
                         }
-                    
+
                     }
                 }
             }

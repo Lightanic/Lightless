@@ -47,14 +47,12 @@ public class EnemySystem : ComponentSystem
             {
                 if (!enemy.AgentComponent.Agent.enabled)
                 {
-                    continue;
+                    continue; //force to push enemy off should be applied only once
                 }
                 NavMeshHit hit;
                 enemy.AgentComponent.Agent.FindClosestEdge(out hit);
-                //Debug.Log(hit.distance);
                 if (hit.distance < 0.01 && enemy.AgentComponent.Agent.enabled)
                 {
-                    //enemy.Transform.LookAt(player.PlayerTransform);
                     enemy.AgentComponent.Agent.enabled = false;
                     enemy.Transform.GetComponent<Rigidbody>().AddForce(Vector3.Normalize(enemy.Transform.forward + enemy.Transform.up) * 600);
                 }
@@ -62,7 +60,7 @@ public class EnemySystem : ComponentSystem
             
             if (enemy.Transform.GetComponent<EnemyDeathComponent>().EnemyIsDead)
             {
-                continue;
+                continue; //run no more code if enemy is dead
             }
 
             if (enemy.EnemyComponent.CanLunge == false)
@@ -115,34 +113,18 @@ public class EnemySystem : ComponentSystem
         {
 
             case EnemyState.Patrol:
-                //if (distanceToPlayer < seekComponent.VisionRadius)
-                //    return EnemyState.Alert;
                 if (distanceToLight < seekComponent.AlertRadius || distanceToPlayer < seekComponent.NightVisionRadius)
                     return EnemyState.Alert;
                 else
                     return EnemyState.Patrol;
 
             case EnemyState.Alert:
-                //Vector3 targetDir = player.PlayerTransform.position - enemyComponent.transform.position;
-                //targetDir.y = enemyComponent.transform.position.y;
-                //enemyComponent.transform.rotation = Quaternion.Slerp(enemyComponent.transform.rotation,Quaternion.LookRotation(targetDir), Time.deltaTime); //Quaternion.RotateTowards(enemyComponent.transform.rotation, Quaternion.LookRotation(targetDir), Time.deltaTime);
-                ////enemyComponent.transform.LookAt(player.PlayerTransform);
-                //agent.Agent.speed = 0;
-                //enemyComponent.GetComponent<Rigidbody>().isKinematic = true;
-                //agent.Agent.SetDestination(enemyComponent.transform.position);
                 if ((distanceToLight < seekComponent.AlertRadius || distanceToPlayer <= seekComponent.NightVisionRadius) && !enemyComponent.IsTargetInView)
                     return EnemyState.Alert;
                 else if (enemyComponent.IsTargetInView)
                     return EnemyState.Seek;
                 else
                     return EnemyState.Patrol;
-                //    if (distanceToLight > seekComponent.AlertRadius && distanceToPlayer > seekComponent.VisionRadius)
-                //    return EnemyState.Patrol;
-                //else if ((distanceToLight < seekComponent.VisionRadius && lightComponent.LightIsOn) || distanceToPlayer < seekComponent.NightVisionRadius)
-                //    return EnemyState.Seek;
-                //else
-                //    return EnemyState.Alert;
-
             case EnemyState.Seek:
                 if (distanceToLight > seekComponent.VisionRadius && distanceToPlayer > seekComponent.NightVisionRadius)
                     return EnemyState.Alert;

@@ -19,7 +19,7 @@ public class SeekSystem : ComponentSystem
         {
             if (!entity.SeekComponent.Target)
             {
-                continue;
+                continue; //if enemy does not have a target, continue without errors
             }
             if (entity.Enemy.State == EnemyState.Seek)
             {
@@ -57,7 +57,7 @@ public class SeekSystem : ComponentSystem
         {
             return;
         }
-        //entity.Enemy.transform.LookAt(target);
+
         if (entity.AgentComponent.Agent.isOnOffMeshLink)
             entity.AgentComponent.Agent.speed = 4;
         else
@@ -80,9 +80,9 @@ public class SeekSystem : ComponentSystem
         {
             return;
         }
-        //entity.Enemy.transform.LookAt(target);
+
         entity.AgentComponent.Agent.speed = 12;
-        //entity.Enemy.transform.LookAt(target);
+
         if (entity.SeekComponent.Target.CompareTag("Player"))
         {
             entity.AgentComponent.Agent.SetDestination(target.position);
@@ -117,51 +117,15 @@ public class SeekSystem : ComponentSystem
         {
             return;
         }
-        //entity.Enemy.transform.LookAt(target);
+
         entity.AgentComponent.Agent.speed = 12;
         entity.AgentComponent.Agent.SetDestination(target.position);
-        //if (entity.Enemy.GetComponent<EnemyStunComponent>().IsStunned)
-        //{
-        //    entity.Enemy.State = EnemyState.Stun;
-        //    entity.AgentComponent.Agent.speed = 0;
-        //}
 
         if (entity.SeekComponent.Target.gameObject.CompareTag("Flashlight"))
         {
             if (entity.AgentComponent.Agent.enabled)
                 entity.AgentComponent.Agent.SetDestination(target.position + target.forward * 8);
-            //if (entity.Enemy.GetComponent<EnemyStunComponent>().IsStunned)
-            //{
-            //    entity.Enemy.State = EnemyState.Stun;
-            //    entity.AgentComponent.Agent.speed = 0;
-            //}
         }
-
-        //if (entity.SeekComponent.Target.CompareTag("Fire"))
-        //{
-        //    entity.AgentComponent.Agent.SetDestination(target.position);
-        //    if (entity.AgentComponent.Agent.remainingDistance < 9)
-        //    {
-
-        //        entity.Enemy.State = EnemyState.Stun;
-        //        entity.AgentComponent.Agent.speed = 0;
-        //    }
-
-        //}
-        //else
-        //{
-        //    if (entity.AgentComponent.Agent.enabled)
-        //    {
-        //        entity.AgentComponent.Agent.SetDestination(target.position);
-        //        if (entity.Enemy.GetComponent<EnemyStunComponent>().IsStunned)
-        //        {
-        //            entity.Enemy.State = EnemyState.Stun;
-        //            entity.AgentComponent.Agent.speed = 0;
-        //        }
-
-        //    }
-
-        //}
         entity.Enemy.GetComponent<EnemyStunComponent>().IsStunned = false;
     }
 }

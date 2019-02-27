@@ -30,7 +30,7 @@ public class PatrolSystem : ComponentSystem
             {
                 if (enemy.PatrolComponent.Waypoints.Length == 0)
                 {
-                    continue;
+                    continue; //if waypoints are not setup, enemies can just stand around
                 }
                 else
                 {

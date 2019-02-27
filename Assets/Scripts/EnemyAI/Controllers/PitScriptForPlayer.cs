@@ -5,10 +5,8 @@ using UnityEngine.AI;
 using Unity.Entities;
 using UnityEngine.SceneManagement;
 
-public class PitScriptForPlayer : MonoBehaviour //this script detects enemy and turns their navmesh off
+public class PitScriptForPlayer : MonoBehaviour //this script is for player if they fall off the level
 {
-    //public GameObject enemy;
-    //bool isDead = false;
     GameObject gameManager;
     public CheckpointManager CheckpointManager;
     private void Start()
