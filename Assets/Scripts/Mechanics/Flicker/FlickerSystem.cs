@@ -18,7 +18,7 @@ public class FlickerSystem : ComponentSystem
         foreach (var entity in entities)
         {
             bool isEnemyNearby = false;
-            var overlapResults = Physics.OverlapSphere(entity.Transform.position, 30F, LayerMask.GetMask("Enemy"));
+            var overlapResults = Physics.OverlapSphere(entity.Transform.position, entity.Flicker.AlertRadius, LayerMask.GetMask("Enemy"));
             for(int i=0;i<overlapResults.Length;++i)
             {
                 if (overlapResults[i].CompareTag("Enemy"))
