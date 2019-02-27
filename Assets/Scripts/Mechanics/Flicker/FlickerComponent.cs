@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class FlickerComponent : MonoBehaviour
 {
-
+    [Header("Configuration")]
     public float MaxReduction = 0.2F;
     public float MaxIncrease = 0.2F;
     public float RateDamping = 0.1F;
@@ -12,12 +12,14 @@ public class FlickerComponent : MonoBehaviour
 
     public bool StopFlickering = false;
     public float CurrentTime = 0F;
+    public Color AlertColor;
+    public float AlertRadius = 30F;
 
-    public float BaseIntensity = 0F;
-    public Light LightSource;
+    [Header("Instance Auto")]
     public float BaseRange;
     public Color BaseColor;
-    public Color AlertColor;
+    public float BaseIntensity = 0F;
+    public Light LightSource;
 
     void Start()
     {
