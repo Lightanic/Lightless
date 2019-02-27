@@ -93,7 +93,8 @@ GameObject:
   - component: {fileID: 114719580673255774}
   - component: {fileID: 114656144453012798}
   - component: {fileID: 114214625948271610}
-  m_Layer: 0
+  - component: {fileID: 234826707}
+  m_Layer: 11
   m_Name: lamp
   m_TagString: Lantern
   m_Icon: {fileID: 0}
@@ -225,6 +226,26 @@ MonoBehaviour:
   Name: Interact
   DefaultSprite: {fileID: 0}
   ShowDistance: 2
+--- !u!114 &234826707
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1161126618801720}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29dec00d49ff4e845aaf448ed9f8d1e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerList: f7e1664c
+  useOtherObject: 0
+  bankName: Firebank
+  decodeBank: 0
+  loadAsynchronous: 0
+  saveDecodedBank: 0
+  unloadTriggerList: 
+  valueGuid: 56c0c18454cadd429a4ce2fbd14b2b69
 --- !u!1 &1187408608067864
 GameObject:
   m_ObjectHideFlags: 0
@@ -347,8 +368,8 @@ Light:
   serializedVersion: 8
   m_Type: 2
   m_Color: {r: 0.9150943, g: 0.82724726, b: 0.18560876, a: 1}
-  m_Intensity: 1.8
-  m_Range: 14
+  m_Intensity: 1.5
+  m_Range: 7
   m_SpotAngle: 30
   m_CookieSize: 10
   m_Shadows:
@@ -365,7 +386,7 @@ Light:
   m_RenderMode: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 7937
   m_Lightmapping: 4
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
@@ -403,9 +424,13 @@ MonoBehaviour:
   RateDamping: 0.1
   Strength: 200
   StopFlickering: 0
-  LightSource: {fileID: 0}
   CurrentTime: 0
+  AlertColor: {r: 0.6603774, g: 0.23450817, b: 0.17132434, a: 0}
+  AlertRadius: 30
+  BaseRange: 0
+  BaseColor: {r: 0, g: 0, b: 0, a: 0}
   BaseIntensity: 0
+  LightSource: {fileID: 0}
 --- !u!114 &4448844195448693062
 MonoBehaviour:
   m_ObjectHideFlags: 0

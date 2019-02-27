@@ -19,7 +19,8 @@ GameObject:
   - component: {fileID: 114504522443263524}
   - component: {fileID: 114850132529796612}
   - component: {fileID: 17306973}
-  m_Layer: 0
+  - component: {fileID: 17306964}
+  m_Layer: 11
   m_Name: FlashlightPickup
   m_TagString: Flashlight
   m_Icon: {fileID: 0}
@@ -205,6 +206,26 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.07589761, y: 0.06572925, z: 0.25878716}
   m_Center: {x: 0, y: 0, z: -0.001815923}
+--- !u!114 &17306964
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1899340997658810}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29dec00d49ff4e845aaf448ed9f8d1e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerList: f7e1664c
+  useOtherObject: 0
+  bankName: Firebank
+  decodeBank: 0
+  loadAsynchronous: 0
+  saveDecodedBank: 0
+  unloadTriggerList: 
+  valueGuid: 56c0c18454cadd429a4ce2fbd14b2b69
 --- !u!1001 &253205231561949231
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -215,31 +236,6 @@ PrefabInstance:
     - target: {fileID: 1626068869527970, guid: 3d3efc2cc5323b743add7f2a627679c2, type: 3}
       propertyPath: m_Name
       value: FlashlightPrefab
-      objectReference: {fileID: 0}
-    - target: {fileID: 170072712116509873, guid: 3d3efc2cc5323b743add7f2a627679c2,
-        type: 3}
-      propertyPath: m_Radius
-      value: 3.53
-      objectReference: {fileID: 0}
-    - target: {fileID: 170072712116509873, guid: 3d3efc2cc5323b743add7f2a627679c2,
-        type: 3}
-      propertyPath: m_Center.z
-      value: 8.53
-      objectReference: {fileID: 0}
-    - target: {fileID: 171321695683285913, guid: 3d3efc2cc5323b743add7f2a627679c2,
-        type: 3}
-      propertyPath: m_Radius
-      value: 1.99
-      objectReference: {fileID: 0}
-    - target: {fileID: 171321695683285913, guid: 3d3efc2cc5323b743add7f2a627679c2,
-        type: 3}
-      propertyPath: m_Height
-      value: 10.6
-      objectReference: {fileID: 0}
-    - target: {fileID: 171321695683285913, guid: 3d3efc2cc5323b743add7f2a627679c2,
-        type: 3}
-      propertyPath: m_Center.z
-      value: 5.9
       objectReference: {fileID: 0}
     - target: {fileID: 4717718609992410, guid: 3d3efc2cc5323b743add7f2a627679c2, type: 3}
       propertyPath: m_LocalPosition.x
@@ -295,6 +291,31 @@ PrefabInstance:
       propertyPath: ReflectionLightPrefab
       value: 
       objectReference: {fileID: 253985225965336973}
+    - target: {fileID: 170072712116509873, guid: 3d3efc2cc5323b743add7f2a627679c2,
+        type: 3}
+      propertyPath: m_Radius
+      value: 3.53
+      objectReference: {fileID: 0}
+    - target: {fileID: 170072712116509873, guid: 3d3efc2cc5323b743add7f2a627679c2,
+        type: 3}
+      propertyPath: m_Center.z
+      value: 8.53
+      objectReference: {fileID: 0}
+    - target: {fileID: 171321695683285913, guid: 3d3efc2cc5323b743add7f2a627679c2,
+        type: 3}
+      propertyPath: m_Radius
+      value: 1.99
+      objectReference: {fileID: 0}
+    - target: {fileID: 171321695683285913, guid: 3d3efc2cc5323b743add7f2a627679c2,
+        type: 3}
+      propertyPath: m_Height
+      value: 10.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 171321695683285913, guid: 3d3efc2cc5323b743add7f2a627679c2,
+        type: 3}
+      propertyPath: m_Center.z
+      value: 5.9
+      objectReference: {fileID: 0}
     - target: {fileID: 114374848727291876, guid: 3d3efc2cc5323b743add7f2a627679c2,
         type: 3}
       propertyPath: Switch
