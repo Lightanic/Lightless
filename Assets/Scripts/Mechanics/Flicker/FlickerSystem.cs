@@ -36,12 +36,18 @@ public class FlickerSystem : ComponentSystem
     void FlickerLight(Group entity, bool isEnemyNearby)
     {
         var light = entity.Flicker.LightSource;
+        float baseIntensity = entity.Flicker.BaseIntensity;
+        if (isEnemyNearby)
+        {
+            baseIntensity *= entity.Flicker.AlertIntensityMultiplier;
+        }
+
         if (entity.Flicker.CurrentTime > entity.Flicker.RateDamping && !entity.Flicker.StopFlickering)
         {
             light.intensity =
                 Mathf.Lerp(light.intensity, Random.Range(
-                    entity.Flicker.BaseIntensity - entity.Flicker.MaxReduction,
-                    entity.Flicker.BaseIntensity + entity.Flicker.MaxIncrease),
+                    baseIntensity - entity.Flicker.MaxReduction,
+                    baseIntensity + entity.Flicker.MaxIncrease),
                     entity.Flicker.Strength * Time.deltaTime
                 );
             entity.Flicker.CurrentTime = 0F;
@@ -51,8 +57,8 @@ public class FlickerSystem : ComponentSystem
         {
             light.color = Color.Lerp(light.color, entity.Flicker.AlertColor, Time.deltaTime);
             light.range = Mathf.Lerp(light.range, Random.Range(
-                    entity.Flicker.BaseRange - 5F,
-                    entity.Flicker.BaseRange - 2F), Time.deltaTime * 2F);
+                    entity.Flicker.BaseRange - entity.Flicker.MinAlertRangeReduction,
+                    entity.Flicker.BaseRange - entity.Flicker.MaxAlertRangeReduction), Time.deltaTime * 2F);
         }
         else
         {
