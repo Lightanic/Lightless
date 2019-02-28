@@ -25,6 +25,8 @@ public class AkEventTrack : UnityEngine.Timeline.TrackAsset
 		var Settings = WwiseSettings.LoadSettings();
 		var WprojPath = AkUtilities.GetFullPath(UnityEngine.Application.dataPath, Settings.WwiseProjectPath);
 		AkUtilities.EnableBoolSoundbankSettingInWproj("SoundBankGenerateEstimatedDuration", WprojPath);
+
+		AkWwiseXMLWatcher.Instance.XMLUpdated += OnXMLUpdated;
 #endif
 		var playable = UnityEngine.Playables.ScriptPlayable<AkEventPlayableBehavior>.Create(graph);
 		UnityEngine.Playables.PlayableExtensions.SetInputCount(playable, inputCount);
@@ -32,6 +34,13 @@ public class AkEventTrack : UnityEngine.Timeline.TrackAsset
 		setOwnerClips();
 		return playable;
 	}
+
+#if UNITY_EDITOR
+	public void OnDestroy()
+	{
+		AkWwiseXMLWatcher.Instance.XMLUpdated -= OnXMLUpdated;
+	}
+#endif
 
 	public void setFadeTimes()
 	{
@@ -103,6 +112,17 @@ public class AkEventTrack : UnityEngine.Timeline.TrackAsset
 
 		return 0.0;
 	}
+
+#if UNITY_EDITOR
+	private void OnXMLUpdated()
+	{
+		var clips = GetClips();
+		foreach (var clip in clips)
+		{
+			((AkEventPlayable)clip.asset).Refresh();
+		}
+	}
+#endif
 }
 
 #endif //UNITY_2017_1_OR_NEWER

@@ -190,7 +190,9 @@ public class UIManager : MonoBehaviour
 
     public void ExitGame()
     {
-        SceneManager.LoadScene(SceneManager.GetSceneByBuildIndex(0).name);
+        Application.Quit();
+        //PauseCanvas.GetComponent<LevelLoader>().LoadLevelAsync(0);
+        //SceneManager.LoadScene("Menu");
     }
 
     void BackButtonPress()

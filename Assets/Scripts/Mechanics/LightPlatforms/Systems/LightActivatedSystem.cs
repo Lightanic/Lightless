@@ -65,7 +65,8 @@ public class LightActivatedSystem : ComponentSystem
         var startPosition = platform.StartPosition;
         var currentPosition = transform.position;
         var distance = Vector3.Distance(startPosition, currentPosition);
-        if(platform.IsOneTimeActivation)
+        
+        if (platform.IsOneTimeActivation)
         {
             return;
         }
@@ -73,9 +74,11 @@ public class LightActivatedSystem : ComponentSystem
         {
             transform.position = Vector3.MoveTowards(transform.position, startPosition, platform.MoveSpeed * Time.deltaTime);
             platform.IsRetracting = true;
+            
         }
         else
         {
+            AkSoundEngine.PostEvent("Stop_Rock_Moving_Heavy", platform.gameObject);
             platform.IsRetracting = false;
         }
     }
@@ -106,9 +109,11 @@ public class LightActivatedSystem : ComponentSystem
                 platform.IsActivated = false;
                 platform.HasActivated = true;
                 platform.CurrentTime = 0F;
+                AkSoundEngine.PostEvent("Play_Rock_Moving_Heavy", platform.gameObject);
             }
             else
             {
+                AkSoundEngine.PostEvent("Stop_Rock_Moving_Heavy", platform.gameObject);
                 platform.CurrentTime += Time.deltaTime;
             }
         }

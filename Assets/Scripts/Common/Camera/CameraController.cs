@@ -21,7 +21,6 @@ public class CameraController : MonoBehaviour
             offset = transform.position - player.position;
         playerOutlines = player.GetComponentsInChildren<Outline>();
 
-        AkSoundEngine.PostEvent("BackgroundStart", gameObject);
         enemies = GameObject.FindGameObjectsWithTag("Enemy");
         fog = GetComponent<VolumetricFog>();
     }
@@ -105,6 +104,5 @@ public class CameraController : MonoBehaviour
 
     private void OnDestroy()
     {
-        AkSoundEngine.PostEvent("BackgroundStop", gameObject);
     }
 }

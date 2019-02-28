@@ -42,7 +42,7 @@
 		[UnityEngine.Tooltip("Only used when \"AudioAPI\" is \"DirectSound\", sounds will be muted if set to false when the game loses the focus.")]
 		public bool m_GlobalFocus = true;
 
-		public void CopyTo(AkPlatformInitSettings settings)
+		public override void CopyTo(AkPlatformInitSettings settings)
 		{
 #if UNITY_STANDALONE_WIN || UNITY_EDITOR_WIN || UNITY_WSA
 			settings.eAudioAPI = (AkAudioAPI)m_AudioAPI;

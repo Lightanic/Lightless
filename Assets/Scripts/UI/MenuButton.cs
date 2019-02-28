@@ -18,10 +18,14 @@ public class MenuButton : MonoBehaviour
     {
         if (menuButtonController.index == thisIndex)
 		{
-			animator.SetBool ("selected", true);
-			if(Input.GetAxis ("Submit") == 1)
+            if(menuButtonController.prevIndex != thisIndex)
             {
-				animator.SetBool ("pressed", true);
+                AkSoundEngine.PostEvent("Play_MenuHighlight", gameObject);
+            }
+			animator.SetBool ("selected", true);
+			if(Input.GetButtonDown("Submit"))
+            {
+                animator.SetBool ("pressed", true);
                 menuButtonController.ButtonActions(thisIndex);
 			}
             else if (animator.GetBool ("pressed"))

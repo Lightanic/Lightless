@@ -11,7 +11,6 @@ public class AkEnvironmentInspector : AkBaseInspector
 {
 	private AkEnvironment m_AkEnvironment;
 
-	private UnityEditor.SerializedProperty m_auxBusId;
 	private UnityEditor.SerializedProperty m_excludeOthers;
 	private UnityEditor.SerializedProperty m_isDefault;
 	private UnityEditor.SerializedProperty m_priority;
@@ -20,17 +19,9 @@ public class AkEnvironmentInspector : AkBaseInspector
 	{
 		m_AkEnvironment = target as AkEnvironment;
 
-		m_auxBusId = serializedObject.FindProperty("m_auxBusID");
 		m_priority = serializedObject.FindProperty("priority");
 		m_isDefault = serializedObject.FindProperty("isDefault");
 		m_excludeOthers = serializedObject.FindProperty("excludeOthers");
-
-		m_guidProperty = new UnityEditor.SerializedProperty[1];
-		m_guidProperty[0] = serializedObject.FindProperty("valueGuid.Array");
-
-		//Needed by the base class to know which type of component its working with
-		m_typeName = "AuxBus";
-		m_objectType = AkWwiseProjectData.WwiseObjectType.AUXBUS;
 
 		//We move and replace the game object to trigger the OnTriggerStay function
 		ShakeEnvironment();
@@ -38,10 +29,6 @@ public class AkEnvironmentInspector : AkBaseInspector
 
 	public override void OnChildInspectorGUI()
 	{
-		serializedObject.Update();
-
-		UnityEngine.GUILayout.Space(UnityEditor.EditorGUIUtility.standardVerticalSpacing);
-
 		using (new UnityEditor.EditorGUILayout.VerticalScope("box"))
 		{
 			m_priority.intValue = UnityEditor.EditorGUILayout.IntField("Priority: ", m_priority.intValue);
@@ -60,27 +47,6 @@ public class AkEnvironmentInspector : AkBaseInspector
 		}
 
 		AkGameObjectInspector.RigidbodyCheck(m_AkEnvironment.gameObject);
-
-		serializedObject.ApplyModifiedProperties();
-	}
-
-	public override string UpdateIds(System.Guid[] in_guid)
-	{
-		for (var i = 0; i < AkWwiseProjectInfo.GetData().AuxBusWwu.Count; i++)
-		{
-			var akInfo = AkWwiseProjectInfo.GetData().AuxBusWwu[i].List.Find(x => new System.Guid(x.Guid).Equals(in_guid[0]));
-
-			if (akInfo != null)
-			{
-				serializedObject.Update();
-				m_auxBusId.intValue = akInfo.ID;
-				serializedObject.ApplyModifiedProperties();
-
-				return akInfo.Name;
-			}
-		}
-
-		return string.Empty;
 	}
 
 	public void ShakeEnvironment()

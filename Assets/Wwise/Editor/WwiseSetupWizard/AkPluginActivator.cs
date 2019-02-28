@@ -1,4 +1,4 @@
-﻿#if UNITY_EDITOR
+#if UNITY_EDITOR
 [UnityEditor.InitializeOnLoad]
 public class AkPluginActivator
 {
@@ -72,7 +72,10 @@ public class AkPluginActivator
 		var CurrentPluginConfigField = typeof(AkWwiseProjectData).GetField("CurrentPluginConfig");
 		var data = AkWwiseProjectInfo.GetData();
 		if (CurrentPluginConfigField != null)
+		{
 			CurrentPluginConfigField.SetValue(data, config);
+			UnityEngine.Debug.LogFormat("WwiseUnity: Changed plugin configuration for game runtime to {0}", config);
+		}
 
 		UnityEditor.EditorUtility.SetDirty(AkWwiseProjectInfo.GetData());
 	}
@@ -149,8 +152,10 @@ public class AkPluginActivator
 			case UnityEditor.BuildTarget.PS4:
 				return "PS4";
 
+#if !UNITY_2018_3_OR_NEWER
 			case UnityEditor.BuildTarget.PSP2:
 				return "Vita";
+#endif
 
 			case UnityEditor.BuildTarget.StandaloneWindows:
 			case UnityEditor.BuildTarget.StandaloneWindows64:
@@ -257,8 +262,8 @@ public class AkPluginActivator
 				case "tvOS":
 				case "PS4":
 				case "XboxOne":
-                case "Lumin":
-                    pluginConfig = splitPath[5];
+				case "Lumin":
+					pluginConfig = splitPath[5];
 					break;
 
 				case "Android":
@@ -266,11 +271,21 @@ public class AkPluginActivator
 					pluginConfig = splitPath[6];
 
 					if (pluginArch == "armeabi-v7a")
+					{
 						pluginImporter.SetPlatformData(UnityEditor.BuildTarget.Android, "CPU", "ARMv7");
+					}
+					else if(pluginArch == "arm64-v8a")
+					{
+						pluginImporter.SetPlatformData(UnityEditor.BuildTarget.Android, "CPU", "ARM64");
+					}
 					else if (pluginArch == "x86")
+					{
 						pluginImporter.SetPlatformData(UnityEditor.BuildTarget.Android, "CPU", "x86");
+					}
 					else
+					{
 						UnityEngine.Debug.Log("WwiseUnity: Architecture not found: " + pluginArch);
+					}
 					break;
 
 				case "Linux":
@@ -495,7 +510,9 @@ public class AkPluginActivator
 		}
 
 		if (ChangedSomeAssets)
+		{
 			UnityEngine.Debug.Log("WwiseUnity: Plugins successfully activated for " + EditorConfiguration + " in Editor.");
+		}
 	}
 
 	private static void CheckMenuItems(string config)

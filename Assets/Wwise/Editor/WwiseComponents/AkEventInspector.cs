@@ -14,34 +14,22 @@ public class AkEventInspector : AkBaseInspector
 	private UnityEditor.SerializedProperty callbackData;
 	private UnityEditor.SerializedProperty curveInterpolation;
 	private UnityEditor.SerializedProperty enableActionOnEvent;
-
-	private UnityEditor.SerializedProperty eventID;
 	private UnityEditor.SerializedProperty transitionDuration;
 
 	public void OnEnable()
 	{
 		m_UnityEventHandlerInspector.Init(serializedObject);
 
-		eventID = serializedObject.FindProperty("eventID");
 		enableActionOnEvent = serializedObject.FindProperty("enableActionOnEvent");
 		actionOnEventType = serializedObject.FindProperty("actionOnEventType");
 		curveInterpolation = serializedObject.FindProperty("curveInterpolation");
 		transitionDuration = serializedObject.FindProperty("transitionDuration");
 
 		callbackData = serializedObject.FindProperty("m_callbackData");
-
-		m_guidProperty = new UnityEditor.SerializedProperty[1];
-		m_guidProperty[0] = serializedObject.FindProperty("valueGuid.Array");
-
-		//Needed by the base class to know which type of component its working with
-		m_typeName = "Event";
-		m_objectType = AkWwiseProjectData.WwiseObjectType.EVENT;
 	}
 
 	public override void OnChildInspectorGUI()
 	{
-		serializedObject.Update();
-
 		m_UnityEventHandlerInspector.OnGUI();
 
 		UnityEngine.GUILayout.Space(UnityEditor.EditorGUIUtility.standardVerticalSpacing);
@@ -68,8 +56,6 @@ public class AkEventInspector : AkBaseInspector
 			if (UnityEditor.EditorGUI.EndChangeCheck())
 				serializedObject.ApplyModifiedProperties();
 		}
-
-		serializedObject.ApplyModifiedProperties();
 
 		using (new UnityEditor.EditorGUILayout.VerticalScope("box"))
 		{
@@ -111,20 +97,14 @@ public class AkEventInspector : AkBaseInspector
 							playingEventsSelected = true;
 						else
 							stoppedEventsSelected = true;
-
 						if (playingEventsSelected && stoppedEventsSelected)
 							break;
 					}
 				}
 
-				var guiEnabled = UnityEngine.GUI.enabled;
-
-				if (!stoppedEventsSelected)
-					UnityEngine.GUI.enabled = false;
-
-				if (UnityEngine.GUILayout.Button("Play Multiple", style, UnityEngine.GUILayout.MaxWidth(inspectorWidth)))
+				if (stoppedEventsSelected &&
+				    UnityEngine.GUILayout.Button("Play Multiple", style, UnityEngine.GUILayout.MaxWidth(inspectorWidth)))
 				{
-					UnityEngine.GUIUtility.hotControl = 0;
 					for (var i = 0; i < targets.Length; ++i)
 					{
 						var akEventTarget = targets[i] as AkEvent;
@@ -133,15 +113,9 @@ public class AkEventInspector : AkBaseInspector
 					}
 				}
 
-				if (!stoppedEventsSelected)
-					UnityEngine.GUI.enabled = guiEnabled;
-
-				if (!playingEventsSelected)
-					UnityEngine.GUI.enabled = false;
-
-				if (UnityEngine.GUILayout.Button("Stop Multiple", style, UnityEngine.GUILayout.MaxWidth(inspectorWidth)))
+				if (playingEventsSelected &&
+				    UnityEngine.GUILayout.Button("Stop Multiple", style, UnityEngine.GUILayout.MaxWidth(inspectorWidth)))
 				{
-					UnityEngine.GUIUtility.hotControl = 0;
 					for (var i = 0; i < targets.Length; ++i)
 					{
 						var akEventTarget = targets[i] as AkEvent;
@@ -149,9 +123,6 @@ public class AkEventInspector : AkBaseInspector
 							AkEditorEventPlayer.Instance.StopEvent(akEventTarget);
 					}
 				}
-
-				if (!playingEventsSelected)
-					UnityEngine.GUI.enabled = guiEnabled;
 			}
 
 			if (UnityEngine.GUILayout.Button("Stop All", style, UnityEngine.GUILayout.MaxWidth(inspectorWidth)))
@@ -160,24 +131,6 @@ public class AkEventInspector : AkBaseInspector
 				AkEditorEventPlayer.Instance.StopAll();
 			}
 		}
-	}
-
-	public override string UpdateIds(System.Guid[] in_guid)
-	{
-		for (var i = 0; i < AkWwiseProjectInfo.GetData().EventWwu.Count; i++)
-		{
-			var e = AkWwiseProjectInfo.GetData().EventWwu[i].List.Find(x => new System.Guid(x.Guid).Equals(in_guid[0]));
-
-			if (e != null)
-			{
-				eventID.intValue = e.ID;
-				serializedObject.ApplyModifiedProperties();
-
-				return e.Name;
-			}
-		}
-
-		return string.Empty;
 	}
 
 	public class AkEditorEventPlayer
@@ -196,15 +149,10 @@ public class AkEventInspector : AkBaseInspector
 			}
 		}
 
-		private void CallbackHandler(object in_cookie, AkCallbackType in_type, object in_info)
+		private void CallbackHandler(object in_cookie, AkCallbackType in_type, AkCallbackInfo in_info)
 		{
 			if (in_type == AkCallbackType.AK_EndOfEvent)
-			{
-				var akEvent = in_cookie as AkEvent;
-				UnityEngine.Debug.Log("RemoveAkEvent(): " + akEvent.gameObject.name);
-				RemoveAkEvent(akEvent);
-				AkUtilities.RepaintInspector();
-			}
+				RemoveAkEvent(in_cookie as AkEvent);
 		}
 
 		public void PlayEvent(AkEvent akEvent)
@@ -212,10 +160,7 @@ public class AkEventInspector : AkBaseInspector
 			if (IsEventPlaying(akEvent))
 				return;
 
-			UnityEngine.Debug.Log("PlayEvent(" + akEvent.eventID + "): " + akEvent.gameObject.name + " " + akEvent.transform.position);
-
-			var playingID = AkSoundEngine.PostEvent((uint) akEvent.eventID, akEvent.gameObject,
-				(uint) AkCallbackType.AK_EndOfEvent, CallbackHandler, akEvent);
+			var playingID = akEvent.data.Post(akEvent.gameObject, (uint)AkCallbackType.AK_EndOfEvent, CallbackHandler);
 			if (playingID != AkSoundEngine.AK_INVALID_PLAYING_ID)
 				AddAkEvent(akEvent);
 		}
@@ -225,23 +170,11 @@ public class AkEventInspector : AkBaseInspector
 			if (!IsEventPlaying(akEvent))
 				return;
 
-			UnityEngine.Debug.Log("StopEvent(): " + akEvent.gameObject.name);
-
-			var result = AkSoundEngine.ExecuteActionOnEvent((uint) akEvent.eventID, AkActionOnEventType.AkActionOnEventType_Stop,
-				akEvent.gameObject, 0);
-			if (result == AKRESULT.AK_Success)
-				RemoveAkEvent(akEvent);
-			else
-			{
-				UnityEngine.Debug.LogWarning("WwiseUnity: AkEditorEventPlayer: Failed to stop event: " + akEvent.name + "(id: " +
-				                             akEvent.eventID + ")!");
-			}
+			akEvent.data.Stop(akEvent.gameObject);
 		}
 
 		private void AddAkEvent(AkEvent akEvent)
 		{
-			UnityEngine.Debug.Log("AddAkEvent(): " + akEvent.gameObject.name);
-
 			akEvents.Add(akEvent);
 
 			// In the case where objects are being placed in edit mode and then previewed, their positions won't yet be updated so we ensure they're updated here.

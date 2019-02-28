@@ -6,7 +6,7 @@ public class FireSound : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        AkSoundEngine.PostEvent("FireStart", gameObject);
+        AkSoundEngine.PostEvent("Fire_Stationary_Start", gameObject);
         StartCoroutine(KillSound());
 	}
 	
@@ -17,7 +17,7 @@ public class FireSound : MonoBehaviour {
 
     private void OnDestroy()
     {
-        AkSoundEngine.PostEvent("FireStop", gameObject);
+        AkSoundEngine.PostEvent("Fire_Stationary_Stop", gameObject);
     }
 
     IEnumerator KillSound()
