@@ -41,7 +41,7 @@ class AkSoundEnginePINVOKE {
   [global::System.Runtime.InteropServices.DllImport("AkSoundEngine", EntryPoint="CSharp_AkExternalSourceInfo_szFile_set")]
   public static extern void CSharp_AkExternalSourceInfo_szFile_set(global::System.IntPtr jarg1, [global::System.Runtime.InteropServices.MarshalAs(global::System.Runtime.InteropServices.UnmanagedType.LPStr)]string jarg2);
   [global::System.Runtime.InteropServices.DllImport("AkSoundEngine", EntryPoint="CSharp_AkExternalSourceInfo_szFile_get")]
-  public static extern string CSharp_AkExternalSourceInfo_szFile_get(global::System.IntPtr jarg1);
+  public static extern global::System.IntPtr CSharp_AkExternalSourceInfo_szFile_get(global::System.IntPtr jarg1);
   [global::System.Runtime.InteropServices.DllImport("AkSoundEngine", EntryPoint="CSharp_AkExternalSourceInfo_pInMemory_set")]
   public static extern void CSharp_AkExternalSourceInfo_pInMemory_set(global::System.IntPtr jarg1, global::System.IntPtr jarg2);
   [global::System.Runtime.InteropServices.DllImport("AkSoundEngine", EntryPoint="CSharp_AkExternalSourceInfo_pInMemory_get")]
@@ -1336,6 +1336,8 @@ class AkSoundEnginePINVOKE {
   public static extern int CSharp_GetTimeStamp();
   [global::System.Runtime.InteropServices.DllImport("AkSoundEngine", EntryPoint="CSharp_GetNumNonZeroBits")]
   public static extern uint CSharp_GetNumNonZeroBits(uint jarg1);
+  [global::System.Runtime.InteropServices.DllImport("AkSoundEngine", EntryPoint="CSharp_AkGetDefaultHighPriorityThreadProperties")]
+  public static extern void CSharp_AkGetDefaultHighPriorityThreadProperties(global::System.IntPtr jarg1);
   [global::System.Runtime.InteropServices.DllImport("AkSoundEngine", EntryPoint="CSharp_ResolveDialogueEvent__SWIG_0")]
   public static extern uint CSharp_ResolveDialogueEvent__SWIG_0(uint jarg1, [global::System.Runtime.InteropServices.In, global::System.Runtime.InteropServices.MarshalAs(global::System.Runtime.InteropServices.UnmanagedType.LPArray)]uint[] jarg2, uint jarg3, uint jarg4);
   [global::System.Runtime.InteropServices.DllImport("AkSoundEngine", EntryPoint="CSharp_ResolveDialogueEvent__SWIG_1")]
@@ -1918,6 +1920,10 @@ class AkSoundEnginePINVOKE {
   public static extern void CSharp_AkPlatformInitSettings_threadLEngine_set(global::System.IntPtr jarg1, global::System.IntPtr jarg2);
   [global::System.Runtime.InteropServices.DllImport("AkSoundEngine", EntryPoint="CSharp_AkPlatformInitSettings_threadLEngine_get")]
   public static extern global::System.IntPtr CSharp_AkPlatformInitSettings_threadLEngine_get(global::System.IntPtr jarg1);
+  [global::System.Runtime.InteropServices.DllImport("AkSoundEngine", EntryPoint="CSharp_AkPlatformInitSettings_threadOutputMgr_set")]
+  public static extern void CSharp_AkPlatformInitSettings_threadOutputMgr_set(global::System.IntPtr jarg1, global::System.IntPtr jarg2);
+  [global::System.Runtime.InteropServices.DllImport("AkSoundEngine", EntryPoint="CSharp_AkPlatformInitSettings_threadOutputMgr_get")]
+  public static extern global::System.IntPtr CSharp_AkPlatformInitSettings_threadOutputMgr_get(global::System.IntPtr jarg1);
   [global::System.Runtime.InteropServices.DllImport("AkSoundEngine", EntryPoint="CSharp_AkPlatformInitSettings_threadBankManager_set")]
   public static extern void CSharp_AkPlatformInitSettings_threadBankManager_set(global::System.IntPtr jarg1, global::System.IntPtr jarg2);
   [global::System.Runtime.InteropServices.DllImport("AkSoundEngine", EntryPoint="CSharp_AkPlatformInitSettings_threadBankManager_get")]

@@ -191,15 +191,20 @@ public class AkCommonOutputSettings
 
 	public void CopyTo(AkOutputSettings settings)
 	{
-		settings.audioDeviceShareset = string.IsNullOrEmpty(m_AudioDeviceShareset) ? AkSoundEngine.AK_INVALID_UNIQUE_ID : AkSoundEngine.GetIDFromString(m_AudioDeviceShareset);
+		settings.audioDeviceShareset = string.IsNullOrEmpty(m_AudioDeviceShareset) ? AkSoundEngine.AK_INVALID_UNIQUE_ID : AkUtilities.ShortIDGenerator.Compute(m_AudioDeviceShareset);
 		settings.idDevice = m_DeviceID;
 		settings.ePanningRule = (AkPanningRule)m_PanningRule;
 		m_ChannelConfig.CopyTo(settings.channelConfig);
 	}
 }
 
+public class AkSettingsValidationHandler
+{
+	public virtual void Validate() { }
+}
+
 [System.Serializable]
-public class AkCommonUserSettings
+public class AkCommonUserSettings : AkSettingsValidationHandler
 {
 	[UnityEngine.Tooltip("Path for the soundbanks. This must contain one sub folder per platform, with the same as in the Wwise project.")]
 	public string m_BasePath = AkBasePathGetter.DefaultBasePath;
@@ -207,7 +212,7 @@ public class AkCommonUserSettings
 	[UnityEngine.Tooltip("Language sub-folder used at startup.")]
 	public string m_StartupLanguage = "English(US)";
 
-	[UnityEngine.Tooltip("Prepare Pool size. This contains the banks loaded using PrepareBank (Banks decoded on load use this). Default size is 0 MB, but you should adjust for your needs.")]
+	[UnityEngine.Tooltip("Prepare Pool size. This contains the banks loaded using PrepareBank (Banks decoded on load use this). Default size is 0 MB (will not allocate a Prepare Pool), and minimal size if 8096 bytes. This should be adjusted for your needs.")]
 	public uint m_PreparePoolSize = 0;
 
 	[UnityEngine.Tooltip("CallbackManager buffer size. The size of the buffer used per-frame to transfer callback data. Default size is 4 KB, but you should increase this, if required.")]
@@ -335,10 +340,22 @@ public class AkCommonUserSettings
 		settings.uMaxSoundPropagationDepth = m_SpatialAudioSettings.m_MaxSoundPropagationDepth;
 		settings.uDiffractionFlags = (uint)m_SpatialAudioSettings.m_DiffractionFlags;
 	}
+
+	public virtual void CopyTo(AkUnityPlatformSpecificSettings settings)
+	{
+	}
+
+	public override void Validate()
+	{
+		if (m_PreparePoolSize > 0 && m_PreparePoolSize < 8096)
+		{
+			m_PreparePoolSize = 8096;
+		}
+	}
 }
 
 [System.Serializable]
-public class AkCommonAdvancedSettings
+public class AkCommonAdvancedSettings : AkSettingsValidationHandler
 {
 	[UnityEngine.Tooltip("Size of memory pool for I/O (for automatic streams). It is passed directly to AK::MemoryMgr::CreatePool(), after having been rounded down to a multiple of uGranularity.")]
 	public uint m_IOMemorySize = 2 * 1024 * 1024;
@@ -388,14 +405,20 @@ public class AkCommonAdvancedSettings
 		settings.uMaxHardwareTimeoutMs = m_MaximumHardwareTimeoutMs;
 	}
 
+	public virtual void CopyTo(AkPlatformInitSettings settings)
+	{
+	}
+
 	[System.Serializable]
 	public class SpatialAudioSettings
 	{
 		[UnityEngine.Tooltip("Multiplier that is applied to the distance attenuation of diffracted sounds (sounds that are in the 'shadow region') to simulate the phenomenon where by diffracted sound waves decay faster than incident sound waves.")]
-		public float m_DiffractionShadowAttenuationFactor;
+        [UnityEngine.Range(1.0f, 3.0f)]
+        public float m_DiffractionShadowAttenuationFactor = 2.0f;
 
 		[UnityEngine.Tooltip("Interpolation angle, in degrees, over which the \"Diffraction Shadow Attenuation Factor\" is applied.")]
-		public float m_DiffractionShadowDegrees;
+        [UnityEngine.Range(0.1f, 90.0f)]
+        public float m_DiffractionShadowDegrees = 30.0f;
 	}
 
 	[UnityEngine.Tooltip("Spatial audio advanced settings.")]
@@ -406,10 +429,29 @@ public class AkCommonAdvancedSettings
 		settings.fDiffractionShadowAttenFactor = m_SpatialAudioSettings.m_DiffractionShadowAttenuationFactor;
 		settings.fDiffractionShadowDegrees = m_SpatialAudioSettings.m_DiffractionShadowDegrees;
 	}
+
+	public virtual void CopyTo(AkUnityPlatformSpecificSettings settings)
+	{
+	}
+
+    public override void Validate()
+    {
+        if (m_SpatialAudioSettings.m_DiffractionShadowAttenuationFactor <= 0.0f)
+        {
+            UnityEngine.Debug.LogWarning("WwiseUnity: m_SpatialAudioSettings.m_DiffractionShadowAttenuationFactor must be greater than zero. Value was reset to the default (2.0)");
+            m_SpatialAudioSettings.m_DiffractionShadowAttenuationFactor = 2.0f;
+        }
+
+        if (m_SpatialAudioSettings.m_DiffractionShadowDegrees <= 0.0f)
+        {
+            UnityEngine.Debug.LogWarning("WwiseUnity: m_SpatialAudioSettings.m_DiffractionShadowDegrees must be greater than zero. Value was reset to the default (30.0)");
+            m_SpatialAudioSettings.m_DiffractionShadowDegrees = 30.0f;
+        }
+    }
 }
 
 [System.Serializable]
-public class AkCommonCommSettings
+public class AkCommonCommSettings : AkSettingsValidationHandler
 {
 	[UnityEngine.Tooltip("Size of the communication pool.")]
 	public uint m_PoolSize = 256 * 1024;
@@ -464,7 +506,6 @@ public abstract class AkCommonPlatformSettings : AkBasePlatformSettings
 		get
 		{
 			var settings = base.AkInitializationSettings;
-
 			var userSettings = GetUserSettings();
 			userSettings.CopyTo(settings.memSettings);
 			userSettings.CopyTo(settings.deviceSettings);
@@ -472,12 +513,14 @@ public abstract class AkCommonPlatformSettings : AkBasePlatformSettings
 			userSettings.CopyTo(settings.initSettings);
 			userSettings.CopyTo(settings.platformSettings);
 			userSettings.CopyTo(settings.musicSettings);
+			userSettings.CopyTo(settings.unityPlatformSpecificSettings);
 			settings.preparePoolSize = userSettings.m_PreparePoolSize;
 
 			var advancedSettings = GetAdvancedSettings();
 			advancedSettings.CopyTo(settings.deviceSettings);
 			advancedSettings.CopyTo(settings.initSettings);
-
+			advancedSettings.CopyTo(settings.platformSettings);
+			advancedSettings.CopyTo(settings.unityPlatformSpecificSettings);
 			return settings;
 		}
 	}
@@ -527,5 +570,16 @@ public abstract class AkCommonPlatformSettings : AkBasePlatformSettings
 			return settings;
 		}
 	}
+
+	#region parameter validation
+#if UNITY_EDITOR
+	void OnValidate()
+	{
+		GetUserSettings().Validate();
+		GetAdvancedSettings().Validate();
+		GetCommsSettings().Validate();
+	}
+#endif
+	#endregion
 }
 

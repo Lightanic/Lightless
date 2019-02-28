@@ -4,15 +4,20 @@
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1b4fdd838aa148e4688ee24753576e7a, type: 3}
   m_Name: AkWwiseInitializationSettings
   m_EditorClassIdentifier: 
-  PlatformSettingsNameList: []
-  PlatformSettingsList: []
+  PlatformSettingsNameList:
+  - Mac
+  - Windows
+  PlatformSettingsList:
+  - {fileID: 11400000, guid: 1fff343d1f9036a4fb612e1d5864e0b0, type: 2}
+  - {fileID: 11400000, guid: c1f53972a41a6e7409555c1fb52bd1e1, type: 2}
   InvalidReferencePlatforms: []
   UserSettings:
     m_BasePath: Audio\GeneratedSoundBanks
@@ -56,8 +61,8 @@ MonoBehaviour:
     m_MonitorQueuePoolSize: 65536
     m_MaximumHardwareTimeoutMs: 1000
     m_SpatialAudioSettings:
-      m_DiffractionShadowAttenuationFactor: 0
-      m_DiffractionShadowDegrees: 0
+      m_DiffractionShadowAttenuationFactor: 2
+      m_DiffractionShadowDegrees: 30
   CommsSettings:
     m_PoolSize: 262144
     m_DiscoveryBroadcastPort: 24024

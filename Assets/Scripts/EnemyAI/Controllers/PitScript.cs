@@ -24,8 +24,8 @@ public class PitScript : MonoBehaviour //this script detects enemy and turns the
             collision.GetComponent<NavMeshAgent>().enabled = false;
             collision.GetComponent<NavAgentComponent>().enabled = false;
             collision.GetComponent<WayPointComponent>().enabled = false;
-            
-            
+
+            AkSoundEngine.PostEvent("Play_BlueMonster_Death", collision.gameObject);
         }
 
     }

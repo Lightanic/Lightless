@@ -36,7 +36,7 @@ public class AkGameObjEnvironmentData
 				var index = activeEnvironmentsFromPortals.BinarySearch(env, AkEnvironment.s_compareByPriority);
 				if (index >= 0 && index < AkEnvironment.MAX_NB_ENVIRONMENTS)
 				{
-					auxSendValues.Add(env.GetAuxBusID(), activePortals[i].GetAuxSendValueForPosition(position, j));
+					auxSendValues.Add(env.data.Id, activePortals[i].GetAuxSendValueForPosition(position, j));
 					if (auxSendValues.isFull)
 						return;
 				}
@@ -51,7 +51,7 @@ public class AkGameObjEnvironmentData
 			for (var i = 0; i < activeEnvironments.Count; i++)
 			{
 				var env = activeEnvironments[i];
-				var auxBusID = env.GetAuxBusID();
+				var auxBusID = env.data.Id;
 
 				if ((!env.isDefault || i == 0) && !auxSendValues.Contains(auxBusID))
 				{

@@ -53,6 +53,14 @@ public class AkPlatformInitSettings : global::System.IDisposable {
     } 
   }
 
+  public AkThreadProperties threadOutputMgr { set { AkSoundEnginePINVOKE.CSharp_AkPlatformInitSettings_threadOutputMgr_set(swigCPtr, AkThreadProperties.getCPtr(value)); } 
+    get {
+      global::System.IntPtr cPtr = AkSoundEnginePINVOKE.CSharp_AkPlatformInitSettings_threadOutputMgr_get(swigCPtr);
+      AkThreadProperties ret = (cPtr == global::System.IntPtr.Zero) ? null : new AkThreadProperties(cPtr, false);
+      return ret;
+    } 
+  }
+
   public AkThreadProperties threadBankManager { set { AkSoundEnginePINVOKE.CSharp_AkPlatformInitSettings_threadBankManager_set(swigCPtr, AkThreadProperties.getCPtr(value)); } 
     get {
       global::System.IntPtr cPtr = AkSoundEnginePINVOKE.CSharp_AkPlatformInitSettings_threadBankManager_get(swigCPtr);

@@ -130,6 +130,7 @@ public class IndirectPlatformActivationSystem : ComponentSystem
                 platform.IsActivated = true;
                 activationTime.CurrentTime = 0;
                 Player.Input[0].Rumble(0.3f, new Vector2(5, 5), 0);
+                AkSoundEngine.PostEvent("Play_Rock_Moving_Heavy", platform.gameObject);
             }
         }
         else
