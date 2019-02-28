@@ -23,6 +23,7 @@ public class GameManager : MonoBehaviour
 
     public void StartDeath()
     {
-        deathAnimator.SetBool("DeathStart", true);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        //deathAnimator.SetBool("DeathStart", true);
     }
 }
