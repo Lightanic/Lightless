@@ -35,6 +35,14 @@ public class DecalScript : MonoBehaviour
             {
                 transform.position = hit.point - transform.forward * 0.1F;
             }
+            else
+            {
+                PrefabPool.Despawn(gameObject);
+            }
+        }
+        else
+        {
+            PrefabPool.Despawn(gameObject);
         }
     }
 
