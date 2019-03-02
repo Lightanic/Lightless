@@ -17,7 +17,8 @@ public class InventoryHUDComponent : MonoBehaviour {
     public Sprite defaultLeft;
     [SerializeField]
     public Sprite defaultRight;
-
+    [Space]
+    public GameObject cam;
     float alpha;
     // Use this for initialization
     void Start () {
@@ -31,8 +32,11 @@ public class InventoryHUDComponent : MonoBehaviour {
 
         selectedSlotMask = GameObject.Find("SelectedSlotMask");
     }
-	
-	public void SetSelectedSlot(Sprite image)
+    private void LateUpdate()
+    {
+        transform.LookAt(cam.transform);
+    }
+    public void SetSelectedSlot(Sprite image)
     {
         if(image == null)
         {
