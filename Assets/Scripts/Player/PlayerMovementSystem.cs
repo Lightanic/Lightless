@@ -47,13 +47,14 @@ public class PlayerMovementSystem : ComponentSystem
                 else
                     entity.SpeedComponent.isMoving = false;
                 Sprint(entity, moveVector);
-                //Dodge(entity);
                 StaminaControl(entity);
                 var speed = (Mathf.Abs(entity.InputComponent.Horizontal) + Mathf.Abs(entity.InputComponent.Vertical)) * entity.SpeedComponent.Speed;
                 speed = Mathf.Clamp(speed, 0, entity.SpeedComponent.Speed);
                 //var movePosition = entity.RigidBody.position + moveVector.normalized * speed * Time.deltaTime;                          // New position
                 //entity.transform.position = movePosition;                                                                            // Update entity position to new position
-                entity.transform.position += (moveVector.z * camForward + moveVector.x * camRight) * speed * Time.deltaTime;
+                //entity.transform.position += (moveVector.z * camForward + moveVector.x * camRight) * speed * Time.deltaTime;
+                entity.RigidBody.MovePosition(entity.RigidBody.position + (moveVector.z * camForward + moveVector.x * camRight) * speed * Time.deltaTime);
+                //Dodge(entity);
                 UpdateAnimation(entity, moveVector);
             }
         }
@@ -156,7 +157,9 @@ public class PlayerMovementSystem : ComponentSystem
         if (entity.InputComponent.Control("Dodge") && entity.SpeedComponent.canDodge)
         {
             entity.SpeedComponent.isDodging = true;
-            entity.SpeedComponent.Speed = entity.SpeedComponent.DODGE_SPEED;
+            Vector3 dashVel = Vector3.Scale(entity.transform.forward, 20 * new Vector3((Mathf.Log(1f / (Time.deltaTime + 1)) / -Time.deltaTime), 0, (Mathf.Log(1f / (Time.deltaTime + 1)) / -Time.deltaTime)));
+            entity.RigidBody.AddForce(dashVel, ForceMode.VelocityChange);
+            //entity.SpeedComponent.Speed = entity.SpeedComponent.DODGE_SPEED;
         }
         else if (!entity.InputComponent.Control("Dodge"))
         {
