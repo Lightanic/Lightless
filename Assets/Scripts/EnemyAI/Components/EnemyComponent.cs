@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class EnemyComponent : MonoBehaviour
 {
+    [Header("Stun particle prefab")]
+    public GameObject stunParticle;
 
     public enum EnemyType
     {
