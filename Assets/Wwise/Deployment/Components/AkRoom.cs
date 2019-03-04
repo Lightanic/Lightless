@@ -57,7 +57,7 @@ public class AkRoom : AkUnityEventHandler
 		roomParams.Front.Y = transform.forward.y;
 		roomParams.Front.Z = transform.forward.z;
 
-		roomParams.ReverbAuxBus = (uint) reverbAuxBus.ID;
+		roomParams.ReverbAuxBus = reverbAuxBus.Id;
 		roomParams.ReverbLevel = reverbLevel;
 		roomParams.WallOcclusion = wallOcclusion;
 

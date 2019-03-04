@@ -8,8 +8,9 @@ public class LightComponent : MonoBehaviour
 
     public void ToggleLightOn()
     {
-        AkSoundEngine.PostEvent("LighterFlick", gameObject);
         var lightSource = GetComponentInChildren<Light>();
+
+        PostSound();
 
         lightSource.enabled = !lightSource.enabled;
         LightIsOn = lightSource.enabled;
@@ -29,4 +30,21 @@ public class LightComponent : MonoBehaviour
         return null;
     }
 
+    public void PostSound()
+    {
+        if(gameObject.name == "FlashlightPickup")
+        {
+            if(!LightIsOn)
+                AkSoundEngine.PostEvent("Play_Flashlight_On", gameObject);
+            else
+                AkSoundEngine.PostEvent("Play_Flashlight_Off", gameObject);
+        }
+        else if (gameObject.name == "lamp")
+        {
+            if (!LightIsOn)
+                AkSoundEngine.PostEvent("Play_Lantern_Off", gameObject);
+            else                              
+                AkSoundEngine.PostEvent("Play_Lantern_Off", gameObject);
+        }
+    }
 }

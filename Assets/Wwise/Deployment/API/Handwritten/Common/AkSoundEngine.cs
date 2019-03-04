@@ -197,5 +197,10 @@ public partial class AkSoundEngine
 	static partial void PostUnregisterGameObjUserHook(AKRESULT result, UnityEngine.GameObject gameObject, ulong id);
 
 	#endregion
+
+	#region Deprecation Strings
+	public const string Deprecation_2018_1_2 = "This functionality is deprecated as of Wwise v2018.1.2 and will be removed in a future release.";
+	public const string Deprecation_2019_1_0 = "This functionality is deprecated as of Wwise v2019.1.0 and will be removed in a future release.";
+	#endregion
 }
 #endif // #if ! (UNITY_DASHBOARD_WIDGET || UNITY_WEBPLAYER || UNITY_WII || UNITY_WIIU || UNITY_NACL || UNITY_FLASH || UNITY_BLACKBERRY) // Disable under unsupported platforms.

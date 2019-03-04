@@ -12,261 +12,686 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81d7aaa29b5fb39408bd4fcf1335d178, type: 3}
   m_Name: AkWwiseProjectData
   m_EditorClassIdentifier: 
-  autoPopulateEnabled: 1
-  CurrentPluginConfig: 
-  m_lastPopulateTimePart2: 0
-  m_lastPopulateTimePsrt1: 0
   AcousticTextureWwu:
-  - Guid: '{56F590BE-EE55-4949-A9D1-1C2929635BB0}'
-    m_lastTimePart2: -1999218179
-    m_lastTimePsrt1: 330089288
+  - PhysicalPath: Virtual Acoustics\Default Work Unit.wwu
     ParentPhysicalPath: 
-    PhysicalPath: Virtual Acoustics\Default Work Unit.wwu
+    guid: e8ec49530199b84995e2eaa4c8c53bd2
+    m_lastTime: -8586502297861112212
     List: []
   AuxBusWwu:
-  - Guid: '{3491F145-0FBD-4621-BD5D-FB59293C0DD5}'
-    m_lastTimePart2: -1999218179
-    m_lastTimePsrt1: 325943484
+  - PhysicalPath: Master-Mixer Hierarchy\Default Work Unit.wwu
     ParentPhysicalPath: 
-    PhysicalPath: Master-Mixer Hierarchy\Default Work Unit.wwu
+    guid: c96bc26173e0444fa00250e8c5033ae3
+    m_lastTime: -8586502297863266702
     List: []
   BankWwu:
-  - Guid: '{84E4DA6B-8C62-40B9-A450-A92D58BD2F51}'
-    m_lastTimePart2: -1999218179
-    m_lastTimePsrt1: 330059361
+  - PhysicalPath: SoundBanks\Default Work Unit.wwu
     ParentPhysicalPath: 
-    PhysicalPath: SoundBanks\Default Work Unit.wwu
+    guid: b04c4a227a185e46bd9bdd66717dcdc5
+    m_lastTime: -8586502297861145418
     List:
-    - Guid: a650ce1846faf6409b05e8a447a08e23
-      ID: -73068365
-      Name: Backgroundbank
-      Path: Default Work Unit\Backgroundbank
+    - name: LightlessBuild_021918
+      guid: 3d4b1f0e31f54b4ebc6b2f23c3583fd4
+      id: 2693911220
       PathAndIcons:
       - ElementName: Default Work Unit
         ObjectType: 12
-      - ElementName: Backgroundbank
+      - ElementName: LightlessBuild_021918
         ObjectType: 7
-    - Guid: f4e5cdb119e14b46bdbff0324b49b6e2
-      ID: 806717909
-      Name: Enemybank
-      Path: Default Work Unit\Enemybank
-      PathAndIcons:
-      - ElementName: Default Work Unit
-        ObjectType: 12
-      - ElementName: Enemybank
-        ObjectType: 7
-    - Guid: 56c0c18454cadd429a4ce2fbd14b2b69
-      ID: -487321509
-      Name: Firebank
-      Path: Default Work Unit\Firebank
-      PathAndIcons:
-      - ElementName: Default Work Unit
-        ObjectType: 12
-      - ElementName: Firebank
-        ObjectType: 7
-    - Guid: 9ae26744dfe0aa4ea09aab949260dc1c
-      ID: -1229505251
-      Name: Footstepbank
-      Path: Default Work Unit\Footstepbank
-      PathAndIcons:
-      - ElementName: Default Work Unit
-        ObjectType: 12
-      - ElementName: Footstepbank
-        ObjectType: 7
+      Path: Default Work Unit\LightlessBuild_021918
   EventWwu:
-  - Guid: '{E59D2052-E4EE-4858-8E6F-70B073358B20}'
-    m_lastTimePart2: -1999218179
-    m_lastTimePsrt1: 318799384
+  - PhysicalPath: Events\Default Work Unit.wwu
     ParentPhysicalPath: 
-    PhysicalPath: Events\Default Work Unit.wwu
+    guid: 3e70a1e8c139db45ad3e2e3b2a14aceb
+    m_lastTime: -8586502297863386382
     List:
-    - Guid: ebaf6b5f5611f146bdf6625655b408c4
-      ID: -835931269
-      Name: BackgroundStart
-      Path: Default Work Unit\BackgroundStart
+    - name: EndofGame
+      guid: 0c2da9abdf7bd547a42a0e5d6c16eab1
+      id: 4035088645
       PathAndIcons:
       - ElementName: Default Work Unit
         ObjectType: 12
-      - ElementName: BackgroundStart
+      - ElementName: Music Events
+        ObjectType: 4
+      - ElementName: EndofGame
         ObjectType: 3
+      Path: Default Work Unit\Music Events\EndofGame
       maxAttenuation: 0
       maxDuration: 0
       minDuration: 0
-    - Guid: 81e30af1bf2ef540b68970a5308b5fa1
-      ID: -490449191
-      Name: BackgroundStop
-      Path: Default Work Unit\BackgroundStop
+    - name: Enter_Elevator
+      guid: cd403fe9153f434fba6d24dae26bec6f
+      id: 3156675274
       PathAndIcons:
       - ElementName: Default Work Unit
         ObjectType: 12
-      - ElementName: BackgroundStop
+      - ElementName: Music Events
+        ObjectType: 4
+      - ElementName: Enter_Elevator
         ObjectType: 3
+      Path: Default Work Unit\Music Events\Enter_Elevator
       maxAttenuation: 0
       maxDuration: 0
       minDuration: 0
-    - Guid: d8902441c67359459fcb88d33ecf2a29
-      ID: 1077078323
-      Name: FireStart
-      Path: Default Work Unit\FireStart
+    - name: Enter_Gameplay
+      guid: f42de9b42e7fec439c48cb553e6f8a60
+      id: 3319666840
       PathAndIcons:
       - ElementName: Default Work Unit
         ObjectType: 12
-      - ElementName: FireStart
+      - ElementName: Music Events
+        ObjectType: 4
+      - ElementName: Enter_Gameplay
         ObjectType: 3
+      Path: Default Work Unit\Music Events\Enter_Gameplay
       maxAttenuation: 0
       maxDuration: 0
       minDuration: 0
-    - Guid: d0a3992f5c3103479d2470d770114386
-      ID: 1158554481
-      Name: FireStop
-      Path: Default Work Unit\FireStop
+    - name: Fire_Start
+      guid: ead0c8db3aace54998be243331c37982
+      id: 1712046992
       PathAndIcons:
       - ElementName: Default Work Unit
         ObjectType: 12
-      - ElementName: FireStop
+      - ElementName: SFX Events
+        ObjectType: 4
+      - ElementName: Fire_Start
         ObjectType: 3
+      Path: Default Work Unit\SFX Events\Fire_Start
       maxAttenuation: 0
       maxDuration: 0
       minDuration: 0
-    - Guid: 7d859b317620dd4cb9992906af8248da
-      ID: 23856677
-      Name: FlashlightSwtich
-      Path: Default Work Unit\FlashlightSwtich
+    - name: Fire_Stationary_Start
+      guid: f90a5fddd3cc6c4599858aa1031e4bdb
+      id: 3357662779
       PathAndIcons:
       - ElementName: Default Work Unit
         ObjectType: 12
-      - ElementName: FlashlightSwtich
+      - ElementName: SFX Events
+        ObjectType: 4
+      - ElementName: Fire_Stationary_Start
         ObjectType: 3
+      Path: Default Work Unit\SFX Events\Fire_Stationary_Start
       maxAttenuation: 0
       maxDuration: 0
       minDuration: 0
-    - Guid: 1fa85ac8c4b2fa468ac4375d6b57fda0
-      ID: 1829216539
-      Name: InventoryChange
-      Path: Default Work Unit\InventoryChange
+    - name: Fire_Stationary_Stop
+      guid: 549388c9f303d54aa0b3e46bf2ff398a
+      id: 4105340313
       PathAndIcons:
       - ElementName: Default Work Unit
         ObjectType: 12
-      - ElementName: InventoryChange
+      - ElementName: SFX Events
+        ObjectType: 4
+      - ElementName: Fire_Stationary_Stop
         ObjectType: 3
+      Path: Default Work Unit\SFX Events\Fire_Stationary_Stop
       maxAttenuation: 0
       maxDuration: 0
       minDuration: 0
-    - Guid: f95260ac78be364a866dcb1ee20f596e
-      ID: 1851462748
-      Name: ItemPickup
-      Path: Default Work Unit\ItemPickup
+    - name: Pause
+      guid: 0a7035c00caa9e42867071d3bb0ab169
+      id: 3092587493
       PathAndIcons:
       - ElementName: Default Work Unit
         ObjectType: 12
-      - ElementName: ItemPickup
+      - ElementName: Music Events
+        ObjectType: 4
+      - ElementName: Pause
         ObjectType: 3
+      Path: Default Work Unit\Music Events\Pause
       maxAttenuation: 0
       maxDuration: 0
       minDuration: 0
-    - Guid: 694ae191827dc449b79cfa51f7c09d63
-      ID: 1763412163
-      Name: LighterFlick
-      Path: Default Work Unit\LighterFlick
+    - name: Play_BlueMonster_Agro
+      guid: db166731caa32d4798ae66a33357b06e
+      id: 2432590798
       PathAndIcons:
       - ElementName: Default Work Unit
         ObjectType: 12
-      - ElementName: LighterFlick
+      - ElementName: SFX Events
+        ObjectType: 4
+      - ElementName: Play_BlueMonster_Agro
         ObjectType: 3
+      Path: Default Work Unit\SFX Events\Play_BlueMonster_Agro
       maxAttenuation: 0
       maxDuration: 0
       minDuration: 0
-    - Guid: 0003169e946e8d4da03c83bef5842128
-      ID: 1296641681
-      Name: NarrativePickup
-      Path: Default Work Unit\NarrativePickup
+    - name: Play_BlueMonster_Death
+      guid: 7a753801e1f2d848bc8718ff78176a57
+      id: 654930343
       PathAndIcons:
       - ElementName: Default Work Unit
         ObjectType: 12
-      - ElementName: NarrativePickup
+      - ElementName: SFX Events
+        ObjectType: 4
+      - ElementName: Play_BlueMonster_Death
         ObjectType: 3
+      Path: Default Work Unit\SFX Events\Play_BlueMonster_Death
       maxAttenuation: 0
       maxDuration: 0
       minDuration: 0
-    - Guid: 099677117f2eaa4d9a87b7bef2b57079
-      ID: 621108255
-      Name: Step
-      Path: Default Work Unit\Step
+    - name: Play_Flashlight_Off
+      guid: 55b1eeb131799d4f8c6583a459496554
+      id: 4262288462
       PathAndIcons:
       - ElementName: Default Work Unit
         ObjectType: 12
-      - ElementName: Step
+      - ElementName: SFX Events
+        ObjectType: 4
+      - ElementName: Play_Flashlight_Off
         ObjectType: 3
+      Path: Default Work Unit\SFX Events\Play_Flashlight_Off
       maxAttenuation: 0
       maxDuration: 0
       minDuration: 0
-    - Guid: 915fe0a4b0a43947a12ac30d1a4238f5
-      ID: 891639061
-      Name: TutorialFX
-      Path: Default Work Unit\TutorialFX
+    - name: Play_Flashlight_On
+      guid: 097a4fbcd7c7074c9f707826ecc9176f
+      id: 3471928368
       PathAndIcons:
       - ElementName: Default Work Unit
         ObjectType: 12
-      - ElementName: TutorialFX
+      - ElementName: SFX Events
+        ObjectType: 4
+      - ElementName: Play_Flashlight_On
         ObjectType: 3
+      Path: Default Work Unit\SFX Events\Play_Flashlight_On
       maxAttenuation: 0
       maxDuration: 0
       minDuration: 0
-  ExpandedItems:
-  - /Lightlesss_WwiseProject
-  - /Lightlesss_WwiseProject/Events
-  - /Lightlesss_WwiseProject/SoundBanks
-  - /Lightlesss_WwiseProject/SoundBanks/Default Work Unit
+    - name: Play_GreenMonster_Agro
+      guid: 6f8372a3b7ccdc45b4df27ba22d1d1ee
+      id: 497683987
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: SFX Events
+        ObjectType: 4
+      - ElementName: Play_GreenMonster_Agro
+        ObjectType: 3
+      Path: Default Work Unit\SFX Events\Play_GreenMonster_Agro
+      maxAttenuation: 0
+      maxDuration: 0
+      minDuration: 0
+    - name: Play_GreenMonster_Death
+      guid: 906cfdab0636da4f9106d48a80ea92d6
+      id: 3756059260
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: SFX Events
+        ObjectType: 4
+      - ElementName: Play_GreenMonster_Death
+        ObjectType: 3
+      Path: Default Work Unit\SFX Events\Play_GreenMonster_Death
+      maxAttenuation: 0
+      maxDuration: 0
+      minDuration: 0
+    - name: Play_ItemPickup
+      guid: b04e8706d7d3f9438721dd0b6e70511f
+      id: 4241593335
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: SFX Events
+        ObjectType: 4
+      - ElementName: Play_ItemPickup
+        ObjectType: 3
+      Path: Default Work Unit\SFX Events\Play_ItemPickup
+      maxAttenuation: 0
+      maxDuration: 0
+      minDuration: 0
+    - name: Play_ItemSelect
+      guid: d10c08894f94464dad150a600949658c
+      id: 3124986767
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: SFX Events
+        ObjectType: 4
+      - ElementName: Play_ItemSelect
+        ObjectType: 3
+      Path: Default Work Unit\SFX Events\Play_ItemSelect
+      maxAttenuation: 0
+      maxDuration: 0
+      minDuration: 0
+    - name: Play_Lanter_On
+      guid: 35e56f8024b3e64da512b50907de853e
+      id: 3243257676
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: SFX Events
+        ObjectType: 4
+      - ElementName: Play_Lanter_On
+        ObjectType: 3
+      Path: Default Work Unit\SFX Events\Play_Lanter_On
+      maxAttenuation: 0
+      maxDuration: 0
+      minDuration: 0
+    - name: Play_Lantern_Off
+      guid: b24bc60f0fc26347b5190afbe7ac3662
+      id: 3748428248
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: SFX Events
+        ObjectType: 4
+      - ElementName: Play_Lantern_Off
+        ObjectType: 3
+      Path: Default Work Unit\SFX Events\Play_Lantern_Off
+      maxAttenuation: 0
+      maxDuration: 0
+      minDuration: 0
+    - name: Play_MenuHighlight
+      guid: b352639243fbbd4d853c2051eb3743c1
+      id: 545833809
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: SFX Events
+        ObjectType: 4
+      - ElementName: Play_MenuHighlight
+        ObjectType: 3
+      Path: Default Work Unit\SFX Events\Play_MenuHighlight
+      maxAttenuation: 0
+      maxDuration: 0
+      minDuration: 0
+    - name: Play_MenuSelect
+      guid: 0c19fccc052ce54bbb3678aadad741c3
+      id: 40516875
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: SFX Events
+        ObjectType: 4
+      - ElementName: Play_MenuSelect
+        ObjectType: 3
+      Path: Default Work Unit\SFX Events\Play_MenuSelect
+      maxAttenuation: 0
+      maxDuration: 0
+      minDuration: 0
+    - name: Play_Mirror_Rotate
+      guid: 24857b06ffc97440b67cc88eb6c1a3a5
+      id: 2980123227
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: SFX Events
+        ObjectType: 4
+      - ElementName: Play_Mirror_Rotate
+        ObjectType: 3
+      Path: Default Work Unit\SFX Events\Play_Mirror_Rotate
+      maxAttenuation: 0
+      maxDuration: 0
+      minDuration: 0
+    - name: Play_Player_Fall
+      guid: 44ff844874572d4e934fce9c00a1ff5d
+      id: 1306343379
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: SFX Events
+        ObjectType: 4
+      - ElementName: Play_Player_Fall
+        ObjectType: 3
+      Path: Default Work Unit\SFX Events\Play_Player_Fall
+      maxAttenuation: 0
+      maxDuration: 0
+      minDuration: 0
+    - name: Play_Player_Landing
+      guid: 38eae053ed48094c9cd7a290962aa269
+      id: 725346841
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: SFX Events
+        ObjectType: 4
+      - ElementName: Play_Player_Landing
+        ObjectType: 3
+      Path: Default Work Unit\SFX Events\Play_Player_Landing
+      maxAttenuation: 0
+      maxDuration: 0
+      minDuration: 0
+    - name: Play_Player_Walking
+      guid: 0aed0854a44ab34389fb6a42b0a0e741
+      id: 4033055653
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: SFX Events
+        ObjectType: 4
+      - ElementName: Play_Player_Walking
+        ObjectType: 3
+      Path: Default Work Unit\SFX Events\Play_Player_Walking
+      maxAttenuation: 0
+      maxDuration: 0
+      minDuration: 0
+    - name: Play_RedMonster_Agro
+      guid: 9e8b701510fdf341b105291d105cb908
+      id: 2980948631
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: SFX Events
+        ObjectType: 4
+      - ElementName: Play_RedMonster_Agro
+        ObjectType: 3
+      Path: Default Work Unit\SFX Events\Play_RedMonster_Agro
+      maxAttenuation: 0
+      maxDuration: 0
+      minDuration: 0
+    - name: Play_RedMonster_Death
+      guid: 82d86188201ea14d88098875f0e1c6c4
+      id: 4244048208
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: SFX Events
+        ObjectType: 4
+      - ElementName: Play_RedMonster_Death
+        ObjectType: 3
+      Path: Default Work Unit\SFX Events\Play_RedMonster_Death
+      maxAttenuation: 0
+      maxDuration: 0
+      minDuration: 0
+    - name: Play_Rock_Moving_Heavy
+      guid: feda8fbcff321c43a129023bc799e178
+      id: 1076681778
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: SFX Events
+        ObjectType: 4
+      - ElementName: Play_Rock_Moving_Heavy
+        ObjectType: 3
+      Path: Default Work Unit\SFX Events\Play_Rock_Moving_Heavy
+      maxAttenuation: 0
+      maxDuration: 0
+      minDuration: 0
+    - name: Play_Rock_Moving_Light
+      guid: 4ab92cf41c28054aba26579c200e6219
+      id: 1270397895
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: SFX Events
+        ObjectType: 4
+      - ElementName: Play_Rock_Moving_Light
+        ObjectType: 3
+      Path: Default Work Unit\SFX Events\Play_Rock_Moving_Light
+      maxAttenuation: 0
+      maxDuration: 0
+      minDuration: 0
+    - name: Play_SpillingGas
+      guid: d98e2020272c4241ac878710b7da5f70
+      id: 401810203
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: SFX Events
+        ObjectType: 4
+      - ElementName: Play_SpillingGas
+        ObjectType: 3
+      Path: Default Work Unit\SFX Events\Play_SpillingGas
+      maxAttenuation: 0
+      maxDuration: 0
+      minDuration: 0
+    - name: Play_Tutorial_Highlight
+      guid: 2e960854bddaec4e9ab075f4a9a6120a
+      id: 260288341
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: SFX Events
+        ObjectType: 4
+      - ElementName: Play_Tutorial_Highlight
+        ObjectType: 3
+      Path: Default Work Unit\SFX Events\Play_Tutorial_Highlight
+      maxAttenuation: 0
+      maxDuration: 0
+      minDuration: 0
+    - name: Start_Ambiance
+      guid: e561fd3df899f4459a0ae67afce2afd6
+      id: 2233220946
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Music Events
+        ObjectType: 4
+      - ElementName: Start_Ambiance
+        ObjectType: 3
+      Path: Default Work Unit\Music Events\Start_Ambiance
+      maxAttenuation: 0
+      maxDuration: 0
+      minDuration: 0
+    - name: Start_MainMenu
+      guid: 676ac87724c2484291cda6463a16b02a
+      id: 1259732632
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Music Events
+        ObjectType: 4
+      - ElementName: Start_MainMenu
+        ObjectType: 3
+      Path: Default Work Unit\Music Events\Start_MainMenu
+      maxAttenuation: 0
+      maxDuration: 0
+      minDuration: 0
+    - name: Stop_Mirror_Rotate
+      guid: 271d3f26495c73439f1dd00c0d361d6d
+      id: 3580071353
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: SFX Events
+        ObjectType: 4
+      - ElementName: Stop_Mirror_Rotate
+        ObjectType: 3
+      Path: Default Work Unit\SFX Events\Stop_Mirror_Rotate
+      maxAttenuation: 0
+      maxDuration: 0
+      minDuration: 0
+    - name: Stop_Player_Walking
+      guid: 79be29049a15864d9cb15210d8c3aedc
+      id: 826377267
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: SFX Events
+        ObjectType: 4
+      - ElementName: Stop_Player_Walking
+        ObjectType: 3
+      Path: Default Work Unit\SFX Events\Stop_Player_Walking
+      maxAttenuation: 0
+      maxDuration: 0
+      minDuration: 0
+    - name: Stop_Rock_Moving_Heavy
+      guid: 914a7eae5dfbe345a38c04ae697cf38a
+      id: 4046661352
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: SFX Events
+        ObjectType: 4
+      - ElementName: Stop_Rock_Moving_Heavy
+        ObjectType: 3
+      Path: Default Work Unit\SFX Events\Stop_Rock_Moving_Heavy
+      maxAttenuation: 0
+      maxDuration: 0
+      minDuration: 0
+    - name: Stop_Rock_Moving_Light
+      guid: ec82c398b191c64787e8ac3c35ad79fd
+      id: 2494385581
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: SFX Events
+        ObjectType: 4
+      - ElementName: Stop_Rock_Moving_Light
+        ObjectType: 3
+      Path: Default Work Unit\SFX Events\Stop_Rock_Moving_Light
+      maxAttenuation: 0
+      maxDuration: 0
+      minDuration: 0
+    - name: Stop_SpillingGas
+      guid: 60745f63cb576b438a39e1398870c3f4
+      id: 3327251657
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: SFX Events
+        ObjectType: 4
+      - ElementName: Stop_SpillingGas
+        ObjectType: 3
+      Path: Default Work Unit\SFX Events\Stop_SpillingGas
+      maxAttenuation: 0
+      maxDuration: 0
+      minDuration: 0
+    - name: Unpause
+      guid: 82947b057182f9478d51eb6ed7c1b2f3
+      id: 3412868374
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Music Events
+        ObjectType: 4
+      - ElementName: Unpause
+        ObjectType: 3
+      Path: Default Work Unit\Music Events\Unpause
+      maxAttenuation: 0
+      maxDuration: 0
+      minDuration: 0
   RtpcWwu:
-  - Guid: '{40D67E91-05D3-4608-8EA6-ED1BD42528FD}'
-    m_lastTimePart2: -1999218179
-    m_lastTimePsrt1: 318799384
+  - PhysicalPath: Game Parameters\Default Work Unit.wwu
     ParentPhysicalPath: 
-    PhysicalPath: Game Parameters\Default Work Unit.wwu
-    List: []
-  StateWwu:
-  - Guid: '{1FDB9645-A3C9-4543-A6CF-FCC65D7EED78}'
-    m_lastTimePart2: -1999218179
-    m_lastTimePsrt1: 330069334
-    ParentPhysicalPath: 
-    PhysicalPath: States\Default Work Unit.wwu
-    List: []
-  SwitchWwu:
-  - Guid: '{3A441608-CF51-44FA-8262-3D43F35F6969}'
-    m_lastTimePart2: -1999218179
-    m_lastTimePsrt1: 330069334
-    ParentPhysicalPath: 
-    PhysicalPath: Switches\Default Work Unit.wwu
+    guid: ed6a41a437e3754db8feadd173ca00db
+    m_lastTime: -8586502297863386382
     List:
-    - Guid: 0775f8047d0e8044a29eeeabbe2d2198
-      ID: 856376203
-      Name: GroundTypes
-      Path: Default Work Unit\GroundTypes
+    - name: Ambiance_Volume
+      guid: 797967b7333eea47a338d0de51962ee3
+      id: 4287144566
       PathAndIcons:
       - ElementName: Default Work Unit
         ObjectType: 12
-      - ElementName: GroundTypes
-        ObjectType: 11
-      ValueGuids:
-      - bytes: 1dde850a5bdd2c4eae4efc2835e81e86
-      - bytes: b3e7d6411f0a274daf48a284568777c6
-      - bytes: 81c093710be8b644890aa6a9c4dbc9da
-      ValueIcons:
-      - ElementName: Grass
-        ObjectType: 10
-      - ElementName: Stone
-        ObjectType: 10
-      - ElementName: Water
-        ObjectType: 10
-      valueIDs: d92e3dfd1c6d8948fa3d3c9e
-      values:
-      - Grass
-      - Stone
-      - Water
-  TriggerWwu:
-  - Guid: '{87D3EABD-0111-4B54-9AC3-40C12CB09847}'
-    m_lastTimePart2: -1999218179
-    m_lastTimePsrt1: 330079309
+      - ElementName: Ambiance_Volume
+        ObjectType: 13
+      Path: Default Work Unit\Ambiance_Volume
+    - name: Fire_Proximity
+      guid: d34dad3c1babde4d8e42b2b066098baf
+      id: 1987418343
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Fire_Proximity
+        ObjectType: 13
+      Path: Default Work Unit\Fire_Proximity
+    - name: GasTankCapacity
+      guid: e4cf523b8758b14a8a19a0b0ea17659f
+      id: 3943865604
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: GasTankCapacity
+        ObjectType: 13
+      Path: Default Work Unit\GasTankCapacity
+    - name: Master_Volume
+      guid: 5290fa8c87b4d241a95346d59cf10938
+      id: 4179668880
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Master_Volume
+        ObjectType: 13
+      Path: Default Work Unit\Master_Volume
+    - name: Music_Volume
+      guid: b76a5ec0dabbe14a991d8980b0381baf
+      id: 1006694123
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Music_Volume
+        ObjectType: 13
+      Path: Default Work Unit\Music_Volume
+    - name: SFX_Volume
+      guid: 252100f08bacd24d938d6a620908ee44
+      id: 1564184899
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: SFX_Volume
+        ObjectType: 13
+      Path: Default Work Unit\SFX_Volume
+  StateWwu:
+  - PhysicalPath: States\Default Work Unit.wwu
     ParentPhysicalPath: 
-    PhysicalPath: Triggers\Default Work Unit.wwu
+    guid: 6d297ea42a0a744787f90a530792bdd3
+    m_lastTime: -8586502297861135437
+    List:
+    - name: Game_State
+      guid: 24525d908b679f46bd51c3d9a05c5c03
+      id: 766723505
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Game_State
+        ObjectType: 9
+      Path: Default Work Unit\Game_State
+      values:
+      - name: Elevator
+        guid: 2dfebb4050eff94bbfbef5809da01f64
+        id: 3705378287
+        PathAndIcons:
+        - ElementName: Elevator
+          ObjectType: 8
+      - name: Endgame
+        guid: 8ac1a9201edffa499bc2eabaeb39fc8b
+        id: 4264815106
+        PathAndIcons:
+        - ElementName: Endgame
+          ObjectType: 8
+      - name: Gameplay
+        guid: e7169115e8db614a9fbd955db476c6d8
+        id: 89505537
+        PathAndIcons:
+        - ElementName: Gameplay
+          ObjectType: 8
+      - name: MainMenu
+        guid: a75f95de606b214f95528ce7128443d0
+        id: 3604647259
+        PathAndIcons:
+        - ElementName: MainMenu
+          ObjectType: 8
+      - name: None
+        guid: 169af02a8e10ca459169daf7190d4a06
+        id: 748895195
+        PathAndIcons:
+        - ElementName: None
+          ObjectType: 8
+      - name: Pause
+        guid: d0226ba7b9fc7749b7d997c4f293cf95
+        id: 3092587493
+        PathAndIcons:
+        - ElementName: Pause
+          ObjectType: 8
+  SwitchWwu:
+  - PhysicalPath: Switches\Default Work Unit.wwu
+    ParentPhysicalPath: 
+    guid: cead17ae60ca784e991e4159b249ad10
+    m_lastTime: -8586502297861122560
     List: []
+  TriggerWwu:
+  - PhysicalPath: Triggers\Default Work Unit.wwu
+    ParentPhysicalPath: 
+    guid: 2e59c75700de844098eeb41525dcb0aa
+    m_lastTime: -8586502297861117739
+    List: []
+  ExpandedItems:
+  - /Lightless_Version 1.0
+  - /Lightless_Version 1.0/Events
+  - /Lightless_Version 1.0/Events/Default Work Unit
+  - /Lightless_Version 1.0/SoundBanks
+  - /Lightless_Version 1.0/SoundBanks/Default Work Unit
+  autoPopulateEnabled: 1
+  CurrentPluginConfig: 

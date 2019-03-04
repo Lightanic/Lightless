@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 114656144453012798}
   - component: {fileID: 114214625948271610}
   - component: {fileID: 234826707}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: lamp
   m_TagString: Lantern
   m_Icon: {fileID: 0}
@@ -368,8 +368,8 @@ Light:
   serializedVersion: 8
   m_Type: 2
   m_Color: {r: 0.9150943, g: 0.82724726, b: 0.18560876, a: 1}
-  m_Intensity: 1.8
-  m_Range: 14
+  m_Intensity: 1.5
+  m_Range: 7
   m_SpotAngle: 30
   m_CookieSize: 10
   m_Shadows:
@@ -386,7 +386,7 @@ Light:
   m_RenderMode: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 7937
   m_Lightmapping: 4
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
@@ -424,9 +424,13 @@ MonoBehaviour:
   RateDamping: 0.1
   Strength: 200
   StopFlickering: 0
-  LightSource: {fileID: 0}
   CurrentTime: 0
+  AlertColor: {r: 0.6603774, g: 0.23450817, b: 0.17132434, a: 0}
+  AlertRadius: 30
+  BaseRange: 0
+  BaseColor: {r: 0, g: 0, b: 0, a: 0}
   BaseIntensity: 0
+  LightSource: {fileID: 0}
 --- !u!114 &4448844195448693062
 MonoBehaviour:
   m_ObjectHideFlags: 0

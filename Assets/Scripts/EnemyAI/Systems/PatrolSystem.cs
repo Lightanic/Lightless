@@ -26,11 +26,11 @@ public class PatrolSystem : ComponentSystem
                 continue;
             }
 
-            if (enemy.EnemyComponent.State == EnemyState.Patrol)
+            if (enemy.EnemyComponent.State == EnemyState.Patrol || enemy.EnemyComponent.State == EnemyState.Alert)
             {
                 if (enemy.PatrolComponent.Waypoints.Length == 0)
                 {
-                    continue;
+                    continue; //if waypoints are not setup, enemies can just stand around
                 }
                 else
                 {

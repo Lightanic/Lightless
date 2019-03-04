@@ -36,7 +36,7 @@ public class RevealItems : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         float distance = Vector3.Distance(transform.position, lampLight.transform.position);
-        if ((distance <= range) && lc.LightIsOn)
+        if ((distance <= range)/* && lc.LightIsOn*/)
         {
             StartCoroutine(FadeIn());
         }

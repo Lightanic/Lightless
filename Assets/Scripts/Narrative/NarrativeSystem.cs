@@ -57,6 +57,8 @@ public class NarrativeSystem : ComponentSystem {
                 currentPickup = entity.PickItem;
                 PlayerProperties.narrativePickups.Add(entity.PickItem.index,entity.PickItem);
                 entity.PickItem.obtained = true;
+                AkSoundEngine.PostEvent("Play_Tutorial_Highlight", entity.PickItem.gameObject);
+                AkSoundEngine.PostEvent("Play_ItemPickup", entity.PickItem.gameObject);
             }
 
         }

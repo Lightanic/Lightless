@@ -26,10 +26,15 @@ public class AkMemBankLoader : UnityEngine.MonoBehaviour
 	private System.IntPtr ms_pInMemoryBankPtr = System.IntPtr.Zero;
 	private System.Runtime.InteropServices.GCHandle ms_pinnedArray;
 
-	private UnityEngine.WWW ms_www;
+#if UNITY_2018_3_OR_NEWER
+    private UnityEngine.Networking.UnityWebRequest ms_www;
+#else
+    private UnityEngine.WWW ms_www;
+#endif
 
 	private void Start()
 	{
+        
 		if (isLocalizedBank)
 			LoadLocalizedBank(bankName);
 		else
@@ -52,54 +57,63 @@ public class AkMemBankLoader : UnityEngine.MonoBehaviour
 		DoLoadBank(bankPath);
 	}
 
-	private System.Collections.IEnumerator LoadFile()
+    private uint AllocateAlignedBuffer(byte[] data)
+    {
+        uint uInMemoryBankSize = 0;
+
+        // Allocate an aligned buffer
+        try
+        {
+            ms_pinnedArray =
+                System.Runtime.InteropServices.GCHandle.Alloc(data, System.Runtime.InteropServices.GCHandleType.Pinned);
+            ms_pInMemoryBankPtr = ms_pinnedArray.AddrOfPinnedObject();
+            uInMemoryBankSize = (uint)data.Length;
+
+            // Array inside the WWW object is not aligned. Allocate a new array for which we can guarantee the alignment.
+            if ((ms_pInMemoryBankPtr.ToInt64() & AK_BANK_PLATFORM_DATA_ALIGNMENT_MASK) != 0)
+            {
+                var alignedBytes = new byte[data.Length + AK_BANK_PLATFORM_DATA_ALIGNMENT];
+                var new_pinnedArray =
+                    System.Runtime.InteropServices.GCHandle.Alloc(alignedBytes, System.Runtime.InteropServices.GCHandleType.Pinned);
+                var new_pInMemoryBankPtr = new_pinnedArray.AddrOfPinnedObject();
+                var alignedOffset = 0;
+
+                // New array is not aligned, so we will need to use an offset inside it to align our data.
+                if ((new_pInMemoryBankPtr.ToInt64() & AK_BANK_PLATFORM_DATA_ALIGNMENT_MASK) != 0)
+                {
+                    var alignedPtr = (new_pInMemoryBankPtr.ToInt64() + AK_BANK_PLATFORM_DATA_ALIGNMENT_MASK) &
+                                     ~AK_BANK_PLATFORM_DATA_ALIGNMENT_MASK;
+                    alignedOffset = (int)(alignedPtr - new_pInMemoryBankPtr.ToInt64());
+                    new_pInMemoryBankPtr = new System.IntPtr(alignedPtr);
+                }
+
+                // Copy the bank's bytes in our new array, at the correct aligned offset.
+                System.Array.Copy(data, 0, alignedBytes, alignedOffset, data.Length);
+
+                ms_pInMemoryBankPtr = new_pInMemoryBankPtr;
+                ms_pinnedArray.Free();
+                ms_pinnedArray = new_pinnedArray;
+            }
+        }
+        catch
+        {
+        }
+        return uInMemoryBankSize;
+    }
+
+    private System.Collections.IEnumerator LoadFile()
 	{
-		ms_www = new UnityEngine.WWW(m_bankPath);
+#if UNITY_2018_3_OR_NEWER
+        ms_www = UnityEngine.Networking.UnityWebRequest.Get(m_bankPath);
+        yield return ms_www.SendWebRequest();
+        uint uInMemoryBankSize = AllocateAlignedBuffer(ms_www.downloadHandler.data);
+#else
+        ms_www = new UnityEngine.WWW(m_bankPath);
+        yield return ms_www;
+        uint uInMemoryBankSize = AllocateAlignedBuffer(ms_www.bytes);
+#endif
 
-		yield return ms_www;
-
-		uint in_uInMemoryBankSize = 0;
-
-		// Allocate an aligned buffer
-		try
-		{
-			ms_pinnedArray =
-				System.Runtime.InteropServices.GCHandle.Alloc(ms_www.bytes, System.Runtime.InteropServices.GCHandleType.Pinned);
-			ms_pInMemoryBankPtr = ms_pinnedArray.AddrOfPinnedObject();
-			in_uInMemoryBankSize = (uint) ms_www.bytes.Length;
-
-			// Array inside the WWW object is not aligned. Allocate a new array for which we can guarantee the alignment.
-			if ((ms_pInMemoryBankPtr.ToInt64() & AK_BANK_PLATFORM_DATA_ALIGNMENT_MASK) != 0)
-			{
-				var alignedBytes = new byte[ms_www.bytes.Length + AK_BANK_PLATFORM_DATA_ALIGNMENT];
-				var new_pinnedArray =
-					System.Runtime.InteropServices.GCHandle.Alloc(alignedBytes, System.Runtime.InteropServices.GCHandleType.Pinned);
-				var new_pInMemoryBankPtr = new_pinnedArray.AddrOfPinnedObject();
-				var alignedOffset = 0;
-
-				// New array is not aligned, so we will need to use an offset inside it to align our data.
-				if ((new_pInMemoryBankPtr.ToInt64() & AK_BANK_PLATFORM_DATA_ALIGNMENT_MASK) != 0)
-				{
-					var alignedPtr = (new_pInMemoryBankPtr.ToInt64() + AK_BANK_PLATFORM_DATA_ALIGNMENT_MASK) &
-					                 ~AK_BANK_PLATFORM_DATA_ALIGNMENT_MASK;
-					alignedOffset = (int) (alignedPtr - new_pInMemoryBankPtr.ToInt64());
-					new_pInMemoryBankPtr = new System.IntPtr(alignedPtr);
-				}
-
-				// Copy the bank's bytes in our new array, at the correct aligned offset.
-				System.Array.Copy(ms_www.bytes, 0, alignedBytes, alignedOffset, ms_www.bytes.Length);
-
-				ms_pInMemoryBankPtr = new_pInMemoryBankPtr;
-				ms_pinnedArray.Free();
-				ms_pinnedArray = new_pinnedArray;
-			}
-		}
-		catch
-		{
-			yield break;
-		}
-
-		var result = AkSoundEngine.LoadBank(ms_pInMemoryBankPtr, in_uInMemoryBankSize, out ms_bankID);
+        var result = AkSoundEngine.LoadBank(ms_pInMemoryBankPtr, uInMemoryBankSize, out ms_bankID);
 		if (result != AKRESULT.AK_Success)
 			UnityEngine.Debug.LogError("WwiseUnity: AkMemBankLoader: bank loading failed with result " + result);
 	}

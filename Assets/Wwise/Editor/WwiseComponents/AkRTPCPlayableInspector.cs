@@ -12,7 +12,6 @@ public class AkRTPCPlayableInspector : UnityEditor.Editor
 	private UnityEditor.SerializedProperty overrideTrackObject;
 	private AkRTPCPlayable playable;
 	private UnityEditor.SerializedProperty RTPCObject;
-
 	private UnityEditor.SerializedProperty setRTPCGlobally;
 
 	public void OnEnable()
@@ -25,10 +24,7 @@ public class AkRTPCPlayableInspector : UnityEditor.Editor
 		Behaviour = serializedObject.FindProperty("template");
 
 		if (playable != null && playable.OwningClip != null)
-		{
-			var componentName = GetRTPCName(new System.Guid(playable.Parameter.valueGuid));
-			playable.OwningClip.displayName = componentName;
-		}
+			playable.OwningClip.displayName = playable.Parameter.Name;
 	}
 
 	public override void OnInspectorGUI()
@@ -62,26 +58,9 @@ public class AkRTPCPlayableInspector : UnityEditor.Editor
 			UnityEditor.EditorGUILayout.PropertyField(Behaviour, new UnityEngine.GUIContent("Animated Value: "), true);
 
 		if (playable != null && playable.OwningClip != null)
-		{
-			var componentName = GetRTPCName(new System.Guid(playable.Parameter.valueGuid));
-			playable.OwningClip.displayName = componentName;
-		}
+			playable.OwningClip.displayName = playable.Parameter.Name;
 
 		serializedObject.ApplyModifiedProperties();
-	}
-
-	public string GetRTPCName(System.Guid in_guid)
-	{
-		var list = AkWwiseProjectInfo.GetData().RtpcWwu;
-
-		for (var i = 0; i < list.Count; i++)
-		{
-			var element = list[i].List.Find(x => new System.Guid(x.Guid).Equals(in_guid));
-			if (element != null)
-				return element.Name;
-		}
-
-		return string.Empty;
 	}
 }
 

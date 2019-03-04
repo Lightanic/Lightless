@@ -82,6 +82,7 @@ public class PickupSystem : ComponentSystem
                 }
                 else if (entity.PickItem.IsInteractable)
                 {
+                    AkSoundEngine.PostEvent("Play_ItemPickup", entity.PickItem.gameObject);
                     entity.InventoryItem.AddToInventory = true;
                 }
             }

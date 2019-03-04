@@ -26,7 +26,7 @@ public class InteractUIComponent : MonoBehaviour {
         rotation = Canvas.transform.rotation;
         //sprite = Canvas.GetComponentInChildren<Image>().sprite;
     }
-
+    
     public void RePosition(Vector3 pos)
     {
         Canvas.transform.rotation = rotation;

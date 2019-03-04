@@ -7,8 +7,7 @@ public class AkSceneUtils
 	public static void CreateNewScene()
 	{
 		m_currentScene =
-			UnityEditor.SceneManagement.EditorSceneManager.NewScene(UnityEditor.SceneManagement.NewSceneSetup
-				.DefaultGameObjects);
+			UnityEditor.SceneManagement.EditorSceneManager.NewScene(UnityEditor.SceneManagement.NewSceneSetup.DefaultGameObjects);
 	}
 
 	public static void OpenExistingScene(string scene)
@@ -25,18 +24,16 @@ public class AkSceneUtils
 		return scene.path;
 	}
 
-	public static void SaveCurrentScene(string scene)
+	public static void SaveCurrentScene(string path = null)
 	{
-		bool result;
+		UnityEditor.SceneManagement.EditorSceneManager.MarkSceneDirty(m_currentScene);
 
-		if (scene == null)
-			result = !UnityEditor.SceneManagement.EditorSceneManager.SaveScene(m_currentScene);
-		else
-			result = !UnityEditor.SceneManagement.EditorSceneManager.SaveScene(m_currentScene, scene);
+		var result = string.IsNullOrEmpty(path) ?
+			UnityEditor.SceneManagement.EditorSceneManager.SaveScene(m_currentScene) :
+			UnityEditor.SceneManagement.EditorSceneManager.SaveScene(m_currentScene, path);
 
-		if (result)
+		if (!result)
 			throw new System.Exception("Error occurred while saving migrated scenes.");
 	}
 }
-
 #endif

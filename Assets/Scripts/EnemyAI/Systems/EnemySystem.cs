@@ -29,6 +29,8 @@ public class EnemySystem : ComponentSystem
         public Transform LightTransform;
     }
 
+    EnemyState prevState;
+
     protected override void OnUpdate()
     {
         PlayerData player = new PlayerData();
@@ -43,25 +45,24 @@ public class EnemySystem : ComponentSystem
 
         foreach (var enemy in GetEntities<Enemy>())
         {
-            if (!enemy.AgentComponent.Agent.enabled)
+            if(enemy.EnemyComponent.Type != EnemyType.Stunner) //Stunner does not jump off edges
             {
-                return;
+                if (!enemy.AgentComponent.Agent.enabled)
+                {
+                    continue; //force to push enemy off should be applied only once
+                }
+                NavMeshHit hit;
+                enemy.AgentComponent.Agent.FindClosestEdge(out hit);
+                if (hit.distance < 0.01 && enemy.AgentComponent.Agent.enabled)
+                {
+                    enemy.AgentComponent.Agent.enabled = false;
+                    enemy.Transform.GetComponent<Rigidbody>().AddForce(Vector3.Normalize(enemy.Transform.forward + enemy.Transform.up) * 600);
+                }
             }
-            NavMeshHit hit;
-            enemy.AgentComponent.Agent.FindClosestEdge(out hit);
-            //Debug.Log(hit.distance);
-            if (hit.distance < 0.01 && enemy.AgentComponent.Agent.enabled)
-            {
-                //enemy.Transform.LookAt(player.PlayerTransform);
-                enemy.AgentComponent.Agent.enabled = false;
-                enemy.Transform.GetComponent<Rigidbody>().AddForce(Vector3.Normalize(enemy.Transform.forward + enemy.Transform.up) * 600);
-            }
-
-
-
+            
             if (enemy.Transform.GetComponent<EnemyDeathComponent>().EnemyIsDead)
             {
-                continue;
+                continue; //run no more code if enemy is dead
             }
 
             if (enemy.EnemyComponent.CanLunge == false)
@@ -95,12 +96,19 @@ public class EnemySystem : ComponentSystem
             float distanceToLight = currentDistance;
             float distanceToPlayer = Vector3.Distance(player.PlayerTransform.position, enemy.Transform.position);
 
+            prevState = enemy.EnemyComponent.State;
+
             enemy.EnemyComponent.State = EvaluateState(enemy.EnemyComponent.State, enemy.EnemyComponent, enemy.SeekComponent,
                 distanceToLight, distanceToPlayer, light.LightSwitch, player, enemy.AgentComponent);
 
             if (enemy.EnemyComponent.State == EnemyState.Stun)
             {
                 enemy.AgentComponent.Agent.speed = 0;
+            }
+
+            if (enemy.EnemyComponent.State == EnemyState.Alert && prevState != enemy.EnemyComponent.State)
+            {
+                AkSoundEngine.PostEvent("Play_BlueMonster_Agro",enemy.EnemyComponent.gameObject);
             }
 
             //    if (distanceToLight <= enemy.SeekComponent.VisionRadius + enemy.SeekComponent.AlertRadius)
@@ -182,26 +190,18 @@ public class EnemySystem : ComponentSystem
         {
 
             case EnemyState.Patrol:
-                if (distanceToLight < seekComponent.AlertRadius || distanceToPlayer < seekComponent.VisionRadius)
+                if (distanceToLight < seekComponent.AlertRadius || distanceToPlayer < seekComponent.NightVisionRadius)
                     return EnemyState.Alert;
                 else
                     return EnemyState.Patrol;
 
             case EnemyState.Alert:
-                Vector3 targetDir = player.PlayerTransform.position - enemyComponent.transform.position;
-                targetDir.y = enemyComponent.transform.position.y;
-                enemyComponent.transform.rotation = Quaternion.Slerp(enemyComponent.transform.rotation,Quaternion.LookRotation(targetDir), Time.deltaTime); //Quaternion.RotateTowards(enemyComponent.transform.rotation, Quaternion.LookRotation(targetDir), Time.deltaTime);
-                //enemyComponent.transform.LookAt(player.PlayerTransform);
-                agent.Agent.speed = 0;
-                enemyComponent.GetComponent<Rigidbody>().isKinematic = true;
-                //agent.Agent.SetDestination(enemyComponent.transform.position);
-                if (distanceToLight > seekComponent.AlertRadius && distanceToPlayer > seekComponent.VisionRadius)
-                    return EnemyState.Patrol;
-                else if ((distanceToLight < seekComponent.VisionRadius && lightComponent.LightIsOn) || distanceToPlayer < seekComponent.NightVisionRadius)
+                if ((distanceToLight < seekComponent.AlertRadius && !enemyComponent.IsTargetInView))
+                    return EnemyState.Alert;
+                else if (enemyComponent.IsTargetInView || distanceToPlayer <= seekComponent.NightVisionRadius)
                     return EnemyState.Seek;
                 else
-                    return EnemyState.Alert;
-
+                    return EnemyState.Patrol;
             case EnemyState.Seek:
                 if (distanceToLight > seekComponent.VisionRadius && distanceToPlayer > seekComponent.NightVisionRadius)
                     return EnemyState.Alert;
@@ -240,14 +240,14 @@ public class EnemySystem : ComponentSystem
         float distanceToLight, float distanceToPlayer, LightComponent lightComponent, PlayerData player)
     {
        
-        if (distanceToLight < seekComponent.VisionRadius)
-        {
-            seekComponent.Target = lightComponent.transform;
-        }
-        if (distanceToPlayer < seekComponent.NightVisionRadius)
-        {
-            seekComponent.Target = player.PlayerTransform;
-        }
+        //if (distanceToLight < seekComponent.VisionRadius)
+        //{
+        //    seekComponent.Target = lightComponent.transform;
+        //}
+        //if (distanceToPlayer < seekComponent.NightVisionRadius)
+        //{
+        //    seekComponent.Target = player.PlayerTransform;
+        //}
 
         
 
@@ -260,8 +260,7 @@ public class EnemySystem : ComponentSystem
                     return EnemyState.Seek;
 
             case EnemyType.Stunner:
-                if (enemyComponent.GetComponent<EnemyStunComponent>().IsStunned 
-                    && GameObject.FindGameObjectWithTag("Flashlight").GetComponent<LightComponent>().LightIsOn)
+                if (enemyComponent.GetComponent<EnemyStunComponent>().IsStunned)
                     return EnemyState.Stun;
                 else
                     return EnemyState.Seek;

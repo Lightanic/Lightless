@@ -46,7 +46,7 @@ public class AkSpatialAudioEmitter : AkSpatialAudioBase
 	{
 		var emitterSettings = new AkEmitterSettings();
 
-		emitterSettings.reflectAuxBusID = (uint) reflectAuxBus.ID;
+		emitterSettings.reflectAuxBusID = reflectAuxBus.Id;
 		emitterSettings.reflectionMaxPathLength = reflectionMaxPathLength;
 		emitterSettings.reflectionsAuxBusGain = reflectionsAuxBusGain;
 		emitterSettings.reflectionsOrder = reflectionsOrder;

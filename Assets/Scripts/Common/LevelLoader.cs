@@ -18,8 +18,9 @@ public class LevelLoader : MonoBehaviour
         loadingScreen.SetActive(true);
         while(!operation.isDone)
         {
-            Debug.Log(operation.progress);
+            //Debug.Log(operation.progress);
             yield return null;
         }
+        SceneManager.UnloadSceneAsync(0);
     }
 }
