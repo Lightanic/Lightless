@@ -15,7 +15,7 @@ public class DiaryPage : MonoBehaviour
 
     [Header("Max Notes")]
     [SerializeField]
-    public int MaxNotes;
+    public int MaxNotes = 9;
 
     [Header("Page count text")]
     [SerializeField]
@@ -52,10 +52,10 @@ public class DiaryPage : MonoBehaviour
                 if (index < MaxNotes)
                 {
                     element.notAvailable = false;
-                    element.thisIndex -= 9;
                 }
                 else
                     element.notAvailable = true;
+                element.thisIndex -= 9;
             }
         }
     }
@@ -76,10 +76,10 @@ public class DiaryPage : MonoBehaviour
                 if (index < MaxNotes)
                 {
                     element.notAvailable = false;
-                    element.thisIndex += 9;
                 }
                 else
                     element.notAvailable = true;
+                element.thisIndex += 9;
             }
         }
     }
