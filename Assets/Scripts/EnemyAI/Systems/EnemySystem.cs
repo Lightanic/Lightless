@@ -106,18 +106,25 @@ public class EnemySystem : ComponentSystem
             {
                 enemy.AgentComponent.Agent.speed = 0;
             }
-            if (enemy.EnemyComponent.State == EnemyState.Stun && prevState != enemy.EnemyComponent.State)
-            {
-                stunParticle = GameObject.Instantiate(enemy.EnemyComponent.stunParticle, enemy.EnemyComponent.gameObject.transform);
-                stunParticle.transform.localPosition = new Vector3(0, 50, 0);
-                stunParticle.transform.localRotation = Quaternion.Euler(new Vector3(90, 0, 0));
-            }
             if (enemy.EnemyComponent.Type == EnemyType.Stunner)
             {
-                if (enemy.EnemyComponent.State != EnemyState.Stun && prevState == EnemyState.Wait)
+                if (enemy.EnemyComponent.State == EnemyState.Stun && prevState != enemy.EnemyComponent.State)
                 {
+                    enemy.EnemyComponent.gameObject.transform.GetChild(0).gameObject.SetActive(true);
+                    /*
+                    stunParticle = GameObject.Instantiate(enemy.EnemyComponent.stunParticle, enemy.EnemyComponent.gameObject.transform);
+                    stunParticle.transform.localPosition = new Vector3(0, 50, 0);
+                    stunParticle.transform.localRotation = Quaternion.Euler(new Vector3(90, 0, 0));
+                    */
+                }
+            
+                if (enemy.EnemyComponent.State != EnemyState.Stun && enemy.EnemyComponent.State != EnemyState.Wait && prevState == EnemyState.Wait)
+                {
+                    enemy.EnemyComponent.gameObject.transform.GetChild(0).gameObject.SetActive(false);
                     if (stunParticle)
+                    {
                         GameObject.Destroy(stunParticle);
+                    }
                     stunParticle = null;
                 }
             }
