@@ -102,17 +102,17 @@ public class EquipperSystem : ComponentSystem
                 light.ToggleLightOn();
             }
             if (!lhComponent.isEmpty && lhDataEquipCompPickup != null && lhInventoryItemComp != null)
-                {
-                    //Add Item to the inventory
-                    lhDataEquipCompPickup.IsEquiped = false;
-                    lhInventoryItemComp.AddToInventory = true;
-                    lhComponent.DropItem();
-                }
-                if (inventoryData.Inventory[0].PlayerInventory.Items.Count > 0)
-                {
-                    leftHandData.EquipComp[0].EquipItem(inventoryData.Inventory[0].PlayerInventory.Items[0].Prefab);
-                    inventoryData.Inventory[0].PlayerInventory.Remove(inventoryData.Inventory[0].PlayerInventory.Items[0]);
-                }
+            {
+                //Add Item to the inventory
+                lhDataEquipCompPickup.IsEquiped = false;
+                lhInventoryItemComp.AddToInventory = true;
+                lhComponent.DropItem();
+            }
+            if (inventoryData.Inventory[0].PlayerInventory.Items.Count > 0)
+            {
+                leftHandData.EquipComp[0].EquipItem(inventoryData.Inventory[0].PlayerInventory.Items[0].Prefab);
+                inventoryData.Inventory[0].PlayerInventory.Remove(inventoryData.Inventory[0].PlayerInventory.Items[0]);
+            }
             
 
         }

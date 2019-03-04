@@ -19,6 +19,9 @@ public class InteractUIComponent : MonoBehaviour {
     [Range(0, 10)]
     public float ShowDistance = 2.0f;
 
+    [Header("Activate UI popup")]
+    public bool Show = true;
+
     Quaternion rotation;
 
     private void Start()

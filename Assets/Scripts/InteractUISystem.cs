@@ -34,7 +34,7 @@ public class InteractUISystem : ComponentSystem
         {
             GameObject obj = entity.item.gameObject;
             var dist = Vector3.Distance(playerPos, entity.Transform.position);
-            if (dist <= entity.item.ShowDistance)
+            if (dist <= entity.item.ShowDistance && entity.item.Show)
             {
                 var pickup = obj.GetComponent<Pickup>();
                 if ( pickup != null)

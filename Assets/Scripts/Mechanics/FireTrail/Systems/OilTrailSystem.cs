@@ -42,6 +42,18 @@ public class OilTrailSystem : ComponentSystem
     {
         public HUDUpdate props;
     }
+
+    /// <summary>
+    /// Player inventory data
+    /// </summary>
+    struct InventoryData
+    {
+        readonly public int Length;
+        public ComponentArray<InventoryComponent> Inventory;
+    }
+
+    [Inject] private InventoryData inventoryData;
+
     bool spilling = false;
     /// <summary>
     /// If equipped, holding down left mouse button will create oil trail on ground. Oil trail is rendered using line renderer where holding down the 
@@ -59,9 +71,17 @@ public class OilTrailSystem : ComponentSystem
         {
             if(entity.OilTrail.usedOil >= entity.OilTrail.TrailLimit && entity.pickup.IsEquiped)
             {
-                GameObject.Destroy(entity.OilTrail.gameObject.GetComponent<InteractUIComponent>());//.enabled = false;
+                //GameObject.Destroy(entity.OilTrail.gameObject.GetComponent<InteractUIComponent>());//.enabled = false;
+                entity.OilTrail.gameObject.GetComponent<InteractUIComponent>().Show = false;
                 lhComponent.DropItem();
                 entityHUD.props.Disable();
+
+                //Equip next item
+                if (inventoryData.Inventory[0].PlayerInventory.Items.Count > 0)
+                {
+                    leftHandData.EquipComp[0].EquipItem(inventoryData.Inventory[0].PlayerInventory.Items[0].Prefab);
+                    inventoryData.Inventory[0].PlayerInventory.Remove(inventoryData.Inventory[0].PlayerInventory.Items[0]);
+                }
             }
 
             if (entity.OilTrail.IsEquipped && entity.pickup.IsEquiped)
