@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class CheckpointLogo : MonoBehaviour
 {
     public bool EnableCheckpointLoader;
-    public float CheckpointShowTime = 3F;
+    public float CheckpointShowTime = 1.5F;
     public Image Logo;
     private float CurrentTime = 0F;
 
@@ -28,15 +28,7 @@ public class CheckpointLogo : MonoBehaviour
         if (EnableCheckpointLoader)
         {
             EnableCheckpointLoader = false;
-            StartCoroutine(FadeTo(1, 1.5F));
-            //CurrentTime += Time.deltaTime;
-            //Color color = Logo.color;
-
-            //if (CurrentTime > CheckpointShowTime)
-            //{
-            //    CurrentTime = 0F;
-            //    EnableCheckpointLoader = false;
-            //}
+            StartCoroutine(FadeTo(1, CheckpointShowTime));
         }
     }
 
