@@ -213,9 +213,9 @@ public class UIManager : MonoBehaviour
         {
             if(menu.Key != currentMenu && menu.Value != null)
             {
-                if (menu.Key == CurrentMenu.Options)
+                if (menu.Key == CurrentMenu.HUD)
                 {
-                    //Test();
+                    continue;
                 }
                 menu.Value.SetActive(false);
             }
