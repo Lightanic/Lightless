@@ -361,6 +361,10 @@ public class InputComponent : MonoBehaviour {
         bool statusKb = false;
         switch(key)
         {
+            case "ShowInventory":
+                statusGamepad = this.Gamepad.GetTriggerLeft != 0 && this.Gamepad.GetTriggerRight != 0;
+                statusKb = Input.GetKey(KeyCode.Space);
+                break;
             case "Interacting":
                 statusGamepad = this.Gamepad.GetButton("X");
                 statusKb = Input.GetKey(KeyCode.E);

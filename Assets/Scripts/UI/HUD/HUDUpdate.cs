@@ -6,6 +6,8 @@ using UnityEngine.UI;
 public class HUDUpdate : MonoBehaviour
 {
     [SerializeField]
+    float showTime;
+    [SerializeField]
     Transform Player;
     [SerializeField]
     Vector3 offsetFromPlayer;
@@ -13,6 +15,7 @@ public class HUDUpdate : MonoBehaviour
     Image[] children;
 
     Animator anim;
+    bool disable = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -20,7 +23,7 @@ public class HUDUpdate : MonoBehaviour
         children = gameObject.GetComponentsInChildren<Image>();
         foreach (var img in children)
         {
-            img.color = new Vector4(0, 0, 0, 0);
+            img.color = new Vector4(1, 1, 1, 1);
         }
     }
 
@@ -34,20 +37,31 @@ public class HUDUpdate : MonoBehaviour
     {
         anim.SetBool("Show", false);
         anim.SetBool("FadeOut", true);
+        //StartCoroutine(timer());
     }
 
     public void Show()
     {
-        foreach (var img in children)
-        {
-            img.color = new Vector4(1, 1, 1, 1);
-        }
+        anim.SetBool("FadeOut", false);
         anim.SetBool("Show", true);
-        Invoke("Disable", 3);
+        Invoke("Disable", showTime);
+    }
+
+    public void ShowNoFade()
+    {
+        anim.SetBool("FadeOut", false);
+        anim.SetBool("Show", true);
     }
     
     public void FadeOutFalse()
     {
+        anim.SetBool("FadeOut", false);
+    }
+
+    IEnumerator timer()
+    {
+        yield return new WaitForSeconds(0.5f);
+        disable = false;
         anim.SetBool("FadeOut", false);
     }
 }

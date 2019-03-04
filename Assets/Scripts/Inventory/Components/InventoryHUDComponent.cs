@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class InventoryHUDComponent : MonoBehaviour {
 
+    [SerializeField]
+    TMPro.TextMeshProUGUI Tutorial;
     public Image SelectedSlot;
     public Image LeftSlot;
     public Image RightSlot;
@@ -36,14 +38,17 @@ public class InventoryHUDComponent : MonoBehaviour {
     {
         transform.LookAt(cam.transform);
     }
-    public void SetSelectedSlot(Sprite image)
+    public void SetSelectedSlot(Sprite image, string tutText)
     {
         if(image == null)
         {
             SelectedSlot.sprite = defaultSelected;
+            Tutorial.text = " ";
             return;
         }
         SelectedSlot.sprite = image;
+        Tutorial.text = tutText;
+        SelectedSlot.color = Color.red;
         selectedSlotMask.GetComponent<Image>().sprite = image;
     }
 
