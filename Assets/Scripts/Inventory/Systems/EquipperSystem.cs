@@ -60,6 +60,13 @@ public class EquipperSystem : ComponentSystem
     }
 
     [Inject] private InventoryHUD slotData;
+
+    private struct HUD
+    {
+        public HUDUpdate props;
+    }
+
+
     InventoryItem leftItem = null;
     InventoryItem rightItem = null;
     /// <summary>
@@ -69,6 +76,7 @@ public class EquipperSystem : ComponentSystem
     /// </summary>
     protected override void OnUpdate()
     {
+        var entityHUD = GetEntities<HUD>()[0];
         var lhComponent = leftHandData.data[0];
         Pickup lhDataEquipCompPickup = null;
         InventoryItemComponent lhInventoryItemComp = null;
@@ -85,6 +93,7 @@ public class EquipperSystem : ComponentSystem
         // Cycle through inventory items
         if (playerData.InputComponents[0].Control("InventoryNext"))
         {
+            entityHUD.props.Show();
             LightComponent light = null;
             if (leftHandData.EquipComp[0].EquipedItem != null)
                 light = leftHandData.EquipComp[0].EquipedItem.GetComponent<LightComponent>();
@@ -111,6 +120,7 @@ public class EquipperSystem : ComponentSystem
         // Cycle through inventory items
         if (playerData.InputComponents[0].Control("InventoryBack"))
         {
+            entityHUD.props.Show();
             LightComponent light = null;
             if(leftHandData.EquipComp[0].EquipedItem !=null)
                 light = leftHandData.EquipComp[0].EquipedItem.GetComponent<LightComponent>();

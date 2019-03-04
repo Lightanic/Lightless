@@ -61,7 +61,7 @@ public class UIManager : MonoBehaviour
         eventSystem = EventSystem.current;
         inputComp = GameObject.Find("Player").GetComponent<InputComponent>();
         selectedButton = PauseStartButton;
-        currentMenu = CurrentMenu.HUD;
+        currentMenu = CurrentMenu.None; // previously HUD 
         prevMenu = CurrentMenu.None;
 
         Menus.Add(CurrentMenu.None, null);
@@ -80,7 +80,7 @@ public class UIManager : MonoBehaviour
             isPaused = !isPaused;
             if (!isPaused)
             {
-                currentMenu = CurrentMenu.HUD;
+                currentMenu = CurrentMenu.None; // previously HUD 
             }
             else
             {
