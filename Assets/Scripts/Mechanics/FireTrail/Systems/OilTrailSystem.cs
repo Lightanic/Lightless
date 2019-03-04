@@ -59,7 +59,9 @@ public class OilTrailSystem : ComponentSystem
         {
             if(entity.OilTrail.usedOil >= entity.OilTrail.TrailLimit && entity.pickup.IsEquiped)
             {
+                GameObject.Destroy(entity.OilTrail.gameObject.GetComponent<InteractUIComponent>());//.enabled = false;
                 lhComponent.DropItem();
+                entityHUD.props.Disable();
             }
 
             if (entity.OilTrail.IsEquipped && entity.pickup.IsEquiped)
