@@ -60,6 +60,12 @@ public class PickupSystem : ComponentSystem
 
     bool uiEnabled = false;
 
+    private struct HUD
+    {
+        public HUDUpdate props;
+    }
+
+    
     /// <summary>
     /// Pick an item up and add it to the inventory
     /// </summary>
@@ -67,7 +73,7 @@ public class PickupSystem : ComponentSystem
     {
         Vector3 playerPos = playerData.Transform[0].position;
         var animator = playerData.Animators[0];
-
+        var entityHUD = GetEntities<HUD>()[0];
         foreach (var entity in GetEntities<Group>())
         {
             if (Vector3.Distance(playerPos, entity.Transform.position) <= entity.PickItem.InteractDistance && (playerData.InputComponents[0].Control("Interact")))
@@ -76,12 +82,14 @@ public class PickupSystem : ComponentSystem
                 entity.PickItem.IsInteracting = true;
                 if (leftHandData.data[0].isEmpty && entity.PickItem.IsInteractable)
                 {
+                    entityHUD.props.Show();
                     entity.PickItem.IsEquiped = true;   // equip to left hand
                     entity.PickItem.IsInteractable = false;
                     break;
                 }
                 else if (entity.PickItem.IsInteractable)
                 {
+                    entityHUD.props.Show();
                     AkSoundEngine.PostEvent("Play_ItemPickup", entity.PickItem.gameObject);
                     entity.InventoryItem.AddToInventory = true;
                 }

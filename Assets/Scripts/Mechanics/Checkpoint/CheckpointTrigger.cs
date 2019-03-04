@@ -7,9 +7,17 @@ public class CheckpointTrigger : MonoBehaviour
     public string CheckpointName = "Default1";
     public CheckpointManager manager;
     bool HasTriggeredCheckpoint = false;
+    public CheckpointLogo CheckpointLogoLoader;
+    private GameObject LoaderObject;
 
     private void Start()
     {
+        if (!CheckpointLogoLoader)
+        {
+            LoaderObject = GameObject.Find("CheckpointLoader");
+            if (LoaderObject)
+                CheckpointLogoLoader = LoaderObject.GetComponent<CheckpointLogo>();
+        }
         manager = GetComponentInParent<CheckpointManager>();
     }
 
@@ -19,6 +27,8 @@ public class CheckpointTrigger : MonoBehaviour
         {
             HasTriggeredCheckpoint = true;
             manager.SetLatestCheckpoint(CheckpointName);
+            if (CheckpointLogoLoader)
+                CheckpointLogoLoader.TriggerCheckpointLogo();
         }
     }
 }

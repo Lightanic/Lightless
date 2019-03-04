@@ -38,12 +38,31 @@ public class OilTrailSystem : ComponentSystem
 
     [Inject] private LeftHandData leftHandData;
 
+    private struct HUD
+    {
+        public HUDUpdate props;
+    }
+
+    /// <summary>
+    /// Player inventory data
+    /// </summary>
+    struct InventoryData
+    {
+        readonly public int Length;
+        public ComponentArray<InventoryComponent> Inventory;
+    }
+
+    [Inject] private InventoryData inventoryData;
+
+    bool spilling = false;
     /// <summary>
     /// If equipped, holding down left mouse button will create oil trail on ground. Oil trail is rendered using line renderer where holding down the 
     /// the left mouse button will create "points" on the ground for the oil to be drawn on to. 
     /// </summary>
     protected override void OnUpdate()
     {
+        //Debug.Log(spilling);
+        var entityHUD = GetEntities<HUD>()[0];
         var lhComponent = leftHandData.data[0];
         var transform = Player.Transforms[0];
         var fireComponent = Player.FireComponent[0];
@@ -52,7 +71,17 @@ public class OilTrailSystem : ComponentSystem
         {
             if(entity.OilTrail.usedOil >= entity.OilTrail.TrailLimit && entity.pickup.IsEquiped)
             {
+                //GameObject.Destroy(entity.OilTrail.gameObject.GetComponent<InteractUIComponent>());//.enabled = false;
+                entity.OilTrail.gameObject.GetComponent<InteractUIComponent>().Show = false;
                 lhComponent.DropItem();
+                entityHUD.props.Disable();
+
+                //Equip next item
+                if (inventoryData.Inventory[0].PlayerInventory.Items.Count > 0)
+                {
+                    leftHandData.EquipComp[0].EquipItem(inventoryData.Inventory[0].PlayerInventory.Items[0].Prefab);
+                    inventoryData.Inventory[0].PlayerInventory.Remove(inventoryData.Inventory[0].PlayerInventory.Items[0]);
+                }
             }
 
             if (entity.OilTrail.IsEquipped && entity.pickup.IsEquiped)
@@ -61,8 +90,10 @@ public class OilTrailSystem : ComponentSystem
                                                          // entity.Transform.position = position;
                 var lineRenderer = entity.OilTrail.LineRenderer;
                 var minDistance = entity.OilTrail.TrailMinimumDistance;
-                if (Player.Inputs[0].Control("OilTrail") && entity.pickup.IsEquiped)
+                if (Player.Inputs[0].Control("OilTrail"))
                 {
+                    spilling = true;
+                    //entityHUD.props.ShowNoFade();
                     if (entity.OilTrail.CurrentTrailCount == 0)
                     {
                         entity.OilTrail.TrailPoints.Add(position);
@@ -116,6 +147,10 @@ public class OilTrailSystem : ComponentSystem
                         }
                     }
                 }
+                else
+                {
+                    spilling = false;
+                }
 
                 if(lineRenderer.positionCount > 0)
                 {
@@ -126,7 +161,20 @@ public class OilTrailSystem : ComponentSystem
                     fireComponent.OilTrail = null;
                 }
 
+                if (spilling)
+                {
+                    entityHUD.props.ShowNoFade();
+                }
+                else if(Input.GetKeyUp(KeyCode.Joystick1Button2))
+                {
+                    entityHUD.props.Disable();
+                }
             }
+            else
+            {
+                spilling = false;
+            }
+
         }
     }
 

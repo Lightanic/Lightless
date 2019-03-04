@@ -30,7 +30,6 @@ public class EnemySystem : ComponentSystem
     }
 
     EnemyState prevState;
-
     protected override void OnUpdate()
     {
         PlayerData player = new PlayerData();
@@ -45,7 +44,8 @@ public class EnemySystem : ComponentSystem
 
         foreach (var enemy in GetEntities<Enemy>())
         {
-            if(enemy.EnemyComponent.Type != EnemyType.Stunner) //Stunner does not jump off edges
+            
+            if (enemy.EnemyComponent.Type != EnemyType.Stunner) //Stunner does not jump off edges
             {
                 if (!enemy.AgentComponent.Agent.enabled)
                 {
@@ -105,11 +105,27 @@ public class EnemySystem : ComponentSystem
             {
                 enemy.AgentComponent.Agent.speed = 0;
             }
+            if (enemy.EnemyComponent.Type == EnemyType.Stunner)
+            {
+                var stunParticle = enemy.EnemyComponent.gameObject.transform.GetChild(0).gameObject;
+                if (enemy.EnemyComponent.State == EnemyState.Stun && prevState != enemy.EnemyComponent.State)
+                {
+                    if (stunParticle.name == "StunParticle")
+                        stunParticle.SetActive(true);
+                }
+            
+                if (enemy.EnemyComponent.State != EnemyState.Stun && enemy.EnemyComponent.State != EnemyState.Wait && prevState == EnemyState.Wait)
+                {
+                    if (stunParticle.name == "StunParticle")
+                        stunParticle.SetActive(false);
+                }
+            }
 
             if (enemy.EnemyComponent.State == EnemyState.Alert && prevState != enemy.EnemyComponent.State)
             {
-                AkSoundEngine.PostEvent("Play_BlueMonster_Agro",enemy.EnemyComponent.gameObject);
+                //AkSoundEngine.PostEvent("Play_BlueMonster_Agro",enemy.EnemyComponent.gameObject);
             }
+
 
             //    if (distanceToLight <= enemy.SeekComponent.VisionRadius + enemy.SeekComponent.AlertRadius)
             //    {

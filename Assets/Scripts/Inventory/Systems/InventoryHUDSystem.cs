@@ -36,6 +36,16 @@ public class InventoryHUDSystem : ComponentSystem
     }
     [Inject] private ItemGroup itemData;
 
+    private struct PlayerData
+    {
+        public InputComponent Inputs;
+    }
+
+    private struct HUD
+    {
+        public HUDUpdate props;
+    }
+
     static Pickup prevItem;
     InventoryItem selectedItem = null;
     InventoryItem leftItem = null;
@@ -43,6 +53,11 @@ public class InventoryHUDSystem : ComponentSystem
     int equiped = 0;                                               // Check if any item is equipped
     protected override void OnUpdate()
     {
+        var player = GetEntities<PlayerData>()[0];
+        if(player.Inputs.Control("ShowInventory"))
+        {
+            GetEntities<HUD>()[0].props.Show();
+        }
         equiped = 0;
         List<InventoryItem> items = new List<InventoryItem>();
         if (inventoryData.Length > 0 && inventoryData.Inventory[0].PlayerInventory != null)
@@ -54,7 +69,7 @@ public class InventoryHUDSystem : ComponentSystem
             {
                 prevItem = itemData.PickItem[i];
                 selectedItem = itemData.InventoryItem[i].item;
-                slotData.Slot[0].SetSelectedSlot(itemData.InventoryItem[i].item.InventoryIcon);
+                slotData.Slot[0].SetSelectedSlot(itemData.InventoryItem[i].item.InventoryIcon, itemData.InventoryItem[i].item.TutorialText);
                 //break;
             }
             if (itemData.PickItem[i].IsEquiped)
@@ -73,7 +88,7 @@ public class InventoryHUDSystem : ComponentSystem
         {
             prevItem = null;
             selectedItem = null;
-            slotData.Slot[0].SetSelectedSlot(null);
+            slotData.Slot[0].SetSelectedSlot(null,null);
         }
 
         if (items.Count == 1 && slotData.Slot.Length != 0)
