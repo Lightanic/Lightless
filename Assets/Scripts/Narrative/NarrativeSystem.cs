@@ -55,7 +55,8 @@ public class NarrativeSystem : ComponentSystem {
             if (Vector3.Distance(playerPos, entity.Transform.position) <= entity.PickItem.InteractDistance && (playerData.InputComponents[0].Control("Interact")))
             {
                 currentPickup = entity.PickItem;
-                PlayerProperties.narrativePickups.Add(entity.PickItem.index,entity.PickItem);
+                if(!PlayerProperties.narrativePickups.ContainsKey(entity.PickItem.index))
+                    PlayerProperties.narrativePickups.Add(entity.PickItem.index,entity.PickItem);
                 entity.PickItem.obtained = true;
                 AkSoundEngine.PostEvent("Play_Tutorial_Highlight", entity.PickItem.gameObject);
                 AkSoundEngine.PostEvent("Play_ItemPickup", entity.PickItem.gameObject);
