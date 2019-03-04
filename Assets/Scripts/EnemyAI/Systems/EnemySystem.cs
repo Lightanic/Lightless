@@ -30,7 +30,6 @@ public class EnemySystem : ComponentSystem
     }
 
     EnemyState prevState;
-    GameObject stunParticle = null;
     protected override void OnUpdate()
     {
         PlayerData player = new PlayerData();
@@ -108,30 +107,23 @@ public class EnemySystem : ComponentSystem
             }
             if (enemy.EnemyComponent.Type == EnemyType.Stunner)
             {
+                var stunParticle = enemy.EnemyComponent.gameObject.transform.GetChild(0).gameObject;
                 if (enemy.EnemyComponent.State == EnemyState.Stun && prevState != enemy.EnemyComponent.State)
                 {
-                    enemy.EnemyComponent.gameObject.transform.GetChild(0).gameObject.SetActive(true);
-                    /*
-                    stunParticle = GameObject.Instantiate(enemy.EnemyComponent.stunParticle, enemy.EnemyComponent.gameObject.transform);
-                    stunParticle.transform.localPosition = new Vector3(0, 50, 0);
-                    stunParticle.transform.localRotation = Quaternion.Euler(new Vector3(90, 0, 0));
-                    */
+                    if (stunParticle.name == "StunParticle")
+                        stunParticle.SetActive(true);
                 }
             
                 if (enemy.EnemyComponent.State != EnemyState.Stun && enemy.EnemyComponent.State != EnemyState.Wait && prevState == EnemyState.Wait)
                 {
-                    enemy.EnemyComponent.gameObject.transform.GetChild(0).gameObject.SetActive(false);
-                    if (stunParticle)
-                    {
-                        GameObject.Destroy(stunParticle);
-                    }
-                    stunParticle = null;
+                    if (stunParticle.name == "StunParticle")
+                        stunParticle.SetActive(false);
                 }
             }
 
             if (enemy.EnemyComponent.State == EnemyState.Alert && prevState != enemy.EnemyComponent.State)
             {
-                AkSoundEngine.PostEvent("Play_BlueMonster_Agro",enemy.EnemyComponent.gameObject);
+                //AkSoundEngine.PostEvent("Play_BlueMonster_Agro",enemy.EnemyComponent.gameObject);
             }
 
 
