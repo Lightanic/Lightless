@@ -15,13 +15,4 @@ public class WayPointComponent : MonoBehaviour
         
     }
 
-    //private void Update()
-    //{
-    //    if (this.transform.position == Waypoints[currentWaypointIndex].position)
-    //    {
-    //       currentWaypointIndex = (currentWaypointIndex + 1) % 5;
-    //    }
-    //}
-
-
 }
