@@ -78,7 +78,7 @@ public class PickupSystem : ComponentSystem
         {
             if (Vector3.Distance(playerPos, entity.Transform.position) <= entity.PickItem.InteractDistance && (playerData.InputComponents[0].Control("Interact")))
             {
-                animator.playerAnimator.SetTrigger("Interact");
+                animator.playerAnimator.SetTrigger("interact");
                 entity.PickItem.IsInteracting = true;
                 if (leftHandData.data[0].isEmpty && entity.PickItem.IsInteractable)
                 {
