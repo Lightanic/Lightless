@@ -18,8 +18,6 @@ public class PitScriptForPlayer : MonoBehaviour //this script is for player if t
     {
         if (other.gameObject.name == "Player")
         {
-            Camera.main.gameObject.GetComponent<CameraShake>().enabled = true;
-            Camera.main.gameObject.GetComponent<CameraShake>().shakeDuration = 0.5f;
             gameManager.GetComponent<GameManager>().StartDeath();
         }
     }
