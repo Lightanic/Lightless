@@ -56,7 +56,7 @@ public class EnemySystem : ComponentSystem
                 if (hit.distance < 0.01 && enemy.AgentComponent.Agent.enabled)
                 {
                     enemy.AgentComponent.Agent.enabled = false;
-                    enemy.Transform.GetComponent<Rigidbody>().AddForce(Vector3.Normalize(enemy.Transform.forward + enemy.Transform.up) * 600);
+                    enemy.Transform.GetComponent<Rigidbody>().AddForce(Vector3.Normalize(enemy.Transform.forward + enemy.Transform.up) * 500);
                 }
             }
             

@@ -11,9 +11,17 @@ public class WayPointComponent : MonoBehaviour
 
     private void Start()
     {
-        currentWaypointIndex = Random.Range(0, Waypoints.Length);
+        currentWaypointIndex = 0;
         
     }
-    
+
+    //private void Update()
+    //{
+    //    if (this.transform.position == Waypoints[currentWaypointIndex].position)
+    //    {
+    //       currentWaypointIndex = (currentWaypointIndex + 1) % 5;
+    //    }
+    //}
+
 
 }
