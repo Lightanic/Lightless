@@ -63,6 +63,18 @@ public class FireSystem : ComponentSystem
                 if (isIgniterClose)
                     closestPointIndex = igniterIndex;
 
+                if(isPlayerClose)
+                {
+                    var uiPos = points[closestPointIndex];
+                    uiPos += oilTrail.UIOffset;
+                    oilTrail.OilCanvas.SetActive(true);
+                    oilTrail.OilCanvas.transform.position = uiPos;
+                }
+                else
+                {
+                    oilTrail.OilCanvas.SetActive(false);
+                }
+
                 // Allow burning of oil on ground only if player there is oil to burn and player is close to oil trail
                 if ((playerData.InputComponents[0].Control("LightFire") && points.Length > 0 && isPlayerClose) || isIgniterClose)
                 {

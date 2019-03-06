@@ -13,10 +13,17 @@ public class OilTrailComponent : MonoBehaviour
     public List<Vector3> TrailPoints; // List of oil trail positions
     public bool IsEquipped = false; // If oil cannister or item is equipped
     public GameObject OilTrialPrefab = null;
+    public GameObject OilCanvas;
+    public Vector3 UIOffset = new Vector3(0, 2, 0);
     private GameObject OilTrailInstance = null;
 
     private void Start()
     {
+        if(!OilCanvas)
+        {
+            OilCanvas = GameObject.Find("OilTrailCanvas");
+        }
+        OilCanvas.SetActive(false);
         OilTrailInstance = Instantiate(OilTrialPrefab);
         TrailPoints = new List<Vector3>();
         LineRenderer = OilTrailInstance.GetComponent<LineRenderer>();// GetComponentInChildren<LineRenderer>();

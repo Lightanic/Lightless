@@ -410,7 +410,7 @@ public class InputComponent : MonoBehaviour {
                 statusKb = Input.GetKeyDown(KeyCode.F);
                 break;
             case "OilTrail":
-                statusGamepad = this.Gamepad.GetButton("X");
+                statusGamepad = this.Gamepad.GetButton("A");
                 statusKb = Input.GetMouseButton(0);
                 break;
             case "ThrowActive":
