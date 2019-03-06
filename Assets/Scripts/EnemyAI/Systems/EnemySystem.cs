@@ -45,22 +45,7 @@ public class EnemySystem : ComponentSystem
         foreach (var enemy in GetEntities<Enemy>())
         {
             
-            //if (enemy.EnemyComponent.Type != EnemyType.Stunner) //Stunner does not jump off edges
-            //{
-            //    if (!enemy.AgentComponent.Agent.enabled && !enemy.AgentComponent.Agent.isOnNavMesh)
-            //    {
-            //        continue; //force to push enemy off should be applied only once
-            //    }
-            //    else if (enemy.AgentComponent.Agent.isOnNavMesh)
-            //        enemy.AgentComponent.Agent.enabled = true;
-            //    NavMeshHit hit;
-            //    enemy.AgentComponent.Agent.FindClosestEdge(out hit);
-            //    if (hit.distance < 0.01 && enemy.AgentComponent.Agent.enabled)
-            //    {
-            //        enemy.AgentComponent.Agent.enabled = false;
-            //        enemy.Transform.GetComponent<Rigidbody>().AddForce(Vector3.Normalize(enemy.Transform.forward + enemy.Transform.up) * 500);
-            //    }
-            //}
+      
             
             if (enemy.Transform.GetComponent<EnemyDeathComponent>().EnemyIsDead)
             {
