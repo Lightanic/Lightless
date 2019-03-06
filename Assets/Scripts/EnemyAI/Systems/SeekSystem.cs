@@ -27,7 +27,7 @@ public class SeekSystem : ComponentSystem
                 //entity.AgentComponent.Agent.updateRotation = false;
                 Vector3 targetDir = entity.SeekComponent.Target.transform.position - entity.Enemy.transform.position;
                 targetDir.y = entity.Enemy.transform.position.y;
-                entity.Enemy.transform.rotation = Quaternion.Slerp(entity.Enemy.transform.rotation, Quaternion.LookRotation(targetDir), Time.deltaTime * 5);
+                entity.Enemy.transform.rotation = Quaternion.Slerp(entity.Enemy.transform.rotation, Quaternion.LookRotation(targetDir), Time.deltaTime * 2 );
                 switch (entity.Enemy.Type)
                 {
                     case EnemyType.Runner:
