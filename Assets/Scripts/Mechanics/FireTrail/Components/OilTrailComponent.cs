@@ -23,7 +23,7 @@ public class OilTrailComponent : MonoBehaviour
         {
             OilCanvas = GameObject.Find("OilTrailCanvas");
         }
-        OilCanvas.SetActive(false);
+        //OilCanvas.SetActive(false);
         OilTrailInstance = Instantiate(OilTrialPrefab);
         TrailPoints = new List<Vector3>();
         LineRenderer = OilTrailInstance.GetComponent<LineRenderer>();// GetComponentInChildren<LineRenderer>();
