@@ -58,6 +58,8 @@ public class UIManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Time.timeScale = 1F;
+        isPaused = false;
         eventSystem = EventSystem.current;
         inputComp = GameObject.Find("Player").GetComponent<InputComponent>();
         selectedButton = PauseStartButton;
@@ -70,6 +72,12 @@ public class UIManager : MonoBehaviour
         Menus.Add(CurrentMenu.Options, OptionsCanvas);
         Menus.Add(CurrentMenu.Controller, ControllerCanvas);
         Menus.Add(CurrentMenu.HUD, HUDCanvas);
+    }
+
+    private void OnEnable()
+    {
+        Time.timeScale = 1F;
+        isPaused = false;
     }
 
     // Update is called once per frame
@@ -190,9 +198,10 @@ public class UIManager : MonoBehaviour
 
     public void ExitGame()
     {
-        Application.Quit();
-        //PauseCanvas.GetComponent<LevelLoader>().LoadLevelAsync(0);
-        //SceneManager.LoadScene("Menu");
+        //Application.Quit();
+      // PauseCanvas.GetComponent<LevelLoader>().LoadLevelAsync(0);
+       SceneManager.LoadScene(0, LoadSceneMode.Single);
+       //SceneManager.LoadScene("Menu");
     }
 
     void BackButtonPress()

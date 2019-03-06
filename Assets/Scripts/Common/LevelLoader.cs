@@ -7,7 +7,12 @@ public class LevelLoader : MonoBehaviour
 {
     public GameObject loadingScreen;
 
-   public void LoadLevelAsync (int sceneIndex)
+    public void Start()
+    {
+        Time.timeScale = 1F;    
+    }
+
+    public void LoadLevelAsync (int sceneIndex)
     {
         StartCoroutine(LoadAsync(sceneIndex));
     }
