@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Ending : MonoBehaviour
 {
@@ -17,8 +18,16 @@ public class Ending : MonoBehaviour
         
     }
 
+    public void Reset()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1); ;
+    }
+
     private void OnTriggerEnter(Collider other)
     {
-        end.SetTrigger("EndGame");
+        if (other.name == "Player")
+        {
+            end.SetTrigger("EndGame");
+        }
     }
 }
