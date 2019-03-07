@@ -67,17 +67,14 @@ public class FireSystem : ComponentSystem
                 {
                     var uiPos = points[closestPointIndex];
                     uiPos += oilTrail.UIOffset;
-                    oilTrail.OilCanvas.SetActive(true);
+                    oilTrail.OilCanvas.GetComponent<OilCanvasComponent>().Show();
                     oilTrail.OilCanvas.transform.position = uiPos;
-                }
-                else
-                {
-                    oilTrail.OilCanvas.SetActive(false);
                 }
 
                 // Allow burning of oil on ground only if player there is oil to burn and player is close to oil trail
                 if ((playerData.InputComponents[0].Control("LightFire") && points.Length > 0 && isPlayerClose) || isIgniterClose)
                 {
+                    oilTrail.OilCanvas.GetComponent<OilCanvasComponent>().DisableUI();
                     AkSoundEngine.PostEvent("Fire_Start", playerData.InputComponents[0].gameObject);
                     entities[0].Fire.FireSoundList.Enqueue(GameObject.Instantiate(entities[0].Fire.FireSoundPrefab,points[0],Quaternion.identity));
                     entity.Fire.IsFireStopped = false;
