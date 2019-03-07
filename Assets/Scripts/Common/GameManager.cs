@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
         deathScreen = GameObject.Find("DeathScreen");
         deathAnimator = deathScreen.GetComponent<Animator>();
         startScreen.SetActive(true);
+        GameObject.Find("Player").GetComponent<InputComponent>().Rumble(0, new Vector2(0, 0));
     }
 
     public void ResetScene()
