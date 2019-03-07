@@ -144,6 +144,16 @@
 								<Property Name="OverrideColor" Type="bool" Value="True"/>
 							</PropertyList>
 							<ChildrenList>
+								<Action Name="" ID="{6CC1C99F-8431-4BD5-B287-33253257A534}" ShortID="806909607">
+									<PropertyList>
+										<Property Name="ActionType" Type="int16" Value="22"/>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="Gameplay" ID="{159116E7-DBE8-4A61-9FBD-955DB476C6D8}" WorkUnitID="{A47E296D-0A2A-4774-87F9-0A530792BDD3}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
 								<Action Name="" ID="{FEAFE0B6-3647-44FD-ABBF-74E2E234C3B8}" ShortID="393889617">
 									<PropertyList>
 										<Property Name="ActionType" Type="int16" Value="1"/>
@@ -157,20 +167,15 @@
 								<Action Name="" ID="{93E268DA-9E67-426C-A0F3-F90B077D2AE2}" ShortID="683156520">
 									<PropertyList>
 										<Property Name="ActionType" Type="int16" Value="1"/>
+										<Property Name="Inclusion" Type="bool">
+											<ValueList>
+												<Value>False</Value>
+											</ValueList>
+										</Property>
 									</PropertyList>
 									<ReferenceList>
 										<Reference Name="Target">
 											<ObjectRef Name="Fire_Stationary" ID="{10BBEB0C-A762-4558-9C19-08EDFB5041E2}" WorkUnitID="{1D09721E-1177-463D-828C-1173372A699B}"/>
-										</Reference>
-									</ReferenceList>
-								</Action>
-								<Action Name="" ID="{6CC1C99F-8431-4BD5-B287-33253257A534}" ShortID="806909607">
-									<PropertyList>
-										<Property Name="ActionType" Type="int16" Value="22"/>
-									</PropertyList>
-									<ReferenceList>
-										<Reference Name="Target">
-											<ObjectRef Name="Gameplay" ID="{159116E7-DBE8-4A61-9FBD-955DB476C6D8}" WorkUnitID="{A47E296D-0A2A-4774-87F9-0A530792BDD3}"/>
 										</Reference>
 									</ReferenceList>
 								</Action>

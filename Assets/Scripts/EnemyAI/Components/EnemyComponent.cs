@@ -7,7 +7,12 @@ public class EnemyComponent : MonoBehaviour
 {
     [Header("Stun particle prefab")]
     public GameObject stunParticle;
+    GameObject gameManager;
 
+    private void Start()
+    {
+        gameManager = GameObject.Find("GameManager");
+    }
     public enum EnemyType
     {
         Runner, Lunger, Stunner
@@ -39,7 +44,7 @@ public class EnemyComponent : MonoBehaviour
     {
         if (other.gameObject.tag == "Player" && !GetComponent<EnemyDeathComponent>().EnemyIsDead)
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            gameManager.GetComponent<GameManager>().StartDeath();
         }
     }
 

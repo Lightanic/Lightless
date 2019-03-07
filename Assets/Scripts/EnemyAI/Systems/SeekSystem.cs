@@ -25,8 +25,11 @@ public class SeekSystem : ComponentSystem
                 continue; //if enemy does not have a target, continue without errors
             }
 
-            //if (entity.Enemy.Type == EnemyType.Runner) //only Runner jumps
-            //{
+            if (entity.Enemy.Type == EnemyType.Runner && entity.SeekComponent.IsJumping) //only Runner jumps
+            {
+                entity.SeekComponent.IsJumping = false;
+                entity.Enemy.transform.GetComponent<Rigidbody>().AddForce(Vector3.Normalize(entity.Enemy.transform.forward + entity.Enemy.transform.up) * 400);
+            }
             //    if (!entity.AgentComponent.Agent.enabled && !entity.AgentComponent.Agent.isOnNavMesh)
             //    {
             //        continue; //force to push enemy off should be applied only once
