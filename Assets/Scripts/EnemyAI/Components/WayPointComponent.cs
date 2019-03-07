@@ -11,9 +11,8 @@ public class WayPointComponent : MonoBehaviour
 
     private void Start()
     {
-        currentWaypointIndex = Random.Range(0, Waypoints.Length);
+        currentWaypointIndex = 0;
         
     }
-    
 
 }
