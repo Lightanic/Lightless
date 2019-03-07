@@ -11,14 +11,14 @@ public class PitScript : MonoBehaviour //this script detects enemy and turns the
     private void OnTriggerEnter(Collider collision)
     {
         var terrains = GameObject.FindGameObjectsWithTag("Terrain");
-        foreach (var terrain in terrains)
-        {
-            Physics.IgnoreCollision(collision, terrain.gameObject.GetComponent<Collider>());
-        }
+       
        
         if (collision.gameObject.tag == "Enemy")
         {
-
+            foreach (var terrain in terrains)
+            {
+                Physics.IgnoreCollision(collision, terrain.gameObject.GetComponent<Collider>());
+            }
             collision.GetComponent<SeekComponent>().IsJumping = true;
 
             collision.GetComponent<Rigidbody>().isKinematic = false;
