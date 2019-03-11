@@ -88,10 +88,12 @@ public class UIManager : MonoBehaviour
             isPaused = !isPaused;
             if (!isPaused)
             {
+                AkSoundEngine.PostEvent("Unpause", gameObject);
                 currentMenu = CurrentMenu.None; // previously HUD 
             }
             else
             {
+                AkSoundEngine.PostEvent("Pause", gameObject);
                 currentMenu = CurrentMenu.Pause;
             }
             
