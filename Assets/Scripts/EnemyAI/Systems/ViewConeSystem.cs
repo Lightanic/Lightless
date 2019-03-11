@@ -47,7 +47,7 @@ public class ViewConeSystem : ComponentSystem
                     Debug.DrawRay(enemyPosWithOffset, actualDirToTarget, Color.red);
                     Debug.DrawLine(enemyPosWithOffset, target.position, Color.blue);
 
-                    if (shouldRaycast && Physics.Raycast(enemyPosWithOffset, actualDirToTarget, out hit, distToTarget + 1.0f, entity.ViewConeComponent.TargetMask, QueryTriggerInteraction.Collide))
+                    if (shouldRaycast && Physics.Raycast(enemyPosWithOffset, actualDirToTarget, out hit, distToTarget + 1.0f, entity.ViewConeComponent.TargetMask | entity.ViewConeComponent.ObstacleMask, QueryTriggerInteraction.Collide))
                     {
                         if (hit.collider.CompareTag("Lantern") || hit.collider.CompareTag("Flashlight") || hit.collider.CompareTag("FireStun")
                             || hit.collider.CompareTag("PlayerBodyMesh") || hit.collider.CompareTag("Player"))

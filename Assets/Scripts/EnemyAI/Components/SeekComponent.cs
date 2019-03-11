@@ -11,6 +11,7 @@ public class SeekComponent : MonoBehaviour
     public float LungeDistance = 8.0f;
     public float WaitTime = 2.0f;
     public Transform Target;
+    public bool IsJumping = false;
 
     private void OnDrawGizmos()
     {
