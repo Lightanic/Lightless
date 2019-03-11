@@ -189,10 +189,14 @@
 							<ChildrenList>
 								<Action Name="" ID="{79DCA13A-A845-4BF6-B683-BAA9F6CCEE84}" ShortID="880182685">
 									<PropertyList>
-										<Property Name="ActionType" Type="int16" Value="10"/>
+										<Property Name="ActionType" Type="int16" Value="9"/>
 										<Property Name="FadeTime" Type="Real64" Value="1"/>
 									</PropertyList>
-									<ReferenceList/>
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="Atmosphere" ID="{A2A4508A-C8E3-4522-AE46-19770599872D}" WorkUnitID="{1D09721E-1177-463D-828C-1173372A699B}"/>
+										</Reference>
+									</ReferenceList>
 								</Action>
 							</ChildrenList>
 						</Event>
