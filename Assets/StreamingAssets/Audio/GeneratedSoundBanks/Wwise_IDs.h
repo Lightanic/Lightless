@@ -47,6 +47,7 @@ namespace AK
         static const AkUniqueID STOP_ROCK_MOVING_HEAVY = 4046661352U;
         static const AkUniqueID STOP_ROCK_MOVING_LIGHT = 2494385581U;
         static const AkUniqueID STOP_SPILLINGGAS = 3327251657U;
+        static const AkUniqueID UNPAUSE = 3412868374U;
     } // namespace EVENTS
 
     namespace STATES
