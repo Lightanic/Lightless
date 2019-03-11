@@ -80,6 +80,12 @@ public class MenuButtonController : MonoBehaviour {
         if (index == 0)         // PlayButton
         {
             AkSoundEngine.PostEvent("Play_MenuSelect", gameObject);
+            var checkpointManager = GameObject.Find("CheckpointManager");
+            if(checkpointManager)
+            {
+                var comp = checkpointManager.GetComponent<CheckpointManager>();
+                comp.SetLatestCheckpoint(null);
+            }
             MenuAnim.SetBool("Exit", true);
         }
         else if (index == 1)    // Credits button
