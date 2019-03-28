@@ -58,6 +58,8 @@ public class UIManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Time.timeScale = 1F;
+        isPaused = false;
         eventSystem = EventSystem.current;
         inputComp = GameObject.Find("Player").GetComponent<InputComponent>();
         selectedButton = PauseStartButton;
@@ -72,6 +74,12 @@ public class UIManager : MonoBehaviour
         Menus.Add(CurrentMenu.HUD, HUDCanvas);
     }
 
+    private void OnEnable()
+    {
+        Time.timeScale = 1F;
+        isPaused = false;
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -80,10 +88,12 @@ public class UIManager : MonoBehaviour
             isPaused = !isPaused;
             if (!isPaused)
             {
+                AkSoundEngine.PostEvent("Unpause", gameObject);
                 currentMenu = CurrentMenu.None; // previously HUD 
             }
             else
             {
+                AkSoundEngine.PostEvent("Pause", gameObject);
                 currentMenu = CurrentMenu.Pause;
             }
             
@@ -190,9 +200,10 @@ public class UIManager : MonoBehaviour
 
     public void ExitGame()
     {
-        Application.Quit();
-        //PauseCanvas.GetComponent<LevelLoader>().LoadLevelAsync(0);
-        //SceneManager.LoadScene("Menu");
+        //Application.Quit();
+      // PauseCanvas.GetComponent<LevelLoader>().LoadLevelAsync(0);
+       SceneManager.LoadScene(0, LoadSceneMode.Single);
+       //SceneManager.LoadScene("Menu");
     }
 
     void BackButtonPress()

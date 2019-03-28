@@ -11,4 +11,8 @@ public class DeathScreen : MonoBehaviour
         gameObject.GetComponent<Animator>().SetBool("DeathStart",false);
     }
 
+    public void MenuScene()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
+    }
 }

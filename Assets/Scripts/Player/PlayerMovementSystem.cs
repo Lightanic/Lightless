@@ -74,7 +74,7 @@ public class PlayerMovementSystem : ComponentSystem
         }
         else if (entity.SpeedComponent.isDodging)
         {
-            entity.Animator.playerAnimator.SetTrigger("Dash");
+            //entity.Animator.playerAnimator.SetTrigger("Dash");
         }
         else
         {

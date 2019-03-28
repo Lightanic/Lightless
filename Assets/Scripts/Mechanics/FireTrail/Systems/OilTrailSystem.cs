@@ -75,7 +75,7 @@ public class OilTrailSystem : ComponentSystem
                 entity.OilTrail.gameObject.GetComponent<InteractUIComponent>().Show = false;
                 lhComponent.DropItem();
                 entityHUD.props.Disable();
-
+                AkSoundEngine.PostEvent("Stop_SpillingGas", entity.OilTrail.gameObject);
                 //Equip next item
                 if (inventoryData.Inventory[0].PlayerInventory.Items.Count > 0)
                 {
@@ -90,6 +90,11 @@ public class OilTrailSystem : ComponentSystem
                                                          // entity.Transform.position = position;
                 var lineRenderer = entity.OilTrail.LineRenderer;
                 var minDistance = entity.OilTrail.TrailMinimumDistance;
+                if(Input.GetKeyDown(KeyCode.Joystick1Button2) || Input.GetKeyDown(KeyCode.Joystick1Button0))
+                {
+                    AkSoundEngine.PostEvent("Play_SpillingGas", entity.OilTrail.gameObject);
+                }
+                
                 if (Player.Inputs[0].Control("OilTrail"))
                 {
                     spilling = true;
@@ -165,8 +170,9 @@ public class OilTrailSystem : ComponentSystem
                 {
                     entityHUD.props.ShowNoFade();
                 }
-                else if(Input.GetKeyUp(KeyCode.Joystick1Button2))
+                else if(Input.GetKeyUp(KeyCode.Joystick1Button0))
                 {
+                    AkSoundEngine.PostEvent("Stop_SpillingGas", entity.OilTrail.gameObject);
                     entityHUD.props.Disable();
                 }
             }
@@ -174,7 +180,10 @@ public class OilTrailSystem : ComponentSystem
             {
                 spilling = false;
             }
-
+            if (Input.GetKeyUp(KeyCode.Joystick1Button2))
+            {
+                AkSoundEngine.PostEvent("Stop_SpillingGas", entity.OilTrail.gameObject);
+            }
         }
     }
 

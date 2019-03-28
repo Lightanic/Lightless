@@ -145,7 +145,7 @@ BoxCollider:
   m_GameObject: {fileID: 1161126618801720}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
@@ -197,6 +197,10 @@ MonoBehaviour:
   toolTipSprite: {fileID: 21300000, guid: 0b269f45f409b6d42933d1caed0d1540, type: 3}
   Canvas: {fileID: 0}
   equipLantern: 1
+  EnableDarkMode: 0
+  DarknessGammaValue: -0.4
+  postProcessVolume: {fileID: 0}
+  lightComponent: {fileID: 0}
 --- !u!114 &114656144453012798
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -226,6 +230,7 @@ MonoBehaviour:
   Name: Interact
   DefaultSprite: {fileID: 0}
   ShowDistance: 2
+  Show: 1
 --- !u!114 &234826707
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -240,12 +245,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   triggerList: f7e1664c
   useOtherObject: 0
-  bankName: Firebank
+  data:
+    valueGuid: 
+    WwiseObjectReference: {fileID: 0}
   decodeBank: 0
   loadAsynchronous: 0
   saveDecodedBank: 0
   unloadTriggerList: 
-  valueGuid: 56c0c18454cadd429a4ce2fbd14b2b69
+  valueGuid: 
 --- !u!1 &1187408608067864
 GameObject:
   m_ObjectHideFlags: 0
@@ -424,13 +431,16 @@ MonoBehaviour:
   RateDamping: 0.1
   Strength: 200
   StopFlickering: 0
-  CurrentTime: 0
   AlertColor: {r: 0.6603774, g: 0.23450817, b: 0.17132434, a: 0}
   AlertRadius: 30
+  MinAlertRangeReduction: 5
+  MaxAlertRangeReduction: 2
+  AlertIntensityMultiplier: 1.5
   BaseRange: 0
   BaseColor: {r: 0, g: 0, b: 0, a: 0}
   BaseIntensity: 0
   LightSource: {fileID: 0}
+  CurrentTime: 0
 --- !u!114 &4448844195448693062
 MonoBehaviour:
   m_ObjectHideFlags: 0

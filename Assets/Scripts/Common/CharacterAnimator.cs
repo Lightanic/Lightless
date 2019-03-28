@@ -7,16 +7,19 @@ public class CharacterAnimator : MonoBehaviour {
     public bool isWalking;
     public bool isSlowWalking;
     public bool isRunning;
+    public bool equipped;
+    LeftHandComponent lhComp;
 	void Start () {
         //playerAnimator = GetComponent<Animator>();
         isWalking = false;
         isSlowWalking = false;
         isRunning = false;
+        lhComp = gameObject.GetComponentInChildren<LeftHandComponent>();
     }
 	
 	void Update () {
-		/////////////////// Integrate regular player control script/controls, right now they're mapped to really arbitrary keys
-        
+        /////////////////// Integrate regular player control script/controls, right now they're mapped to really arbitrary keys
+
         //// WALK (W)
         //if (Input.GetKey(KeyCode.W))  
         //{
@@ -52,7 +55,7 @@ public class CharacterAnimator : MonoBehaviour {
         //{
         //    playerAnimator.SetTrigger("Dash");
         //}
-        
+
         //// WALK/RUN RELEASE
         //if (Input.GetKeyUp(KeyCode.W))
         //{
@@ -60,10 +63,11 @@ public class CharacterAnimator : MonoBehaviour {
         //    isSlowWalking = false;
         //    isRunning = false;
         //}
-
-        playerAnimator.SetBool("isWalking", isWalking);
-        playerAnimator.SetBool("isSlowWalking", isSlowWalking);
-        playerAnimator.SetBool("isRunning", isRunning);
+        equipped = !(lhComp.isEmpty);
+        playerAnimator.SetBool("walk", isWalking);
+        //playerAnimator.SetBool("isSlowWalking", isSlowWalking);
+        playerAnimator.SetBool("run", isRunning);
+        playerAnimator.SetBool("equipped", equipped);
 
     }
 }

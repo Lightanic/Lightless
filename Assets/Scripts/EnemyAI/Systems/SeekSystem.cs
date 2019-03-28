@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 using Unity.Entities;
 using static EnemyComponent;
 
@@ -17,15 +18,39 @@ public class SeekSystem : ComponentSystem
     {
         foreach (var entity in GetEntities<Seek>())
         {
+
+    
             if (!entity.SeekComponent.Target)
             {
                 continue; //if enemy does not have a target, continue without errors
             }
+
+            if (entity.Enemy.Type == EnemyType.Runner && entity.SeekComponent.IsJumping) //only Runner jumps
+            {
+                entity.SeekComponent.IsJumping = false;
+                entity.Enemy.transform.GetComponent<Rigidbody>().AddForce(Vector3.Normalize(entity.Enemy.transform.forward + entity.Enemy.transform.up) * 400);
+            }
+            //    if (!entity.AgentComponent.Agent.enabled && !entity.AgentComponent.Agent.isOnNavMesh)
+            //    {
+            //        continue; //force to push enemy off should be applied only once
+            //    }
+            //    else if (entity.AgentComponent.Agent.isOnNavMesh)
+            //        entity.AgentComponent.Agent.enabled = true;
+            //    NavMeshHit hit;
+            //    entity.AgentComponent.Agent.FindClosestEdge(out hit);
+            //    if (hit.distance < 0.01 && entity.AgentComponent.Agent.enabled)
+            //    {
+            //        entity.AgentComponent.Agent.enabled = false;
+            //        entity.Enemy.transform.GetComponent<Rigidbody>().AddForce(Vector3.Normalize(entity.Enemy.transform.forward + entity.Enemy.transform.up) * 500);
+            //    }
+            //}
             if (entity.Enemy.State == EnemyState.Seek)
             {
+                //entity.Enemy.transform.LookAt(entity.SeekComponent.Target);
+                //entity.AgentComponent.Agent.updateRotation = false;
                 Vector3 targetDir = entity.SeekComponent.Target.transform.position - entity.Enemy.transform.position;
                 targetDir.y = entity.Enemy.transform.position.y;
-                entity.Enemy.transform.rotation = Quaternion.Slerp(entity.Enemy.transform.rotation, Quaternion.LookRotation(targetDir), Time.deltaTime);
+                entity.Enemy.transform.rotation = Quaternion.Slerp(entity.Enemy.transform.rotation, Quaternion.LookRotation(targetDir), Time.deltaTime * 2 );
                 switch (entity.Enemy.Type)
                 {
                     case EnemyType.Runner:

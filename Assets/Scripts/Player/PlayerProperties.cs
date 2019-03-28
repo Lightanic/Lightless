@@ -51,7 +51,7 @@ public class PlayerProperties : MonoBehaviour
         else
         {
             //CurrentTime = 0;
-            CurrentTime -= Time.deltaTime * 1.5F;
+            CurrentTime -= Time.deltaTime * 0.5F;
             if (CurrentTime <= 0F)
             {
                 CurrentTime = 0;
