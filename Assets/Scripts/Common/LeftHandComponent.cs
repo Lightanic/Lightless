@@ -32,7 +32,13 @@ public class LeftHandComponent : MonoBehaviour {
         foreach (var item in pickUpItems)
         {
             item.IsEquiped = false;
-            item.gameObject.GetComponent<BoxCollider>().enabled = true;
+            var boxCollider = item.GetComponent<BoxCollider>();
+            if (boxCollider)
+                boxCollider.enabled = true;
+
+            var meshCollider = item.GetComponent<MeshCollider>();
+            if (meshCollider)
+                meshCollider.enabled = true;
         }
     }
 
