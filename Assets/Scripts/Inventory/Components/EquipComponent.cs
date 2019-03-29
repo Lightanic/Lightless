@@ -21,7 +21,14 @@ public class EquipComponent : MonoBehaviour {
         itemTransform.gameObject.GetComponent<Pickup>().enabled = false;
         itemTransform.gameObject.GetComponent<Pickup>().IsEquiped = true;
         itemTransform.gameObject.GetComponent<Rigidbody>().isKinematic = true;  // disable rigidbody
-        item.GetComponent<BoxCollider>().enabled = false;
+
+        var boxCollider = item.GetComponent<BoxCollider>();
+        if (boxCollider)
+            boxCollider.enabled = false;
+
+        var meshCollider = item.GetComponent<MeshCollider>();
+        if (meshCollider)
+            meshCollider.enabled = false;
     }
 
     public void EquipNewItem(GameObject item)
