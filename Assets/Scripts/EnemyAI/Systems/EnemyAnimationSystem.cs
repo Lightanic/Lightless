@@ -19,6 +19,8 @@ public class EnemyAnimationSystem : ComponentSystem
             entity.EnemyAnimator.isWalking = false;
             entity.EnemyAnimator.isRunning = false;
             entity.EnemyAnimator.isStunned = false;
+            entity.EnemyAnimator.isLunging = false;
+            entity.EnemyAnimator.isWaiting = false;
 
             switch (entity.EnemyComponent.State)
             {
@@ -30,9 +32,14 @@ public class EnemyAnimationSystem : ComponentSystem
                     entity.EnemyAnimator.isRunning = true;
                     break;
 
+                case EnemyState.Lunge:
+                    entity.EnemyAnimator.isLunging = true;
+                    break;
+
                 case EnemyState.Stun:
                 case EnemyState.Wait:
                     entity.EnemyAnimator.isStunned = true;
+                    entity.EnemyAnimator.isWaiting = true;
                     break;
 
                 default:
