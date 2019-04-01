@@ -20,6 +20,7 @@ public class EnemyAnimationSystem : ComponentSystem
             entity.EnemyAnimator.isRunning = false;
             entity.EnemyAnimator.isStunned = false;
             entity.EnemyAnimator.isLunging = false;
+            entity.EnemyAnimator.isWaiting = false;
 
             switch (entity.EnemyComponent.State)
             {
@@ -38,6 +39,7 @@ public class EnemyAnimationSystem : ComponentSystem
                 case EnemyState.Stun:
                 case EnemyState.Wait:
                     entity.EnemyAnimator.isStunned = true;
+                    entity.EnemyAnimator.isWaiting = true;
                     break;
 
                 default:

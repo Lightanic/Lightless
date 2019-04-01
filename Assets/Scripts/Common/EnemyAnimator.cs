@@ -10,6 +10,8 @@ public class EnemyAnimator : MonoBehaviour
     public bool isRunning;
     public bool isStunned;
     public bool isLunging;
+    public bool isWaiting;
+    
 
     protected virtual void Start()
     {
@@ -26,6 +28,7 @@ public class EnemyAnimator : MonoBehaviour
         enemyAnimator.SetBool("isRunning", isRunning);
         enemyAnimator.SetBool("isStunned", isStunned);
         enemyAnimator.SetBool("isLunging", isLunging);
+        enemyAnimator.SetBool("isWaiting", isWaiting);
 
     }
 }
