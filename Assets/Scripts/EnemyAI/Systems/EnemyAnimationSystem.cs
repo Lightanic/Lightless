@@ -19,6 +19,7 @@ public class EnemyAnimationSystem : ComponentSystem
             entity.EnemyAnimator.isWalking = false;
             entity.EnemyAnimator.isRunning = false;
             entity.EnemyAnimator.isStunned = false;
+            entity.EnemyAnimator.isLunging = false;
 
             switch (entity.EnemyComponent.State)
             {
@@ -28,6 +29,10 @@ public class EnemyAnimationSystem : ComponentSystem
 
                 case EnemyState.Seek:
                     entity.EnemyAnimator.isRunning = true;
+                    break;
+
+                case EnemyState.Lunge:
+                    entity.EnemyAnimator.isLunging = true;
                     break;
 
                 case EnemyState.Stun:
