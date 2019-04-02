@@ -39,41 +39,11 @@ public class CameraController : MonoBehaviour
     void Update()
     {
         DrawPlayerOutline();
-        DrawEnemyOutlines();
         Vector3 targetCamPos = player.position + offset;
         //transform.position = targetCamPos;
         transform.position = Vector3.Lerp(transform.position, targetCamPos, smoothing * Time.deltaTime);
         if (fog != null)
             fog.m_HeightFogOffset = Mathf.Lerp(fog.m_HeightFogOffset, player.position.y + 3f, (smoothing / 2F) * Time.deltaTime);
-    }
-
-    void DrawEnemyOutlines()
-    {
-        foreach (var enemy in enemies)
-        {
-            if (enemy == null) continue;
-            var outline = enemy.GetComponentInChildren<Outline>();
-            if (outline != null)
-            {
-                var enemyDirection = (enemy.transform.position - transform.position).normalized;
-                Ray ray = new Ray(transform.position, enemyDirection);
-                RaycastHit info;
-                if (Physics.Raycast(ray, out info, 100F))
-                {
-                    if (info.collider.tag == "Enemy")
-                    {
-                        outline.enabled = false;
-                        outline.eraseRenderer = true;
-                    }
-                    else
-                    {
-
-                        outline.eraseRenderer = false;
-                        outline.enabled = true;
-                    }
-                }
-            }
-        }
     }
 
     void DrawPlayerOutline()

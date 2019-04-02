@@ -16,34 +16,29 @@ public class EnemyAnimationSystem : ComponentSystem
     {
         foreach (var entity in GetEntities<EnemyData>())
         {
-            entity.EnemyAnimator.isWalking = false;
-            entity.EnemyAnimator.isRunning = false;
-            entity.EnemyAnimator.isStunned = false;
-            entity.EnemyAnimator.isLunging = false;
-            entity.EnemyAnimator.isWaiting = false;
-
+            entity.EnemyAnimator.DisableAllStates();
             switch (entity.EnemyComponent.State)
             {
                 case EnemyState.Patrol:
-                    entity.EnemyAnimator.isWalking = true;
+                    entity.EnemyAnimator.SetState("isWalking", true);
                     break;
 
                 case EnemyState.Seek:
-                    entity.EnemyAnimator.isRunning = true;
+                    entity.EnemyAnimator.SetState("isRunning", true);
                     break;
 
                 case EnemyState.Lunge:
-                    entity.EnemyAnimator.isLunging = true;
+                    entity.EnemyAnimator.SetState("isLunging", true);
                     break;
 
                 case EnemyState.Stun:
                 case EnemyState.Wait:
-                    entity.EnemyAnimator.isStunned = true;
-                    entity.EnemyAnimator.isWaiting = true;
+                    entity.EnemyAnimator.SetState("isStunned", true);
+                    entity.EnemyAnimator.SetState("isWaiting", true);
                     break;
 
                 default:
-                    entity.EnemyAnimator.isWalking = true;
+                    entity.EnemyAnimator.SetState("isWalking", true);
                     break;
             }
         }
