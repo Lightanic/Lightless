@@ -7,8 +7,6 @@ using UnityEngine.AI;
 
 public class EnemySystem : ComponentSystem
 {
-
-
     private struct Enemy
     {
         public NavAgentComponent AgentComponent;
