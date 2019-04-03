@@ -39,9 +39,9 @@ public class PlatformActivatorComponent : MonoBehaviour
             return;
         }
 
-        if (IsReflected && PrevInstance == null)
+        if (IsReflected && (PrevInstance == null || !PrevInstance.activeInHierarchy))
         {
-            Destroy(gameObject);
+            DestroyLightInstance();
         }
 
         var direction = transform.forward;
@@ -78,7 +78,8 @@ public class PlatformActivatorComponent : MonoBehaviour
                 GetComponent<LineRendererComponent>().AddLine(new ReflectionLine(transform.position, hit.point));
                 if (ShouldInstantiateLight(hit.collider))
                 {
-                    LightInstance = Instantiate(ReflectionLightPrefab, hit.point, hit.transform.rotation);
+                    LightInstance = PrefabPool.Spawn(ReflectionLightPrefab, hit.point, hit.transform.rotation);
+                    //LightInstance = Instantiate(ReflectionLightPrefab, hit.point, hit.transform.rotation);
                     LightInstance.GetComponent<PlatformActivatorComponent>().IsReflected = true;
                     LightInstance.GetComponent<PlatformActivatorComponent>().PrevInstance = gameObject;
                     LightInstance.GetComponent<PlatformActivatorComponent>().MainInstance = MainInstance;
@@ -100,7 +101,7 @@ public class PlatformActivatorComponent : MonoBehaviour
                 {
                     var point = hit.point;
                     var normal = hit.transform.forward;
-                    var reflection = direction - 2 * (Vector3.Dot(direction, normal)) * normal;
+                    var reflection = Vector3.Reflect(direction, normal); // direction - 2 * (Vector3.Dot(direction, normal)) * normal;
                     var lookTowardsPos = point + reflection * 2F;
                     LightInstance.transform.LookAt(lookTowardsPos);
                     Debug.DrawRay(point, reflection);

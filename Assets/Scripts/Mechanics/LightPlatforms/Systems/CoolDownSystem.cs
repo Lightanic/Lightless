@@ -43,7 +43,8 @@ public class CoolDownSystem : ComponentSystem
             if (!platform.Platform.IsActivated)
             {
                 platform.Platform.FillValue = Mathf.Lerp(platform.Platform.FillValue, 0F, Time.deltaTime);
-                ShaderHelper.SetFillValue(platform.Platform.GetComponent<Renderer>().material, platform.Platform.FillValue);
+                if (platform.Platform.FillValue != 0F)
+                    ShaderHelper.SetFillValue(platform.Platform.GetComponent<Renderer>().material, platform.Platform.FillValue);
             }
         }
     }
