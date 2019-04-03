@@ -14,12 +14,12 @@ public class EnemyAnimator : MonoBehaviour
     protected virtual void Start()
     {
         enemyAnimator = GetComponent<Animator>();
-        foreach(var param in enemyAnimator.parameters)
+        foreach (var param in enemyAnimator.parameters)
         {
             animatorStates.Add(param.name, false);
         }
 
-        foreach(var state in animStates)
+        foreach (var state in animStates)
         {
             animationStates.Add(state, false);
         }
@@ -27,10 +27,10 @@ public class EnemyAnimator : MonoBehaviour
 
     void Update()
     {
-        foreach(var param in animatorStates)
+        foreach (var param in animatorStates)
         {
-            bool status;
-            if(!animatorStates.TryGetValue(param.Key, out status))
+            bool status = false;
+            if (!animationStates.TryGetValue(param.Key, out status))
             {
                 status = false;
             }
@@ -44,7 +44,8 @@ public class EnemyAnimator : MonoBehaviour
     {
         foreach (var param in animatorStates)
         {
-            enemyAnimator.SetBool(param.Key, false);
+            if (animationStates.ContainsKey(param.Key))
+                animationStates[param.Key] = false;
         }
     }
 
