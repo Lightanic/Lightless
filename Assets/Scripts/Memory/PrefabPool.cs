@@ -85,7 +85,12 @@ public static class PrefabPool
 
                 // Add a PoolMember component so we know what pool
                 // we belong to.
-                obj.AddComponent<PoolMember>().myPool = this;
+                var pm = obj.GetComponent<PoolMember>();
+                if (!pm)
+                {
+                    pm = obj.AddComponent<PoolMember>();
+                }
+                pm.myPool = this;
             }
             else
             {
@@ -205,7 +210,7 @@ public static class PrefabPool
         PoolMember pm = obj.GetComponent<PoolMember>();
         if (pm == null)
         {
-            Debug.Log("Object '" + obj.name + "' wasn't spawned from a pool. Destroying it instead.");
+            //Debug.Log("Object '" + obj.name + "' wasn't spawned from a pool. Destroying it instead.");
             GameObject.Destroy(obj);
         }
         else
