@@ -38,9 +38,6 @@ public class NarrativePickup : InteractableComponent {
 
     public void Show()
     {
-        Debug.Log("Show Narrative");
-        //gameObject.GetComponent<MeshRenderer>().enabled = false;
-        //isDisplayed = true;
         canvasAction.ToggleOn(sprite, offsetHeight);
         gameObject.SetActive(false);
     }

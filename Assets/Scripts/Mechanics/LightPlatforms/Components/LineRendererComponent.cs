@@ -35,11 +35,6 @@ public class LineRendererComponent : MonoBehaviour
         LineList.Add(line);
     }
 
-    public void AddLine(Vector3 A, Vector3 B)
-    {
-
-    }
-
     private void Update()
     {
         LineRenderer.positionCount = LineList.Count * 2;
@@ -51,6 +46,6 @@ public class LineRendererComponent : MonoBehaviour
             index += 2;
         }
 
-        LineList.Clear();
+        LineList.Clear(); 
     }
 }
