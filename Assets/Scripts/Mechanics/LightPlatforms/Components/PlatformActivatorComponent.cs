@@ -124,6 +124,9 @@ public class PlatformActivatorComponent : MonoBehaviour
 
     void DestroyLightInstance()
     {
+        LightInstance.GetComponent<PlatformActivatorComponent>().PrevInstance = null;
+        LightInstance.GetComponent<PlatformActivatorComponent>().CurrentChainCount = 0;
+        LightInstance.GetComponent<PlatformActivatorComponent>().PreviousCollider = null;
         PrefabPool.Despawn(LightInstance);
         LightInstance = null;
         if (IsReflected)
