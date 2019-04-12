@@ -9,6 +9,7 @@ public class EnemyPusher : MonoBehaviour
         if (collision.gameObject.CompareTag("Enemy"))
         {
             collision.gameObject.GetComponent<NavAgentComponent>().Agent.enabled = false;
+            collision.gameObject.GetComponent<Rigidbody>().isKinematic = false;
         }
     }
 }

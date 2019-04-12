@@ -26,29 +26,41 @@ public class InteractUIComponent : MonoBehaviour {
 
     private void Start()
     {
-        rotation = Canvas.transform.rotation;
+        if (Canvas == null)
+        {
+            Canvas = GameObject.Find("InteractUI");
+        }
+        if(Canvas)
+            rotation = Canvas.transform.rotation;
         //sprite = Canvas.GetComponentInChildren<Image>().sprite;
     }
     
     public void RePosition(Vector3 pos)
     {
-        Canvas.transform.rotation = rotation;
-        Canvas.transform.position = pos + new Vector3(0, offsetHeight, 0);
+        if (Canvas)
+        {
+            Canvas.transform.rotation = rotation;
+            Canvas.transform.position = pos + new Vector3(0, offsetHeight, 0);
+        }
     }
 
     public void ToggleOn(string name)
     {
-        var newSprite = SpriteManager.Instance.GetSprite(name);
-        if (newSprite != null)
-            Canvas.GetComponentInChildren<Image>().sprite = newSprite;
-        else
-            Canvas.GetComponentInChildren<Image>().sprite = DefaultSprite;
-        Canvas.SetActive(true);
+        if (Canvas)
+        {
+            var newSprite = SpriteManager.Instance.GetSprite(name);
+            if (newSprite != null)
+                Canvas.GetComponentInChildren<Image>().sprite = newSprite;
+            else
+                Canvas.GetComponentInChildren<Image>().sprite = DefaultSprite;
+            Canvas.SetActive(true);
+        }
     }
 
     public void ToggleOff()
     {
-        Canvas.SetActive(false);
+        if(Canvas)
+            Canvas.SetActive(false);
     }
 
     private void OnDrawGizmos()

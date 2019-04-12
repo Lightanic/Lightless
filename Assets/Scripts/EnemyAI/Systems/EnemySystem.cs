@@ -42,12 +42,14 @@ public class EnemySystem : ComponentSystem
 
         foreach (var enemy in GetEntities<Enemy>())
         {
-            
-      
-            
+
             if (enemy.Transform.GetComponent<EnemyDeathComponent>().EnemyIsDead)
             {
                 continue; //run no more code if enemy is dead
+            }
+            if (!enemy.Transform.GetComponent<NavMeshAgent>().enabled)
+            {
+                continue;
             }
 
             if (enemy.EnemyComponent.CanLunge == false)
@@ -86,9 +88,12 @@ public class EnemySystem : ComponentSystem
             enemy.EnemyComponent.State = EvaluateState(enemy.EnemyComponent.State, enemy.EnemyComponent, enemy.SeekComponent,
                 distanceToLight, distanceToPlayer, light.LightSwitch, player, enemy.AgentComponent);
 
+            enemy.AgentComponent.Agent.isStopped = false;
             if (enemy.EnemyComponent.State == EnemyState.Stun)
             {
-                enemy.AgentComponent.Agent.speed = 0;
+                //enemy.AgentComponent.Agent.acceleration = float.MaxValue;
+                enemy.AgentComponent.Agent.velocity = Vector3.zero;
+                enemy.AgentComponent.Agent.isStopped = true;
             }
             if (enemy.EnemyComponent.Type == EnemyType.Stunner)
             {
@@ -117,7 +122,7 @@ public class EnemySystem : ComponentSystem
     EnemyState EvaluateState(EnemyState currentState, EnemyComponent enemyComponent, SeekComponent seekComponent,
         float distanceToLight, float distanceToPlayer, LightComponent lightComponent, PlayerData player, NavAgentComponent agent)
     {
-        enemyComponent.GetComponent<Rigidbody>().isKinematic = false;
+        //enemyComponent.GetComponent<Rigidbody>().isKinematic = true;
         switch (currentState)
         {
 
@@ -144,7 +149,10 @@ public class EnemySystem : ComponentSystem
                 if (!enemyComponent.GetComponent<EnemyStunComponent>().IsStunned)
                     return EnemyState.Wait;
                 else
+                {
+                    //enemyComponent.GetComponent<Rigidbody>().isKinematic = true;
                     return EnemyState.Stun;
+                }
 
             case EnemyState.Wait:
                 return EvaluateWait(enemyComponent);
