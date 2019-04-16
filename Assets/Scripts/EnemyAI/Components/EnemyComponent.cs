@@ -11,6 +11,8 @@ public class EnemyComponent : MonoBehaviour
 
     private void Start()
     {
+        AkSoundEngine.PostEvent("Stop_RedMonster_Breathing", gameObject);
+        AkSoundEngine.PostEvent("Stop_RedMonster_Agro", gameObject);
         gameManager = GameObject.Find("GameManager");
     }
     public enum EnemyType
