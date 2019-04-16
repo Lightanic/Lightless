@@ -45,6 +45,8 @@ public class EnemySystem : ComponentSystem
 
             if (enemy.Transform.GetComponent<EnemyDeathComponent>().EnemyIsDead)
             {
+                AkSoundEngine.PostEvent("Stop_RedMonster_Breathing", enemy.EnemyComponent.gameObject);
+                AkSoundEngine.PostEvent("Stop_RedMonster_Agro", enemy.EnemyComponent.gameObject);
                 continue; //run no more code if enemy is dead
             }
             if (!enemy.Transform.GetComponent<NavMeshAgent>().enabled)
