@@ -45,6 +45,8 @@ public class EnemySystem : ComponentSystem
 
             if (enemy.Transform.GetComponent<EnemyDeathComponent>().EnemyIsDead)
             {
+                AkSoundEngine.PostEvent("Stop_RedMonster_Breathing", enemy.EnemyComponent.gameObject);
+                AkSoundEngine.PostEvent("Stop_RedMonster_Agro", enemy.EnemyComponent.gameObject);
                 continue; //run no more code if enemy is dead
             }
             if (!enemy.Transform.GetComponent<NavMeshAgent>().enabled)
@@ -111,11 +113,31 @@ public class EnemySystem : ComponentSystem
                 }
             }
 
-            if (enemy.EnemyComponent.State == EnemyState.Alert && prevState != enemy.EnemyComponent.State)
+            if ((enemy.EnemyComponent.State == EnemyState.Seek) && prevState != enemy.EnemyComponent.State)
             {
-                //AkSoundEngine.PostEvent("Play_BlueMonster_Agro",enemy.EnemyComponent.gameObject);
+                AkSoundEngine.PostEvent("Play_RedMonster_Agro",enemy.EnemyComponent.gameObject);
             }
 
+            if ((enemy.EnemyComponent.State == EnemyState.Patrol) && distanceToPlayer <= enemy.SeekComponent.AlertRadius + 10f && !enemy.SeekComponent.IsBreathing)
+            {
+                enemy.SeekComponent.IsBreathing = true;
+                AkSoundEngine.PostEvent("Play_RedMonster_Breathing", enemy.EnemyComponent.gameObject);
+            }
+            else if((enemy.EnemyComponent.State == EnemyState.Patrol) && distanceToPlayer >= enemy.SeekComponent.AlertRadius + 10f)
+            {
+                enemy.SeekComponent.IsBreathing = false;
+                AkSoundEngine.PostEvent("Stop_RedMonster_Breathing", enemy.EnemyComponent.gameObject);
+            }
+            if (prevState == EnemyState.Patrol && enemy.EnemyComponent.State != EnemyState.Patrol)
+            {
+                enemy.SeekComponent.IsBreathing = false;
+                AkSoundEngine.PostEvent("Stop_RedMonster_Breathing", enemy.EnemyComponent.gameObject);
+            }
+
+            if (prevState == EnemyState.Seek && enemy.EnemyComponent.State != EnemyState.Seek)
+            {
+                AkSoundEngine.PostEvent("Stop_RedMonster_Agro", enemy.EnemyComponent.gameObject);
+            }
 
         }
     }
