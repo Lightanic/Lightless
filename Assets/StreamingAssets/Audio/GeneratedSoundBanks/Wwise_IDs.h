@@ -43,7 +43,6 @@ namespace AK
         static const AkUniqueID START_AMBIANCE = 2233220946U;
         static const AkUniqueID START_MAINMENU = 1259732632U;
         static const AkUniqueID STOP_MIRROR_ROTATE = 3580071353U;
-        static const AkUniqueID STOP_PLAYER_WALKING = 826377267U;
         static const AkUniqueID STOP_ROCK_MOVING_HEAVY = 4046661352U;
         static const AkUniqueID STOP_ROCK_MOVING_LIGHT = 2494385581U;
         static const AkUniqueID STOP_SPILLINGGAS = 3327251657U;
