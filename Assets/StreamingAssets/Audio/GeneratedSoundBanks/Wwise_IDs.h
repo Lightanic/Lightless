@@ -35,6 +35,7 @@ namespace AK
         static const AkUniqueID PLAY_PLAYER_LANDING = 725346841U;
         static const AkUniqueID PLAY_PLAYER_WALKING = 4033055653U;
         static const AkUniqueID PLAY_REDMONSTER_AGRO = 2980948631U;
+        static const AkUniqueID PLAY_REDMONSTER_BREATHING = 475053756U;
         static const AkUniqueID PLAY_REDMONSTER_DEATH = 4244048208U;
         static const AkUniqueID PLAY_ROCK_MOVING_HEAVY = 1076681778U;
         static const AkUniqueID PLAY_ROCK_MOVING_LIGHT = 1270397895U;
@@ -43,6 +44,8 @@ namespace AK
         static const AkUniqueID START_AMBIANCE = 2233220946U;
         static const AkUniqueID START_MAINMENU = 1259732632U;
         static const AkUniqueID STOP_MIRROR_ROTATE = 3580071353U;
+        static const AkUniqueID STOP_REDMONSTER_AGRO = 1005134861U;
+        static const AkUniqueID STOP_REDMONSTER_BREATHING = 3081466354U;
         static const AkUniqueID STOP_ROCK_MOVING_HEAVY = 4046661352U;
         static const AkUniqueID STOP_ROCK_MOVING_LIGHT = 2494385581U;
         static const AkUniqueID STOP_SPILLINGGAS = 3327251657U;

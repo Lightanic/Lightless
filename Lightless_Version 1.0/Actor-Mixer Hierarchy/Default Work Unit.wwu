@@ -1849,6 +1849,13 @@
 							</ActiveSourceList>
 						</Sound>
 						<RandomSequenceContainer Name="Player_Walk" ID="{B8F9FEE8-ABC2-4E71-BE48-446D631436DB}" ShortID="1032133821">
+							<PropertyList>
+								<Property Name="Volume" Type="Real64">
+									<ValueList>
+										<Value>-14</Value>
+									</ValueList>
+								</Property>
+							</PropertyList>
 							<ReferenceList>
 								<Reference Name="Conversion">
 									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{4B3A5910-9018-4012-923A-330210E2641A}"/>
@@ -2008,6 +2015,218 @@
 									</ChildrenList>
 									<ActiveSourceList>
 										<ActiveSource Name="FOOTSTEP_Asphalt_Trainers_Walk_Slow_RR8_mono" ID="{17B30635-13FF-4962-B2E3-1D92737C0CCE}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+							</ChildrenList>
+						</RandomSequenceContainer>
+						<Sound Name="MONSTER_Growl_Breath_01_mono" ID="{392C39A0-221B-449A-8A27-6DF4543E4AAB}" ShortID="581036561">
+							<PropertyList>
+								<Property Name="Highpass" Type="int16">
+									<ValueList>
+										<Value>25</Value>
+									</ValueList>
+								</Property>
+								<Property Name="IsLoopingEnabled" Type="bool" Value="True"/>
+								<Property Name="Lowpass" Type="int16">
+									<ValueList>
+										<Value>38</Value>
+									</ValueList>
+								</Property>
+								<Property Name="Volume" Type="Real64">
+									<ValueList>
+										<Value>-18</Value>
+									</ValueList>
+								</Property>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{4B3A5910-9018-4012-923A-330210E2641A}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{61C26BC9-E073-4F44-A002-50E8C5033AE3}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<AudioFileSource Name="MONSTER_Growl_Breath_01_mono" ID="{0F7E014F-AA4A-46C4-B1D3-1837B7FF61B4}" ShortID="304843562">
+									<Language>SFX</Language>
+									<AudioFile>MONSTER_Growl_Breath_01_mono.wav</AudioFile>
+								</AudioFileSource>
+							</ChildrenList>
+							<ActiveSourceList>
+								<ActiveSource Name="MONSTER_Growl_Breath_01_mono" ID="{0F7E014F-AA4A-46C4-B1D3-1837B7FF61B4}" Platform="Linked"/>
+							</ActiveSourceList>
+						</Sound>
+						<Sound Name="MONSTER_Exhausted_14_mono_loop" ID="{E5D1A4D4-3BB3-4701-AECD-8870FF21B2E9}" ShortID="385508029">
+							<PropertyList>
+								<Property Name="Highpass" Type="int16">
+									<ValueList>
+										<Value>35</Value>
+									</ValueList>
+								</Property>
+								<Property Name="IsLoopingEnabled" Type="bool" Value="True"/>
+								<Property Name="Lowpass" Type="int16">
+									<ValueList>
+										<Value>22</Value>
+									</ValueList>
+								</Property>
+								<Property Name="Volume" Type="Real64">
+									<ValueList>
+										<Value>-7</Value>
+									</ValueList>
+								</Property>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{4B3A5910-9018-4012-923A-330210E2641A}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{61C26BC9-E073-4F44-A002-50E8C5033AE3}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<AudioFileSource Name="MONSTER_Exhausted_14_mono_loop" ID="{975CCEDF-3030-442F-9C7E-97EED3749D2C}" ShortID="889059692">
+									<Language>SFX</Language>
+									<AudioFile>MONSTER_Exhausted_14_mono_loop.wav</AudioFile>
+								</AudioFileSource>
+							</ChildrenList>
+							<ActiveSourceList>
+								<ActiveSource Name="MONSTER_Exhausted_14_mono_loop" ID="{975CCEDF-3030-442F-9C7E-97EED3749D2C}" Platform="Linked"/>
+							</ActiveSourceList>
+						</Sound>
+						<RandomSequenceContainer Name="Monster_Agro_Red" ID="{1066F22D-0391-4464-B911-FA2B943050B2}" ShortID="849836287">
+							<PropertyList>
+								<Property Name="Lowpass" Type="int16">
+									<ValueList>
+										<Value>8</Value>
+									</ValueList>
+								</Property>
+								<Property Name="Pitch" Type="int32">
+									<ValueList>
+										<Value>180</Value>
+									</ValueList>
+								</Property>
+								<Property Name="PlayMechanismLoop" Type="bool" Value="True"/>
+								<Property Name="PlayMechanismStepOrContinuous" Type="int16" Value="0"/>
+								<Property Name="Volume" Type="Real64">
+									<ValueList>
+										<Value>-10</Value>
+									</ValueList>
+								</Property>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{4B3A5910-9018-4012-923A-330210E2641A}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{61C26BC9-E073-4F44-A002-50E8C5033AE3}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<Sound Name="MONSTER_Exhausted_06_mono" ID="{7ABDF109-993E-4600-B7FC-CCC64E798D7A}" ShortID="343660163">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{4B3A5910-9018-4012-923A-330210E2641A}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{61C26BC9-E073-4F44-A002-50E8C5033AE3}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="MONSTER_Exhausted_06_mono" ID="{DB8EBA5B-B73F-4BCC-9F13-CECCE585CA82}" ShortID="1034723633">
+											<Language>SFX</Language>
+											<AudioFile>MONSTER_Exhausted_06_mono.wav</AudioFile>
+										</AudioFileSource>
+									</ChildrenList>
+									<ActiveSourceList>
+										<ActiveSource Name="MONSTER_Exhausted_06_mono" ID="{DB8EBA5B-B73F-4BCC-9F13-CECCE585CA82}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="MONSTER_Growl_Deep_07_Short_mono" ID="{8F8A9197-9151-464D-8567-06BB37AADE32}" ShortID="6030641">
+									<PropertyList>
+										<Property Name="Lowpass" Type="int16">
+											<ValueList>
+												<Value>32</Value>
+											</ValueList>
+										</Property>
+										<Property Name="Volume" Type="Real64">
+											<ValueList>
+												<Value>-5</Value>
+											</ValueList>
+										</Property>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{4B3A5910-9018-4012-923A-330210E2641A}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{61C26BC9-E073-4F44-A002-50E8C5033AE3}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="MONSTER_Growl_Deep_07_Short_mono" ID="{60D47235-06E3-4F3E-A44C-11847C698098}" ShortID="283623450">
+											<Language>SFX</Language>
+											<AudioFile>MONSTER_Growl_Deep_07_Short_mono.wav</AudioFile>
+										</AudioFileSource>
+									</ChildrenList>
+									<ActiveSourceList>
+										<ActiveSource Name="MONSTER_Growl_Deep_07_Short_mono" ID="{60D47235-06E3-4F3E-A44C-11847C698098}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="MONSTER_Exhausted_06_Crop_01_mono" ID="{B31F4802-F57E-4EDB-81B3-66E6EA5DD5C3}" ShortID="23409284">
+									<PropertyList>
+										<Property Name="Volume" Type="Real64">
+											<ValueList>
+												<Value>-6</Value>
+											</ValueList>
+										</Property>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{4B3A5910-9018-4012-923A-330210E2641A}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{61C26BC9-E073-4F44-A002-50E8C5033AE3}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="MONSTER_Exhausted_06_Crop_01_mono" ID="{296A8C71-737E-4E0D-ACFD-A77B26F40EA5}" ShortID="679129584">
+											<Language>SFX</Language>
+											<AudioFile>MONSTER_Exhausted_06_Crop_01_mono.wav</AudioFile>
+										</AudioFileSource>
+									</ChildrenList>
+									<ActiveSourceList>
+										<ActiveSource Name="MONSTER_Exhausted_06_Crop_01_mono" ID="{296A8C71-737E-4E0D-ACFD-A77B26F40EA5}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="MONSTER_Growl_Short_04_mono" ID="{4FD8B64C-AB32-467E-A8C8-33A84702D382}" ShortID="468947015">
+									<PropertyList>
+										<Property Name="Lowpass" Type="int16">
+											<ValueList>
+												<Value>52</Value>
+											</ValueList>
+										</Property>
+										<Property Name="Volume" Type="Real64">
+											<ValueList>
+												<Value>-14</Value>
+											</ValueList>
+										</Property>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{4B3A5910-9018-4012-923A-330210E2641A}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{61C26BC9-E073-4F44-A002-50E8C5033AE3}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="MONSTER_Growl_Short_04_mono" ID="{0CCC942F-E04B-4BD7-AAE8-4B47BD9FAEE8}" ShortID="611028409">
+											<Language>SFX</Language>
+											<AudioFile>MONSTER_Growl_Short_04_mono.wav</AudioFile>
+										</AudioFileSource>
+									</ChildrenList>
+									<ActiveSourceList>
+										<ActiveSource Name="MONSTER_Growl_Short_04_mono" ID="{0CCC942F-E04B-4BD7-AAE8-4B47BD9FAEE8}" Platform="Linked"/>
 									</ActiveSourceList>
 								</Sound>
 							</ChildrenList>

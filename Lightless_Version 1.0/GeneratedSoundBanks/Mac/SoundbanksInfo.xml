@@ -43,6 +43,7 @@
 				<Event Id="725346841" Name="Play_Player_Landing" ObjectPath="\Events\Default Work Unit\SFX Events\Play_Player_Landing"/>
 				<Event Id="4033055653" Name="Play_Player_Walking" ObjectPath="\Events\Default Work Unit\SFX Events\Play_Player_Walking"/>
 				<Event Id="2980948631" Name="Play_RedMonster_Agro" ObjectPath="\Events\Default Work Unit\SFX Events\Play_RedMonster_Agro"/>
+				<Event Id="475053756" Name="Play_RedMonster_Breathing" ObjectPath="\Events\Default Work Unit\SFX Events\Play_RedMonster_Breathing"/>
 				<Event Id="4244048208" Name="Play_RedMonster_Death" ObjectPath="\Events\Default Work Unit\SFX Events\Play_RedMonster_Death"/>
 				<Event Id="1076681778" Name="Play_Rock_Moving_Heavy" ObjectPath="\Events\Default Work Unit\SFX Events\Play_Rock_Moving_Heavy"/>
 				<Event Id="1270397895" Name="Play_Rock_Moving_Light" ObjectPath="\Events\Default Work Unit\SFX Events\Play_Rock_Moving_Light"/>
@@ -51,6 +52,8 @@
 				<Event Id="2233220946" Name="Start_Ambiance" ObjectPath="\Events\Default Work Unit\Music Events\Start_Ambiance"/>
 				<Event Id="1259732632" Name="Start_MainMenu" ObjectPath="\Events\Default Work Unit\Music Events\Start_MainMenu"/>
 				<Event Id="3580071353" Name="Stop_Mirror_Rotate" ObjectPath="\Events\Default Work Unit\SFX Events\Stop_Mirror_Rotate" MaxAttenuation="0.000000"/>
+				<Event Id="1005134861" Name="Stop_RedMonster_Agro" ObjectPath="\Events\Default Work Unit\SFX Events\Stop_RedMonster_Agro" MaxAttenuation="0.000000"/>
+				<Event Id="3081466354" Name="Stop_RedMonster_Breathing" ObjectPath="\Events\Default Work Unit\SFX Events\Stop_RedMonster_Breathing" MaxAttenuation="0.000000"/>
 				<Event Id="4046661352" Name="Stop_Rock_Moving_Heavy" ObjectPath="\Events\Default Work Unit\SFX Events\Stop_Rock_Moving_Heavy" MaxAttenuation="0.000000"/>
 				<Event Id="2494385581" Name="Stop_Rock_Moving_Light" ObjectPath="\Events\Default Work Unit\SFX Events\Stop_Rock_Moving_Light" MaxAttenuation="0.000000"/>
 				<Event Id="3327251657" Name="Stop_SpillingGas" ObjectPath="\Events\Default Work Unit\SFX Events\Stop_SpillingGas" MaxAttenuation="0.000000"/>
@@ -117,6 +120,10 @@
 					<ShortName>Asphalt_Trainers_Walk_Slow\FOOTSTEP_Asphalt_Trainers_Walk_Slow_RR6_mono.wav</ShortName>
 					<Path>SFX\Asphalt_Trainers_Walk_Slow\FOOTSTEP_Asphalt_Trainers_Walk_Slow_RR6_mono_56D34C19.wem</Path>
 				</File>
+				<File Id="283623450" Language="SFX">
+					<ShortName>MONSTER_Growl_Deep_07_Short_mono.wav</ShortName>
+					<Path>SFX\MONSTER_Growl_Deep_07_Short_mono_56D34C19.wem</Path>
+				</File>
 				<File Id="284913127" Language="SFX">
 					<ShortName>Inserts #1, Whispers_3.wav</ShortName>
 					<Path>SFX\Inserts #1, Whispers_3_8956FC97.wem</Path>
@@ -140,6 +147,10 @@
 				<File Id="302552425" Language="SFX">
 					<ShortName>Pick up item general 2.wav</ShortName>
 					<Path>SFX\Pick up item general 2_56D34C19.wem</Path>
+				</File>
+				<File Id="304843562" Language="SFX">
+					<ShortName>MONSTER_Growl_Breath_01_mono.wav</ShortName>
+					<Path>SFX\MONSTER_Growl_Breath_01_mono_8956FC97.wem</Path>
 				</File>
 				<File Id="304995702" Language="SFX">
 					<ShortName>Inserts #2, Instruments_1.wav</ShortName>
@@ -249,6 +260,10 @@
 					<ShortName>Inserts #1, Whispers_4.wav</ShortName>
 					<Path>SFX\Inserts #1, Whispers_4_8956FC97.wem</Path>
 				</File>
+				<File Id="611028409" Language="SFX">
+					<ShortName>MONSTER_Growl_Short_04_mono.wav</ShortName>
+					<Path>SFX\MONSTER_Growl_Short_04_mono_56D34C19.wem</Path>
+				</File>
 				<File Id="623115705" Language="SFX">
 					<ShortName>Flashlight off 2.wav</ShortName>
 					<Path>SFX\Flashlight off 2_56D34C19.wem</Path>
@@ -268,6 +283,10 @@
 				<File Id="668823343" Language="SFX">
 					<ShortName>Green Monster 1.wav</ShortName>
 					<Path>SFX\Green Monster 1_56D34C19.wem</Path>
+				</File>
+				<File Id="679129584" Language="SFX">
+					<ShortName>MONSTER_Exhausted_06_Crop_01_mono.wav</ShortName>
+					<Path>SFX\MONSTER_Exhausted_06_Crop_01_mono_56D34C19.wem</Path>
 				</File>
 				<File Id="702963084" Language="SFX">
 					<ShortName>Inserts #1, Whispers_2.wav</ShortName>
@@ -353,6 +372,10 @@
 					<ShortName>Select item general 3.wav</ShortName>
 					<Path>SFX\Select item general 3_56D34C19.wem</Path>
 				</File>
+				<File Id="889059692" Language="SFX">
+					<ShortName>MONSTER_Exhausted_14_mono_loop.wav</ShortName>
+					<Path>SFX\MONSTER_Exhausted_14_mono_loop_8956FC97.wem</Path>
+				</File>
 				<File Id="895698333" Language="SFX">
 					<ShortName>Player fall 1.wav</ShortName>
 					<Path>SFX\Player fall 1_C5DE826C.wem</Path>
@@ -412,6 +435,10 @@
 				<File Id="1019584847" Language="SFX">
 					<ShortName>Asphalt_Trainers_Walk_Slow\FOOTSTEP_Asphalt_Trainers_Walk_Slow_RR2_mono.wav</ShortName>
 					<Path>SFX\Asphalt_Trainers_Walk_Slow\FOOTSTEP_Asphalt_Trainers_Walk_Slow_RR2_mono_56D34C19.wem</Path>
+				</File>
+				<File Id="1034723633" Language="SFX">
+					<ShortName>MONSTER_Exhausted_06_mono.wav</ShortName>
+					<Path>SFX\MONSTER_Exhausted_06_mono_56D34C19.wem</Path>
 				</File>
 				<File Id="1052228938" Language="SFX">
 					<ShortName>Green Monster 4.wav</ShortName>

@@ -13,6 +13,7 @@ public class SeekComponent : MonoBehaviour
     public Transform Target;
     public bool IsJumping = false;
 
+    public bool IsBreathing = false;
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.white;
