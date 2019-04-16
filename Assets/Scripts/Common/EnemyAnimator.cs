@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 // Animator Script for Base Enemy class
 // Any enemies with unique actions should inherit from this class
@@ -6,54 +7,51 @@ public class EnemyAnimator : MonoBehaviour
 {
 
     protected Animator enemyAnimator;
-    public bool isWalking;
-    public bool isRunning;
-    public bool isStunned;
+    private Dictionary<string, bool> animationStates = new Dictionary<string, bool>();
+    private Dictionary<string, bool> animatorStates = new Dictionary<string, bool>();
+    private string[] animStates = { "isWalking", "isRunning", "isStunned", "isLunging" };
 
     protected virtual void Start()
     {
         enemyAnimator = GetComponent<Animator>();
-        isWalking = false;
-        isRunning = false;
-        isStunned = false;
+        foreach (var param in enemyAnimator.parameters)
+        {
+            animatorStates.Add(param.name, false);
+        }
+
+        foreach (var state in animStates)
+        {
+            animationStates.Add(state, false);
+        }
     }
 
     void Update()
     {
-        /////////////////// Integrate enemy behaviors control script/controls, right now they're mapped to really arbitrary keys
+        foreach (var param in animatorStates)
+        {
+            bool status = false;
+            if (!animationStates.TryGetValue(param.Key, out status))
+            {
+                status = false;
+            }
 
-        //// WALK (W)
-        //if (Input.GetKey(KeyCode.W))
-        //{
-        //    isWalking = true;
-            
-        //    // RUN (W+LShift)
-        //    if (Input.GetKey(KeyCode.LeftShift))
-        //    {
-        //        isRunning = true;
-        //    }
-        //    if (Input.GetKeyUp(KeyCode.LeftShift))
-        //    {
-        //        isRunning = false;
-        //    }
-        //}
-
-        //// ATTACK (SPACE)
-        //if (Input.GetKeyDown(KeyCode.Space))
-        //{
-        //    enemyAnimator.SetTrigger("Attack");
-        //}
-
-        //// WALK/RUN RELEASE
-        //if (Input.GetKeyUp(KeyCode.W))
-        //{
-        //    isWalking = false;
-        //    isRunning = false;
-        //}
-
-        enemyAnimator.SetBool("isWalking", isWalking);
-        enemyAnimator.SetBool("isRunning", isRunning);
-        enemyAnimator.SetBool("isStunned", isStunned);
+            enemyAnimator.SetBool(param.Key, status);
+        }
 
     }
+
+    public void DisableAllStates()
+    {
+        foreach (var param in animatorStates)
+        {
+            if (animationStates.ContainsKey(param.Key))
+                animationStates[param.Key] = false;
+        }
+    }
+
+    public void SetState(string state, bool enable)
+    {
+        animationStates[state] = enable;
+    }
+
 }
