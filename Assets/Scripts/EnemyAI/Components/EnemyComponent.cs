@@ -51,4 +51,10 @@ public class EnemyComponent : MonoBehaviour
         }
     }
 
+    private void OnDestroy()
+    {
+        AkSoundEngine.PostEvent("Stop_RedMonster_Breathing", gameObject);
+        AkSoundEngine.PostEvent("Stop_RedMonster_Agro", gameObject);
+    }
+
 }

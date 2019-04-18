@@ -139,6 +139,11 @@ public class EnemySystem : ComponentSystem
                 AkSoundEngine.PostEvent("Stop_RedMonster_Agro", enemy.EnemyComponent.gameObject);
             }
 
+            if(distanceToPlayer >= enemy.SeekComponent.AlertRadius + 10f)
+            {
+                AkSoundEngine.PostEvent("Stop_RedMonster_Agro", enemy.EnemyComponent.gameObject);
+            }
+
         }
     }
     EnemyState EvaluateState(EnemyState currentState, EnemyComponent enemyComponent, SeekComponent seekComponent,
