@@ -37,16 +37,16 @@ public class SpeedComponent : MonoBehaviour {
         {
             if(curTime >= walkTime)
             {
-                //AkSoundEngine.PostEvent("Play_Player_Walking", gameObject);
+                AkSoundEngine.PostEvent("Play_Player_Walking", gameObject);
                 curTime = 0;
             }
             curTime += Time.fixedDeltaTime;
         }
         else if(isMoving && isSprinting)
         {
-            if (curTime >= walkTime)
+            if (curTime >= runTime)
             {
-                //AkSoundEngine.PostEvent("Play_Player_Walking", gameObject);
+                AkSoundEngine.PostEvent("Play_Player_Walking", gameObject);
                 curTime = 0;
             }
             curTime += Time.fixedDeltaTime;
