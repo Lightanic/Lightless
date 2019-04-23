@@ -32,6 +32,7 @@ public class PickupSystem : ComponentSystem
     private struct LeftHandData
     {
         readonly public int Length;
+        public ComponentArray<EquipComponent> EquipComp;
         public ComponentArray<LeftHandComponent> data;
     }
     [Inject] private LeftHandData leftHandData;
@@ -74,24 +75,49 @@ public class PickupSystem : ComponentSystem
         Vector3 playerPos = playerData.Transform[0].position;
         var animator = playerData.Animators[0];
         var entityHUD = GetEntities<HUD>()[0];
+
+        var lhComponent = leftHandData.data[0];
+        Pickup lhDataEquipCompPickup = null;
+        InventoryItemComponent lhInventoryItemComp = null;
+        if (leftHandData.EquipComp.Length > 0 && leftHandData.EquipComp[0].EquipedItem != null)
+        {
+            lhDataEquipCompPickup = leftHandData.EquipComp[0].EquipedItem.GetComponent<Pickup>();
+            lhInventoryItemComp = leftHandData.EquipComp[0].EquipedItem.GetComponent<InventoryItemComponent>();
+        }
+        
         foreach (var entity in GetEntities<Group>())
         {
-            if (Vector3.Distance(playerPos, entity.Transform.position) <= entity.PickItem.InteractDistance && (playerData.InputComponents[0].Control("Interact")))
+            if (!entity.PickItem.IsEquiped && entity.PickItem.IsInteractable)
             {
-                animator.playerAnimator.SetTrigger("interact");
-                entity.PickItem.IsInteracting = true;
-                if (leftHandData.data[0].isEmpty && entity.PickItem.IsInteractable)
+                if (Vector3.Distance(playerPos, entity.Transform.position) <= entity.PickItem.InteractDistance && (playerData.InputComponents[0].Control("Interact")))
                 {
-                    entityHUD.props.Show();
-                    entity.PickItem.IsEquiped = true;   // equip to left hand
-                    entity.PickItem.IsInteractable = false;
-                    break;
-                }
-                else if (entity.PickItem.IsInteractable)
-                {
-                    entityHUD.props.Show();
-                    AkSoundEngine.PostEvent("Play_ItemPickup", entity.PickItem.gameObject);
-                    entity.InventoryItem.AddToInventory = true;
+                    if (!lhComponent.isEmpty && lhDataEquipCompPickup != null && lhInventoryItemComp != null)
+                    {
+                        //Add Item to the inventory
+                        lhDataEquipCompPickup.IsEquiped = false;
+                        lhInventoryItemComp.AddToInventory = true;
+                        lhComponent.DropItem();
+                    }
+
+                    animator.playerAnimator.SetTrigger("interact");
+                    entity.PickItem.IsInteracting = true;
+                    //if (leftHandData.data[0].isEmpty && entity.PickItem.IsInteractable)
+                    //{
+                    //    entityHUD.props.Show();
+                    //    entity.PickItem.IsEquiped = true;   // equip to left hand
+                    //    entity.PickItem.IsInteractable = false;
+                    //    break;
+                    //}
+                    //else 
+                    if (entity.PickItem.IsInteractable)
+                    {
+                        entityHUD.props.Show();
+                        entity.PickItem.IsEquiped = true;   // equip to left hand
+                        entity.PickItem.IsInteractable = false;
+                        break;
+                        AkSoundEngine.PostEvent("Play_ItemPickup", entity.PickItem.gameObject);
+                        //entity.InventoryItem.AddToInventory = true;
+                    }
                 }
             }
 

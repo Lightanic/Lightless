@@ -898,206 +898,6 @@
 								<ActiveSource Name="UI Select 3" ID="{C25BB8EA-087E-47BB-90CB-58E3F3ED9EC6}" Platform="Linked"/>
 							</ActiveSourceList>
 						</Sound>
-						<RandomSequenceContainer Name="Player_Walking" ID="{4426E579-FD76-4FDB-8E59-4807C4CE1D57}" ShortID="90562052">
-							<PropertyList>
-								<Property Name="Pitch" Type="int32">
-									<ValueList>
-										<Value>-230</Value>
-									</ValueList>
-									<ModifierList>
-										<ModifierInfo>
-											<Modifier Name="" ID="{4F4298DF-3F9A-455F-91FB-CD4085AE5630}">
-												<PropertyList>
-													<Property Name="Enabled" Type="bool" Value="True"/>
-													<Property Name="Max" Type="Real64" Value="100"/>
-													<Property Name="Min" Type="Real64" Value="-200"/>
-												</PropertyList>
-											</Modifier>
-										</ModifierInfo>
-									</ModifierList>
-								</Property>
-								<Property Name="PlayMechanismLoop" Type="bool" Value="True"/>
-								<Property Name="RandomOrSequence" Type="int16" Value="0"/>
-								<Property Name="Volume" Type="Real64">
-									<ValueList>
-										<Value>12</Value>
-									</ValueList>
-								</Property>
-							</PropertyList>
-							<ReferenceList>
-								<Reference Name="Conversion">
-									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{4B3A5910-9018-4012-923A-330210E2641A}"/>
-								</Reference>
-								<Reference Name="OutputBus">
-									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{61C26BC9-E073-4F44-A002-50E8C5033AE3}"/>
-								</Reference>
-							</ReferenceList>
-							<ChildrenList>
-								<Sound Name="Foostup 1" ID="{CEE45D2B-1B38-482C-A25D-38E5BFCEC99B}" ShortID="214842624">
-									<PropertyList>
-										<Property Name="Pitch" Type="int32">
-											<ModifierList>
-												<ModifierInfo>
-													<Modifier Name="" ID="{C94FBAA3-52FF-44D8-BFF9-74EFC783A3F5}">
-														<PropertyList>
-															<Property Name="Enabled" Type="bool" Value="True"/>
-															<Property Name="Max" Type="Real64" Value="200"/>
-															<Property Name="Min" Type="Real64" Value="-200"/>
-														</PropertyList>
-													</Modifier>
-												</ModifierInfo>
-											</ModifierList>
-										</Property>
-									</PropertyList>
-									<ReferenceList>
-										<Reference Name="Conversion">
-											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{4B3A5910-9018-4012-923A-330210E2641A}"/>
-										</Reference>
-										<Reference Name="OutputBus">
-											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{61C26BC9-E073-4F44-A002-50E8C5033AE3}"/>
-										</Reference>
-									</ReferenceList>
-									<ChildrenList>
-										<AudioFileSource Name="Foostup 1" ID="{67843FD9-FF69-4265-A96B-51A55ED84A9B}" ShortID="348971612">
-											<PropertyList>
-												<Property Name="FadeOutDuration" Type="Real64" Value="2.92843597616038E-02"/>
-												<Property Name="TrimEnd" Type="Real64" Value="0.253797784600566"/>
-											</PropertyList>
-											<Language>SFX</Language>
-											<AudioFile>Foostup 1.wav</AudioFile>
-										</AudioFileSource>
-									</ChildrenList>
-									<ActiveSourceList>
-										<ActiveSource Name="Foostup 1" ID="{67843FD9-FF69-4265-A96B-51A55ED84A9B}" Platform="Linked"/>
-									</ActiveSourceList>
-								</Sound>
-								<Sound Name="Foostup 2" ID="{83B938FB-FBC6-40CB-A78F-A68199DA6BE6}" ShortID="757458700">
-									<PropertyList>
-										<Property Name="Pitch" Type="int32">
-											<ModifierList>
-												<ModifierInfo>
-													<Modifier Name="" ID="{994F3085-4EF1-4A73-81EB-D17AF678D1B8}">
-														<PropertyList>
-															<Property Name="Enabled" Type="bool" Value="True"/>
-															<Property Name="Max" Type="Real64" Value="200"/>
-															<Property Name="Min" Type="Real64" Value="-200"/>
-														</PropertyList>
-													</Modifier>
-												</ModifierInfo>
-											</ModifierList>
-										</Property>
-									</PropertyList>
-									<ReferenceList>
-										<Reference Name="Conversion">
-											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{4B3A5910-9018-4012-923A-330210E2641A}"/>
-										</Reference>
-										<Reference Name="OutputBus">
-											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{61C26BC9-E073-4F44-A002-50E8C5033AE3}"/>
-										</Reference>
-									</ReferenceList>
-									<ChildrenList>
-										<AudioFileSource Name="Foostup 2" ID="{85224592-ACDC-4FCD-904B-91BC65FD6D75}" ShortID="902993890">
-											<PropertyList>
-												<Property Name="FadeOutDuration" Type="Real64" Value="4.55534485180503E-02"/>
-												<Property Name="TrimEnd" Type="Real64" Value="0.232647969217186"/>
-											</PropertyList>
-											<Language>SFX</Language>
-											<AudioFile>Foostup 2.wav</AudioFile>
-										</AudioFileSource>
-									</ChildrenList>
-									<ActiveSourceList>
-										<ActiveSource Name="Foostup 2" ID="{85224592-ACDC-4FCD-904B-91BC65FD6D75}" Platform="Linked"/>
-									</ActiveSourceList>
-								</Sound>
-								<Sound Name="Foostup 3" ID="{2199533D-EBAF-4006-A32E-147BFAB28E54}" ShortID="152363747">
-									<PropertyList>
-										<Property Name="Pitch" Type="int32">
-											<ModifierList>
-												<ModifierInfo>
-													<Modifier Name="" ID="{A39D93A7-76BC-48A9-B1C4-0EFB1E50B966}">
-														<PropertyList>
-															<Property Name="Enabled" Type="bool" Value="True"/>
-															<Property Name="Max" Type="Real64" Value="200"/>
-															<Property Name="Min" Type="Real64" Value="-200"/>
-														</PropertyList>
-													</Modifier>
-												</ModifierInfo>
-											</ModifierList>
-										</Property>
-									</PropertyList>
-									<ReferenceList>
-										<Reference Name="Conversion">
-											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{4B3A5910-9018-4012-923A-330210E2641A}"/>
-										</Reference>
-										<Reference Name="OutputBus">
-											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{61C26BC9-E073-4F44-A002-50E8C5033AE3}"/>
-										</Reference>
-									</ReferenceList>
-									<ChildrenList>
-										<AudioFileSource Name="Foostup 3" ID="{458D1D2E-30E0-41E3-9DE7-398CF0F6254D}" ShortID="295557852">
-											<PropertyList>
-												<Property Name="FadeOutDuration" Type="Real64" Value="0.16431779644011"/>
-												<Property Name="TrimEnd" Type="Real64" Value="0.248917057973632"/>
-											</PropertyList>
-											<Language>SFX</Language>
-											<AudioFile>Foostup 3.wav</AudioFile>
-										</AudioFileSource>
-									</ChildrenList>
-									<ActiveSourceList>
-										<ActiveSource Name="Foostup 3" ID="{458D1D2E-30E0-41E3-9DE7-398CF0F6254D}" Platform="Linked"/>
-									</ActiveSourceList>
-								</Sound>
-								<Sound Name="Foostup 4" ID="{290C4D75-1087-49C9-B95A-0C16FC0A0075}" ShortID="276180937">
-									<PropertyList>
-										<Property Name="Pitch" Type="int32">
-											<ModifierList>
-												<ModifierInfo>
-													<Modifier Name="" ID="{7454D16B-9974-4931-99AC-33BA42C00863}">
-														<PropertyList>
-															<Property Name="Enabled" Type="bool" Value="True"/>
-															<Property Name="Max" Type="Real64" Value="200"/>
-															<Property Name="Min" Type="Real64" Value="-200"/>
-														</PropertyList>
-													</Modifier>
-												</ModifierInfo>
-											</ModifierList>
-										</Property>
-										<Property Name="Volume" Type="Real64">
-											<ValueList>
-												<Value>-5</Value>
-											</ValueList>
-										</Property>
-									</PropertyList>
-									<ReferenceList>
-										<Reference Name="Conversion">
-											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{4B3A5910-9018-4012-923A-330210E2641A}"/>
-										</Reference>
-										<Reference Name="OutputBus">
-											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{61C26BC9-E073-4F44-A002-50E8C5033AE3}"/>
-										</Reference>
-									</ReferenceList>
-									<ChildrenList>
-										<AudioFileSource Name="Foostup 4" ID="{A79938B2-2C51-4D5C-A33F-E2DB573F7567}" ShortID="162691910">
-											<PropertyList>
-												<Property Name="FadeOutDuration" Type="Real64" Value="0.144794889932374"/>
-												<Property Name="TrimEnd" Type="Real64" Value="0.252170875724921"/>
-											</PropertyList>
-											<Language>SFX</Language>
-											<AudioFile>Foostup 4.wav</AudioFile>
-										</AudioFileSource>
-									</ChildrenList>
-									<ActiveSourceList>
-										<ActiveSource Name="Foostup 4" ID="{A79938B2-2C51-4D5C-A33F-E2DB573F7567}" Platform="Linked"/>
-									</ActiveSourceList>
-								</Sound>
-							</ChildrenList>
-							<Playlist>
-								<ItemRef Name="Foostup 1" ID="{CEE45D2B-1B38-482C-A25D-38E5BFCEC99B}"/>
-								<ItemRef Name="Foostup 4" ID="{290C4D75-1087-49C9-B95A-0C16FC0A0075}"/>
-								<ItemRef Name="Foostup 2" ID="{83B938FB-FBC6-40CB-A78F-A68199DA6BE6}"/>
-								<ItemRef Name="Foostup 3" ID="{2199533D-EBAF-4006-A32E-147BFAB28E54}"/>
-							</Playlist>
-						</RandomSequenceContainer>
 						<RandomSequenceContainer Name="RedMonster_Agro" ID="{574DE585-8D9F-418C-A589-03E36CD79E59}" ShortID="503828574">
 							<ReferenceList>
 								<Reference Name="Conversion">
@@ -2048,6 +1848,389 @@
 								<ActiveSource Name="Fire stationary (temporary) 1" ID="{8DE5CA93-A341-4266-B4FD-4AB246D9CDA9}" Platform="Linked"/>
 							</ActiveSourceList>
 						</Sound>
+						<RandomSequenceContainer Name="Player_Walk" ID="{B8F9FEE8-ABC2-4E71-BE48-446D631436DB}" ShortID="1032133821">
+							<PropertyList>
+								<Property Name="Volume" Type="Real64">
+									<ValueList>
+										<Value>-14</Value>
+									</ValueList>
+								</Property>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{4B3A5910-9018-4012-923A-330210E2641A}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{61C26BC9-E073-4F44-A002-50E8C5033AE3}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<Sound Name="FOOTSTEP_Asphalt_Trainers_Walk_Slow_RR1_mono" ID="{B481AA8C-5E51-4BFB-89E3-7D1E5832CAEB}" ShortID="436068302">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{4B3A5910-9018-4012-923A-330210E2641A}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{61C26BC9-E073-4F44-A002-50E8C5033AE3}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="FOOTSTEP_Asphalt_Trainers_Walk_Slow_RR1_mono" ID="{F5FCD457-1F87-4FD6-8680-A91250EC3022}" ShortID="577666146">
+											<Language>SFX</Language>
+											<AudioFile>Asphalt_Trainers_Walk_Slow\FOOTSTEP_Asphalt_Trainers_Walk_Slow_RR1_mono.wav</AudioFile>
+										</AudioFileSource>
+									</ChildrenList>
+									<ActiveSourceList>
+										<ActiveSource Name="FOOTSTEP_Asphalt_Trainers_Walk_Slow_RR1_mono" ID="{F5FCD457-1F87-4FD6-8680-A91250EC3022}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="FOOTSTEP_Asphalt_Trainers_Walk_Slow_RR2_mono" ID="{61FA9473-5AAF-457F-B01A-F4CCB6CAD3EC}" ShortID="707810652">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{4B3A5910-9018-4012-923A-330210E2641A}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{61C26BC9-E073-4F44-A002-50E8C5033AE3}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="FOOTSTEP_Asphalt_Trainers_Walk_Slow_RR2_mono" ID="{84590ED7-E7AB-4771-A509-7FC0894E3ABF}" ShortID="1019584847">
+											<Language>SFX</Language>
+											<AudioFile>Asphalt_Trainers_Walk_Slow\FOOTSTEP_Asphalt_Trainers_Walk_Slow_RR2_mono.wav</AudioFile>
+										</AudioFileSource>
+									</ChildrenList>
+									<ActiveSourceList>
+										<ActiveSource Name="FOOTSTEP_Asphalt_Trainers_Walk_Slow_RR2_mono" ID="{84590ED7-E7AB-4771-A509-7FC0894E3ABF}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="FOOTSTEP_Asphalt_Trainers_Walk_Slow_RR3_mono" ID="{4B635DC0-615F-4F40-AFD5-956616113240}" ShortID="108267960">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{4B3A5910-9018-4012-923A-330210E2641A}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{61C26BC9-E073-4F44-A002-50E8C5033AE3}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="FOOTSTEP_Asphalt_Trainers_Walk_Slow_RR3_mono" ID="{410495EB-D7D8-4CD4-9B36-A5B79BC9E999}" ShortID="650580075">
+											<Language>SFX</Language>
+											<AudioFile>Asphalt_Trainers_Walk_Slow\FOOTSTEP_Asphalt_Trainers_Walk_Slow_RR3_mono.wav</AudioFile>
+										</AudioFileSource>
+									</ChildrenList>
+									<ActiveSourceList>
+										<ActiveSource Name="FOOTSTEP_Asphalt_Trainers_Walk_Slow_RR3_mono" ID="{410495EB-D7D8-4CD4-9B36-A5B79BC9E999}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="FOOTSTEP_Asphalt_Trainers_Walk_Slow_RR4_mono" ID="{EB10C671-D3EC-4B1A-864A-AE62361E2E2F}" ShortID="779566436">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{4B3A5910-9018-4012-923A-330210E2641A}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{61C26BC9-E073-4F44-A002-50E8C5033AE3}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="FOOTSTEP_Asphalt_Trainers_Walk_Slow_RR4_mono" ID="{689EE710-BEBA-4F8D-91B3-59B09D22B6D9}" ShortID="1009744967">
+											<Language>SFX</Language>
+											<AudioFile>Asphalt_Trainers_Walk_Slow\FOOTSTEP_Asphalt_Trainers_Walk_Slow_RR4_mono.wav</AudioFile>
+										</AudioFileSource>
+									</ChildrenList>
+									<ActiveSourceList>
+										<ActiveSource Name="FOOTSTEP_Asphalt_Trainers_Walk_Slow_RR4_mono" ID="{689EE710-BEBA-4F8D-91B3-59B09D22B6D9}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="FOOTSTEP_Asphalt_Trainers_Walk_Slow_RR5_mono" ID="{86F4B975-E145-40E7-B812-3FE7D8E8EACB}" ShortID="170873369">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{4B3A5910-9018-4012-923A-330210E2641A}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{61C26BC9-E073-4F44-A002-50E8C5033AE3}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="FOOTSTEP_Asphalt_Trainers_Walk_Slow_RR5_mono" ID="{96E814EF-E173-4409-BEB9-2D74BA82ED94}" ShortID="1009609984">
+											<Language>SFX</Language>
+											<AudioFile>Asphalt_Trainers_Walk_Slow\FOOTSTEP_Asphalt_Trainers_Walk_Slow_RR5_mono.wav</AudioFile>
+										</AudioFileSource>
+									</ChildrenList>
+									<ActiveSourceList>
+										<ActiveSource Name="FOOTSTEP_Asphalt_Trainers_Walk_Slow_RR5_mono" ID="{96E814EF-E173-4409-BEB9-2D74BA82ED94}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="FOOTSTEP_Asphalt_Trainers_Walk_Slow_RR6_mono" ID="{1B212418-8258-4068-895D-5A5D5BEFE8F1}" ShortID="1071739772">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{4B3A5910-9018-4012-923A-330210E2641A}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{61C26BC9-E073-4F44-A002-50E8C5033AE3}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="FOOTSTEP_Asphalt_Trainers_Walk_Slow_RR6_mono" ID="{8068D3A7-78FE-49BA-9673-1416EA510673}" ShortID="271992975">
+											<Language>SFX</Language>
+											<AudioFile>Asphalt_Trainers_Walk_Slow\FOOTSTEP_Asphalt_Trainers_Walk_Slow_RR6_mono.wav</AudioFile>
+										</AudioFileSource>
+									</ChildrenList>
+									<ActiveSourceList>
+										<ActiveSource Name="FOOTSTEP_Asphalt_Trainers_Walk_Slow_RR6_mono" ID="{8068D3A7-78FE-49BA-9673-1416EA510673}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="FOOTSTEP_Asphalt_Trainers_Walk_Slow_RR7_mono" ID="{2CCAD6CE-10AC-4841-B59B-CEB7E25A0924}" ShortID="225839422">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{4B3A5910-9018-4012-923A-330210E2641A}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{61C26BC9-E073-4F44-A002-50E8C5033AE3}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="FOOTSTEP_Asphalt_Trainers_Walk_Slow_RR7_mono" ID="{3EF571F9-9EC4-4A9B-8E5F-ECF81E733A79}" ShortID="895859799">
+											<Language>SFX</Language>
+											<AudioFile>Asphalt_Trainers_Walk_Slow\FOOTSTEP_Asphalt_Trainers_Walk_Slow_RR7_mono.wav</AudioFile>
+										</AudioFileSource>
+									</ChildrenList>
+									<ActiveSourceList>
+										<ActiveSource Name="FOOTSTEP_Asphalt_Trainers_Walk_Slow_RR7_mono" ID="{3EF571F9-9EC4-4A9B-8E5F-ECF81E733A79}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="FOOTSTEP_Asphalt_Trainers_Walk_Slow_RR8_mono" ID="{4D50B4F1-EA67-479A-9C1D-FB01F06EE9E9}" ShortID="826847467">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{4B3A5910-9018-4012-923A-330210E2641A}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{61C26BC9-E073-4F44-A002-50E8C5033AE3}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="FOOTSTEP_Asphalt_Trainers_Walk_Slow_RR8_mono" ID="{17B30635-13FF-4962-B2E3-1D92737C0CCE}" ShortID="909572865">
+											<Language>SFX</Language>
+											<AudioFile>Asphalt_Trainers_Walk_Slow\FOOTSTEP_Asphalt_Trainers_Walk_Slow_RR8_mono.wav</AudioFile>
+										</AudioFileSource>
+									</ChildrenList>
+									<ActiveSourceList>
+										<ActiveSource Name="FOOTSTEP_Asphalt_Trainers_Walk_Slow_RR8_mono" ID="{17B30635-13FF-4962-B2E3-1D92737C0CCE}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+							</ChildrenList>
+						</RandomSequenceContainer>
+						<Sound Name="MONSTER_Growl_Breath_01_mono" ID="{392C39A0-221B-449A-8A27-6DF4543E4AAB}" ShortID="581036561">
+							<PropertyList>
+								<Property Name="Highpass" Type="int16">
+									<ValueList>
+										<Value>25</Value>
+									</ValueList>
+								</Property>
+								<Property Name="IsLoopingEnabled" Type="bool" Value="True"/>
+								<Property Name="Lowpass" Type="int16">
+									<ValueList>
+										<Value>38</Value>
+									</ValueList>
+								</Property>
+								<Property Name="Volume" Type="Real64">
+									<ValueList>
+										<Value>-18</Value>
+									</ValueList>
+								</Property>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{4B3A5910-9018-4012-923A-330210E2641A}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{61C26BC9-E073-4F44-A002-50E8C5033AE3}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<AudioFileSource Name="MONSTER_Growl_Breath_01_mono" ID="{0F7E014F-AA4A-46C4-B1D3-1837B7FF61B4}" ShortID="304843562">
+									<Language>SFX</Language>
+									<AudioFile>MONSTER_Growl_Breath_01_mono.wav</AudioFile>
+								</AudioFileSource>
+							</ChildrenList>
+							<ActiveSourceList>
+								<ActiveSource Name="MONSTER_Growl_Breath_01_mono" ID="{0F7E014F-AA4A-46C4-B1D3-1837B7FF61B4}" Platform="Linked"/>
+							</ActiveSourceList>
+						</Sound>
+						<Sound Name="MONSTER_Exhausted_14_mono_loop" ID="{E5D1A4D4-3BB3-4701-AECD-8870FF21B2E9}" ShortID="385508029">
+							<PropertyList>
+								<Property Name="Highpass" Type="int16">
+									<ValueList>
+										<Value>35</Value>
+									</ValueList>
+								</Property>
+								<Property Name="IsLoopingEnabled" Type="bool" Value="True"/>
+								<Property Name="Lowpass" Type="int16">
+									<ValueList>
+										<Value>22</Value>
+									</ValueList>
+								</Property>
+								<Property Name="Volume" Type="Real64">
+									<ValueList>
+										<Value>-7</Value>
+									</ValueList>
+								</Property>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{4B3A5910-9018-4012-923A-330210E2641A}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{61C26BC9-E073-4F44-A002-50E8C5033AE3}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<AudioFileSource Name="MONSTER_Exhausted_14_mono_loop" ID="{975CCEDF-3030-442F-9C7E-97EED3749D2C}" ShortID="889059692">
+									<Language>SFX</Language>
+									<AudioFile>MONSTER_Exhausted_14_mono_loop.wav</AudioFile>
+								</AudioFileSource>
+							</ChildrenList>
+							<ActiveSourceList>
+								<ActiveSource Name="MONSTER_Exhausted_14_mono_loop" ID="{975CCEDF-3030-442F-9C7E-97EED3749D2C}" Platform="Linked"/>
+							</ActiveSourceList>
+						</Sound>
+						<RandomSequenceContainer Name="Monster_Agro_Red" ID="{1066F22D-0391-4464-B911-FA2B943050B2}" ShortID="849836287">
+							<PropertyList>
+								<Property Name="Lowpass" Type="int16">
+									<ValueList>
+										<Value>8</Value>
+									</ValueList>
+								</Property>
+								<Property Name="Pitch" Type="int32">
+									<ValueList>
+										<Value>180</Value>
+									</ValueList>
+								</Property>
+								<Property Name="PlayMechanismLoop" Type="bool" Value="True"/>
+								<Property Name="PlayMechanismStepOrContinuous" Type="int16" Value="0"/>
+								<Property Name="Volume" Type="Real64">
+									<ValueList>
+										<Value>-10</Value>
+									</ValueList>
+								</Property>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{4B3A5910-9018-4012-923A-330210E2641A}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{61C26BC9-E073-4F44-A002-50E8C5033AE3}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<Sound Name="MONSTER_Exhausted_06_mono" ID="{7ABDF109-993E-4600-B7FC-CCC64E798D7A}" ShortID="343660163">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{4B3A5910-9018-4012-923A-330210E2641A}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{61C26BC9-E073-4F44-A002-50E8C5033AE3}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="MONSTER_Exhausted_06_mono" ID="{DB8EBA5B-B73F-4BCC-9F13-CECCE585CA82}" ShortID="1034723633">
+											<Language>SFX</Language>
+											<AudioFile>MONSTER_Exhausted_06_mono.wav</AudioFile>
+										</AudioFileSource>
+									</ChildrenList>
+									<ActiveSourceList>
+										<ActiveSource Name="MONSTER_Exhausted_06_mono" ID="{DB8EBA5B-B73F-4BCC-9F13-CECCE585CA82}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="MONSTER_Growl_Deep_07_Short_mono" ID="{8F8A9197-9151-464D-8567-06BB37AADE32}" ShortID="6030641">
+									<PropertyList>
+										<Property Name="Lowpass" Type="int16">
+											<ValueList>
+												<Value>32</Value>
+											</ValueList>
+										</Property>
+										<Property Name="Volume" Type="Real64">
+											<ValueList>
+												<Value>-5</Value>
+											</ValueList>
+										</Property>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{4B3A5910-9018-4012-923A-330210E2641A}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{61C26BC9-E073-4F44-A002-50E8C5033AE3}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="MONSTER_Growl_Deep_07_Short_mono" ID="{60D47235-06E3-4F3E-A44C-11847C698098}" ShortID="283623450">
+											<Language>SFX</Language>
+											<AudioFile>MONSTER_Growl_Deep_07_Short_mono.wav</AudioFile>
+										</AudioFileSource>
+									</ChildrenList>
+									<ActiveSourceList>
+										<ActiveSource Name="MONSTER_Growl_Deep_07_Short_mono" ID="{60D47235-06E3-4F3E-A44C-11847C698098}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="MONSTER_Exhausted_06_Crop_01_mono" ID="{B31F4802-F57E-4EDB-81B3-66E6EA5DD5C3}" ShortID="23409284">
+									<PropertyList>
+										<Property Name="Volume" Type="Real64">
+											<ValueList>
+												<Value>-6</Value>
+											</ValueList>
+										</Property>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{4B3A5910-9018-4012-923A-330210E2641A}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{61C26BC9-E073-4F44-A002-50E8C5033AE3}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="MONSTER_Exhausted_06_Crop_01_mono" ID="{296A8C71-737E-4E0D-ACFD-A77B26F40EA5}" ShortID="679129584">
+											<Language>SFX</Language>
+											<AudioFile>MONSTER_Exhausted_06_Crop_01_mono.wav</AudioFile>
+										</AudioFileSource>
+									</ChildrenList>
+									<ActiveSourceList>
+										<ActiveSource Name="MONSTER_Exhausted_06_Crop_01_mono" ID="{296A8C71-737E-4E0D-ACFD-A77B26F40EA5}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="MONSTER_Growl_Short_04_mono" ID="{4FD8B64C-AB32-467E-A8C8-33A84702D382}" ShortID="468947015">
+									<PropertyList>
+										<Property Name="Lowpass" Type="int16">
+											<ValueList>
+												<Value>52</Value>
+											</ValueList>
+										</Property>
+										<Property Name="Volume" Type="Real64">
+											<ValueList>
+												<Value>-14</Value>
+											</ValueList>
+										</Property>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{4B3A5910-9018-4012-923A-330210E2641A}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{61C26BC9-E073-4F44-A002-50E8C5033AE3}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="MONSTER_Growl_Short_04_mono" ID="{0CCC942F-E04B-4BD7-AAE8-4B47BD9FAEE8}" ShortID="611028409">
+											<Language>SFX</Language>
+											<AudioFile>MONSTER_Growl_Short_04_mono.wav</AudioFile>
+										</AudioFileSource>
+									</ChildrenList>
+									<ActiveSourceList>
+										<ActiveSource Name="MONSTER_Growl_Short_04_mono" ID="{0CCC942F-E04B-4BD7-AAE8-4B47BD9FAEE8}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+							</ChildrenList>
+						</RandomSequenceContainer>
 					</ChildrenList>
 				</ActorMixer>
 			</ChildrenList>
