@@ -43,7 +43,7 @@ MonoBehaviour:
   - PhysicalPath: Events\Default Work Unit.wwu
     ParentPhysicalPath: 
     guid: 3e70a1e8c139db45ad3e2e3b2a14aceb
-    m_lastTime: -8586492749804789757
+    m_lastTime: -8586461723842402026
     List:
     - name: EndofGame
       guid: 0c2da9abdf7bd547a42a0e5d6c16eab1
@@ -381,6 +381,20 @@ MonoBehaviour:
       maxAttenuation: 0
       maxDuration: 0
       minDuration: 0
+    - name: Play_RedMonster_Breathing
+      guid: 9046b8eda995514ead460e36fe3fbf91
+      id: 475053756
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: SFX Events
+        ObjectType: 4
+      - ElementName: Play_RedMonster_Breathing
+        ObjectType: 3
+      Path: Default Work Unit\SFX Events\Play_RedMonster_Breathing
+      maxAttenuation: 0
+      maxDuration: 0
+      minDuration: 0
     - name: Play_RedMonster_Death
       guid: 82d86188201ea14d88098875f0e1c6c4
       id: 4244048208
@@ -493,17 +507,31 @@ MonoBehaviour:
       maxAttenuation: 0
       maxDuration: 0
       minDuration: 0
-    - name: Stop_Player_Walking
-      guid: 79be29049a15864d9cb15210d8c3aedc
-      id: 826377267
+    - name: Stop_RedMonster_Agro
+      guid: 11236991d3b09b409d919b9015e0f979
+      id: 1005134861
       PathAndIcons:
       - ElementName: Default Work Unit
         ObjectType: 12
       - ElementName: SFX Events
         ObjectType: 4
-      - ElementName: Stop_Player_Walking
+      - ElementName: Stop_RedMonster_Agro
         ObjectType: 3
-      Path: Default Work Unit\SFX Events\Stop_Player_Walking
+      Path: Default Work Unit\SFX Events\Stop_RedMonster_Agro
+      maxAttenuation: 0
+      maxDuration: 0
+      minDuration: 0
+    - name: Stop_RedMonster_Breathing
+      guid: 2ea9d5d0e702924c9cce0887521714e2
+      id: 3081466354
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: SFX Events
+        ObjectType: 4
+      - ElementName: Stop_RedMonster_Breathing
+        ObjectType: 3
+      Path: Default Work Unit\SFX Events\Stop_RedMonster_Breathing
       maxAttenuation: 0
       maxDuration: 0
       minDuration: 0
@@ -691,7 +719,7 @@ MonoBehaviour:
   - /Lightless_Version 1.0
   - /Lightless_Version 1.0/Events
   - /Lightless_Version 1.0/Events/Default Work Unit
-  - /Lightless_Version 1.0/Events/Default Work Unit/Music Events
+  - /Lightless_Version 1.0/Events/Default Work Unit/SFX Events
   - /Lightless_Version 1.0/SoundBanks
   - /Lightless_Version 1.0/SoundBanks/Default Work Unit
   - /Lightless_Version 1.0/States

@@ -386,13 +386,13 @@
 								<Property Name="OverrideColor" Type="bool" Value="True"/>
 							</PropertyList>
 							<ChildrenList>
-								<Action Name="" ID="{E4E0B617-0FF3-40D0-B22A-C6DBE5AB47C2}" ShortID="418127816">
+								<Action Name="" ID="{F7D3AF4D-143E-4027-A21E-A5D314AD9CA1}" ShortID="280998699">
 									<PropertyList>
 										<Property Name="ActionType" Type="int16" Value="1"/>
 									</PropertyList>
 									<ReferenceList>
 										<Reference Name="Target">
-											<ObjectRef Name="Player_Walking" ID="{4426E579-FD76-4FDB-8E59-4807C4CE1D57}" WorkUnitID="{1D09721E-1177-463D-828C-1173372A699B}"/>
+											<ObjectRef Name="Player_Walk" ID="{B8F9FEE8-ABC2-4E71-BE48-446D631436DB}" WorkUnitID="{1D09721E-1177-463D-828C-1173372A699B}"/>
 										</Reference>
 									</ReferenceList>
 								</Action>
@@ -621,27 +621,7 @@
 									</PropertyList>
 									<ReferenceList>
 										<Reference Name="Target">
-											<ObjectRef Name="RedMonster_Agro" ID="{574DE585-8D9F-418C-A589-03E36CD79E59}" WorkUnitID="{1D09721E-1177-463D-828C-1173372A699B}"/>
-										</Reference>
-									</ReferenceList>
-								</Action>
-							</ChildrenList>
-						</Event>
-						<Event Name="Stop_Player_Walking" ID="{0429BE79-159A-4D86-9CB1-5210D8C3AEDC}">
-							<PropertyList>
-								<Property Name="Color" Type="int16" Value="16"/>
-								<Property Name="OverrideColor" Type="bool" Value="True"/>
-							</PropertyList>
-							<ChildrenList>
-								<Action Name="" ID="{AB9C3469-3800-4B01-B5B7-4F5987D749A7}" ShortID="260652066">
-									<PropertyList>
-										<Property Name="ActionType" Type="int16" Value="2"/>
-										<Property Name="FadeOutCurve" Type="int16" Value="1"/>
-										<Property Name="FadeTime" Type="Real64" Value="1"/>
-									</PropertyList>
-									<ReferenceList>
-										<Reference Name="Target">
-											<ObjectRef Name="Player_Walking" ID="{4426E579-FD76-4FDB-8E59-4807C4CE1D57}" WorkUnitID="{1D09721E-1177-463D-828C-1173372A699B}"/>
+											<ObjectRef Name="Monster_Agro_Red" ID="{1066F22D-0391-4464-B911-FA2B943050B2}" WorkUnitID="{1D09721E-1177-463D-828C-1173372A699B}"/>
 										</Reference>
 									</ReferenceList>
 								</Action>
@@ -762,6 +742,60 @@
 									<ReferenceList>
 										<Reference Name="Target">
 											<ObjectRef Name="Fire_Stationary" ID="{10BBEB0C-A762-4558-9C19-08EDFB5041E2}" WorkUnitID="{1D09721E-1177-463D-828C-1173372A699B}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+							</ChildrenList>
+						</Event>
+						<Event Name="Stop_RedMonster_Agro" ID="{91692311-B0D3-409B-9D91-9B9015E0F979}">
+							<ChildrenList>
+								<Action Name="" ID="{2F818FBF-3AAA-4AD2-9092-E167734A06D4}" ShortID="250214855">
+									<PropertyList>
+										<Property Name="ActionType" Type="int16" Value="2"/>
+										<Property Name="FadeTime" Type="Real64" Value="1"/>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="Monster_Agro_Red" ID="{1066F22D-0391-4464-B911-FA2B943050B2}" WorkUnitID="{1D09721E-1177-463D-828C-1173372A699B}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+							</ChildrenList>
+						</Event>
+						<Event Name="Play_RedMonster_Breathing" ID="{EDB84690-95A9-4E51-AD46-0E36FE3FBF91}">
+							<ChildrenList>
+								<Action Name="" ID="{AD04B68B-99A9-4887-A3DC-F7B9709570E8}" ShortID="480028857">
+									<PropertyList>
+										<Property Name="ActionType" Type="int16" Value="1"/>
+										<Property Name="FadeTime" Type="Real64" Value="1"/>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="MONSTER_Growl_Breath_01_mono" ID="{392C39A0-221B-449A-8A27-6DF4543E4AAB}" WorkUnitID="{1D09721E-1177-463D-828C-1173372A699B}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+							</ChildrenList>
+						</Event>
+						<Event Name="Stop_RedMonster_Breathing" ID="{D0D5A92E-02E7-4C92-9CCE-0887521714E2}">
+							<ChildrenList>
+								<Action Name="" ID="{1DD61BE4-FB1D-48BE-A61A-F4338B8376C0}" ShortID="321114624">
+									<PropertyList>
+										<Property Name="ActionType" Type="int16" Value="2"/>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="MONSTER_Growl_Breath_01_mono" ID="{392C39A0-221B-449A-8A27-6DF4543E4AAB}" WorkUnitID="{1D09721E-1177-463D-828C-1173372A699B}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+								<Action Name="" ID="{3B81ABC1-315A-499C-ACB9-1E663161BA11}" ShortID="519720258">
+									<PropertyList>
+										<Property Name="ActionType" Type="int16" Value="2"/>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="Monster_Agro_Red" ID="{1066F22D-0391-4464-B911-FA2B943050B2}" WorkUnitID="{1D09721E-1177-463D-828C-1173372A699B}"/>
 										</Reference>
 									</ReferenceList>
 								</Action>
